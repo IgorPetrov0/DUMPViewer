@@ -14,7 +14,7 @@
 #include "viewwindow.h"
 #include "objectCompiller/objectcompiller.h"
 #include "GUI/serviceWindows/newgameobjectnamewindow.h"
-#include "application.h"
+#include "editorCore.h"
 #include "gameObject/stream.h"
 
 
@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setCorePointer(editorCore *pointer);
 
     ~MainWindow();
 
@@ -39,7 +40,7 @@ protected:
     QLabel *statusLable;
     toolWidget *tPanel;
     QPushButton *boundBoxButton;
-    application *app;
+    editorCore *core;
 
 
     void keyPressEvent(QKeyEvent *event);

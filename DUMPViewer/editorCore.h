@@ -1,5 +1,5 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#ifndef EDITORCORE_H
+#define EDITORCORE_H
 
 #include <QString>
 #include <QWidget>
@@ -17,11 +17,14 @@
 #include "viewwindow.h"
 #include "objectCompiller/loader.h"
 
+//класс ядра приложения. В нем должен быть весь основной функционал
+//
 
-class application
+
+class editorCore
 {
 public:
-    application();
+    editorCore();
     QString modelFilter();
     QString defaultObjectName();
     QString programmName();
@@ -36,9 +39,9 @@ public:
     void setLastDistance(float distance);
     float lastDistance();
     void deleteCurrentObject();
-    bool loadCurrentObject(QString fileName);
-    bool loadGraphicObject(QString fileName, editabelGraphicObject *object);
-    bool saveCurrentObject(QString fileName);
+    bool loadCurrentGameObject(QString fileName);//загрузка скомпилированного gameObject из файла
+    bool saveCurrentGameObject(QString fileName);//сохранение скомпилированного gameObject в файл
+    bool loadGraphicObject(QString fileName, editabelGraphicObject *object);//загрузка графического объекта через Assimp
     QString getLastError();
 
 
@@ -57,4 +60,4 @@ protected:
     bool loadTextures(graphicObject *object);
 };
 
-#endif // APPLICATION_H
+#endif // EDITORCORE_H

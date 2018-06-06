@@ -1,7 +1,7 @@
 #include "toolwidget.h"
 #include "ui_toolwidget.h"
 
-toolWidget::toolWidget(application *app, QWidget *parent) :
+toolWidget::toolWidget(editorCore *app, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::toolWidget)
 {

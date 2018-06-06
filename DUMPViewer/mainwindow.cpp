@@ -5,25 +5,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
-    app=new application;
-    app->setMainWindowPointer(this);
-    ui->setupUi(this);//такая последовательность важна
-
+    ui->setupUi(this);
     view=new viewWindow(this);
-    app->setViewWindowPointer(view);
-
-    progressBar=new QProgressBar;
-    statusLable=new QLabel(tr("Status:"));
-    tPanel=new toolWidget(app,this);
-    disableTools(true);
-
-    setWidgetsGeometry();
-    connections();
-
-    lastOpenDir=QApplication::applicationDirPath();
-    createStatusBar();
-    this->setWindowTitle(app->programmName());
 }
 //////////////////////////////////////////////////////
 MainWindow::~MainWindow()
@@ -32,9 +15,9 @@ MainWindow::~MainWindow()
     delete progressBar;
     delete statusLable;
     delete tPanel;
-    app->deleteCurrentObject();
+    core->deleteCurrentObject();
     delete view;
-    delete app;
+    delete core;
 }
 ////////////////////////////////////////////////////////
 void MainWindow::connections(){
@@ -127,14 +110,14 @@ void MainWindow::openGameObjectSlot(){
     QString fileName;
     fileName="D:/Projects/DUMPViewer/DUMPViewer/aaa.sgo";//QFileDialog::getOpenFileName(this,tr("Open game object"),app->currentPath(),tr("Game object files(*.sgo)"));
     if(!fileName.isEmpty()){
-        if(app->loadCurrentObject(fileName)){
+        if(core->loadCurrentGameObject(fileName)){
             tPanel->resetToolPanel();
-            view->addModel(app->currentObject()->getMainMesh());
-            for(unsigned int n=0;n!=app->currentObject()->LODsSize();n++){
-                view->addModel(app->currentObject()->getLod(n));
+            view->addModel(core->currentObject()->getMainMesh());
+            for(unsigned int n=0;n!=core->currentObject()->LODsSize();n++){
+                view->addModel(core->currentObject()->getLod(n));
             }
             view->update();
-            setWindowTitle(QString::fromStdString(app->currentObject()->getName()));
+            setWindowTitle(QString::fromStdString(core->currentObject()->getName()));
             disableTools(false);
             emit objectLoaded();//сигналим подчиненным виджетам обновиться
             modelFileName=fileName;
@@ -145,7 +128,7 @@ void MainWindow::openGameObjectSlot(){
 bool MainWindow::saveGameObjectSlot(){
     if(modelFileName.isEmpty()){
         QString fileName;
-        fileName=QFileDialog::getSaveFileName(this,tr("Save game object"),app->currentPath(),tr("Game object files(*.sgo)"));
+        fileName=QFileDialog::getSaveFileName(this,tr("Save game object"),core->currentPath(),tr("Game object files(*.sgo)"));
         if(fileName.isEmpty()){
             return false;
         }
@@ -157,7 +140,7 @@ bool MainWindow::saveGameObjectSlot(){
 /////////////////////////////////////////////////////////////////////
 void MainWindow::saveGameObjectAsSlot(){
     QString fileName;
-    fileName=QFileDialog::getSaveFileName(this,tr("Save game object"),app->currentPath(),tr("Game object files(*.sgo)"));
+    fileName=QFileDialog::getSaveFileName(this,tr("Save game object"),core->currentPath(),tr("Game object files(*.sgo)"));
     if(fileName.isEmpty()){
         return;
     }
@@ -167,11 +150,11 @@ void MainWindow::saveGameObjectAsSlot(){
 /////////////////////////////////////////////////////////////////////
 void MainWindow::newGameObjectSlot(){
     newGameObjectNameWindow nameDialog(this);
-    nameDialog.setDefaultName(app->defaultObjectName());
+    nameDialog.setDefaultName(core->defaultObjectName());
     if(nameDialog.exec()==QDialog::Accepted){
         QString name=nameDialog.getName();
-        app->deleteCurrentObject();
-        app->setCurrentObject(new editabelGameObject(name));
+        core->deleteCurrentObject();
+        core->setCurrentObject(new editabelGameObject(name));
         setWindowTitle(name);
         disableTools(false);
     }
@@ -182,11 +165,11 @@ void MainWindow::showBoundBoxSlot(){
 }
 /////////////////////////////////////////////////////////////////////
 void MainWindow::closeCurrentObjectSlot(){
-    if(!app->currentObject()->isSaved()){
+    if(!core->currentObject()->isSaved()){
         QMessageBox box;
         box.setWindowTitle(tr("Save?"));
         box.setIcon(QMessageBox::Question);
-        box.setText(tr("Save object \n")+QString::fromStdString(app->currentObject()->getName()));
+        box.setText(tr("Save object \n")+QString::fromStdString(core->currentObject()->getName()));
         box.setStandardButtons(QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
         switch(box.exec()){
             case(QMessageBox::Yes):{
@@ -203,10 +186,28 @@ void MainWindow::closeCurrentObjectSlot(){
     disableTools(true);//сначала запретить, потом сбрасывать. Последовательность важна
     tPanel->resetToolPanel();
     modelFileName.clear();
-    app->deleteCurrentObject();
+    core->deleteCurrentObject();
 }
 /////////////////////////////////////////////////////////////////////////
 bool MainWindow::saveModelFile(){
-    return app->saveCurrentObject(modelFileName);
+    return core->saveCurrentGameObject(modelFileName);
 }
 //////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::setCorePointer(editorCore *pointer){
+    this->core=pointer;
+
+    core->setMainWindowPointer(this);
+    core->setViewWindowPointer(view);
+
+    progressBar=new QProgressBar;
+    statusLable=new QLabel(tr("Status:"));
+    tPanel=new toolWidget(core,this);
+    disableTools(true);
+
+    setWidgetsGeometry();
+    connections();
+
+    lastOpenDir=QApplication::applicationDirPath();
+    createStatusBar();
+    this->setWindowTitle(core->programmName());
+}

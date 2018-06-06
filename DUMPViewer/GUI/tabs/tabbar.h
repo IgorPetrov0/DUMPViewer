@@ -9,7 +9,7 @@
 
 #include "GUI/widgets/dumpviewerwidget.h"
 #include "gameObject/gameobject.h"
-#include "application.h"
+#include "editorCore.h"
 
 
 enum tabType{
@@ -30,7 +30,7 @@ public:
     ~dTabBar();
     void addWidget(QWidget *widget);
     void setEndWidget(QWidget *winget);
-    void setApplication(application *app);
+    void setApplication(editorCore *app);
     void disableTab(bool disable);
 
 protected:
@@ -42,7 +42,7 @@ protected:
     QVector<QWidget*> widgetsArray;//массив указателей на размещенные виджеты
     QScrollBar *scrollBar;
     QWidget *endWidget;//последний виджет в таббаре, по которому считается скролбар
-    application *app;
+    editorCore *app;
 
 signals:
     void changeSygnal();

@@ -36,7 +36,6 @@ SOURCES += main.cpp\
     gameObject/editabelObjects/editabelgameobject.cpp \
     gameObject/lod.cpp \
     gameObject/editabelObjects/editabelphisycobject.cpp \
-    application.cpp \
     objectCompiller/loader.cpp \
     gameObject/stream.cpp \
     gameObject/editabelObjects/editabelgraphicobject.cpp \
@@ -66,6 +65,7 @@ SOURCES += main.cpp\
     GUI/toolwidget.cpp \
     objectCompiller/parsers/parserdae.cpp \
     objectCompiller/parsers/abstractparser.cpp \
+    editorCore.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -89,7 +89,6 @@ HEADERS  += mainwindow.h \
     gameObject/editabelObjects/editabelgameobject.h \
     gameObject/lod.h \
     gameObject/editabelObjects/editabelphisycobject.h \
-    application.h \
     objectCompiller/loader.h \
     gameObject/stream.h \
     defines.h \
@@ -120,7 +119,8 @@ HEADERS  += mainwindow.h \
     GUI/toolWidget.h \
     objectCompiller/parsers/parserdae.h \
     objectCompiller/parsers/abstractparser.h \
-    gameObject/dArray.h
+    gameObject/dArray.h \
+    editorCore.h
 
 FORMS    += \
     mainwindow.ui \

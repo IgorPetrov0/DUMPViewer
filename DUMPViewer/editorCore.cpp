@@ -1,6 +1,6 @@
-#include "application.h"
+#include "editorCore.h"
 
-application::application()
+editorCore::editorCore()
 {
     a_mainWindowPointer=NULL;
     a_currentObject=NULL;
@@ -11,62 +11,62 @@ application::application()
 
 }
 ////////////////////////////////////////////////////////////////////////
-QString application::modelFilter(){
+QString editorCore::modelFilter(){
     return a_modelFilter;
 }
 ////////////////////////////////////////////////////////////////////////
-QString application::defaultObjectName(){
+QString editorCore::defaultObjectName(){
     return a_defaultObjectName;
 }
 ////////////////////////////////////////////////////////////////////////
-QString application::programmName(){
+QString editorCore::programmName(){
     return a_programName;
 }
 ///////////////////////////////////////////////////////////////////////
-QString application::currentPath(){
+QString editorCore::currentPath(){
     return a_currentPath;
 }
 ////////////////////////////////////////////////////////////////////////
-QWidget *application::mainWindowPointer(){
+QWidget *editorCore::mainWindowPointer(){
     return a_mainWindowPointer;
 }
 ////////////////////////////////////////////////////////////////////////
-editabelGameObject *application::currentObject(){
+editabelGameObject *editorCore::currentObject(){
     return a_currentObject;
 }
 ////////////////////////////////////////////////////////////////////////
-void application::setMainWindowPointer(QWidget *pointer){
+void editorCore::setMainWindowPointer(QWidget *pointer){
     a_mainWindowPointer=pointer;
 }
 ////////////////////////////////////////////////////////////////////////
-void application::setCurrentObject(editabelGameObject *object){
+void editorCore::setCurrentObject(editabelGameObject *object){
     a_currentObject=object;
 }
 ////////////////////////////////////////////////////////////////////////
-void application::setCurrentPath(QString path){
+void editorCore::setCurrentPath(QString path){
     if(!path.isEmpty()){
         a_currentPath=path;
     }
 }
 //////////////////////////////////////////////////////////////////////////////
-void application::setViewWindowPointer(viewWindow *pointer){
+void editorCore::setViewWindowPointer(viewWindow *pointer){
     a_view=pointer;
     pointer->setTexturesVector(&texturesArray);
 }
 //////////////////////////////////////////////////////////////////////////
-viewWindow *application::view(){
+viewWindow *editorCore::view(){
     return a_view;
 }
 ////////////////////////////////////////////////////////////////////////////
-void application::setLastDistance(float distance){
+void editorCore::setLastDistance(float distance){
     a_lastDistance=distance;
 }
 //////////////////////////////////////////////////////////////////////////
-float application::lastDistance(){
+float editorCore::lastDistance(){
     return a_lastDistance;
 }
 ////////////////////////////////////////////////////////////////////////////////
-void application::deleteCurrentObject(){
+void editorCore::deleteCurrentObject(){
     if(a_currentObject!=NULL){
         a_view->deleteAll();
         delete a_currentObject;
@@ -75,7 +75,7 @@ void application::deleteCurrentObject(){
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
-bool application::loadCurrentObject(QString fileName){
+bool editorCore::loadCurrentGameObject(QString fileName){
     if(fileName.isEmpty()){
         return false;
     }
@@ -120,7 +120,7 @@ bool application::loadCurrentObject(QString fileName){
     return false;
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-bool application::loadTextures(graphicObject *object){
+bool editorCore::loadTextures(graphicObject *object){
     //грузим текстуры для mainMesh
     int mSize=object->getMaterialsSize();
     for(int n=0;n!=mSize;n++){
@@ -166,7 +166,7 @@ bool application::loadTextures(graphicObject *object){
     return true;
 }
 /////////////////////////////////////////////////////////////////////////////////////
-bool application::saveCurrentObject(QString fileName){
+bool editorCore::saveCurrentGameObject(QString fileName){
     QFile file(fileName);
     if(!file.open(QIODevice::WriteOnly)){
         QMessageBox box(a_mainWindowPointer);
@@ -190,7 +190,7 @@ bool application::saveCurrentObject(QString fileName){
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool application::loadGraphicObject(QString fileName, editabelGraphicObject *object){
+bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *object){
     Importer importer;
 
     const aiScene *scene=importer.ReadFile(fileName.toStdString(),aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
@@ -217,7 +217,7 @@ bool application::loadGraphicObject(QString fileName, editabelGraphicObject *obj
 //    return true;
 }
 /////////////////////////////////////////////////////////////////////////////////
-QString application::getLastError(){
+QString editorCore::getLastError(){
     QString tmp=a_error;
     a_error.clear();
     return tmp;

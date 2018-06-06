@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "GUI/tabs/lodtab.h"
-#include "application.h"
+#include "editorCore.h"
 
 namespace Ui {
 class toolWidget;
@@ -16,7 +16,7 @@ class toolWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit toolWidget(application *app, QWidget *parent);
+    explicit toolWidget(editorCore *app, QWidget *parent);
     void disableToolPanel(bool disable);
     void resetToolPanel();
     void createLODTab(LOD *lod);
@@ -30,7 +30,7 @@ protected:
     void addLODTab();
     void clearLODTabsArray();
     QVector<LODTab*>LODTabsArray;
-    application *app;
+    editorCore *app;
 
 
 protected slots:
