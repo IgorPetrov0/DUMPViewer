@@ -1,0 +1,10 @@
+/*
+Theme Name: Suppose
+Theme URI: http://web-industry.com/
+Description: Suppose theme for WordPress blog by teha, smartik and WEB-Industry.com
+Author: teha
+Author URI: http://web-industry.com/
+Version: 1.0
+Tags: black, white, two-columns, fixed-width
+*/
+@import url('./css/grid_12.css');@import url('./css/typography.css');@import url('./css/chosen.css');@import url('./css/uniform.default.css');@import url('./css/style.css');@import url('./css/color_scheme/tealgray.css');body{background:url(./images/pattern/82.png) 0 0 scroll #ccc;color:#444}

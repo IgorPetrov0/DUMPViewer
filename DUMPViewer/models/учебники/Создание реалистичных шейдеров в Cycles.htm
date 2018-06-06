@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	 <meta charset="UTF-8">
+	 <meta name="yandex-verification" content="757a27f3fae2e117">
+	 <meta name="google-site-verification" content="1xi7xoW2Mx4A7Nqb5WstNnC18pK4gBj1PVWbnWJDr2o">
+		<title>Создание реалистичных шейдеров в Cycles</title>
+		<link rel="stylesheet" type="text/css" media="all" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/style_002.css">
+		<link rel="shortcut icon" href="http://blender3d.com.ua/wp-content/themes/suppose/favicon.png">
+		<link rel="yandex-tableau-widget" href="http://blender3d.com.ua/link/manifest.json">
+		<script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/cbgapi.loaded_3" async=""></script><script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/cbgapi.loaded_2" async=""></script><script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/cbgapi.loaded_1" async=""></script><script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/ca-pub-8593280909745661.js"></script><script type="text/javascript" async="" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/widget_002.js"></script><script type="text/javascript" async="" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/watch.js"></script><script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/cbgapi.loaded_0" async=""></script><script type="text/javascript" async="" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/widget.js"></script><script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/openapi.js"></script>
+		<script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/plusone.js" gapi_processed="true"></script>
+		
+<!-- This site is optimized with the Yoast SEO plugin v4.0.2 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="При взгляде на любую поверхность Ваш мозг автоматически интерпретирует и коррелирует увиденное с тем, что Вы уже знаете или видели в жизни. Например, Вы можете спонтанно назначить температуры для различных цветов, где красный будет ассоциироваться с чем-то теплым, а синий с холодным. Вы также знаете что бетонная поверхность довольно матовая, а металл блестящий. В повседневной жизни мы не задумываемся о том что видим, однако при детальном анализе поверхности достаточно трудно сказать, что мы конкретно видим.">
+<meta name="robots" content="noodp">
+<link rel="canonical" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/a_002.htm">
+<link rel="publisher" href="https://plus.google.com/u/0/b/109876576597102763702/+Blender3dUa/posts">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Создание реалистичных шейдеров в Cycles">
+<meta property="og:description" content="При взгляде на любую поверхность Ваш мозг автоматически интерпретирует и коррелирует увиденное с тем, что Вы уже знаете или видели в жизни. Например, Вы можете спонтанно назначить температуры для различных цветов, где красный будет ассоциироваться с чем-то теплым, а синий с холодным. Вы также знаете что бетонная поверхность довольно матовая, а металл блестящий. В повседневной жизни мы не задумываемся о том что видим, однако при детальном анализе поверхности достаточно трудно сказать, что мы конкретно видим.">
+<meta property="og:url" content="http://blender3d.com.ua/sozdaniye-realistichnykh-sheyderov-v-cycles/">
+<meta property="og:site_name" content="Blender 3D">
+<meta property="article:publisher" content="https://www.facebook.com/blender3dcomua">
+<meta property="article:author" content="https://www.facebook.com/pages/Blender-3D-/121202048079511">
+<meta property="article:tag" content="Cycles">
+<meta property="article:tag" content="Базовое">
+<meta property="article:tag" content="Ноды">
+<meta property="article:section" content="Материалы и текстуры">
+<meta property="article:published_time" content="2014-10-21T19:10:12+00:00">
+<meta property="article:modified_time" content="2014-11-17T13:57:28+00:00">
+<meta property="og:updated_time" content="2014-11-17T13:57:28+00:00">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur2.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur3.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur4.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur5.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur6.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur7.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur8.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur9.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur10.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur10a.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur11-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur12-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur13.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur14-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur15-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur16-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur17-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur18.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass1.jpg">
+<meta property="og:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="При взгляде на любую поверхность Ваш мозг автоматически интерпретирует и коррелирует увиденное с тем, что Вы уже знаете или видели в жизни. Например, Вы можете спонтанно назначить температуры для различных цветов, где красный будет ассоциироваться с чем-то теплым, а синий с холодным. Вы также знаете что бетонная поверхность довольно матовая, а металл блестящий. В повседневной жизни мы не задумываемся о том что видим, однако при детальном анализе поверхности достаточно трудно сказать, что мы конкретно видим.">
+<meta name="twitter:title" content="Создание реалистичных шейдеров в Cycles">
+<meta name="twitter:site" content="@blender3dcomua">
+<meta name="twitter:image" content="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-preview.jpg">
+<meta name="twitter:creator" content="@blender3dcomua">
+<!-- / Yoast SEO plugin. -->
+
+<link rel="dns-prefetch" href="http://ajax.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Blender 3D » Лента комментариев к «Создание реалистичных шейдеров в Cycles»" href="http://blender3d.com.ua/sozdaniye-realistichnykh-sheyderov-v-cycles/feed/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2.2.1\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/blender3d.com.ua\/wp-includes\/js\/wp-emoji-release.min.js"}};
+			!function(a,b,c){function d(a){var b,c,d,e,f=String.fromCharCode;if(!k||!k.fillText)return!1;switch(k.clearRect(0,0,j.width,j.height),k.textBaseline="top",k.font="600 32px Arial",a){case"flag":return k.fillText(f(55356,56826,55356,56819),0,0),!(j.toDataURL().length<3e3)&&(k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,65039,8205,55356,57096),0,0),b=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55356,57331,55356,57096),0,0),c=j.toDataURL(),b!==c);case"emoji4":return k.fillText(f(55357,56425,55356,57341,8205,55357,56507),0,0),d=j.toDataURL(),k.clearRect(0,0,j.width,j.height),k.fillText(f(55357,56425,55356,57341,55357,56507),0,0),e=j.toDataURL(),d!==e}return!1}function e(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i,j=b.createElement("canvas"),k=j.getContext&&j.getContext("2d");for(i=Array("flag","emoji4"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wp-emoji-release.js" type="text/javascript" defer="defer"></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="validate-engine-css-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/validationEngine.css" type="text/css" media="all">
+<link rel="stylesheet" id="ba_css-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wpw_ba.css" type="text/css" media="all">
+<link rel="stylesheet" id="bbp-default-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/bbpress.css" type="text/css" media="screen">
+<link rel="stylesheet" id="scrollup-css-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/scrollup.css" type="text/css" media="all">
+<link rel="stylesheet" id="jquery-ui-smoothness-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery-ui.css" type="text/css" media="all">
+<link rel="stylesheet" id="arconix-faq-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/arconix-faq.css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-syntax-css-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wp-syntax.css" type="text/css" media="all">
+<link rel="stylesheet" id="newsletter-subscription-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="jquery.lightbox.min.css-css" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/lightbox.css" type="text/css" media="all">
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery-migrate.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery_003.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wpw.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wpw_002.js"></script>
+<link rel="https://api.w.org/" href="http://blender3d.com.ua/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blender3d.com.ua/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blender3d.com.ua/wp-includes/wlwmanifest.xml"> 
+<link rel="shortlink" href="http://blender3d.com.ua/?p=5505">
+<link rel="alternate" type="application/json+oembed" href="http://blender3d.com.ua/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://blender3d.com.ua/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;format=xml">
+		<!--[if lt IE 9]>
+		<script type="text/javascript">
+		window.document.location = 'http://blender3d.com.ua/ie/ie.html';
+		</script>
+		<![endif]-->
+	<style type="text/css" id="ya_share_style">.b-share-popup-wrap{z-index:1073741823;position:absolute;width:500px}.b-share-popup{position:absolute;z-index:1073741823;border:1px solid #888;background:#FFF;color:#000}.b-share-popup-wrap .b-share-popup_down{top:0}.b-share-popup-wrap .b-share-popup_up{bottom:0}.b-share-popup-wrap_state_hidden{position:absolute!important;top:-9999px!important;right:auto!important;bottom:auto!important;left:-9999px!important;visibility:hidden!important}.b-share-popup,x:nth-child(1){border:0;padding:1px!important}@media all and (resolution=0){.b-share-popup,x:nth-child(1),x:-o-prefocus{padding:0!important;border:1px solid #888}}.b-share-popup__i{display:-moz-inline-box;display:inline-block;padding:5px 0!important;overflow:hidden;vertical-align:top;white-space:nowrap;visibility:visible;background:#FFF;-webkit-box-shadow:0 2px 9px rgba(0,0,0,.6);-moz-box-shadow:0 2px 9px rgba(0,0,0,.6);box-shadow:0 2px 9px rgba(0,0,0,.6)}.b-share-popup__item{font:1em/1.25em Arial,sans-serif;display:block;padding:5px 15px!important;white-space:nowrap;background:#FFF}.b-share-popup__item,a.b-share-popup__item:link,a.b-share-popup__item:visited{text-decoration:none!important;border:0!important}a.b-share-popup__item{cursor:pointer}a.b-share-popup__item .b-share-popup__item__text{display:inline;text-decoration:underline;color:#1A3DC1}a.b-share-popup__item:hover{word-spacing:0}a.b-share-popup__item:hover .b-share-popup__item__text{color:red;cursor:pointer}.b-share-popup__icon{display:-moz-inline-box;display:inline-block;margin:-3px 0 0;padding:0 5px 0 0!important;vertical-align:middle}.b-share-popup__icon_input{width:21px;height:16px;margin-top:-6px;padding:0!important}.b-share-popup__icon__input{margin-right:0;margin-left:2px;vertical-align:top}.b-share-popup__spacer{display:block;padding-top:10px!important}.b-share-popup__header{font:86%/1em Verdana,sans-serif;display:block;padding:10px 15px 5px!important;color:#999}.b-share-popup__header_first{padding-top:5px!important}.b-share-popup__input{font:86%/1em Verdana,sans-serif;display:block;padding:5px 15px!important;color:#999;text-align:left}.b-share-popup__input__input{font:1em/1em Verdana,sans-serif;display:block;width:10px;margin:5px 0 0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;resize:none;text-align:left;direction:ltr}.b-share-popup_down .b-share-popup_with-link .b-share-popup__input_link{position:absolute;top:5px;right:0;left:0}.b-share-popup_up .b-share-popup_with-link .b-share-popup__input_link{position:absolute;right:0;bottom:5px;left:0}.b-share-popup_down .b-share-popup_with-link{padding-top:55px!important}.b-share-popup_up .b-share-popup_with-link{padding-bottom:55px!important}.b-share-popup_down .b-share-popup_expandable .b-share-popup__main{padding-bottom:25px!important}.b-share-popup_up .b-share-popup_expandable .b-share-popup__main{padding-top:25px!important}.b-share-popup_down .b-share-popup_yandexed{padding-bottom:10px!important}.b-share-popup_up .b-share-popup_yandexed{padding-top:10px!important}.b-share-popup__yandex{position:absolute;right:4px;bottom:2px;font:78.125%/1em Verdana,sans-serif;padding:3px!important;background:0 0}a.b-share-popup__yandex:link,a.b-share-popup__yandex:visited{color:#C6C5C5;text-decoration:none}a.b-share-popup__yandex:link:hover,a.b-share-popup__yandex:visited:hover{color:red;text-decoration:underline}.b-share-popup_up .b-share-popup__yandex{top:2px;bottom:auto}.b-share-popup_expandable .b-share-popup__yandex{right:auto;left:4px}.b-share-popup_to-right .b-share-popup_expandable .b-share-popup__yandex{right:4px;left:auto}.b-share-popup__expander .b-share-popup__item{position:absolute;bottom:5px;font:86%/1em Verdana,sans-serif;margin:10px 0 0;padding:5px 10px!important;cursor:pointer;color:#999;background:0 0}.b-share-popup_to-right,.b-share-popup_to-right .b-share-popup__expander{direction:rtl}.b-share-popup_to-right .b-share-popup__expander .b-share-popup__icon{padding:0 0 0 5px!important}.b-share-popup_up .b-share-popup__expander .b-share-popup__item{top:-5px;bottom:auto}.b-share-popup__expander .b-share-popup__item:hover .b-share-popup__item__text{text-decoration:underline}.b-share-popup__expander .b-ico_action_rarr,.b-share-popup_to-right .b-share-popup__expander .b-ico_action_larr,.b-share-popup_full .b-share-popup__expander .b-ico_action_larr,.b-share-popup_to-right .b-share-popup_full .b-share-popup__expander .b-ico_action_rarr,.b-share-popup__expander .b-share-popup__item__text_collapse,.b-share-popup_full .b-share-popup__item__text_expand{display:none}.b-share-popup_to-right .b-share-popup__expander .b-ico_action_rarr,.b-share-popup_full .b-share-popup__item__text_collapse,.b-share-popup_full .b-share-popup__expander .b-ico_action_rarr,.b-share-popup_to-right .b-share-popup_full .b-share-popup__expander .b-ico_action_larr{display:inline}.b-ico_action_rarr,.b-ico_action_larr{width:8px;height:7px;border:0}.b-share-popup__main,.b-share-popup__extra{direction:ltr;vertical-align:bottom;text-align:left}.b-share-popup_down .b-share-popup__main,.b-share-popup_down .b-share-popup__extra{vertical-align:top}.b-share-popup__main{display:-moz-inline-stack;display:inline-block}.b-share-popup__extra{display:none;margin:0 -10px 0 0}.b-share-popup_full .b-share-popup__extra{display:-moz-inline-stack;display:inline-block}.b-share-popup_to-right .b-share-popup__extra{margin:0 0 0 -10px}.b-share-popup__tail{position:absolute;width:21px;height:10px;margin:0 0 0 -11px}.b-share-popup_down .b-share-popup__tail{top:-10px;background:url("//yastatic.net/share/static/b-share-popup_down__tail.gif") 0 0 no-repeat}.b-share-popup_up .b-share-popup__tail{bottom:-10px;background:url("//yastatic.net/share/static/b-share-popup_up__tail.gif") 0 0 no-repeat}.b-share-popup_down .b-share-popup__tail,x:nth-child(1){top:-9px;background-image:url("//yastatic.net/share/static/b-share-popup_down__tail.png")}.b-share-popup_up .b-share-popup__tail,x:nth-child(1){bottom:-9px;background-image:url("//yastatic.net/share/static/b-share-popup_up__tail.png")}@media all and (resolution=0){.b-share-popup_down .b-share-popup__tail,x:nth-child(1),x:-o-prefocus{top:-10px;background-image:url("//yastatic.net/share/static/b-share-popup_down__tail.gif")}.b-share-popup_up .b-share-popup__tail,x:nth-child(1),x:-o-prefocus{bottom:-10px;background-image:url("//yastatic.net/share/static/b-share-popup_up__tail.gif")}}.b-share-popup .b-share-popup_show_form_mail,.b-share-popup .b-share-popup_show_form_html{padding:0!important}.b-share-popup .b-share-popup_show_form_mail .b-share-popup__main,.b-share-popup .b-share-popup_show_form_html .b-share-popup__main,.b-share-popup .b-share-popup_show_form .b-share-popup__main,.b-share-popup .b-share-popup_show_form_mail .b-share-popup__extra,.b-share-popup .b-share-popup_show_form_html .b-share-popup__extra,.b-share-popup .b-share-popup_show_form .b-share-popup__extra{height:15px;padding:0!important;overflow:hidden;visibility:hidden}.b-share-popup_show_form_mail .b-share-popup__expander,.b-share-popup_show_form_html .b-share-popup__expander,.b-share-popup_show_form .b-share-popup__expander,.b-share-popup_show_form_mail .b-share-popup__input_link,.b-share-popup_show_form_html .b-share-popup__input_link,.b-share-popup_show_form .b-share-popup__input_link{display:none}.b-share-popup__form{position:relative;display:none;overflow:hidden;padding:5px 0 0!important;margin:0 0 -15px;white-space:normal}.b-share-popup_show_form_mail .b-share-popup__form_mail,.b-share-popup_show_form_html .b-share-popup__form_html,.b-share-popup_show_form .b-share-popup__form{display:block}.b-share-popup__form__link{padding:5px!important;margin:0 0 5px 10px;text-decoration:underline;cursor:pointer;color:#1A3DC1}.b-share-popup__form__link,.b-share-popup__form__button{font:86%/1.4545em Verdana,sans-serif;float:left;display:inline}.b-share-popup__form__button{margin:5px 0 0 15px}.b-share-popup__form__close{font:86%/1.4545em Verdana,sans-serif;float:right;display:inline;padding:5px!important;margin:0 10px 5px 0;cursor:pointer;color:#999}a.b-share-popup__form__link:hover,a.b-share-popup__form__close:hover{text-decoration:underline;color:red}.b-share-popup_font_fixed .b-share-popup__item{font-size:12.8px}.b-share-popup_font_fixed .b-share-popup__header,.b-share-popup_font_fixed .b-share-popup__input,.b-share-popup_font_fixed .b-share-popup__expander .b-share-popup__item,.b-share-popup_font_fixed .b-share-popup__form__link,.b-share-popup_font_fixed .b-share-popup__form__button,.b-share-popup_font_fixed .b-share-popup__form__close{font-size:11px}.b-share-popup_font_fixed .b-share-popup__yandex{font-size:10px}.b-share-form-button{font:86%/17px Verdana,Arial,sans-serif;display:-moz-inline-box;display:inline-block;position:relative;height:19px;margin:0 3px;padding:0 4px;cursor:default;white-space:nowrap;text-decoration:none!important;color:#000!important;border:none;outline:none;background:url("//yastatic.net/share/static/b-share-form-button.png") 0 -20px repeat-x}.b-share-form-button:link:hover,.b-share-form-button:visited:hover{color:#000!important}.b-share-form-button__before,.b-share-form-button__after{position:absolute;width:3px;height:19px;background:url("//yastatic.net/share/static/b-share-form-button.png")}.b-share-form-button__before{margin-left:-7px}.b-share-form-button__after{margin-left:4px;background-position:-3px 0}.b-share-form-button::-moz-focus-inner{border:none}button.b-share-form-button .b-share-form-button__before,button.b-share-form-button .b-share-form-button__after{margin-top:-1px}@-moz-document url-prefix(){button.b-share-form-button .b-share-form-button__after{margin-top:-2px;margin-left:6px}button.b-share-form-button .b-share-form-button__before{margin-top:-2px;margin-left:-9px}}SPAN.b-share-form-button:hover,.b-share-form-button_state_hover{background-position:0 -60px}SPAN.b-share-form-button:hover .b-share-form-button__before,.b-share-form-button_state_hover .b-share-form-button__before{background-position:0 -40px}SPAN.b-share-form-button:hover .b-share-form-button__after,.b-share-form-button_state_hover .b-share-form-button__after{background-position:-3px -40px}.b-share-form-button_state_pressed,.b-share-form-button_state_pressed .b-share-form-button_share{background-position:0 -100px!important}.b-share-form-button_state_pressed .b-share-form-button__before{background-position:0 -80px!important}.b-share-form-button_state_pressed .b-share-form-button__after{background-position:-3px -80px!important}button.b-share-form-button_state_pressed{overflow:visible}.b-share-form-button_icons{position:relative;padding:0;background-position:0 -20px!important}.b-share-form-button_icons .b-share-form-button__before{left:0;margin-left:-3px;background-position:0 0!important}.b-share-form-button_icons .b-share-form-button__after{z-index:-1;margin-left:0;background-position:-3px 0!important}.b-share-form-button_icons .b-share__handle{padding:2px!important}.b-share-form-button_icons .b-share__handle_more{position:relative;padding-right:6px!important;margin-right:-4px}.b-share-form-button_icons .b-share-icon{opacity:.5;background-image:url("//yastatic.net/share/static/b-share-icon_size_14.png")}.b-share-form-button_icons A.b-share__handle:hover .b-share-icon{opacity:1}.b-share{font:86%/1.4545em Arial,sans-serif;display:-moz-inline-box;display:inline-block;padding:1px 3px 1px 4px!important;vertical-align:middle}.b-share .b-share-form-button{font-size:1em}.b-share__text .b-share-icon{margin:0 5px 0 0;border:none}.b-share__text{margin-right:5px}.b-share__handle{float:left;height:16px;padding:5px 3px 5px 2px!important;cursor:pointer;text-align:left;text-decoration:none!important}.b-share__handle_cursor_default{cursor:default}.b-share__handle .b-share-form-button{margin-top:-2px}.b-share__hr{display:none;float:left;width:1px;height:26px;margin:0 3px 0 2px}a.b-share__handle:hover .b-share__text{text-decoration:underline;color:red}.b-share_bordered{padding:0 2px 0 3px!important;border:1px solid #E4E4E4;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px}.b-share_bordered .b-share__hr{display:inline;background:#E4E4E4}.b-share_link{margin:-8px 0}a.b-share_link{margin:0}.b-share_link .b-share__text{text-decoration:underline;color:#1A3DC1}.b-share-form-button_share{padding-left:26px!important;vertical-align:top}.b-share-form-button_share .b-share-form-button__before{margin-left:-29px}.b-share-form-button_share .b-share-form-button__icon{position:absolute;width:20px;height:17px;margin:1px 0 0 -23px;background:url("//yastatic.net/share/static/b-share-form-button_share__icon.png") 0 0 no-repeat}.b-share-pseudo-link{border-bottom:1px dotted;cursor:pointer;text-decoration:none!important}.b-share_font_fixed{font-size:11px}.b-share__handle_more{font-size:9px;margin-top:-1px;color:#7B7B7B}A.b-share__handle_more:hover{color:#000}.b-share__group{float:left}.b-share-icon{float:left;display:inline;overflow:hidden;width:16px;height:16px;padding:0!important;vertical-align:top;border:0;background:url("//yastatic.net/share/static/b-share-icon.png") 0 99px no-repeat}.b-share-icon_vkontakte,.b-share-icon_custom{background-position:0 0}.b-share-icon_yaru,.b-share-icon_yaru_photo,.b-share-icon_yaru_wishlist{background-position:0 -17px}.b-share-icon_lj{background-position:0 -34px}.b-share-icon_twitter{background-position:0 -51px}.b-share-icon_facebook{background-position:0 -68px}.b-share-icon_moimir{background-position:0 -85px}.b-share-icon_friendfeed{background-position:0 -102px}.b-share-icon_mail{background-position:0 -119px}.b-share-icon_html{background-position:0 -136px}.b-share-icon_postcard{background-position:0 -153px}.b-share-icon_odnoklassniki{background-position:0 -170px}.b-share-icon_blogger{background-position:0 -187px}.b-share-icon_delicious{background-position:0 -221px}.b-share-icon_gbuzz{background-position:0 -238px}.b-share-icon_linkedin{background-position:0 -255px}.b-share-icon_myspace{background-position:0 -272px}.b-share-icon_evernote{background-position:0 -289px}.b-share-icon_digg{background-position:0 -306px}.b-share-icon_juick{background-position:0 -324px}.b-share-icon_moikrug{background-position:0 -341px}.b-share-icon_yazakladki{background-position:0 -358px}.b-share-icon_liveinternet{background-position:0 -375px}.b-share-icon_tutby{background-position:0 -392px}.b-share-icon_diary{background-position:0 -409px}.b-share-icon_gplus{background-position:0 -426px}.b-share-icon_pocket{background-position:0 -443px}.b-share-icon_surfingbird{background-position:0 -460px}.b-share-icon_pinterest{background-position:0 -477px}.b-share-icon_renren{background-position:0 0}.b-share-icon_renren,.b-share-icon_sina_weibo{background:url("//yastatic.net/share/static/b-share-icon__china.png") no-repeat}.b-share-icon_sina_weibo{background-position:-18px 0}.b-share-icon_qzone{background-position:-36px 0}.b-share-icon_qzone,.b-share-icon_tencent_weibo{background:url("//yastatic.net/share/static/b-share-icon__china.png") no-repeat}.b-share-icon_tencent_weibo{background-position:-54px 0}.b-share_theme_dark .b-share-icon{background:url("//yastatic.net/share/static/b-share-icons__theme_dark.png") 99px 0 no-repeat}.b-share_theme_dark .b-share-icon_odnoklassniki{background-position:-4px -3px}.b-share_theme_dark .b-share-icon_vkontakte{background-position:-24px -3px}.b-share_theme_dark .b-share-icon_twitter{background-position:-44px -3px}.b-share_theme_dark .b-share-icon_facebook{background-position:-64px -3px}.b-share_theme_dark .b-share-icon_lj{background-position:-85px -3px}.b-share_theme_dark .b-share-icon_yaru{background-position:-105px -3px}.b-share_theme_dark .b-share-popup .b-share-icon_odnoklassniki,.b-share_theme_dark .b-share-icon_odnoklassniki:hover{background-position:-4px -28px}.b-share_theme_dark .b-share-popup .b-share-icon_vkontakte,.b-share_theme_dark .b-share-icon_vkontakte:hover{background-position:-24px -28px}.b-share_theme_dark .b-share-popup .b-share-icon_twitter,.b-share_theme_dark .b-share-icon_twitter:hover{background-position:-44px -28px}.b-share_theme_dark .b-share-popup .b-share-icon_facebook,.b-share_theme_dark .b-share-icon_facebook:hover{background-position:-64px -28px}.b-share_theme_dark .b-share-popup .b-share-icon_lj,.b-share_theme_dark .b-share-icon_lj:hover{background-position:-85px -28px}.b-share_theme_dark .b-share-popup .b-share-icon_yaru,.b-share_theme_dark .b-share-icon_yaru:hover{background-position:-105px -28px}.b-share_theme_dark .b-share-form-button_share .b-share-form-button__icon{background-image:url("//yastatic.net/share/static/b-share-form-button_share__icon_dark.png")}.b-share_theme_dark .b-share-form-button{color:#fff!important;opacity:.8}.b-share_theme_dark .b-share__handle:hover .b-share-form-button,.b-share_theme_dark .b-share-form-button:hover{opacity:1;cursor:pointer}.b-share_theme_dark .b-share-form-button,.b-share_theme_dark .b-share-form-button__before,.b-share_theme_dark .b-share-form-button__after{background:0 0}.b-share_theme_dark .b-share-popup__i{background-color:#333;border-radius:10px;-webkit-box-shadow:0 2px 9px rgba(255,255,255,.6);-moz-box-shadow:0 2px 9px rgba(255,255,255,.6);box-shadow:0 2px 9px rgba(255,255,255,.6)}.b-share_theme_dark .b-share__text{color:#AAA}.b-share_theme_dark .b-share-popup{color:#AAA;border-radius:10px;background-color:#333;background-color:rgba(50,50,50,.3)}.b-share_theme_dark .b-share-popup__item{background:0 0;color:#ccc}.b-share_theme_dark .b-share-popup .b-share-popup__item__text{color:#ccc}.b-share_theme_counter .b-share{display:inline-block;vertical-align:middle;white-space:nowrap}.b-share-counter{font:14px Arial,sans-serif;line-height:18px;display:none;float:left;margin:3px 6px 3px 3px;color:#fff}.b-share_theme_counter .b-share_type_small .b-share-counter{font-size:11px;line-height:14px;margin:2px 6px 2px 1px}.b-share_theme_counter .b-share-btn__counter .b-share-counter{display:block}.b-share-btn__counter{text-decoration:none}.b-share_theme_counter .b-share-btn__wrap{position:relative;float:left;margin-left:5px}.b-share_theme_counter .b-share_type_small .b-share-btn__wrap{margin-left:4px}.b-share_theme_counter .b-share-btn__wrap:first-child{margin-left:0}.b-share_theme_counter .b-share__link{display:inline-block;cursor:pointer;-webkit-border-radius:3px;border-radius:3px}.b-share_theme_counter .b-share_type_small .b-share__link{-webkit-border-radius:2px;border-radius:2px}.b-share_theme_counter .b-share-icon{display:block;float:left;width:24px;height:24px;background-image:url("//yastatic.net/share/static/b-share_counter_large.png");background-position:-20px 0}.b-share_theme_counter .b-share_type_small .b-share-icon{width:18px;height:18px;background-image:url("//yastatic.net/share/static/b-share_counter_small.png")}.b-share_theme_counter .b-share-icon_facebook{background-position:0 0}.b-share_theme_counter .b-share-btn__facebook{background-color:#3c5a98}.b-share_theme_counter .b-share-btn__facebook:hover{background-color:#30487a}.b-share_theme_counter .b-share-btn__facebook:active{border-top:2px solid #24365a;background-color:#334d81}.b-share_theme_counter .b-share-icon_moimir{background-position:0 -29px}.b-share_theme_counter .b-share-btn__moimir{background-color:#226eb7}.b-share_theme_counter .b-share-btn__moimir:hover{background-color:#1b5892}.b-share_theme_counter .b-share-btn__moimir:active{border-top:2px solid #14426d;background-color:#1d5e9c}.b-share_theme_counter .b-share-icon_vkontakte{background-position:0 -58px}.b-share_theme_counter .b-share-btn__vkontakte{background-color:#48729e}.b-share_theme_counter .b-share-btn__vkontakte:hover{background-color:#3a5b7e}.b-share_theme_counter .b-share-btn__vkontakte:active{border-top:2px solid #2b445e;background-color:#3d6186}.b-share_theme_counter .b-share-icon_twitter{background-position:0 -87px}.b-share_theme_counter .b-share-btn__twitter{background-color:#00aced}.b-share_theme_counter .b-share-btn__twitter:hover{background-color:#008abe}.b-share_theme_counter .b-share-btn__twitter:active{border-top:2px solid #00668d;background-color:#0092ca}.b-share_theme_counter .b-share-icon_odnoklassniki{background-position:0 -116px}.b-share_theme_counter .b-share-btn__odnoklassniki{background-color:#ff9f4d}.b-share_theme_counter .b-share-btn__odnoklassniki:hover{background-color:#cc7f3e}.b-share_theme_counter .b-share-btn__odnoklassniki:active{border-top:2px solid #975e2e;background-color:#d98742}.b-share_theme_counter .b-share-icon_gplus{background-position:0 -145px}.b-share_theme_counter .b-share-btn__gplus{background-color:#c25234}.b-share_theme_counter .b-share-btn__gplus:hover{background-color:#9b422a}.b-share_theme_counter .b-share-btn__gplus:active{border-top:2px solid #73311f;background-color:#a5462c}.b-share_theme_counter .b-share-icon_yaru{background-position:0 -174px}.b-share_theme_counter .b-share-btn__yaru{background-color:#d83933}.b-share_theme_counter .b-share-btn__yaru:hover{background-color:#ad2e29}.b-share_theme_counter .b-share-btn__yaru:active{border-top:2px solid #80221e;background-color:#b8312b}.b-share_theme_counter .b-share-icon_pinterest{background-position:0 -203px}.b-share_theme_counter .b-share-btn__pinterest{background-color:#cd1e27}.b-share_theme_counter .b-share-btn__pinterest:hover{background-color:#a4181f}.b-share_theme_counter .b-share-btn__pinterest:active{border-top:2px solid #7b1217;background-color:#ae1921}.b-share_theme_counter .b-share__link:active{height:22px}.b-share_theme_counter .b-share_type_small .b-share__link:active{height:16px}.b-share_theme_counter .b-share__link:active .b-share-icon,.b-share_theme_counter .b-share__link:active .b-share-counter{position:relative;top:-1px}.b-share_theme_counter .b-share__link::after{position:absolute;top:0;right:0;bottom:0;left:0;content:"";background-image:url(data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==)}.b-share_theme_counter .b-share__handle{height:auto;padding:0!important}</style><link rel="stylesheet" type="text/css" media="screen" href="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/index.css"><style>.gc-bubbleDefault{background-color:transparent !important;text-align:left;padding:0 !important;margin:0 !important;border:0 !important;table-layout:auto !important}.gc-reset{background-color:transparent !important;border:0 !important;padding:0 !important;margin:0 !important;text-align:left}.pls-bubbleTop{border-bottom:1px solid #ccc !important}.pls-topTail,.pls-vertShimLeft,.pls-contentLeft{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/border_3.gif) !important}.pls-topTail{background-repeat:repeat-x !important;background-position:bottom !important}.pls-vertShim{background-color:#fff !important;text-align:right}.tbl-grey .pls-vertShim{background-color:#f5f5f5 !important}.pls-vertShimLeft{background-repeat:repeat-y !important;background-position:right !important;height:4px}.pls-vertShimRight{height:4px}.pls-confirm-container .pls-vertShim{background-color:#fff3c2 !important}.pls-contentWrap{background-color:#fff !important;position:relative !important;vertical-align:top}.pls-contentLeft{background-repeat:repeat-y;background-position:right;vertical-align:top}.pls-dropRight{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropR_3.png) !important;background-repeat:repeat-y !important;vertical-align:top}.pls-vert,.pls-tailleft,.pls-dropTR .pls-dropBR,.pls-dropBL,.pls-vert img{vertical-align:top}.pls-dropBottom{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleDropB_3.png) !important;background-repeat:repeat-x !important;width:100%;vertical-align:top}.pls-topLeft{background:inherit !important;text-align:right;vertical-align:bottom}.pls-topRight{background:inherit !important;text-align:left;vertical-align:bottom}.pls-bottomLeft{background:inherit !important;text-align:right}.pls-bottomRight{background:inherit !important;text-align:left;vertical-align:top}.pls-tailtop,.pls-tailright,.pls-tailbottom,.pls-tailleft{display:none;position:relative}.pls-tailbottom,.pls-tailtop,.pls-tailright,.pls-tailleft,.pls-dropTR,.pls-dropBR,.pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite_3.png) !important;background-repeat:no-repeat}.tbl-grey .pls-tailbottom,.tbl-grey .pls-tailtop,.tbl-grey .pls-tailright,.tbl-grey .pls-tailleft,.tbl-grey .pls-dropTR,.tbl-grey .pls-dropBR,.tbl-grey .pls-dropBL{background-image:url(//ssl.gstatic.com/s2/oz/images/stars/po/bubblev1/bubbleSprite-grey.png) !important}.pls-tailbottom{background-position:-23px 0}.pls-confirm-container .pls-tailbottom{background-position:-23px -10px}.pls-tailtop{background-position:-19px -20px}.pls-tailright{background-position:0 0}.pls-tailleft{background-position:-10px 0}.pls-tailtop{vertical-align:top}.gc-bubbleDefault td{line-height:0;font-size:0}.pls-topLeft img,.pls-topRight img,.pls-tailbottom{vertical-align:bottom}.pls-bottomLeft img,.bubbleDropTR,.pls-dropBottomL img,.pls-dropBottom img,.pls-dropBottomR img,.pls-bottomLeft{vertical-align:top}.pls-dropTR{background-position:0 -22px}.pls-dropBR{background-position:0 -27px}.pls-dropBL{background-position:0 -16px}.pls-spacertop,.pls-spacerright,.pls-spacerbottom,.pls-spacerleft{position:static !important}.pls-spinner{bottom:0;position:absolute;left:0;margin:auto;right:0;top:0} </style></head>
+	
+	<body>
+		<section id="wrap">
+			<section class="wrap_block">
+				<!--======= BEGIN OF header (.main_header) ======-->
+				<header class="main_header">
+					<section class="container">						
+						<nav id="horizontal">
+							<a class="logo" href="http://blender3d.com.ua/"></a>
+							<ul id="nav">
+								<li><a href="http://blender3d.com.ua/">Главная<br><em>Уроки по Blender</em></a></li>
+								<li><a href="http://blender3d.com.ua/forum/">Форум<br><em>Обсуждение Blender</em></a></li>
+								<li><a href="http://blender3d.com.ua/blender-basics/">Курс<br><em>Основы Blender</em></a></li>
+								<li><a href="http://store.blender3d.com.ua/">Магазин<br><em>3D-модели и материалы</em></a></li>
+							</ul><!-- End of #nav-->
+						</nav><!-- End of menu nav#horizontal -->
+						<div class="clear"></div>
+					</section>
+				</header>
+				<!--======= END OF header (.main_header) ======-->				<section class="container layout">
+					
+					<section class="page_title">
+						<div class="title"><h1>Создание реалистичных шейдеров в Cycles</h1></div>
+					         <div style="float:right" id="search-2" class="widget widget_search"><form role="search" method="get" id="searchform" class="searchform" action="http://blender3d.com.ua/">
+				<div>
+					<input name="s" id="s" placeholder="Найти урок" type="text">
+					<input class="button darkgray large" id="searchsubmit" value="Поиск" type="submit">
+				</div>
+			</form></div>        					</section>
+					<div class="clear"></div>
+					
+					<section class="grid_8">
+						<section id="blog">
+						
+												
+						<!--============= ARTICLE BEGIN ===========-->
+							<article class="full_entry">
+							<div>
+								<div class="title">
+									<div class="meta">
+										<span class="date">21 октября 2014</span>
+										<span class="comments"><a href="#HyperComments_Box"><span class="hc_counter_comments" data-xid="blender3d.com.ua/?p=5505">53 комментария</span></a></span>
+										<span class="author">Артем Слаква</span>
+										<span class="category"><a href="http://blender3d.com.ua/category/materials/" rel="category tag">Материалы и текстуры</a></span>
+									</div>
+									<div class="clear"></div>
+									<!-- Article meta end -->
+								</div>
+								<div class="clear"></div>
+								 <h3>Базовые принципы</h3>
+<p>При взгляде на любую поверхность Ваш мозг автоматически 
+интерпретирует и коррелирует увиденное с тем, что Вы уже знаете или 
+видели в жизни. Например, Вы можете спонтанно назначить температуры для 
+различных цветов, где красный будет ассоциироваться с чем-то теплым, а 
+синий с холодным. Вы также знаете что бетонная поверхность довольно 
+матовая, а металл блестящий. В повседневной жизни мы не задумываемся о 
+том что видим, однако при детальном анализе поверхности достаточно 
+трудно сказать, что мы конкретно видим. Какой цвет хромированной 
+поверхности? В чем разница между отражениями различных металлов? Что 
+создает поверхностные дефекты: крошечные неровности или разница в 
+плотности материала? Ответы на подобные вопросы Вы должны знать при 
+создании реалистичных материалов с помощью любого программного 
+обеспечения.</p>
+<h5>Диффузный фактор</h5>
+<p>В мире компьютерной графики «diffuse» или «color» это термин который 
+подразумевает «цвет» который мы видим на поверхности объекта. Он также 
+коррелируется с матовыми поверхностями не отражающих объектов. Мы можем 
+легко распознать оранжевый фрукт в котором отсутствуют отражающие 
+свойства металла. Однако, имейте ввиду, что в реальной жизни ВСЕ 
+поверхности отражают свет и чисто «диффузных» материалов не существует.<br>
+<a title="chocofur1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur1.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur1.jpg" alt="chocofur1" width="600"></a><br>
+Диффузный цвет может быть определен с помощью текстуры для более сложных поверхностей, таких как: дерево, мрамор, ткань и т.д.</p>
+<h5>Фактор отражения</h5>
+<p>Я думаю, отражение является наиболее важным фактором. С его помощью 
+Ваши модели и шейдеры выглядят привлекательно и реалистично. Как было 
+сказано ранее, в реальной жизни каждый материал имеет отражает в той или
+ иной степени. «Диффузные» материалы могут иметь различную степень 
+отражения. О том как ее контролировать мы поговорим чуть позже в данной 
+статье.<br>
+<a title="chocofur2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur2.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur2.jpg" alt="chocofur2" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_03_diff.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_03_diff_refl.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_03_refl.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<p>Как можно заметить выше, базовый материал создается смешиванием двух 
+различных свойств материала с заданными пропорциями. Тем не менее, 
+подобных материалов не существует в реальности и отражение всегда 
+зависит от угла обзора. Данный, очень важный, фактор часто упускается из
+ виду неопытными 3D-художниками.</p>
+<p>В зависимости от программного обеспечения, существуют различные 
+способы контроля угла отражения, но давайте сначала попытаемся понять 
+что же это. Сделайте свои собственные наблюдения. Попробуйте взять любой
+ окружающий Вас объект и посмотреть на него под различными углами. Вы 
+должны заметить, как изменяется отражение от центра объекта к его краям:<br>
+<a title="chocofur3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur3.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur3.jpg" alt="chocofur3" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_04_low_angle.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_04_medium_angle.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_04_high_angle.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<p>На примере выше отражение зависит от кривизны поверхности. Создание 
+шейдеров подобным образом дает более реалистичный результат. Можно 
+заметить что изменяется не только отражение в зависимости от поверхности
+ / угла обзора (лучше всего видно на левом и центральном примерах), но и
+ общая отражательная способность шейдера также изменяется. Наибольшее 
+количество отражений все равно остается по краям объекта, но на правом 
+примере центральная часть объекта имеет большую отражательную 
+способность, чем остальные.</p>
+<p>Стоит отметить, что отражения могут иметь различные цвета. Для 
+большинства неметаллических поверхностей оно будет находится в диапазоне
+ от белого до темно серого. Такие металлы как золото или латунь будут 
+иметь затемнение в центральной части и становятся белее ближе к краю. В 
+приведенных ниже примерах используется 100% отражающий шейдер (Glossy), 
+однако в центре объекты выглядят немного диффузно (если бы смешали 
+диффузный шейдер с отражающим (diffuse + reflectivity)).<br>
+<a title="chocofur4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur4.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur4.jpg" alt="chocofur4" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_05_refl_white.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_05_refl_grey.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_05_refl_red.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<h5>Фактор шероховатости</h5>
+<p>Шероховатость могут иметь диффузные, отражающие и прозрачные 
+материалы. Изменяя данный параметр мы можем делать отражения более 
+размытыми, шейдер стекла более туманным, а диффузные поверхности более 
+светопоглощающими. Точно также, как и отражения, шероховатость 
+изменяется в зависимости от угла обзора, однако не для чисто диффузных 
+или стеклянных шейдеров.<br>
+<a title="chocofur5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur5.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur5.jpg" alt="chocofur5" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_06_roug_low.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_06_rough_med.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_06_rough_high.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<p>В примере выше все три шейдера отличаются лишь настройкой 
+шероховатости нода Glossy. На данном этапе отражения размыты равномерно,
+ независимо от угла обзора. Обратите внимание, что правый объект 
+выглядит практически диффузным, хотя на самом деле это вовсе не так.<br>
+<a title="chocofur6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur6.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur6.jpg" alt="chocofur6" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_06_roug_low.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_06_rough_high.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_07_rough_blend.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<p>Пример выше можно рассматривать как «базовый шейдер» для создания 
+всех непрозрачных и не металлических материалов. Конечно, не существует 
+никаких универсальных настроек на все случаи жизни, однако данная связка
+ отилично подойдет для большинства сцен и даст приятный глазу результат.
+ Изменение угла шероховатости можно рассматривать как очень тонкий 
+эффект с помощью которого можно добиваться реализма в сценах.<br>
+<a title="chocofur7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur7.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur7.jpg" alt="chocofur7" width="600"></a></p>
+<table>
+<tbody>
+<tr>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_08_rough_no.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_08_rough_low.jpg" target="_blank">посмотреть настройку нодов</a></td>
+<td align="center"><a href="http://lechuhu.com/files/tutorial_files/images/part_06/part_06_08_rough_high.jpg" target="_blank">посмотреть настройку нодов</a></td>
+</tr>
+</tbody>
+</table>
+<p>Шероховатость применяется не только к отражающим поверхностям. Вы 
+можете использовать ее для создания «затуманенного» стекла, как на 
+картинке выше. Для диффузных шейдеров можно контролировать количество 
+поглощаемого света поверхностью.</p>
+<h5>Фактор объема (Bump / Displacement)</h5>
+<p>Bump и Displacement используются для добавления трещин, царапин, 
+соединений, выпуклостей и т.д. Иногда создавать подобное проще и даже 
+нужно во время моделирования или скульптинга, а иногда правильно 
+созданная текстура может выполнить тоже самое ни чем не хуже.<br>
+<a title="chocofur8" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur8.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur8.jpg" alt="chocofur8" width="600"></a><br>
+На картинке плоская поверхность с текстурой смещения.</p>
+<p>Для создание «бампа» всегда необходима текстура, будь то изображение 
+или процедурно генерируемая текстура. Наиболее распространенной ошибкой 
+является использование слишком больших значений бампа или смешивание его
+ с шероховатостью отражений. Лично я сначала настраиваю отражения, а 
+затем добавляю смещение поверхности (bump). С его помощью нужно 
+имитировать лишь незначительные повреждения, трещины и царапины. Для 
+более «глубоких» искажений нужно использовать текстуру смещения 
+(displacement).<br>
+<a title="chocofur9" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur9.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur9.jpg" alt="chocofur9" width="600"></a><br>
+Кроме объема и смещения мы можем использовать карты нормалей (normal 
+maps). Лично я не очень люблю их использовать по нескольким причинам. Во
+ первых, окончательный результат лишь немного лучше традиционного бампа и
+ все еще далек от использования смещения. Во вторых, для создания карты 
+нормалей необходимо прибегать к помощи стороннего ПО, что отнимает часть
+ времени (и это при том, что я еще и очень ленивый). В третьих, карты 
+нормалей выглядят совершенно по разному для различных текстур отражения,
+ шероховатости и объема, которые Вы также будете использовать для 
+создания своего шейдера. Все эти текстуры используют черные и белые 
+значения, которые можно смешивать для достижения желаемого результата, в
+ то время как карта нормалей использует цвета, что исключает ее из 
+использования в качестве текстуры для бампа. И последнее, но не менее 
+важное, карты нормалей не так просто адаптируются к различным движкам 
+рендеринга и дают различные результаты в зависимости от настроек гаммы, 
+например. Это делает довольно трудной работу по адаптации и тестированию
+ модели в другой программе. Однако, если Вам нужно создать 
+детализированную анимацию реального времени или модель для игрового 
+движка, то Вам необходимо уметь обращаться с картами нормалей.<br>
+<a title="chocofur10" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur10.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur10.jpg" alt="chocofur10" width="600"></a><br>
+<a title="chocofur10a" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur10a.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur10a.jpg" alt="chocofur10a" width="600"></a><br>
+Примеры текстурных карт. Карта нормалей явно выделяется из черно-белого диапазона…</p>
+<p>На данный момент эффект смещения все еще не поддерживается в полной 
+мере движком рендеринга Cycles и полноценно работает лишь с 
+использованием модификатора Displacement. Ниже, мы более подробно 
+рассмотрим как создавать окружение и добавлять детали в Вашу сцену.</p>
+<h3>Система шейдеров в Cycles</h3>
+<p>Система шейдеров в Cycles является уникальной в сравнении с другими 
+присутствующими на рынке. Вместо того, чтобы дать какие-то готовые 
+базовые настройки, она предлагает лишь использование цвета, отражения, 
+шероховатости…, для создания того, что Вам нужно. Таким образом мы можем
+ создать как что-то физически точное, так и материал, который не может 
+существовать в реальном мире.</p>
+<p>Говоря о физике… Очень часто люди пытаются достичь физически точных 
+результатов, в надежде, что это «ключ» к хорошему рендеру. Что ж, я не 
+согласен с этим и лучшим аргументом к этому будут фотографии. Они 100% 
+физически точные, но Вам необходимо приложить немалые усилия, чтобы 
+получить хорошее фото. На мой взгляд, хорошый рендер можно получить 
+несколькими способами. Все зависит от целей проекта над которым Вы 
+работаете.</p>
+<p><em>(2 изображения в слайде)</em><br>
+<a title="chocofur11-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur11-1.jpg" rel="lightbox[chocofur1]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur11-1.jpg" alt="chocofur11-1" width="600"></a><a title="chocofur11-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur11-2.jpg" rel="lightbox[chocofur1]"></a></p>
+<h5>Нод Mix Shader</h5>
+<p>Mix Shader будет одним из Ваших наиболее часто используемых нодов, 
+так как он позволяет смешивать два различных шейдера с заданными 
+пропорциями. Вы можете использовать различные ноды в качестве фактора 
+смешивания или же использовать значение по умолчанию от 0 до 1. Наиболее
+ часто Mix Shader используется для добавления отражения к уже 
+существующему шейдеру diffuse с нодом Fresnel в качестве фактора 
+смешивания.</p>
+<p><em>(3 изображения в слайде)</em><br>
+<a title="chocofur12-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur12-1.jpg" rel="lightbox[chocofur2]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur12-1.jpg" alt="chocofur12-1" width="600"></a><a title="chocofur12-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur12-2.jpg" rel="lightbox[chocofur2]"></a><a title="chocofur12-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur12-3.jpg" rel="lightbox[chocofur2]"></a></p>
+<p>Хороший способ быстро понять принцип работы системы материалов 
+Cycles, это представить ноды как атрибуты материалов из реальной жизни 
+которые Вы бы хотели добавить для шейдера. В примере выше мы добавили 
+отрежение для диффузного объекта. Мы также могли добавить прозрачность 
+объекта подключив нод Transparent или создать интересный (нереальный) 
+эффект.<br>
+<a title="chocofur13" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur13.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur13.jpg" alt="chocofur13" width="600"></a></p>
+<div class="alert info_msg">Существует несколько различных способов 
+достижения угловых отражений в Cycles. Наиболее часто используемый, это 
+подключение нода Fresnel к фактору нода Mix. Но у данного метода есть 
+один недостаток. Он зависим от геометрии объекта. Это означает, что он 
+не будет корректно работать с такими плоскими объектами как штора, 
+травинка, листок, бумага и т.д.</div>
+<p><em>(2 изображения в слайде)</em><br>
+<a title="chocofur14-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur14-1.jpg" rel="lightbox[chocofur3]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur14-1.jpg" alt="chocofur14-1" width="600"></a><a title="chocofur14-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur14-2.jpg" rel="lightbox[chocofur3]"></a></p>
+<p>Для корректных отражений стоит использовать нод Layer Weight. Данный 
+способ геометрически независим и всегда дает корректный результат. Для 
+большего контроля стоит использовать нод RGB Curve. Это хорошо 
+распространенная практика и в других движках рендеинга.</p>
+<p><em>(3 изображения в слайде)</em><br>
+<a title="chocofur15-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur15-1.jpg" rel="lightbox[chocofur4]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur15-1.jpg" alt="chocofur15-1" width="600"></a><a title="chocofur15-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur15-2.jpg" rel="lightbox[chocofur4]"></a><a title="chocofur15-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur15-3.jpg" rel="lightbox[chocofur4]"></a></p>
+<h5>Нод Add Shader</h5>
+<p>Нод Add Shader менее популярен нежели Mix. Их функции схожи, они оба 
+смешивают два шейдера, но результаты немного отличаются. Нод Add 
+используется для объединения двух различных шейдеров. Некоторые 
+материалы могут быть созданы исключительно с помощью нода Add.</p>
+<p>Он не смешивает два шейдера, а добавляет их и в результате получается
+ новый шейдер. Если мы берем 100% диффузный шейдер и 100% прозрачный, то
+ на выходе получим не по 50% первого и второго, а по 100% каждого. Это 
+может показаться немного странным, но есть хорошие примеры из реальной 
+жизни. Для примера возьмем бумагу или травинку/листок. Глядя на них 
+может показаться что они 100% диффузные, но стоит разместить позади них 
+источник света и они кажутся 100% прозрачными. На основе этого мы будем 
+считать что данные материалы 100% диффузные и 100% прозрачные.</p>
+<p><em>(3 изображения в слайде)</em><br>
+<a title="chocofur16-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur16-1.jpg" rel="lightbox[chocofur5]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur16-1.jpg" alt="chocofur16-1" width="600"></a><a title="chocofur16-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur16-2.jpg" rel="lightbox[chocofur5]"></a><a title="chocofur16-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur16-3.jpg" rel="lightbox[chocofur5]"></a></p>
+<p>Еще одной интересной особенностью нода Add является то, что он 
+воспринимает все черные цвета как 0. Это означает, что они будут 
+добавлены к первому шейдеру, но никак не повлияют на него. Мы можем 
+использовать это для создания тканевых материалов добавив шейдер Velvet к
+ Diffuse. Также можно с его помощью придать дополнительную прозрачность 
+стандартному шейдеру Glass добавив к нему шейдер Transparency.</p>
+<p><em>(3 изображения в слайде)</em><br>
+<a title="chocofur17-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur17-1.jpg" rel="lightbox[chocofur6]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur17-1.jpg" alt="chocofur17-1" width="600"></a><a title="chocofur17-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur17-2.jpg" rel="lightbox[chocofur6]"></a><a title="chocofur17-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur17-3.jpg" rel="lightbox[chocofur6]"></a></p>
+<h3>Использование текстурных карт</h3>
+<p>До сих пор мы использовали сплошные цвета для создания шейдеров. Для 
+многих случаев этого достаточно, но чтобы создавать более сложные 
+материалы приходится прибегать к помощи различных текстур. Добавить 
+текстуру в Cycles очень просто, но к ней также необходимо подключить 
+несколько вспомогательных нодов цветокоррекции.<br>
+<a title="chocofur18" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur18.jpg" rel="lightbox"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur18.jpg" alt="chocofur18" width="600"></a><br>
+Выше базовая настройка нодов, которую я использую при добавлении 
+текстуры. Нод RGB Curves один из самых часто используемых нодов. С его 
+помощью можно добиться лучшей корректировки изображения. Ни один из 
+других нодов не предоставит Вам подобную гибкость. Также используется 
+нод Hue Saturation Value для финальных штрихов, потому как финальная 
+текстура в Cycles выглядит не так, как в программе 2D-редактирования.</p>
+<p><em>(6 изображений в слайде)</em><br>
+<a title="chocofur19-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-1.jpg" rel="lightbox[chocofur7]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur19-1.jpg" alt="chocofur19-1" width="600"></a><a title="chocofur19-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-2.jpg" rel="lightbox[chocofur7]"></a><a title="chocofur19-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-3.jpg" rel="lightbox[chocofur7]"></a><a title="chocofur19-4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-4.jpg" rel="lightbox[chocofur7]"></a><a title="chocofur19-5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-5.jpg" rel="lightbox[chocofur7]"></a><a title="chocofur19-6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur19-6.jpg" rel="lightbox[chocofur7]"></a></p>
+<p>Важно понимать как движки рендеринга интерпретируют изображение. Если
+ не вдаваться в технические детали, то полностью белый цвет они 
+интерпретируют как 1, а полностью черный как 0. На 5-ом изображении 
+слайдера выше хорошо видно, что синий цвет проступает в областях 
+наиболее приближенных к белому. На 6-ом изображении этот эффект виден 
+еще четче, за счет изменения контраста с помощью кривой. В компьютерной 
+графике все цвета задаются широким диапазоном от 0 до 1, поэтому мы 
+можем использовать различные изображения для создания отражений, 
+шероховатостей и т.д.</p>
+<p><em>(6 изображений в слайде)</em><br>
+<a title="chocofur20-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-1.jpg" rel="lightbox[chocofur8]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur20-1.jpg" alt="chocofur20-1" width="600"></a><a title="chocofur20-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-2.jpg" rel="lightbox[chocofur8]"></a><a title="chocofur20-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-3.jpg" rel="lightbox[chocofur8]"></a><a title="chocofur20-4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-4.jpg" rel="lightbox[chocofur8]"></a><a title="chocofur20-5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-5.jpg" rel="lightbox[chocofur8]"></a><a title="chocofur20-6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur20-6.jpg" rel="lightbox[chocofur8]"></a></p>
+<p>В примере выше с помощью нода Math производилась регулировка 
+шероховатости поверхности. Умножив входное значение на 0.1 я увеличил 
+отражающую способность поверхности. Это означает, что все черные 
+значения практически не были затронуты, в то время как белые и серые 
+тона (на 90% приближенные к белому) получили максимальное воздействие. 
+Значение 0 создает зеркально отражающую поверхность. Установив значение 
+равным 2 я удвоил цветовой тон, не воздействовав лишь на черный цвет 0. 
+Данный результат можно увидеть на изображении 6. Также стоит отметить, 
+что изображения 2 и 5 дают идентичный результат.</p>
+<p>Нод Math может быть использован для огромного количества целей при 
+создании материалов, так как он позволяет применять огромное количество 
+математических операций к Вашим шейдерам. Одной из таких операций, 
+которую Вы будете часто использовать будет контроль силы бампа на 
+поверхности объекта.</p>
+<p><em>(7 изображений в слайде)</em><br>
+<a title="chocofur21-1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-1.jpg" rel="lightbox[chocofur9]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur21-1.jpg" alt="chocofur21-1" width="600"></a><a title="chocofur21-2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-2.jpg" rel="lightbox[chocofur9]"></a><a title="chocofur21-3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-3.jpg" rel="lightbox[chocofur9]"></a><a title="chocofur21-4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-4.jpg" rel="lightbox[chocofur9]"></a><a title="chocofur21-5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-5.jpg" rel="lightbox[chocofur9]"></a><a title="chocofur21-6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-6.jpg" rel="lightbox[chocofur9]"></a><a title="chocofur21-7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur21-7.jpg" rel="lightbox[chocofur9]"></a></p>
+<p>Перед тем как мы приступим к созданию более сложных шейдеров, я бы 
+хотел остановить Ваше внимание на двух вещах. Вы могли заметить, что в 
+примере выше использовался нод RGB to BW. С его помощью мы экономим 
+память видеокарты при рендеринге на GPU. Обычно, при создании шейдера, 
+используется отдельная текстура для отдельной части материала. Мы 
+говорили об этом в начале урока. Однако данный подход менее экономен с 
+точки зрения памяти видеокарты, так как каждая текстура должна быть в 
+нее загружена. Это можно упустить из виду при наличии GTX Titan с 6 GB 
+видеопамяти, но в большинстве случаев это не так, да еще в случае с 
+большой сценой содержащей множество шейдеров с размерами текстур около 
+6К Ваш рендер может вовсе и не начаться. Именно в подобных ситуациях к 
+нам на помощь и приходят подобные ноды. За счет различных манипуляций мы
+ можем получать необходимые результаты используя лишь одну текстуру.</p>
+<p>На 7-ом изображении слайдера выше показана распространенная ошибка 
+использования черно-белой текстуры в качестве отражения. Посмотрите 
+вокруг — отражения очень равномерные в подавляющем большинстве случаев. 
+Оно может изменяться в зависимости от угла зрения, становится ярче, но, 
+как правило, не имеет никакого цветового оттенка (кроме металлов). 
+Лучший способ это проверить в реальной жизни, это поставить белый лист 
+бумаги рядом с любым отражающим объектам и посмотреть на цвет бумаги в 
+отражении. В большинстве случаев оно будет лишь немного темнее, больше 
+ничего… Однако на отражения влияют и другие факторы, которые мы уже 
+рассмотрели (шероховатости, бамп и т.д.) и в следующей главе я 
+постараюсь показать как их правильно создавать.</p>
+<h3>Создание более сложных шейдеров</h3>
+<h5>Базовый глянцевый / пластиковый шейдер</h5>
+<p><em>(11 изображений в слайде)</em><br>
+<a title="chocofur-plastic1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic1.jpg" rel="lightbox[chocofur10]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur-plastic1.jpg" alt="chocofur-plastic1" width="600"></a><a title="chocofur-plastic2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic2.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic3.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic4.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic5.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic6.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic7.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic8" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic8.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic9" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic9.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic10" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic10.jpg" rel="lightbox[chocofur10]"></a><a title="chocofur-plastic11" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-plastic11.jpg" rel="lightbox[chocofur10]"></a><br>
+Данный шейдер не является 100% идеальным и 100% физически точным. Тем не
+ менее, его очень легко и быстро можно настроить. С его помощью можно 
+создавать пластиковые и глянцевые материалы с различными значениями 
+отражения и шероховатости. С помощью кривых можно легко настроить как 
+базовый диффузный цвет, так и оттенок отражения. У меня это один из 
+наиболее используемых шейдеров на проекте.</p>
+<h5>Шейдер дерева</h5>
+<p><em>(14 изображений в слайде)</em><br>
+<a title="chocofur-wood1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood1.jpg" rel="lightbox[chocofur11]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur-wood1.jpg" alt="chocofur-wood1" width="600"></a><a title="chocofur-wood2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood2.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood3.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood4.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood5.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood6.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood7.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood8" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood8.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood9" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood9.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood10" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood10.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood11" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood11.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood12" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood12.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood13" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood13.jpg" rel="lightbox[chocofur11]"></a><a title="chocofur-wood14" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-wood14.jpg" rel="lightbox[chocofur11]"></a><br>
+Метод создания данного шейдера очень похож на создание шейдера пластика.
+ Сначала определяется базовый диффузный цвет и производится его 
+цветокоррекция. RGB Curves также могут использоваться для этой цели. 
+Далее переходим к созданию отражения. С помощью нода Math мы объединяем 
+текстуру с кривой, а с помощью второго регулируем силу воздействия 
+текстуры.</p>
+<p>После создания отражения производится регулировка бампа с помощью 
+нода Glossy. В завершении все это смешивается и производится финальная 
+корректировка фактора с помощью кривой.</p>
+<h5>Шейдер стекла</h5>
+<p><em>(10 изображений в слайде)</em><br>
+<a title="chocofur-glass1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass1.jpg" rel="lightbox[chocofur12]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur-glass1.jpg" alt="chocofur-glass1" width="600"></a><a title="chocofur-glass2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass2.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass3.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass4.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass5.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass6.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass7.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass8" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass8.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass9" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass9.jpg" rel="lightbox[chocofur12]"></a><a title="chocofur-glass10" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-glass10.jpg" rel="lightbox[chocofur12]"></a><br>
+Если бы меня спросили, что мне больше всего не нравится в Cycles, то я 
+бы ответил — создание шейдера стекла. Честно говоря, до сегодняшнего дня
+ я так и не смог найти метод, который бы в полной мере удовлетворить мои
+ потребности. В зависимости от проекта, я всегда производил какие-то 
+регулировки материала в зависимости от окружения, освещения и т.д. 
+Многие считают что нод Glass по умолчанию дает хороший результат (и это 
+действительно так во многих ситуациях). Из того что мы узнали в этой 
+статье мы можем с уверенностью сказать, что нод Glass — это не идеальное
+ стекло. Философия Cycles основывается на создании материалов с нуля и 
+данный нод это всего лишь отправная точка, а не конечный результат.</p>
+<p>При создании шейдеров стекла стоит помнить следующие вещи:</p>
+<ul>
+<li>геометрия должна быть равномерной и нормали вывернуты наружу</li>
+<li>при создании объемного отражения геометрия должна быть замкнутой (никаких открытых граней, ребер и т.д.)</li>
+<li>при пересечении шейдера стекла с другими диффузными шейдерами преломление всегда будет изменяться</li>
+<li>необходимо включить каустику для корректных теней и общего вида</li>
+</ul>
+<h5>Базовый шейдер металла</h5>
+<p><em>(9 изображений в слайде)</em><br>
+<a title="chocofur-metall1" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall1.jpg" rel="lightbox[chocofur13]"><img class="border aligncenter" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/chocofur-metall1.jpg" alt="chocofur-metall1" width="600"></a><a title="chocofur-metall2" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall2.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall3" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall3.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall4" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall4.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall5" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall5.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall6" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall6.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall7" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall7.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall8" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall8.jpg" rel="lightbox[chocofur13]"></a><a title="chocofur-metall9" href="http://blender3d.com.ua/wp-content/uploads/2014/10/chocofur-metall9.jpg" rel="lightbox[chocofur13]"></a><br>
+Шейдер металла требует несколько иной подход, чем другие материалы. 
+Вместо того, чтобы сосредотачиваться на шероховатости отражения мы 
+должны уделять внимание цвету отражения. Хорошим примером в данном 
+случае будет золото. Его отражение переходит из немного 
+темно-желтого/оранжевого цвета в полностью белый в зависимости от угла 
+обзора. Есть сайты описывающие данной физическое явление, например этот:
+ <a href="http://refractiveindex.info/" target="_blank">refractiveindex.info</a>.
+ На нем Вы можете найти графики кривых и индексы преломления для 
+различных материалов. Одна кривая используется для смешивания двух 
+цветов отражения в зависимости от угла обзора, а вторая для смешивания 
+двух шейдеров.</p>
+<p>Что касается отражений и шероховатости, я рекомендую использовать два
+ нода Glossy и смешивать их с помощью кривой. Мы могли бы обойтись и 
+одним шейдером с кривой подключенной к входу шероховатости, но из-за 
+того, что металлы имеют очень четкие отражения, было бы трудно настроить
+ нужную форму кривой.</p>
+<h3>Заключение</h3>
+<p>Я уверен, что я не раскрыл тему достаточно, чтобы описать все часто 
+используемые шейдеры. Для этого понадобилось бы еще несколько страниц. Я
+ также уверен, что есть другие способы создания некоторых материалов, 
+так как разные художники, как правило, имеют свои собственные подходы. 
+Тем не менее, я думаю, что данный урок вдохновит многих пользователей на
+ создание своих собственных шейдеров. Для меня лично создание шейдеров, 
+вероятно, наиболее интересная часть всего процесса создания цифровых 
+изображений. Ведь это так интересно смотреть на что-либо в реальной 
+жизни, а затем пытаться воссоздать все это с помощью нодов в Cycles. 
+Вам, также, не нужно смотреть в монитор все время, чтобы практиковаться в
+ создании материалов. Просто посмотрите вокруг, поймите философию 
+системы шейдеров Cycles, а затем воссоздавайте материалы из реальной 
+жизни в голове.</p>
+<p>Я надеюсь, что вы вдохновились!</p>
+<p><a class="button darkgray small" href="http://www.chocofur.com/6-shadersamptextures.html" target="_blank">источник урока</a></p>
+	<div id="hypercomments_widget"></div>
+    <script type="text/javascript">                                      
+    var _hcwp = _hcwp || [];
+    var _hc_real = {widget_id : 11120, widget : "Stream",
+     append: '#hypercomments_widget', css: '',
+     words_limit: 10, realtime: true, comments_level: 4,
+     platform: "wordpress", xid: 'blender3d.com.ua/?p=5505' };
+    _hcwp.push(_hc_real);              
+    (function() { 
+    if("HC_LOAD_INIT" in window)return;
+    HC_LOAD_INIT = true;
+    var lang = "ru";
+    var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+    hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/11120/"+lang+"/widget.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hcc, s.nextSibling); 
+    })();
+    </script>
+        
+									<div class="clear"></div><!-- Article description end -->
+								<div class="meta">
+								  <span class="tags"><a href="http://blender3d.com.ua/tag/cycles/" rel="tag">Cycles</a>, <a href="http://blender3d.com.ua/tag/basics/" rel="tag">Базовое</a>, <a href="http://blender3d.com.ua/tag/nodes/" rel="tag">Ноды</a></span>
+								</div>
+								<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/share.js" charset="utf-8"></script>
+								<div class="yashare-auto-init" data-yasharel10n="ru" data-yasharetype="none" data-yasharequickservices="vkontakte,facebook,twitter,gplus,odnoklassniki,yaru,moikrug,moimir,lj,friendfeed,surfingbird"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link b-share-btn__vkontakte" href="https://share.yandex.net/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link b-share-btn__facebook" href="https://share.yandex.net/go.xml?service=facebook&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link b-share-btn__twitter" href="https://share.yandex.net/go.xml?service=twitter&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span></a><a rel="nofollow" target="_blank" title="Google Plus" class="b-share__handle b-share__link b-share-btn__gplus" href="https://share.yandex.net/go.xml?service=gplus&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="gplus"><span class="b-share-icon b-share-icon_gplus"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link b-share-btn__odnoklassniki" href="https://share.yandex.net/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span></a><a rel="nofollow" target="_blank" title="Мой Мир" class="b-share__handle b-share__link b-share-btn__moimir" href="https://share.yandex.net/go.xml?service=moimir&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="moimir"><span class="b-share-icon b-share-icon_moimir"></span></a><a rel="nofollow" target="_blank" title="LiveJournal" class="b-share__handle b-share__link b-share-btn__lj" href="https://share.yandex.net/go.xml?service=lj&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="lj"><span class="b-share-icon b-share-icon_lj"></span></a><a rel="nofollow" target="_blank" title="Surfingbird" class="b-share__handle b-share__link b-share-btn__surfingbird" href="https://share.yandex.net/go.xml?service=surfingbird&amp;url=http%3A%2F%2Fblender3d.com.ua%2Fsozdaniye-realistichnykh-sheyderov-v-cycles%2F&amp;title=%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles" data-service="surfingbird"><span class="b-share-icon b-share-icon_surfingbird"></span></a></span></div> 
+							</div><!--.grid_8-->
+							<div class="clear"></div>
+						</article>
+						<div class="clear"></div>
+						<!--============= ARTICLE END ===========-->
+
+												<!--<a href="http://blender3d.com.ua/link/website.php" target="_blank"><img alt="website" src="http://blender3d.com.ua/wp-content/uploads/2013/10/banner-600x78.png" width="630" height="78" /></a>-->
+						<div class="teha_google_related">
+							<script async="" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/adsbygoogle.js"></script>
+							<ins class="adsbygoogle" style="display: block; height: 367px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-8593280909745661" data-ad-slot="2269753630" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:367px;margin:0;padding:0;position:relative;visibility:visible;width:612px;background-color:transparent"><ins id="aswift_0_anchor" style="display:block;border:none;height:367px;margin:0;padding:0;position:relative;visibility:visible;width:612px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;" width="612" height="367" frameborder="0"></iframe></ins></ins></ins>
+							<script>
+								 (adsbygoogle = window.adsbygoogle || []).push({});
+							</script>
+						</div>
+						<section id="list_pagination">
+						<span class="nav-previous"><a href="http://blender3d.com.ua/animatsiya-navedeniya-fokusa-v-blender/" rel="prev"><span class="meta-nav">&lt;&lt;</span> Анимация наведения фокуса в Blender</a></span>
+						<span class="nav-next"><a href="http://blender3d.com.ua/sozdaniye-morozhenogo-v-blender/" rel="next">Создание мороженого в Blender <span class="meta-nav">&gt;&gt;</span></a></span>
+						</section><!-- / #list_pagination -->
+						<div class="teha_google_related"><div id="HyperComments_Box">
+		<div id="hypercomments_widget_newappend"></div>
+	<script type="text/javascript">
+	_hc_real['append'] = '#hypercomments_widget_newappend';
+	</script>
+	
+	<div id="hc_full_comments"></div>
+<!-- <p>HC version: 1.2.0</p> -->
+</div>
+<script type="text/javascript">
+	document.getElementById('hc_full_comments').innerHTML = '';
+</script></div>
+
+												</section> <!-- End #blog -->
+					</section>
+					
+<!--== Start sidebar ==-->
+       
+					<section class="sidebar_r grid_4">
+					
+                 <section id="bbp_login_widget-2" class="widget bbp_widget_login"><h2>Авторизация</h2><div class="wgt_in">
+			<form method="post" action="http://blender3d.com.ua/wp-login.php" class="bbp-login-form">
+				<fieldset>
+					<legend>Войти</legend>
+
+					<div class="bbp-username">
+						<label for="user_login">Имя пользователя: </label>
+						<input name="log" size="20" id="user_login" tabindex="101" type="text">
+					</div>
+
+					<div class="bbp-password">
+						<label for="user_pass">Пароль: </label>
+						<input name="pwd" value="" size="20" id="user_pass" tabindex="102" type="password">
+					</div>
+
+					<div class="bbp-remember-me">
+						<input name="rememberme" value="forever" id="rememberme" tabindex="103" type="checkbox">
+						<label for="rememberme">Запомнить меня</label>
+					</div>
+
+					<div class="bbp-submit-wrapper">
+
+						
+						<button type="submit" name="user-submit" id="user-submit" tabindex="104" class="button submit user-submit darkgray">Войти</button>
+
+						
+		<input name="user-cookie" value="1" type="hidden">
+
+		<input id="bbp_redirect_to" name="redirect_to" value="http://blender3d.com.ua/sozdaniye-realistichnykh-sheyderov-v-cycles/" type="hidden"><input id="_wpnonce" name="_wpnonce" value="5b4a631050" type="hidden"><input name="_wp_http_referer" value="/sozdaniye-realistichnykh-sheyderov-v-cycles/" type="hidden">
+					</div>
+
+					
+						<div class="bbp-login-links">
+
+							
+								<a href="http://blender3d.com.ua/registration/" title="Зарегистрироваться" class="bbp-register-link">Зарегистрироваться</a>
+
+							
+							
+								<a href="http://blender3d.com.ua/lost-pass/" title="Забыли пароль?" class="bbp-lostpass-link">Забыли пароль?</a>
+
+							
+						</div>
+
+					
+				</fieldset>
+			</form>
+
+		</div><div class="clear"></div></section><section id="text-11" class="widget widget_text">			<div class="textwidget"><a href="http://blender3d.com.ua/modeling-tools-book/"><img style="margin: 9px 0px 3px 9px;" class="popular-post" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/mod-banner.jpg" alt="mod-book"></a></div>
+		<div class="clear"></div></section><section id="categories-2" class="widget widget_categories"><h2>Рубрики</h2><div class="wgt_in">		<ul>
+	<li class="cat-item cat-item-9"><a href="http://blender3d.com.ua/category/animation/" title="Создание анимации в Blender">Анимация и риггинг</a>
+</li>
+	<li class="cat-item cat-item-10"><a href="http://blender3d.com.ua/category/downloads/" title="Здесь собрано множество текстур, моделей и различных дополнений для Blender">Загрузки</a>
+</li>
+	<li class="cat-item cat-item-22"><a href="http://blender3d.com.ua/category/materials/" title="Создание материалов и шейдеров в Blender">Материалы и текстуры</a>
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blender3d.com.ua/category/modeling/" title="Моделирование в Blender">Моделирование и скульптинг</a>
+</li>
+	<li class="cat-item cat-item-20"><a href="http://blender3d.com.ua/category/news/" title="Новости трехмерного редактора Blender">Новости и обзоры</a>
+</li>
+	<li class="cat-item cat-item-1"><a href="http://blender3d.com.ua/category/osnovu/" title="Основы работы в трёхмерном редакторе Blender">Основы Blender</a>
+</li>
+	<li class="cat-item cat-item-27"><a href="http://blender3d.com.ua/category/rendering/" title="Возможности движков рендеринга Blender">Рендеринг и освещение</a>
+</li>
+	<li class="cat-item cat-item-14"><a href="http://blender3d.com.ua/category/simulations/" title="Создание различных симуляций огня, воды, ветра, ткани, мягких объектов и т.д.">Симуляция и частицы</a>
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blender3d.com.ua/category/scripting/" title="Написание скриптов на Python в Blender">Скриптинг на Python</a>
+</li>
+	<li class="cat-item cat-item-30"><a href="http://blender3d.com.ua/category/game-engine/" title="Создание игр с помощью движка blender game engine">Создание игр в Blender</a>
+</li>
+		</ul>
+</div><div class="clear"></div></section><section id="text-10" class="widget widget_text">			<div class="textwidget"><a href="http://blender3d.com.ua/cycles-book/"><img style="margin: 9px 0px 3px 9px;" class="popular-post" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/cycles-banner.jpg" alt="cycles-book"></a></div>
+		<div class="clear"></div></section><section id="text-5" class="widget widget_text">			<div class="textwidget"><div style="margin: 9px 0px 10px 9px;">
+<!-- VK Widget -->
+<div id="vk_groups" style="height: 161px; width: 268px; background: transparent none repeat scroll 0% 0%;"><iframe name="fXDaa94c" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/widget_community.htm" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 161px;" width="268" height="141" frameborder="0"></iframe></div>
+<script type="text/javascript">
+VK.Widgets.Group("vk_groups", {mode: 1, width: "268", height: "200", color1: 'FFFFFF', color2: '2B587A', color3: '5B7FA6'}, 53202862);
+</script>
+</div></div>
+		<div class="clear"></div></section><section id="text-6" class="widget widget_text">			<div class="textwidget"><div style="margin: 9px 0px 3px 9px;">
+<div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 180px; height: 48px;" id="___ytsubscribe_0"><iframe hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 180px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 48px;" tabindex="0" vspace="0" id="I0_1484018740237" name="I0_1484018740237" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/subscribe_embed.htm" data-gapiattached="true" width="100%" frameborder="0"></iframe></div>
+</div></div>
+		<div class="clear"></div></section><section id="text-9" class="widget widget_text">			<div class="textwidget"><a href="http://blender3d.com.ua/3d-printing-with-blender/"><img style="margin: 9px 0px 3px 9px;" class="popular-post" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/print-banner.jpg" alt="3d-printing-with-blender"></a></div>
+		<div class="clear"></div></section><section id="text-7" class="widget widget_text">			<div class="textwidget"><a href="https://www.artstation.com/artwork/n6baE" target="_blank"><img style="margin: 9px 0px 3px 9px;" class="popular-post" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/anubis-banner.jpg" alt="anubis"></a></div>
+		<div class="clear"></div></section><section id="bbp_topics_widget-2" class="widget widget_display_topics"><h2>Последние темы</h2><div class="wgt_in">
+		<ul>
+
+			
+				<li>
+					<a class="bbp-forum-title" href="http://blender3d.com.ua/forums/topic/%d0%ba%d0%b0%d0%ba-%d0%b7%d0%b0%d0%bf%d0%b5%d0%ba%d0%b0%d1%82%d1%8c-%d0%ba%d0%b0%d1%80%d1%82%d1%8b-%d0%bd%d0%be%d1%80%d0%bc%d0%b0%d0%bb%d0%b5%d0%b9-%d1%81%d0%bb%d0%be%d0%b6%d0%bd%d1%8b%d1%85-%d0%be/">как запекать карты нормалей сложных объектов</a>
+
+					
+					
+				</li>
+
+			
+				<li>
+					<a class="bbp-forum-title" href="http://blender3d.com.ua/forums/topic/%d1%81%d0%be%d0%b5%d0%b4%d0%b8%d0%bd%d0%b5%d0%bd%d0%b8%d0%b5-%d0%b4%d0%b5%d1%82%d0%b0%d0%bb%d0%b5%d0%b9/">Соединение деталей</a>
+
+					
+					
+				</li>
+
+			
+				<li>
+					<a class="bbp-forum-title" href="http://blender3d.com.ua/forums/topic/%d0%bf%d0%b0%d1%80%d0%b0%d0%bc%d0%b5%d1%82%d1%80-%d1%83%d1%81%d0%ba%d0%be%d1%80%d0%b5%d0%bd%d0%b8%d0%b5-%d1%83-%d1%87%d0%b0%d1%81%d1%82%d0%b8%d1%86/">Параметр "ускорение" у частиц</a>
+
+					
+					
+				</li>
+
+			
+				<li>
+					<a class="bbp-forum-title" href="http://blender3d.com.ua/forums/topic/%d1%82%d0%b5%d0%ba%d1%81%d1%82%d1%83%d1%80%d0%b0-%d1%8d%d1%80%d0%be%d0%b7%d0%b8%d0%b8-%d0%bc%d0%b5%d1%82%d0%b0%d0%bb%d0%bb%d0%b0-%d0%b2-cycles/">Текстура эрозии металла в Cycles</a>
+
+					
+					
+				</li>
+
+			
+				<li>
+					<a class="bbp-forum-title" href="http://blender3d.com.ua/forums/topic/%d0%be%d1%88%d0%b8%d0%b1%d0%ba%d0%b0-%d1%81-%d1%84%d0%b5%d0%b9%d1%81%d0%b0%d0%bc%d0%b8/">Ошибка с фейсами!!(</a>
+
+					
+					
+				</li>
+
+			
+		</ul>
+
+		</div><div class="clear"></div></section><section id="text-3" class="widget widget_text">			<div class="textwidget"><script async="" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/adsbygoogle.js"></script>
+<!-- Вертикальный прямоугольник -->
+<div style="margin: 10px 0px 4px 25px;">
+<ins class="adsbygoogle" style="display:inline-block;width:240px;height:400px" data-ad-client="ca-pub-8593280909745661" data-ad-slot="1118302037" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:240px;background-color:transparent"><ins id="aswift_1_anchor" style="display:block;border:none;height:400px;margin:0;padding:0;position:relative;visibility:visible;width:240px;background-color:transparent"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;" width="240" height="400" frameborder="0"></iframe></ins></ins></ins></div>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+		<div class="clear"></div></section>        
+					</section>
+					<!--== End sidebar ==-->        </section> <!-- End section .container layout -->    
+       <footer class="main_footer">
+					<section class="container">
+						<div class="grid_4">
+							<h3 class="ft_title">О сайте</h3>
+							<p>На данном сайте Вы сможете найти множество уроков и материалов по графическому<br>редактору Blender.</p>
+						</div>
+						<div class="grid_4">
+							<h3 class="ft_title">Контакты</h3>
+							<p>Для связи с администрацией сайта Вы можете воспользоваться следующими контактами:</p>
+							<p>Email:<br><a href="mailto:info@blender3d.com.ua">info@blender3d.com.ua</a></p>
+						</div>
+						<div class="grid_4">
+							<h3 class="ft_title">Следите за нами</h3>
+							<p>Подписывайтесь на наши страницы в социальных сетях.</p>
+							<div class="social">
+								<a href="https://twitter.com/blender3dcomua" target="_blank" class="twitter"></a>
+								<a href="https://www.facebook.com/blender3dcomua" target="_blank" class="facebook"></a>
+								<a href="http://vk.com/blender3dcomua" target="_blank" class="email"></a>
+								<a href="https://plus.google.com/u/0/b/109876576597102763702/+Blender3dUa/posts" target="_blank" class="skype"></a>
+								<a href="https://www.youtube.com/user/Blender3Dcomua" target="_blank" class="feed"></a>
+								<a href="http://www.yandex.ru/?add=142614&amp;from=promocode" target="_blank" class="yan"></a>
+							</div>
+						</div>
+						<div class="grid_12">
+							<p>На сайте Blender3D собрано огромное количество уроков по 
+программе трехмерного моделирования Blender. Обучающие материалы 
+представлены как в формате видеоуроков, так и в текстовом виде. Здесь 
+затронуты все аспекты, связанные с Blender, начиная от моделирования и 
+заканчивая созданием игр с применением языка программирования Python.</p><p>Помимо
+ уроков по Blender, Вы сможете найти готовые 3D-модели и архивы 
+высококачественных текстур. Сайт регулярно пополняется новым контентом и
+ следит за развитием Blender.</p>
+						</div>
+					</section>
+
+					<section class="mini_footer">
+						<div class="container">
+							<div class="alignleft copyright">© 2013 - 2017 Blender3D. Все права защищены</div>
+							<nav id="ft_links">
+								<ul id="nav_footer">
+									<li><a href="http://blender3d.com.ua/">Главная</a></li>
+									<li><a href="http://blender3d.com.ua/faq/">FAQ</a></li>
+									<li><a href="http://blender3d.com.ua/pravila-perepechatki/">Правила перепечатки</a></li>
+									<li><a href="http://feeds.feedburner.com/blender3dcomua" target="_blank">RSS</a></li>
+									<li><a href="http://blender3d.com.ua/sitemap_index.xml" target="_blank">Карта сайта</a></li>
+								</ul>
+							</nav>
+						</div>
+					</section>
+				</footer> <!-- End .main_footer -->
+			</section><!-- End section .wrap_block -->
+		</section> <!-- End section #wrap -->
+	 <script> var $nocnflct = jQuery.noConflict();
+			$nocnflct(function () {
+			    $nocnflct.scrollUp({
+				scrollName: 'scrollUp', // Element ID
+				scrollClass: 'scrollUp scrollup-pill scrollup-right', // Element Class
+				scrollDistance: 1000, // Distance from top/bottom before showing element (px)
+				scrollFrom: 'top', // top or bottom
+				scrollSpeed: 1000, // Speed back to top (ms )
+				easingType: 'linear', // Scroll to top easing (see http://easings.net/)
+				animation: 'fade', // Fade, slide, none
+				animationInSpeed: 200, // Animation in speed (ms )
+				animationOutSpeed: 200, // Animation out speed (ms )
+				scrollText: 'Наверх', // Text for element, can contain HTML
+				scrollTitle: false, // Set a custom link title if required. Defaults to scrollText
+				scrollImg: false, // Set true to use image
+				activeOverlay: false, // Set CSS color to display scrollUp active point
+				zIndex: 2147483647 // Z-Index for the overlay
+			    });
+			});</script><script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/editor.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery_005.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wp-syntax.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var newsletter = {"messages":{"email_error":"The email is not correct","name_error":"The name is not correct","surname_error":"The last name is not correct","privacy_error":"You must accept the privacy statement"},"profile_max":"20"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/validate.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery_002.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var JQLBSettings = {"showTitle":"0","showCaption":"1","showNumbers":"1","fitToScreen":"1","resizeSpeed":"500","showDownload":"1","navbarOnTop":"0","marginSize":"0","slideshowSpeed":"0","prevLinkTitle":"\u043f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0435\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435","nextLinkTitle":"\u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0435 \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435","closeTitle":"\u0437\u0430\u043a\u0440\u044b\u0442\u044c \u0433\u0430\u043b\u0435\u0440\u0435\u044e","image":"\u0418\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435 ","of":" \u0438\u0437 ","download":"Download","pause":"(pause slideshow)","play":"(play slideshow)"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/jquery_004.js"></script>
+<script type="text/javascript" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/wp-embed.js"></script>
+	 <!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter21241810 = new Ya.Metrika({id:21241810, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/21241810" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+	
+<a id="scrollUp" class="scrollUp scrollup-pill scrollup-right" href="#top" style="position: fixed; z-index: 2147483647;">Наверх</a><iframe name="oauth2relay851842146" id="oauth2relay851842146" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/postmessageRelay.htm" style="width: 1px; height: 1px; position: absolute; top: -100px;" tabindex="-1" aria-hidden="true"></iframe><iframe id="hc_analytics_frame" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/analytics.htm" style="position: absolute; height: 1px; width: 1px; top:-1000px; background-color: transparent;" scrolling="no" frameborder="0"></iframe><div style="display: block; visibility: hidden; position: absolute; width: 106px; left: -10000px; top: -10000px;"><table dir="ltr" style="width:106px;" frame="void" rules="none" class=" gc-bubbleDefault pls-container" cellspacing="0" cellpadding="0"><tbody><tr class="gc-reset"><td class="pls-topLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/border_3.gif"></td><td class="pls-topTail gc-reset"><img class="pls-tailbottom gc-reset" style="width:15px !important; height:9px !important; max-width: 15px !important; max-height: 9px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"><img class="pls-spacerbottom gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td><td class="pls-topRight gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/border_3.gif"></td></tr><tr class="gc-reset"><td class="pls-vertShimLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td><td class="pls-vertShim gc-reset"><img class="gc-reset" style="width:1px !important; height:4px !important; max-width: 1px !important; max-height: 4px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td><td class="pls-vertShimRight gc-reset"><img class="pls-dropTR gc-reset" style="width:5px !important; height:4px !important; max-width: 5px !important; max-height: 4px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-contentLeft gc-reset"><img class="pls-tailright gc-reset" style="width:9px !important; height:15px !important; max-width: 9px !important; max-height: 15px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"><img class="pls-spacerright gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td><td class="pls-contentWrap gc-reset"><div class="goog-bubble-content gc-reset"><iframe hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="margin:0px;position:absolute;z-index:1;border-style:none;outline:none;width:100px;" tabindex="0" vspace="0" id="I0_1484018745480" name="I0_1484018745480" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/subscribe_embed_002.htm" width="100%" frameborder="0"></iframe></div></td><td class="pls-dropRight gc-reset"><img class="pls-tailleft gc-reset" style="width:12px !important; height:19px !important; max-width: 12px !important; max-height: 19px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"><img class="pls-spacerleft gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td></tr><tr class="gc-reset"><td class="pls-bottomLeft gc-reset"><img class="gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/border_3.gif"></td><td class="gc-reset"><table style="width:100%" class="gc-reset" cellspacing="0" cellpadding="0"><tbody><tr class="gc-reset"><td class="pls-vert gc-reset"><img class="pls-dropBL gc-reset" style="width:4px !important; height:5px !important; max-width: 4px !important; max-height: 5px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td><td class="pls-dropBottom gc-reset"><img class="pls-tailtop gc-reset" style="width:19px !important; height:13px !important; max-width: 19px !important; max-height: 13px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"><img class="pls-spacertop gc-reset" style="width:1px !important; height:1px !important; max-width: 1px !important; max-height: 1px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td></tr></tbody></table></td><td class="pls-vert gc-reset"><img class="pls-dropBR gc-reset" style="width:5px !important; height:5px !important; max-width: 5px !important; max-height: 5px !important;" src="%D0%A1%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%80%D0%B5%D0%B0%D0%BB%D0%B8%D1%81%D1%82%D0%B8%D1%87%D0%BD%D1%8B%D1%85%20%D1%88%D0%B5%D0%B9%D0%B4%D0%B5%D1%80%D0%BE%D0%B2%20%D0%B2%20Cycles_files/spacer.gif"></td></tr></tbody></table></div></body></html>

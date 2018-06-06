@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="ru"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="ru"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="ru"> <![endif]-->
+<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!-->
+<html class=" js borderradius boxshadow textshadow opacity cssgradients fontface" lang="ru"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="msvalidate.01" content="E0F437CC8D9DA14013C0B1A39356501F">
+    <meta name="yandex-verification" content="68442345e44c3e04">
+    <meta name="google-site-verification" content="ViFrkql2RqGZobeeyFLrqH-FUEL2T9dOe-ypngkXEDQ">
+    <meta name="wmail-verification" content="a4368a5cbbbf40270e741075c1a2b71f">
+
+  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+       More info: h5bp.com/b/378 -->
+  <!--meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"-->
+
+    <title>Настройки рендера Cycles - Уроки Blender</title>
+        <meta name="description" content="RENDER.RU - Российский ресурс по компьютерной графике и анимации. Компьютерная графика, 2d, 3d, арт, галереи, статьи, уроки, конкурсы, CG, курсы, обучение.">
+    <meta name="keywords" content="3d 2d компьютерная графика анимация архитектура художественная Галерея видео уроки курсы новости конкурсы железо форум блог 3dMax Maya ZBrush Adobe Illustrator Photoshop Unity Blender VRAY Mental Ray RenderMan">
+          <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+  <!-- CSS: implied media=all -->
+  <!-- CSS concatenated and minified via ant build script-->
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/bootstrap.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_005.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/style.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/comments.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/gallery.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_006.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/superfish.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/validationEngine.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_004.css">
+  <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/chosen.css">
+  <link href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/css.css" rel="stylesheet" type="text/css">
+
+  <!-- end CSS-->
+
+  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+    <script type="text/javascript" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/linkid.js"></script><script src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/cbgapi.loaded_1" async=""></script><script type="text/javascript" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/watch.js"></script><script type="text/javascript" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/code.js"></script><script type="text/javascript" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/watch.js"></script><script async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/analytics.js"></script><script async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/gtm.htm"></script><script id="facebook-jssdk" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/sdk.js"></script><script src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/cbgapi.loaded_0" async=""></script><script src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_012.js"></script>
+    <!--script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.4.min.js"><\/script>')</script-->
+
+    <!-- scripts concatenated and minified via ant build script-->
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_016.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_013.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_015.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jcarousellite_1.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_008.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/superfish.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_005.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_004.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_011.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/chosen.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_006.js"></script>
+
+    <!-- Add fancyBox -->
+    <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_003.css" type="text/css" media="screen">
+    <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_009.js"></script>
+    <!-- Optionally add helpers - button, thumbnail and/or media -->
+    <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery.css" type="text/css" media="screen">
+    <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_007.js"></script>
+    <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_002.js"></script>
+    <link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_002.css" type="text/css" media="screen">
+    <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_010.js"></script>
+
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_003.js"></script>
+
+    
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/plugins.js"></script>
+    <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/script.js"></script>
+    <!-- end scripts-->
+
+  <!-- All JavaScript at the bottom, except for Modernizr / Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <script src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/modernizr.js"></script>
+
+    
+        <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/openapi.js"></script>
+        <script type="text/javascript">
+        VK.init({apiId: 4360114, onlyWidgets: true});
+        </script>
+    
+        <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/plusone.js" gapi_processed="true">
+        {lang: 'ru'}
+        </script>
+        <link href="https://plus.google.com/103334409369664867952" rel="publisher">
+    
+<script type="text/javascript" charset="utf-8" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/button.js"></script><script type="text/javascript" charset="utf-8" async="" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/extra.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+
+
+
+<body class="backgr bg_lessons main_page">
+    <div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_http" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_http" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" style="border: medium none;" src="http://staticxx.facebook.com/connect/xd_arbiter/r/iPrOY23SGAp.js?version=42#channel=f23b57349cf668e&amp;origin=http%3A%2F%2Frender.ru" frameborder="0"></iframe><iframe name="fb_xdm_frame_https" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" style="border: medium none;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/iPrOY23SGAp_002.htm" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div>
+    
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v2.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    
+    <div id="container">
+        <header role="banner"><div class="fixed_width_block clearfix">
+            <a href="http://render.ru/"><div id="header_logo" class="main_logo_back bg_lessons">βeta</div></a>
+        
+<script type="text/javascript">
+jQuery(function(){
+    jQuery('ul.sf-menu').superfish();
+});
+</script>
+
+
+<nav class="main_menu">
+    <ul class="sf-menu sf-js-enabled sf-shadow">
+        <li class="current limenu0">
+            <a href="http://render.ru/gallery/" class="sf-with-ul">Галерея<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/gallery/">Галерея</a></li>
+
+                                <li class="limenu1 current mm_arrow">
+                    <a href="http://render.ru/gallery/28" class="sf-with-ul">2D Арт<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <a class="no-sf-menu award" href="http://render.ru/gallery/28/award">Award</a>
+                            <a class="no-sf-menu" href="http://render.ru/forum/viewforum.php?forum_id=57" style="padding-bottom:20px;">W.I.P.</a>
+                            <a class="no-sf-menu discuss" href="http://render.ru/gallery/28/discuss">Основная</a>
+                                                        <a class="no-sf-menu new " href="http://render.ru/gallery/28/new">Отбор работ <sup>58</sup></a>
+                                                        
+                            <div style="border-bottom:1px #e9e9e9 solid;height:10px;margin-bottom:15px;clear:both;"></div>
+
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/gallery/29">Абстракция</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/41">Аллегория</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/37">Анимализм</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/31">Аниме</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/42">Быт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/54">Графика</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/51">Дизайн</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/33">Другое</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/40">История</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/46">Картун (Cartoon)</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/49">Комиксы</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/57">Концепт-арт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/48">Мatte painting</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/36">Марина</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/34">Натюрморт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/44">Ню</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/35">Пейзаж</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/38">Портрет</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/39">Сказка</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/97">Сюрреализм</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/45">Техника</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/55">Традиционное искусство</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/47">Фантастика</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/30">Фэнтези</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/73">Хоррор</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/32">Эскизы, наброски</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/43">Юмор</a>
+                                                                                            </div>
+                                                        <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 current mm_arrow">
+                    <a href="http://render.ru/gallery/2" class="sf-with-ul">3D Архитектура<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <a class="no-sf-menu award" href="http://render.ru/gallery/2/award">Award</a>
+                            <a class="no-sf-menu" href="http://render.ru/forum/viewforum.php?forum_id=67" style="padding-bottom:20px;">W.I.P.</a>
+                            <a class="no-sf-menu discuss" href="http://render.ru/gallery/2/discuss">Основная</a>
+                                                        <a class="no-sf-menu new " href="http://render.ru/gallery/2/new">Отбор работ <sup>7</sup></a>
+                                                        
+                            <div style="border-bottom:1px #e9e9e9 solid;height:10px;margin-bottom:15px;clear:both;"></div>
+
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/gallery/26">Интерьер</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/50">Креатив</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/4">Малые архитектурные формы и предметы интерьера</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/27">Экстерьер</a>
+                                                                                            </div>
+                                                        <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 current mm_arrow">
+                    <a href="http://render.ru/gallery/1" class="sf-with-ul">3D Художественная<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <a class="no-sf-menu award" href="http://render.ru/gallery/1/award">Award</a>
+                            <a class="no-sf-menu" href="http://render.ru/forum/viewforum.php?forum_id=40" style="padding-bottom:20px;">W.I.P.</a>
+                            <a class="no-sf-menu discuss" href="http://render.ru/gallery/1/discuss">Основная</a>
+                                                        <a class="no-sf-menu new " href="http://render.ru/gallery/1/new">Отбор работ <sup>23</sup></a>
+                                                        
+                            <div style="border-bottom:1px #e9e9e9 solid;height:10px;margin-bottom:15px;clear:both;"></div>
+
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/gallery/96">3D Печать</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/77">3D Эскизы</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/25">Game Low-poly</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/7">Абстракция</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/6">Авто / мото</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/8">Водный мир</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/3">Другое</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/9">Животные</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/13">Картун (Cartoon)</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/12">Концепт Арт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/10">Корабли</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/11">Космос</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/14">Люди</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/15">Монстры</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/16">Натюрморт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/58">Персонажи</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/56">Предметная визуализация</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/17">Природа</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/18">Роботы</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/19">Самолёты</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/21">Танки</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/20">Техника</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/22">Фантастика</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/23">Фэнтези</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/24">Художественные произведения</a>
+                                                                                            </div>
+                                                        <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 current mm_arrow">
+                    <a href="http://render.ru/gallery/59" class="sf-with-ul">Видео<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <a class="no-sf-menu award" href="http://render.ru/gallery/59/award">Award</a>
+                            <a class="no-sf-menu" href="http://render.ru/forum/viewforum.php?forum_id=" style="padding-bottom:20px;">W.I.P.</a>
+                            <a class="no-sf-menu discuss" href="http://render.ru/gallery/59/discuss">Основная</a>
+                                                        <a class="no-sf-menu new " href="http://render.ru/gallery/59/new">Отбор работ <sup>6</sup></a>
+                                                        
+                            <div style="border-bottom:1px #e9e9e9 solid;height:10px;margin-bottom:15px;clear:both;"></div>
+
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/gallery/62">2D классическая анимация</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/60">2D реклама</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/61">2D флэш</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/69">2D шоурил</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/65">3D making of</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/63">3D архитектура</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/67">3D другое</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/66">3D композ</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/64">3D реклама</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/70">3D шоурил</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/98">Speedpaint</a>
+                                                                                            </div>
+                                                        <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 current mm_arrow">
+                    <a href="http://render.ru/gallery/78" class="sf-with-ul">Художественное фото<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <a class="no-sf-menu award" href="http://render.ru/gallery/78/award">Award</a>
+                            <a class="no-sf-menu" href="http://render.ru/forum/viewforum.php?forum_id=" style="padding-bottom:20px;">W.I.P.</a>
+                            <a class="no-sf-menu discuss" href="http://render.ru/gallery/78/discuss">Основная</a>
+                                                        
+                            <div style="border-bottom:1px #e9e9e9 solid;height:10px;margin-bottom:15px;clear:both;"></div>
+
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/gallery/79">Город</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/80">Другое</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/81">Животные</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/82">Макро</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/83">Натюрморт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/84">Ню</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/85">Пейзаж</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/86">Портрет</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/87">Природа</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/88">Путешествия</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/90">Рекламное фото</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/91">Репортаж</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/92">Спорт</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/74">Фотоманипуляции</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/93">Фотомодели</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/gallery/89">фотоотчет (события,походы)</a>
+                                                                                            </div>
+                                                        <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 border_radius_bottom"><a href="http://render.ru/gallery/?action=gal_add_work" style="color:#74C2D9;">Добавить работу</a></li>
+                            </ul>
+        </li>
+
+
+
+        <li class="limenu0">
+            <a href="http://render.ru/contest/" class="sf-with-ul">Конкурсы<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/contest/">Конкурсы</a></li>
+                <li class="limenu1 border_radius_tr"><a href="http://render.ru/xen/index.php?forums/77/" class="border_radius_tr">Форумные конкурсы</a></li>
+                <li class="limenu1"><a href="http://render.ru/xen/index.php?forums/83/">Анимационные конкурсы</a></li>
+                <li class="limenu1"><a href="http://render.ru/xen/index.php?forums/78/">Рисунки на скорость</a></li>
+                <li class="limenu1"><a href="http://render.ru/xen/index.php?forums/95/">Творческие дуэли</a></li>
+                <li class="limenu1"><a href="http://render.ru/xen/index.php?forums/86/">Скульптинг на скорость</a></li>
+                <li class="limenu1"><a href="http://render.ru/page/contest_faq">FAQ</a></li>
+                                                                            <li class="limenu1"><a href="http://render.ru/contest/?contest_id=21">RADA DOORS - 2 сезон</a></li>
+                                                                                <li class="limenu1"><a href="http://render.ru/contest/?contest_id=20">Дом, милый дом</a></li>
+                                                                                <li class="limenu1"><a href="http://render.ru/contest/?contest_id=19">Концепт-арт Shadow Fight</a></li>
+                                                    <li class="limenu1 mm_arrow" style="border-radius: 0 0 0 5px;">
+                    <a href="http://render.ru/contest/" class="sf-with-ul">Завершенные конкурсы<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu2 limenudbl2 border_radius_tr" style="width:220px;"><a href="http://render.ru/xen/threads/arxitekturnyj-konkurs-rada-doors.160726/">RADA DOORS</a></li>
+                                                                            <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=18&amp;action=contest_show_sb">Шиномонтаж будущего</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=17&amp;action=contest_show_sb">Wargaming Map Contest 2D/3D</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=16&amp;action=contest_show_sb">Летающий Макаронный Монстр</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=15&amp;action=contest_show_sb">Анимационный конкурс</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=14&amp;action=contest_show_sb">НАЕМНИКИ</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=13&amp;action=contest_show_sb">Конкурс Башни магов</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=12&amp;action=contest_show_sb">Виртуальный авиасалон «МАКС-2011»</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=11&amp;action=contest_show_sb">МЫ ИЩЕМ СВОЙ ЛОГО!</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=10&amp;action=contest_show_sb">Архитектурный конкурс</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=9&amp;action=contest_show_sb">Оставь в дизайне свой след!</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=8&amp;action=contest_show_sb">Колыбель человечества</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=7&amp;action=contest_show_sb">Бумажная архитектура</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=5&amp;action=contest_show_sb">Красивое чудовище</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=4&amp;action=contest_show_sb">Заводная игрушка</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=3&amp;action=contest_show_sb">Часы 2005</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=2&amp;action=contest_show_sb">МЫШКА 2002</a></li>
+                                                                                <li class="limenu2 limenudbl2  " style="width:220px;"><a href="http://render.ru/contest/?contest_id=1&amp;action=contest_show_sb">ЛАМПОЧКА 2001</a></li>
+                                                                        </ul>
+                </li>
+            </ul>
+        </li>
+
+
+
+        <li class="limenu0">
+            <a href="http://render.ru/books/index.php?book_cat=1" class="sf-with-ul">Уроки<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/books/1">Уроки</a></li>
+                <li class="limenu1 border_radius_tr"><a href="http://render.ru/books/13">Общие принципы</a></li>
+
+                                <li class="limenu1 current mm_arrow">
+                    <a class="sf-with-ul">3D<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/books/54" style="padding:6px 0;font-size:14px;">Unity 3D</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/39" style="padding:6px 0;font-size:14px;">Mudbox</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/40" style="padding:6px 0;font-size:14px;">Smoke</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/42" style="padding:6px 0;font-size:14px;">Blender</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/47" style="padding:6px 0;font-size:14px;">The Foundry Mari</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/43" style="padding:6px 0;font-size:14px;">ZBrush</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/56" style="padding:6px 0;font-size:14px;">Autodesk MotionBuilder</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/45" style="padding:6px 0;font-size:14px;">Alias</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/46" style="padding:6px 0;font-size:14px;">Houdini</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/4" style="padding:6px 0;font-size:14px;">Maya</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/5" style="padding:6px 0;font-size:14px;">3ds Max</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/6" style="padding:6px 0;font-size:14px;">Lightwave 3D</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/9" style="padding:6px 0;font-size:14px;">Softimage|XSI</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/7" style="padding:6px 0;font-size:14px;">Rhinoceros 3D</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/8" style="padding:6px 0;font-size:14px;">Poser</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/10" style="padding:6px 0;font-size:14px;">Realsoft 3D</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/35" style="padding:6px 0;font-size:14px;">Vue</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/12" style="padding:6px 0;font-size:14px;">Bryce</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/14" style="padding:6px 0;font-size:14px;">Cinema 4D</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/37" style="padding:6px 0;font-size:14px;">Modo</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/30" style="padding:6px 0;font-size:14px;">CAD системы</a>
+                                                                                            </div>
+                            <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                                <li class="limenu1 current mm_arrow" style="border-radius: 0 0 0 5px;">
+                    <a style="border-radius: 0 0 0 5px;" class="sf-with-ul">2D<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu_gallery">
+                            <div style="float:left;width:150px;">
+                                                                <a class="no-sf-menu" href="http://render.ru/books/52" style="padding:6px 0;font-size:14px;">Eyeon Fusion</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/55" style="padding:6px 0;font-size:14px;">Corel Painter</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/19" style="padding:6px 0;font-size:14px;">Adobe Photoshop</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/22" style="padding:6px 0;font-size:14px;">Corel Draw</a>
+                                                                </div><div style="margin-left:155px; width:150px;">
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/20" style="padding:6px 0;font-size:14px;">Adobe After Effects</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/21" style="padding:6px 0;font-size:14px;">Adobe Premiere</a>
+                                                                                                <a class="no-sf-menu" href="http://render.ru/books/29" style="padding:6px 0;font-size:14px;">Adobe Illustrator</a>
+                                                                                            </div>
+                            <div class="clearfix" style="height:1px;">&nbsp;</div>
+                        </li>
+                    </ul>
+                </li>
+                            </ul>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/xen/">Форум</a>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/forum/persons.php" class="sf-with-ul">Сообщество<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/forum/persons.php">Сообщество</a></li>
+                <li class="limenu1 border_radius_tr"><a href="http://vip.render.ru/">VIP-аккаунты</a></li>
+                                <li class="limenu1"><a href="http://render.ru/forum/persons.php">Наши лица</a></li>
+                <li class="limenu1"><a href="http://render.ru/user/users_groups.php">Пользователи</a></li>
+                <li class="limenu1 border_radius_bottom"><a href="http://render.ru/files/">Файлы</a></li>
+            </ul>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/user/bloglist.php">Блоги</a>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/books/index.php?book_cat=0" class="sf-with-ul">Статьи<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/books/">Статьи</a></li>
+                <li class="limenu1 border_radius_tr"><a href="http://render.ru/books/31">Эксклюзив</a></li>
+                <li class="limenu1"><a href="http://render.ru/books/3">Обзоры</a></li>
+                <li class="limenu1"><a href="http://render.ru/books/32">Переводы</a></li>
+                                <li class="limenu1"><a href="http://render.ru/download/">PDF-журнал</a></li>
+                <li class="limenu1"><a href="http://render.ru/news/">Новости</a></li>
+                <li class="limenu1"><a href="http://render.ru/news/?rub_id=3">Видео в сети</a></li>
+                <li class="limenu1"><a href="http://render.ru/events/">События</a></li>
+                <li class="limenu1 border_radius_bottom"><a href="http://render.ru/pbooks/">Статьи партнеров</a></li>
+            </ul>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/vacancy/vacancy.php" class="sf-with-ul">Работа<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a>Работа</a></li>
+                <li class="limenu1 mm_arrow">
+                    <a href="http://render.ru/company/" class="sf-with-ul">Компании<span class="sf-sub-indicator"> »</span></a>
+                    <ul class="limenu2" style="display: none; visibility: hidden;">
+                        <li class="limenu2 limenudbl2 border_radius_right">
+                                                    <a href="http://render.ru/user/profile.php?prof_type=vacancy">Разместить&nbsp;вакансию</a>
+                                                </li>
+                    </ul>
+                </li>
+                <li class="limenu1"><a href="http://render.ru/vacancy/freelance.php">Фриланс</a></li>
+                <li class="limenu1"><a href="http://render.ru/vacancy/vacancy.php">Вакансии</a></li>
+                <li class="limenu1"><a href="http://render.ru/allresume/">Резюме</a></li>
+                                <li class="limenu1"><a href="http://render.ru/user/profile.php?prof_type=vacancy">Мои вакансии</a></li>
+                <li class="limenu1 border_radius_bottom"><a href="http://render.ru/user/profile.php?prof_type=anketa">Создать резюме</a></li>
+            </ul>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/center/center.php?mp=list" class="sf-with-ul">Курсы<span class="sf-sub-indicator"> »</span></a>
+            <ul class="limenu1" style="display: none; visibility: hidden;">
+                <li class="limenudbl1 border_radius_top"><a href="http://render.ru/center/center.php?mp=list">Курсы</a></li>
+                <li class="limenu1 border_radius_tr"><a href="http://render.ru/center/center.php?mp=about">О курсах RENDER.RU</a></li>
+                <li class="limenu1"><a href="http://render.ru/center/center.php?mp=list">Список курсов</a></li>
+                <li class="limenu1"><a href="http://render.ru/center/center.php?mp=price">Расписание и цены</a></li>
+                <li class="limenu1"><a href="http://render.ru/center/center.php?mp=teachers">Преподаватели</a></li>
+                <li class="limenu1"><a href="http://render.ru/center/center.php?mp=autodesk_certificat">Сертификат Autodesk</a></li>
+                <li class="limenu1"><a href="http://render.ru/center/reg.php">Записаться на курсы</a></li>
+                <li class="limenu1 border_radius_bottom"><a href="http://render.ru/center/center.php?mp=contacts">Контакты</a></li>
+            </ul>
+        </li>
+
+        <li class="limenu0">
+            <a href="http://render.ru/outsourcing/">Сеть аутсорсинга</a>
+        </li>
+
+    </ul>
+</nav>    
+<div class="account_block">
+    Здравствуйте, Гость!
+    <div class="personal_menu">
+        <div class="personal_menu_body login-back">
+                        <div class="login-form-border">
+                <div class="auth-title">Авторизация:</div>
+                <form id="login" class="xenForm " method="post" action="http://render.ru/xen/index.php?login/login">
+                    <div class="grey_color">email:</div>
+                    <input tabindex="105" id="ctrl_not_registered" value="0" name="register" type="hidden">
+                    <div><input tabindex="101" class="textCtrl" id="LoginControl" name="login" size="20" type="text"></div>
+                    <div class="grey_color">пароль:</div>
+                    <div><input tabindex="102" id="ctrl_password" class="textCtrl" name="password" size="20" type="password"></div>
+                    <div>
+                        <input id="xf-submit" data-signupphrase="Регистрация" data-loginphrase="Вход" tabindex="104" value="Вход" class="button primary btn" type="submit">
+                        <label class="rememberPassword" for="ctrl_remember">
+                            <input id="ctrl_remember" tabindex="103" value="1" name="remember" checked="checked" type="checkbox">
+                            Запомнить меня
+                        </label>
+                    </div>
+                    <div class="forgot-pass-box">
+                        <a href="http://render.ru/user/remember.php" class="grey_color">Забыли пароль?</a><br>
+                        <a href="http://render.ru/user/reg.php" class="grey_color">Регистрация</a>
+                    </div>
+                    <input value="1" name="cookie_check" type="hidden">
+                    <input id="xf-redirect" value="http://render.ru/books/show_book.php?book_id=3255" name="redirect" type="hidden">
+                    <input value="" name="_xfToken" type="hidden">
+                </form>
+            </div>
+                    </div>
+        <div class="bottom_tab grey">
+                            <a href="#"><span class=""></span></a>  <span class="arrows_wrap"><a href="#" class="tab_open_switch">Авторизация</a></span>  <a href="http://render.ru/books/show_book.php?action=logout"></a>
+                    </div>
+    </div>
+</div>        <div class="search">
+        <a href="http://render.ru/search/">Поиск <span class="search_icon"></span></a>
+    </div>
+    <div class="language_select clearfix">
+        <a href="#" class="selected" title="В разработке">Рус.</a> <a href="#" title="В разработке">Eng.</a>
+    </div>
+</div><!--! end of .fixed_width_block --></header>
+
+        <div id="main" role="main">
+            <div class="fixed_width_block clearfix">
+                                
+                                    
+<script type="text/javascript">
+    jQuery(document).ready(function(){ 
+        
+        
+        $("#gallery_scroll_box li").css('height', 97).css('width', 170);
+        $("#gallery_scroll").css('width', 97).css('width', 1020).show();
+        $("#gallery_scroll_box .ul_scroll").css('width', 7140).css('left', -2040);
+        
+        //$("#gallery_scroll_box a").show();
+        //$("#gallery_scroll_box .image").show();
+        $("#gallery_scroll_box").show();
+        $("#gallery_scroll").jCarouselLite({
+            btnNext: ".scroll_next",
+            btnPrev: ".scroll_prev",
+            visible: 6,
+            scroll:6,
+            mouseWheel: true
+        }).css('z-index',0);
+    });
+    
+</script>
+
+<div id="gallery_scroll_back">
+<div id="gallery_scroll_box" style="max-height: 129px;">
+    <a href="#" class="scroll_prev"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/spacer.gif" alt="" width="36" height="69"></a>
+    <a href="#" class="scroll_next"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/spacer.gif" alt="" width="36" height="69"></a>
+    <div id="gallery_scroll" style="width: 1020px; visibility: visible; overflow: hidden; position: relative; z-index: 0; left: 0px;">
+        <ul class="ul_scroll" style="list-style-type: none; width: 7140px; left: -1020px; margin: 0px; padding: 0px; position: relative; z-index: 1;"><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121570#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type anim"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121568#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482094464760780_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121565#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482086071835551_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121564#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482080597373762_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121562#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482079435763130_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121560#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482078244614976_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121666#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482415594455342_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121656#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482386010791684_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121655#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482385347804253_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121650#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482345315510120_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121647#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482342030778159_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121643#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482326298940720_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121639#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482313218187969_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121637#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482308827262775_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121636#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482308110585977_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121634#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482307287529498_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121628#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482262817801037_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121622#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/148224107220434_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121611#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482225902671655_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121609#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482227580521554_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121597#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482175927968185_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121596#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482174251844846_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121594#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482164321965136_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121590#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482161270724468_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121587#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482160000409619_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121583#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482150849214365_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121576#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482132987617140_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121574#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482132859166074_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121573#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482138521688196_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121571#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482099043308167_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121570#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type anim"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121568#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482094464760780_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121565#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482086071835551_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121564#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482080597373762_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121562#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482079435763130_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li>
+                    <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121560#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482078244614976_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type arch"></div>
+            </li>
+            <li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121666#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482415594455342_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_3d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121656#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482386010791684_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121655#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482385347804253_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121650#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482345315510120_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121647#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482342030778159_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li><li style="height: 97px; width: 170px; overflow: hidden; float: left;">
+                <a href="http://render.ru/gallery/work/121643#work">
+                    <img class="image" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1482326298940720_0.jpg" alt="" width="170" height="96">
+                </a>
+                <div class="preview_img_type main_2d"></div>
+            </li></ul>
+    </div>
+</div>
+</div>                                
+                <div class="home_main inner">
+                                        
+                                        
+                    <div class="main_content">
+                        
+                                                                                <div align="center"><a href="http://render.ru/banner/go.php?id=94&amp;t=1482425825"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/1bb.gif"></a></div>                                                                        
+                        <link href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/lightbox.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            links = $('#book-text a');
+            links.each(function () {
+                img = $(this).find('img');
+                if ($(img).length > 0) {
+                    $(this).attr("data-lightbox", "image-1");
+                }
+            });
+        });
+    </script>
+    <script src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/light-box.js"></script>
+
+
+<section id="lessons">
+    <article itemscope="" itemtype="http://schema.org/Article">
+        <header>
+            <h2 style="display:inline-block;">
+                <a href="http://render.ru/books/index.php?book_cat=42" style="font-size:18px">
+                    Уроки: Blender
+                </a> →
+            </h2>
+
+            <h1 itemprop="headline name" style="display:inline-block;">
+                Настройки рендера Cycles
+            </h1>
+
+            
+        </header>
+        <p>
+                                </p><div id="book-text" itemprop="articleBody">
+            <p>Данная статья раскроет все параметры присутствующие в 
+меню: Sampling,&nbsp;Volume Sampling и&nbsp;Light Paths. С помощью 
+данных меню производится большинство&nbsp;настроек качества и скорости 
+рендера Cycles. Применяя&nbsp;их на практике Вы сможете добиться лучшего
+ качества за меньше время.</p>
+<p>Прежде чем начать, стоит сказать пару слов об интеграторе. 
+Интергратор — это алгоритм использующийся для вычисления освещения. В 
+настоящее время Cycles поддерживает алгоритм трассировки прямых лучей. 
+Это очень хорошо работает для большинства типов освещения, но плохо 
+работает в очень сложных сценах, особенно если в них присутствует 
+каустика.</p>
+<p><strong>Sampling</strong></p>
+<p>Есть два режима интегратора которые могут быть использованы:&nbsp;<span>path tracing</span>&nbsp;и&nbsp;<span>branched path tracing</span>.
+ При использовании режима path tracing луч будет отскакивать от каждого 
+типа поверхности один раз и выбирать всего один цвет. При таком подходе 
+вычисления происходят довольно быстро, но требуют большего количества 
+семплов, чтобы избавится от шума.</p>
+<ul>
+<li>
+<p><strong>Render Samples<br></strong>Количество путей трассировки для каждого пикселя в финальной визуализации. Чем большее значение, тем меньше шума.</p>
+</li>
+<li>
+<p><strong>Preview Samples<br></strong>Количество путей трассировки для каждого пикселя в окне 3D-вида.</p>
+</li>
+</ul>
+<p class="alert info_msg"><em>При значении 0 рендеринг будет происходить до тех пор, пока Вы его не прервете.</em></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td>
+<p style="text-align: center;"><em><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/samples-1.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/samples-1.jpg" alt="" width="400" height="230"></a></em><br></em><strong style="text-align: center;"><em>samples 1</em></strong></p>
+<p style="text-align: center;"><em><strong><em><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/samples-10.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/samples-10.jpg" alt="" width="400" height="230"></a></em><br>samples 10</em></strong></em></p>
+</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Seed</strong><br>Устанавливает различные шаблоны шума для интегратора.</li>
+</ul>
+<p>Ниже анимация движения куба со значением Seed равным&nbsp;<span>0</span>. Как можно заметить, белые/черные точки находятся в одном и том же месте изображения вне зависимости от местоположения куба.</p>
+<p class="alert info_msg"><em><em><strong><em><em><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/seed-0.gif" alt="" width="600" height="345"><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/seed-0.gif" target="_blank"><br></a></em></em></strong></em></em>Здесь
+ же, для каждого кадра анимации установлено различное значение параметра
+ Seed. В случае шумных анимаций с малым количеством семплов используйте 
+данный параметр.<br><br><em><em><strong><em><em><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/seed-3.gif" alt="" width="600" height="345"></em></em></strong></em></em><em><em><strong><em><em></em></em></strong></em></em></p>
+<ul>
+<li><strong>Clamp Direct<br></strong><span style="text-align: justify;">Удаляет все прямые лучи превышающие заданный уровень. Это помогает предотвратить белые пиксели в ущерб интенсивности освещения.</span></li>
+</ul>
+<ul>
+<li><strong>Clamp Indirect<br></strong><span style="text-align: justify;">Удаляет
+ все отраженные лучи превышающие заданный уровень. Это помогает 
+предотвратить белые пиксели в ущерб интенсивности освещения.</span></li>
+</ul>
+<p>На изображении ниже сцена с отключенным параметром Clamp (оба в 
+значении 0). Яркое пятно на полу — это прямой свет, падающий на него от 
+источника света. Практически все остальное — это отраженный свет. 
+Плоскости слева назначен шейдер Glossy, а той что в воздухе — Diffuse.</p>
+<p class="alert info_msg" style="text-align: center;"><em><em><strong><em><em><em><em><strong><em><em><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/clamp0.jpg" alt="" width="600" height="345"></em></em></strong></em></em><br></em></em></strong></em></em>Ниже
+ Вы можете наглядно увидеть разницу между удалением части прямых и 
+отраженных лучей. Шума становится значительно меньше, но вместе с ним и 
+освещения.<em><em><strong><em><em><br></em></em></strong></em></em></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td>
+<p style="text-align: center;"><em><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/clamp-direct-05.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/clamp-direct-05.jpg" alt="" width="450" height="259"></a></em><br></em><strong><em><br><span>Clamp Direct 0,5&nbsp;</span></em></strong></p>
+<p style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/clamp-indirect-05.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/clamp-indirect-05.jpg" alt="" width="450" height="259"></a></em><br><br><span>Clamp Indirect 0,5</span></strong></em></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>При использовании режима&nbsp;<span>branched path tracing</span>&nbsp;у
+ Вас есть возможность установить количество отскоков луча для каждого 
+типа шейдера. Это очень полезно в сценах, где, например, доминируют 
+диффузные шейдеры и отсутствуют шейдеры объема. Вы можете установить 
+нужное количество проходов для диффузного щейдера и добиться хорошего 
+качества и убрать полностью объем, тем самым сохранив время рендеринга. 
+Чтобы добиться такого же качества диффузного шейдера как при 250 семплах
+ (режим path tracing), вам необходимо установить 10 AA samples и 25 
+diffuse samples. 25 diffuse samples — это количество отскоков луча для 
+каждого AA семпла (10 Х 25 = 250). К счастью, арифметикой заниматься не 
+придется, потому как все итоговые значения выводятся внизу данного меню.
+ А теперь немного подробнее…</p>
+<ul>
+<li><strong>AA Render Samples</strong><br>Количество семплов&nbsp;для каждого пикселя в финальной визуализации. Чем большее значение, тем сглаженнее объект.</li>
+<li><strong>AA Preview Samples</strong><br>Количество семплов&nbsp;для каждого пикселя в окне 3D-вида.</li>
+</ul>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/AAsamples-0.jpg" alt="" width="450" height="259"><br><br></a></em></strong></em>AA Samples 0<em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank"><br></a></em></strong></em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-4.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/AAsamples-4.jpg" alt="" width="450" height="259"></a>&nbsp;<br><br></em></strong></em>AA Samples 4</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Diffuse Samples</strong><br>Количество диффузных семплов для каждого семпла&nbsp;АА.</li>
+<li><strong>Glossy Samples</strong><br>Количество семплов отражения для каждого семпла АА.</li>
+</ul>
+<p>На изображениях видно как можно улучшить качество отдельных поверхностей не затрагивая остальные:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples1-Diffuse4.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/AAsamples1-Diffuse4.jpg" alt="" width="450" height="259"><br><br></a></em></strong></em><span>Diffuse 4 Glossy 0</span><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank"><br></a></em></strong></em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples1-Glossy4.jpg" target="_blank" data-lightbox="image-1"><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/AAsamples1-Glossy4.jpg" alt="" width="450" height="259"></a>&nbsp;<br></strong></em><span>Diffuse 0 Glossy 4</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Transmission Samples</strong><br>Количество семплов прозрачности для каждого семпла АА.</li>
+<li><strong>AO Samples</strong><br>Количество AO семплов для каждого семпла АА.</li>
+<li><strong>Mesh Light Samples</strong><br>Количество семплов светящихся объектов (emission) для каждого семпла АА.</li>
+<li><strong>Subsurface Samples</strong><br>Количество семплов подповерхностного рассеивания для каждого семпла АА.</li>
+<li><strong>Volume Samples</strong><br>Количество семплов объема для каждого семпла АА.</li>
+</ul>
+<ul>
+<li><strong>Sample All Direct Lights</strong><br>Производит выборку для всех прямых источников света, вместо одного выбранного в случайном порядке.</li>
+<li><strong>Sample All Indirect Lights</strong><br>Производит выборку для всех отраженных источников света, вместо одного выбранного в случайном порядке.</li>
+</ul>
+<p>Сюзанну освещает три лампы типа Point:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/sample-lights-off-8AA.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/sample-lights-off-8AA.jpg" alt="" width="450" height="259"><br><br></a></em></strong></em><span>Sample Lights off&nbsp;</span><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank"><br></a></em></strong></em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/sample-lights-on-8AA.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/sample-lights-on-8AA.jpg" alt="" width="450" height="259"></a></em></strong></em>&nbsp;<br></strong></em><br><span>Sample Lights on</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Square Samples</strong><br>Возвести в квадрат все семплы.</li>
+</ul>
+<p>Очень удобно устанавливать высокие значения семплов не вводя большие числа. 4 AAx3 Glosyy = 12 samples. 12×12=144:</p>
+<p class="alert info_msg"><em><strong><em><strong><em><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/square.png" alt="" width="490" height="381"></em></strong></em></strong></em></p>
+<p>Также в данном меню присутствуют две предустановленные настройки 
+(Final и Preview), которые Вы можете дополнить любым количеством 
+собственных, чтобы каждый раз не проделывать одно и тоже.</p>
+<p><strong>Volume Sampling</strong></p>
+<ul>
+<li><strong>Step Size</strong><br>Расстояние между 
+семплами&nbsp;шейдерных объемов. Низкие значения дают более точные 
+результаты, но также увеличивается время визуализации.</li>
+</ul>
+<p>Для наглядности я увеличил Step Size до&nbsp;1. Как видите качество 
+огня и дыма плохое, но и рендер занял всего&nbsp;6,8&nbsp;секунды:</p>
+<p style="text-align: center;"><em><strong><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/step-size-168.jpg" target="_blank" data-lightbox="image-1"><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/step-size-168.jpg" alt="" width="450" height="259"></a></em></strong></em></strong></em><span><br>А теперь сравните два изображения со значением по умолчанию (0,1) и очень низким значением (0,01):</span></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/step-size-01358.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/step-size-01358.jpg" alt="" width="450" height="259"><br><br></a></em></strong></em><span>Step Size 0.1 (35,8 секунд)</span><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank"><br></a></em></strong></em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/step-size-0015275.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/step-size-0015275.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Step Size 0.01 (5,27 минут)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span>При 10 семплах визуальная разница отсутствует, зато время рендера во втором случае возросло в 10 раз.</span></p>
+<ul>
+<li><strong>Max Steps</strong><br>Максимальное количество шагов через объем. Низкие значения уменьшают время рендеринга, но также удаляют часть объема.</li>
+</ul>
+<p>На изображении ниже рендер со значением по умолчанию (1024). На него потребовалось&nbsp;<span>35,2</span>секунды:</p>
+<p style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/max-steps-1024-352.jpg" target="_blank" data-lightbox="image-1"><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/max-steps-1024-352.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></strong></em><br><span>А теперь еще два рендера с более низкими значениями:</span></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td style="text-align: center;"><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/max-steps-50-352.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/max-steps-50-352.jpg" alt="" width="450"><br></a></em></strong></em><br><span>Max Step 50 (35,2 секунд)</span><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/AAsamples-0.jpg" target="_blank"><br></a></em></strong></em></td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/max-steps-10-132.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/max-steps-10-132.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Max Step 10 (13,2 секунд)</span></td>
+</tr>
+</tbody>
+</table>
+<p><span>Вы могли заметить, что при значении 1024, что при 50 ни качество, ни время не изменились</span><span>абсолютно</span><span>, но при 10 у нас почти отсутствует объем и время соответственно уменьшается.</span></p>
+<p>Как итог можно сказать, что данные параметры по умолчанию отлично 
+подходят для большинства задач и регулировать их нужно лишь в особых 
+случаях и пониманием дела.</p>
+<h3>Light Paths</h3>
+<ul>
+<li><strong>Transparency Max</strong><br>Максимальное количество отскоков для прозрачных объектов.</li>
+<li><strong>Transparency Min</strong><br>Минимальное количество отскоков для прозрачных объектов.</li>
+</ul>
+<p><em>Чтобы избежать светлячков и черных частей изображения устанавливайте оба значения одинаковыми.<br><br></em>Ниже
+ изображение из 20 прозрачных паралелепипедов. При значении 8 мы видим 
+лишь сквозь 8 плоскостей (тоесть через 4 паралелепипеда), а дальше свет 
+не проходит. При значении 30 все объекты становятся прозрачными:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transparency8.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transparency8.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;">Transparency Max/Min 8</div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transparency30.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transparency30.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Transparency Max/Min 30</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Transparent Shadows</strong><br>Включает отбрасывание теней от прозрачных объектов. При отключении тень будет как от диффузного объекта.</li>
+</ul>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transparency-shadow-off.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transparency-shadow-off.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Transparency Shadow Off</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transparency-shadow-on.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transparency-shadow-on.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Transparency Shadow On</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Reflective Caustics</strong><br>Включает/выключает каустику отраженную от поверхностей объектов.</li>
+<li><strong>Refractive Caustics</strong><br>Включает/выключает каустику проходящую сквозь объекты.</li>
+</ul>
+<p>На изображении ниже оба типа каустики: Белые пиксели вокруг 
+зеркального куба — это Reflective каустика. Белые пиксели за диамантом —
+ это Refractive каустика.</p>
+<p style="text-align: center;"><em><strong><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/caustic.jpg" target="_blank" data-lightbox="image-1"><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/caustic.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></strong></em><span><br>Результаты с отключением каустик:</span></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/caustic-reflactive-off.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/caustic-reflactive-off.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Reflective Off</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/caustic-refractive-off.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/caustic-refractive-off.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>&nbsp;Refractive Off</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Filter Glossy</strong><br>Значения больше&nbsp;<span>0</span>&nbsp;размывают отраженную каустику. Используется для предотвращения появления белых пикселей.&nbsp;</li>
+</ul>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/filter-glossy-0.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/filter-glossy-0.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Filter Glossy 0&nbsp;</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/filter-glossy-02.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/filter-glossy-02.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br>&nbsp;<span>Filter Glossy 0,2</span></td>
+</tr>
+</tbody>
+</table>
+<p><span>Данная опция не плохая альтернатива полному отключению каустики.</span></p>
+<ul>
+<li><strong>Max Bounces</strong><br>Максимальное количество отскоков света.</li>
+<li><strong>Min Bounces</strong><br>Минимальное количество отскоков света.</li>
+</ul>
+<p><em>Также рекомендуется устанавливать минимум и максимум идентичными.</em></p>
+<ul>
+<li><strong>Diffuse Bounces</strong><br>Максимальное количество отскоков для диффузных материалов.</li>
+</ul>
+<p>При значении 0 свет будет попадать на объект и полностью им 
+поглощаться. На картинке ниже красный куб никак не влияет на свое 
+окружение (красный цвет присутствует лишь на нем). В реальности же 
+такого не бывает:</p>
+<p><em></em><em><strong><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/diffuse-bounces-0.jpg" target="_blank" data-lightbox="image-1"><img style="display: block; margin-left: auto; margin-right: auto;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/diffuse-bounces-0.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em></strong></em><span><br>При
+ значений 1 луч будет отскакивать от красного куба на пол и правый куб, а
+ при 2 еще и на левый куб от правого. Таким образом, чем выше будет 
+значение, тем светлее (потому как много белых объектов) и краснее (из-за
+ красного куба) будет становится сцена.</span></p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/diffuse-bounces-1.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/diffuse-bounces-1.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Diffuse Bounces 1</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/diffuse-bounces-3.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/diffuse-bounces-3.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Diffuse Bounces 3</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Glossy Bounces</strong><br>Максимальное количество отскоков для глянцевых материалов.</li>
+</ul>
+<p>На изображении ниже две плоскости с шейдером Glossy (два зеркала 
+направленных друг на друга). В зависимости от того, сколько отскоков Вы 
+установите, столько раз они отразятся друг в друге:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/glossy-bounces-4.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/glossy-bounces-4.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Glossy Bounces 4</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/glossy-bounces-8.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/glossy-bounces-8.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br>Diffuse Bounces 3</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Transmission Bounces</strong><br>Максимальное количество отскоков для прозрачных материалов.</li>
+</ul>
+<p>На изображении ниже три сферы расположенных одна в одной как матрешки
+ с шейдером Transculent. Позади них находится лампа. При низких 
+значениях практически весь свет остается внутри сфер:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transmission-bounces-1.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transmission-bounces-1.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Transmission Bounces 1</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/transmission-bounces-12.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/transmission-bounces-12.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Transmission Bounces 12</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Volume Bounces</strong><br>Максимальное количество отскоков для объемов.</li>
+</ul>
+<p>На изображении два куба с шейдером Volume Scatter. Чем больше отскоков, тем реалистичнее объем:</p>
+<table border="0" align="center">
+<tbody>
+<tr>
+<td><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/volume-bounces-0.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/volume-bounces-0.jpg" alt="" width="450" height="259"></a></em></strong></em><br>
+<div class="ba_info_bg_l">&nbsp;</div>
+<div class="ba_info_text" style="text-align: center;"><span>Volume Bounces 0&nbsp;</span></div>
+</td>
+</tr>
+<tr>
+<td style="text-align: center;"><em><strong><em><strong><em><em><strong><em><em><strong><em><em><strong><em><em><strong><em><em><strong><em><a href="http://render.ru/images/uploads/Image/Tutor/blender/17/volume-bounces-2.jpg" target="_blank" data-lightbox="image-1"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/volume-bounces-2.jpg" alt="" width="450" height="259"></a></em></strong></em></em></strong></em></em></strong></em></em></strong></em></em></strong></em></em></strong></em>&nbsp;<br></strong></em><br><span>Volume Bounces 2</span></td>
+</tr>
+</tbody>
+</table>
+<p><span>Также как и в меню Sampling в данном меню присутствуют 
+предустановленные настройки, которые Вы можете дополнить любым 
+количеством собственных, чтобы каждый раз не проделывать одно и тоже.</span></p>
+<p>Включение и увеличение большинства выше перечисленных параметров 
+улучшает Ваш рендер и добавляет ему реализма ценой продолжительности 
+времени визуализации. Поэтому приходится все время искать золотую 
+середину, чтобы и красиво было и увидели не только внуки :)<br>Надеюсь 
+теперь Вы немного лучше стали понимать как ведет себя луч света, какие 
+параметры больше всего влияют на количество шума и как ускорить время 
+рендеринга отключив просчет того, чего в Вашей сцене попросту нет. Всем 
+быстрых и качественных рендеров и до встречи в следующих уроках!<br><br><em><strong><a href="http://blender3d.com.ua/nastroyki-rendera-cycles/" target="_blank">Оригинал статьи.</a>&nbsp;</strong></em></p>
+        </div>
+                <p></p>
+
+        
+        <div class="book_options" style="text-align:right;padding-bottom:25px;">
+            <span class="icon_eye">11019</span>
+            <span class="date_icon"></span>
+            <time datetime="2015-06-17" pubdate="pubdate" itemprop="datePublished" content="2015-06-17">17.06.2015</time>
+                            <span style="margin-left:20px;">Автор:</span>
+                <span itemprop="author">blender3d  </span>
+                                </div>
+
+        <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_017.js"> </script>
+<link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/tipsy.css" type="text/css">
+
+<div id="vote-box">
+            
+        <script type="text/javascript">
+            jQuery(function(){
+                jQuery(".voteone input.rate-star").rating({
+                    callback: function(value, link){
+                        $.ajax({
+                            type: "POST",
+                            url: '/vote/setvote.php',
+                            data: 'vote_rub='+value+'&rating='+link.title,
+                            success: function (data, textStatus) {
+                                if (data) {
+                                    $('div.vote'+value+' span.rate').html(data/100);
+                                    $('#ballsum').html(parseFloat($('#ball1').html())+parseFloat($('#ball2').html()));
+                                    $('#votecount').html(parseFloat($('#votecount').html())+1);
+                                    $('div.vote'+value).addClass('alreadyvote');
+                                    $('div.vote'+value+' input').rating('disable');
+                                    $('div.vote'+value+' .del-vote, div.vote'+value+' .del-vote img').show();
+                                    $('div.alreadyvote .star-rating').click(function() {
+                                        alert("Вы уже уже отдали свой голос в этом голосовании.");
+                                    });
+                                }
+                            }
+                        });
+                        return false;
+                    }
+                });
+                $('div.nouser .star-rating').click(function() {
+                    alert("Голосовать могут только авторизованные пользователи.");
+                    return false;
+                });
+                $('div.alreadyvote .star-rating').click(function() {
+                    alert("Вы уже уже отдали свой голос в этом голосовании.");
+                    return false;
+                });
+                $('a.nouser').click(function() {
+                    alert("Оценки могут просматривать только зарегистрированные пользователи.");
+                    return false;
+                });
+                $("#show_vote").fancybox({
+                    minWidth	: 545,
+                    fitToView	: false,
+                    width	: '70%',
+                    height	: '70%',
+                    autoSize	: true,
+                    closeBtn    : true,
+                    closeClick	: false,
+                    openEffect	: 'none',
+                    closeEffect	: 'none',
+                    padding     : 6
+                });
+            });
+        </script>
+        
+
+        <div class="left-box">
+            <div class="vote-votes el-box vote-1 vote106518">
+                <span class="small_text">Актуальность:</span>
+                <span id="ball1" class="rate">542</span>
+                            </div>
+            <div class="vote-votes el-box vote-2 vote106517">
+                <span class="small_text">Качество:</span>
+                <span id="ball2" class="rate">540</span>
+                            </div>
+            <div class="el-box">
+                <span style="color:#686868">Суммарный балл:</span>
+                <span id="ballsum" class="crimson_color" style="font-size:18px;">1082</span>
+            </div>
+                    </div>
+        <div class="right-box">
+            <div class="el-box vote-1 vote106518 nouser is-author is-author">
+                <div class="voteone rate-form">
+                                            <span class="star-rating-control"><div class="rating-cancel" style="display: none;"><a title="Cancel Rating"></a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="1">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="2">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="3">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="4">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="5">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="6">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="7">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="8">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="9">106518</a></div><div class="star-rating rater-0 rate-star star-rating-applied star-rating-readonly"><a title="10">106518</a></div></span><input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="1" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="2" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="3" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="4" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="5" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="6" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="7" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="8" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="9" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star1" class="rate-star star-rating-applied star-rating-readonly" value="106518" title="10" disabled="disabled" style="display: none;" type="radio">
+                                    </div>
+            </div>
+            <div class="el-box vote-2 vote106517 nouser is-author is-author">
+                <div class="voteone rate-form">
+                                            <span class="star-rating-control"><div class="rating-cancel" style="display: none;"><a title="Cancel Rating"></a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="1">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="2">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="3">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="4">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="5">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="6">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="7">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="8">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="9">106517</a></div><div class="star-rating rater-1 rate-star star-rating-applied star-rating-readonly"><a title="10">106517</a></div></span><input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="1" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="2" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="3" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="4" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="5" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="6" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="7" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="8" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="9" disabled="disabled" style="display: none;" type="radio">
+                                            <input name="star2" class="rate-star star-rating-applied star-rating-readonly" value="106517" title="10" disabled="disabled" style="display: none;" type="radio">
+                                    </div>
+            </div>
+            <div class="el-box sum-ball">
+                <span class="vote_gray">Голосов:</span>
+                <span id="votecount" class="vote_gray" style="font-size:18px;">16</span>
+                <span class="pad_left"></span>
+                                    <a class="nouser vote_gray" href="#" rel="nofollow">оценки</a>
+                            </div>
+        </div>
+
+        <div class="clearfix_"></div>
+</div>
+        <div class="social_battons">
+        
+    <div id="sb-r2-vk">
+        
+        <div id="vk_like" style="height: 22px; width: 115px; background: transparent none repeat scroll 0% 0%; position: relative; clear: both;"><iframe name="fXD5bd8c" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/widget_like.htm" scrolling="no" id="vkwidget1" style="overflow: hidden; height: 22px; width: 115px; z-index: 150;" width="100%" height="22" frameborder="0"></iframe></div>
+        <script type="text/javascript">
+        VK.Widgets.Like("vk_like", {type: "mini"});
+        </script>
+        
+    </div>
+    
+    
+    <div id="sb-r2-tw">
+        <iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 80px; height: 20px;" title="Twitter Tweet Button" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/tweet_button.htm" frameborder="0"></iframe>
+        <script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/widgets.js"></script>
+    </div>
+    
+    <div id="sb-r2-fb">
+        <div class="fb-like fb_iframe_widget" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=120&amp;href=http%3A%2F%2Frender.ru%2Fbooks%2Fshow_book.php%3Fbook_id%3D3255&amp;layout=button_count&amp;locale=ru_RU&amp;sdk=joey&amp;share=false&amp;show_faces=true"><span style="vertical-align: bottom; width: 107px; height: 20px;"><iframe name="f14c48af04f8af4" allowtransparency="true" allowfullscreen="true" scrolling="no" title="fb:like Facebook Social Plugin" style="border: medium none; visibility: visible; width: 107px; height: 20px;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/like.htm" class="" width="1000px" height="1000px" frameborder="0"></iframe></span></div>
+    </div>
+
+    <div id="sb-r2-gg">
+        <div style="text-indent: 0px; margin: 0px; padding: 0px; background: transparent none repeat scroll 0% 0%; border-style: none; float: none; line-height: normal; font-size: 1px; vertical-align: baseline; display: inline-block; width: 90px; height: 20px;" id="___plusone_0"><iframe hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position: static; top: 0px; width: 90px; margin: 0px; border-style: none; left: 0px; visibility: visible; height: 20px;" tabindex="0" vspace="0" id="I0_1482472697279" name="I0_1482472697279" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/fastbutton.htm" data-gapiattached="true" title="+1" width="100%" frameborder="0"></iframe></div>
+    </div>
+
+        
+</div>
+                    <div>
+                <b style="color:#686868;">Похожие статьи: </b><br>
+                                    <time datetime="2011-07-11" pubdate="pubdate" style="color:#6E6F6F; font-size:12px;">2011-07-11</time>
+                    <a style="font-size:12px;" href="http://render.ru/books/show_book.php?book_id=1121">«Big Buck Bunny» изнутри. Введение. Структура проекта.</a>
+                    <br>
+                                    <time datetime="2011-06-13" pubdate="pubdate" style="color:#6E6F6F; font-size:12px;">2011-06-13</time>
+                    <a style="font-size:12px;" href="http://render.ru/books/show_book.php?book_id=1086">Создание модели на примере офисного кресла</a>
+                    <br>
+                                    <time datetime="2012-03-13" pubdate="pubdate" style="color:#6E6F6F; font-size:12px;">2012-03-13</time>
+                    <a style="font-size:12px;" href="http://render.ru/books/show_book.php?book_id=1384">Импульсы вдоль кривой</a>
+                    <br>
+                                    <time datetime="2011-06-08" pubdate="pubdate" style="color:#6E6F6F; font-size:12px;">2011-06-08</time>
+                    <a style="font-size:12px;" href="http://render.ru/books/show_book.php?book_id=1083">Видеоурок по Blender 2.5. Создание спирали/пружины</a>
+                    <br>
+                                    <time datetime="2014-12-22" pubdate="pubdate" style="color:#6E6F6F; font-size:12px;">2014-12-22</time>
+                    <a style="font-size:12px;" href="http://render.ru/books/show_book.php?book_id=2855">Для чего blender фотографу?</a>
+                    <br>
+                            </div>
+        
+                    <div style="padding:20px 0 0 0;">
+                <b style="color:#686868;">Категории: </b>
+                                    <a href="http://render.ru/books/?book_cat=42&amp;book_tag=22">Blender</a>
+                                    <a href="http://render.ru/books/?book_cat=42&amp;book_tag=45">2D</a>
+                                    <a href="http://render.ru/books/?book_cat=42&amp;book_tag=46">3D</a>
+                                    <a href="http://render.ru/books/?book_cat=42&amp;book_tag=47">урок</a>
+                            </div>
+        
+        <script defer="defer" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/jquery_014.js"></script>
+<script type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/redactor.js"></script>
+<link rel="stylesheet" href="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/redactor.css">
+
+<script type="text/javascript">
+    areaName = "redactor_editor_doom_id";
+    function pasteCommentQuote(username, com_id){
+
+
+        function getSelection_(){
+            var txt = '';
+            if (txt = window.getSelection)
+                txt = window.getSelection().toString();
+            else
+                txt = document.selection.createRange().text;
+
+            if (txt == ""){
+                txt = document.getElementById(com_id + "_mes").innerHTML;
+            }
+            //jQuery(function(){
+            //    txt = $("#" + com_id + "_mes").text();
+            //});
+            
+            return txt;
+        }
+
+        function insertAtCaret_ (textObj, textFieldValue) {
+            //window.alert(textObj);
+            if(document.all){
+                if (textObj.createTextRange && textObj.caretPos && !window.opera) {
+                    var caretPos = textObj.caretPos;
+                    caretPos.text = caretPos.text.charAt(caretPos.text.length - 1) == ' ' ? textFieldValue + ' ' : textFieldValue;
+                }else{
+                    //textObj.value += textFieldValue;
+                    textObj.innerHTML += textFieldValue;
+                }
+            } else {
+                if(textObj.selectionStart){
+                    var rangeStart = textObj.selectionStart;
+                    var rangeEnd = textObj.selectionEnd;
+                    var tempStr1 = textObj.value.substring(0,rangeStart);
+                    var tempStr2 = textObj.value.substring(rangeEnd, textObj.value.length);
+
+                    textObj.innerHTML = tempStr1 + textFieldValue + tempStr2;
+                    textObj.selectionStart=textObj.selectionEnd = rangeStart + textFieldValue.length;
+                } else {
+                    textObj.innerHTML += textFieldValue;
+                }
+            }
+        }
+
+        cite = '[quote=' + username + ']\n';
+        cite_text = getSelection_();
+        cite_text1 = cite_text.replace(/\<fieldset(.|\s)*?\<\/fieldset\>/g, "");
+        cite += cite_text1;
+        cite += '\n[/quote]';
+        //window.alert(cite_text);
+        if (cite_text != ""){
+            insertAtCaret_(document.getElementById('redactor_editor_doom_id'), cite);
+        }
+        return false;
+    }
+
+    $(document).ready(
+        function(){
+            var buttons = ['bold', 'italic', 'deleted', '|', 'unorderedlist', 'orderedlist', '|', 'link', '|', 'fontcolor', 'backcolor', '|', 'alignleft', 'aligncenter', 'alignright', 'justify' ];
+            $('#comment_input').redactor({id:"sas_id",buttons: buttons, imageUpload: '/js/mylibs/Redactor/upload.php' });
+        }
+    );
+    jQuery(function(){
+
+        $('#comment_submit').click(function(evt) {
+            var submit = $(this);
+            submit.prop('disabled', true);
+            setTimeout(function(){
+                submit.prop('disabled', false);
+            }, 3000);
+            this.form.submit();
+            evt.stopPropagation();
+            evt.preventDefault();
+        })
+
+        jQuery(".vote-plus, .vote-minus").click(function() {
+            ball = $(this).attr('title');
+            com_id = $(this).attr('com');
+            $.ajax({
+            type: "POST",
+            url: '/vote/setcomvote.php',
+            //data: 'com_id='+link.title+'&ball='+value,
+            data: 'com_id='+com_id+'&ball='+ball,
+            success: function (data, textStatus) {
+                if (data) {
+                    $('.num_'+com_id+' .coment-vote-res').html(data);
+                    return false;
+                }
+            }
+            });
+            return false;
+        });    
+	
+    });
+    
+</script>
+
+
+<section class="block_comments">
+    <div style="padding-top:16px;" align="center"><a href="http://render.ru/banner/go.php?id=14"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/sp_16_3.jpg"></a></div>    
+        <div class="clearfix"></div>
+
+
+        <div style="padding-bottom:20px;" align="right">
+    <span class="text"><form method="get" name="pages"><span class="pager"></span></form></span>
+    </div>
+    
+    
+        <div style="padding-top:10px;" align="right">
+    <span class="text"><form method="get" name="pages"><span class="pager"></span></form></span>
+    </div>
+    
+    
+            <div class="clearfix" style="padding-top:30px;" align="center">
+            <div style=" width:309px; height:26px; border:1px solid #AEACAF; background-color:#D6D6D6; font-size:12px; padding-top:10px; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px;">
+                <a href="http://render.ru/user/reg.php">Зарегистрируйтесь</a><span style="color:#747474">, чтобы добавить комментарий.</span>
+            </div>
+        </div>
+    </section>
+    </article>
+</section>                                                    <div style="clear:both;"><div class="side_tab_wrapper clearfix" style="padding: 30px 0 25px 0;" align="center"><a href="http://render.ru/books/show_book.php?book_id=4310"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/b700x120_4310.jpg" alt="" width="700" height="120"></a></div></div>                                                                        <div class="clear-fix" align="right">
+                            <div class="stats-page">
+Эту страницу просмотрели:
+<b>11019</b> уникальных посетителей</div>
+                        </div>
+                                                <div id="partner-links">
+                                                    </div>
+                    </div><!--! end of .main_content -->
+                </div>
+
+                                    <aside class="right_column home_right_column">
+    <div class="second_border">
+                <div class="inner">
+                        <div class="banner-box-510x120"><a href="http://render.ru/banner/go.php?id=3" rel="nofollow"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/place-2.jpg"></a></div>            <div class="right_group_container clearfix" style="text-align:center; padding: 0 32px;">
+                 <section class="side_tab_wrapper" style="">
+                    <center>
+<a href="http://render.ru/download/"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/magazine_12.jpg" class="border" alt="Скачать журнал" border="0"></a><br>
+<a href="http://render.ru/download/">Скачать журнал бесплатно!</a>
+</center>
+                                                        </section>
+                
+                <div class="small_banners" style="text-align:center; padding: 0 32px; margin-left: 0px;padding: 0;">
+                    <a href="http://render.ru/banner/go.php?id=92&amp;t=1481551312"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/3.jpg"></a>                </div>
+
+                            </div><!--! end of .tab_and_banners_container -->
+
+            <section class="side_tab_wrapper">
+    <div class="tab_label vacancies">
+        <h4><a href="http://www.render.ru/vacancy/freelance.php">Фриланс</a></h4>
+    </div>
+    <div class="main_tab vacancies">
+                    <div class="freelance_tab_description">
+                <span class="cost"><span class="crimson_color">Бюджет не указан</span></span>
+                <a href="http://render.ru/vacancy/freelance.php?act=view&amp;id=1867">Изображение упаковки</a><br>
+                <span class="grey_color">Для рекламного макета требуется создать реалистичное...</span>
+            </div>
+            <br>
+                    <div class="freelance_tab_description">
+                <span class="cost"><span class="crimson_color">Бюджет не указан</span></span>
+                <a href="http://render.ru/vacancy/freelance.php?act=view&amp;id=1864">Анимированная рекламная визуализация ювелирных изделий</a><br>
+                <span class="grey_color">Необходимо создать 3D модель если таковой не будет у...</span>
+            </div>
+            <br>
+                    <div class="freelance_tab_description">
+                <span class="cost"><span class="crimson_color">Бюджет не указан</span></span>
+                <a href="http://render.ru/vacancy/freelance.php?act=view&amp;id=1861">Реализация игры на Unimy3D c нуля</a><br>
+                <span class="grey_color">Реализация игру- бродилки, которая будет встроена в...</span>
+            </div>
+            <br>
+            </div>
+</section><section class="side_tab_wrapper">
+    <div class="tab_label articles">
+        <h4>Новые поступления</h4>
+    </div>
+    <div class="main_tab articles">
+        <ul>
+                                    <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">22.12.2016</time> <span class="crimson_color">145</span></span>
+                <span class="grey_color">Уроки → Blender →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4318">Анимация робота-собаки (часть №3)</a>
+            </li>
+                                                <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">21.12.2016</time> <span class="crimson_color">1138</span></span>
+                <span class="grey_color">Статьи → Эксклюзив →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4281">Жизнь CG художника в Таиланде или фриланс под пальмами.</a>
+            </li>
+                                                <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">19.12.2016</time> <span class="crimson_color">1153</span></span>
+                <span class="grey_color">Статьи → Эксклюзив →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4277">Интервью с Косал Сок - супервайзером спецэффектов из студии Ankama Animation</a>
+            </li>
+                                                <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">16.12.2016</time> <span class="crimson_color">421</span></span>
+                <span class="grey_color">Уроки → Adobe After Effects →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4310">Карамельный 3D текст в After Effects с Trapcode TAO</a>
+            </li>
+                                                <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">15.12.2016</time> <span class="crimson_color">1796</span></span>
+                <span class="grey_color">Статьи → Эксклюзив →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4237">Интервью с Владимиром Силкиным</a>
+            </li>
+                                                <li>
+                <span class="articles_date_views"><time datetime="2010-09-15" pubdate="pubdate" class="grey1_color">14.12.2016</time> <span class="crimson_color">568</span></span>
+                <span class="grey_color">Уроки → Adobe After Effects →</span>
+                <a href="http://render.ru/books/show_book.php?book_id=4287">Кремовая 3D абстракция Trapcode TAO в After Effects</a>
+            </li>
+                                </ul>
+    </div>
+</section><section class="side_tab_wrapper"><div class="tab_label vacancies"><h4><a href="http://www.render.ru/vacancy/vacancy.php">Вакансии</a></h4></div><div class="main_tab vacancies"><ul><li><span class="grey_color"><a href="http://render.ru/company/?action=company_info&amp;company_id=1029">Mail.Ru Group</a> → </span> <a href="http://render.ru/vacancy/show_vacancy.php?id=1293">Художник по спецэффектам, FX-Artist (Воронеж) Mail.Ru Group</a><br><span class="crimson_color">60</span> <span class="rub big">P</span><br><span class="grey_color"><small>Mail.Ru Group — лидер восточноевропейского рынка онлайн-развлечений, объединивший лучших российских разработчиков и специалис...</small></span></li><li><span class="grey_color"><a href="http://render.ru/company/?action=company_info&amp;company_id=1029">Mail.Ru Group</a> → </span> <a href="http://render.ru/vacancy/show_vacancy.php?id=1292">Старший Концепт-художник (Allods Team)</a><br><span class="crimson_color">60 000</span> <span class="rub big">P</span><br><span class="grey_color"><small>-отрисовка эскизов кораблей, персонажей, объектов окружения, локаций;
+-взаимодействие с командой;
+-контроль за реализацией ...</small></span></li><li><span class="grey_color"><a href="http://render.ru/company/?action=company_info&amp;company_id=1272">Sperasoft</a> → </span> <a href="http://render.ru/vacancy/show_vacancy.php?id=1291">Art Manager</a><br><span class="crimson_color">Зарплата по согласованию</span><br><span class="grey_color"><small>•	Together with Department Directors, PM’s plans resource allocation for Department, handle ERP resourcing. Responsible to pl...</small></span></li><li><span class="grey_color"><a href="http://render.ru/company/?action=company_info&amp;company_id=1419">DFX Art</a> → </span> <a href="http://render.ru/vacancy/show_vacancy.php?id=1290">2d художник</a><br><span class="crimson_color">80 000-80 000</span> <span class="rub big">P</span><br><span class="grey_color"><small>Отрисовка картин с высокой степенью детализации в высоком разрешении (4К). Персонажи, окружение....</small></span></li></ul></div></section><div class="side_tab_wrapper banner-box-510x120"><a href="http://render.ru/banner/go.php?id=35&amp;t=1482133641"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/4.jpg"></a></div><section class="side_tab_wrapper">
+    <div class="tab_label render_center">
+        <h4>Render.ru Center</h4>
+    </div>
+    <div class="main_tab render_center">
+        <ul>
+                        <li>
+                <time datetime="2010-09-15" pubdate="pubdate" class="grey_color">16.03.2016</time>
+                <a href="http://render.ru/news/news.php?news_id=8143">Дистанционный курс "Основы Autodesk 3ds Max" теперь в 2-х частях</a>
+            </li>
+                        <li>
+                <time datetime="2010-09-15" pubdate="pubdate" class="grey_color">25.02.2016</time>
+                <a href="http://render.ru/news/news.php?news_id=8096">Новый дистанционный курс "ZBrush для Интерьера, Экстерьера и Архитектуры".</a>
+            </li>
+                        <li>
+                <time datetime="2010-09-15" pubdate="pubdate" class="grey_color">02.04.2015</time>
+                <a href="http://render.ru/news/news.php?news_id=7623">Новый курс Render.ru для художников "Концепт арт для игровой индустрии"</a>
+            </li>
+                        <li>
+                <time datetime="2010-09-15" pubdate="pubdate" class="grey_color">09.02.2015</time>
+                <a href="http://render.ru/news/news.php?news_id=7542">Бесплатные уроки от Центра дистанционного обучения RENDER.RU</a>
+            </li>
+                    </ul>
+    </div>
+</section><section class="side_tab_wrapper">
+    <div class="tab_label forum">
+        <h4>Интересные темы</h4>
+    </div>
+    <div class="main_tab forum">
+        <ul>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/227/">Обсуждение конкурса RADA DOORS 2 сезон.</a> →</span> <a href="http://render.ru/xen/index.php?threads/164430/">Обсуждение конкурса RADA DOORS 2 сезон.</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/3/">Maya</a> →</span> <a href="http://render.ru/xen/index.php?threads/164202/">Вопросница 5. Сюда скидываются все вопросы 5</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/95/">Творческие дуэли</a> →</span> <a href="http://render.ru/xen/index.php?threads/164184/">GAME ART Challenge</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/96/">Новинки кино</a> →</span> <a href="http://render.ru/xen/index.php?threads/162923/">Варкрафт</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/220/">Обсуждение конкурса</a> →</span> <a href="http://render.ru/xen/index.php?threads/162191/">Конкурс концепт-арт Shadow Fight 2D</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/78/">Рисунки на скорость</a> →</span> <a href="http://render.ru/xen/index.php?threads/161371/">Рисунки на скорость 2016</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/218/">Unreal Engine</a> →</span> <a href="http://render.ru/xen/index.php?threads/158894/">Ссылки на уроки, статьи, обзоры</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/218/">Unreal Engine</a> →</span> <a href="http://render.ru/xen/index.php?threads/158890/">Официальные видеоуроки от разработчика</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/78/">Рисунки на скорость</a> →</span> <a href="http://render.ru/xen/index.php?threads/158475/">Рисунки на скорость 2015</a>
+            </li>
+                        <li>
+                <span class="grey_color"><a href="http://render.ru/xen/index.php?forums/95/">Творческие дуэли</a> →</span> <a href="http://render.ru/xen/index.php?threads/155904/">Творческие Дуэли ---- заявки на участие</a>
+            </li>
+                    </ul>
+    </div>
+</section>
+
+            <div class="right_group_container clearfix">
+
+                <section class="side_tab_wrapper">
+    <h3>Статистика</h3>
+    <span class="color-gray-555">Всего зарегистрированных:</span> 146 963<br>
+    Сейчас на сайте:
+    <ul>
+        <li>
+            <span class="color-gray-555">зарегистрированных:</span> 58
+        </li>
+        <li>
+            <span class="color-gray-555">незарегистрированных:</span> 534
+        </li>
+    </ul>
+</section>
+
+                <section class="side_tab_wrapper statics_info partner-news">
+                                        <div class="web_counters clearfix">
+                        <a href="http://render.ru/pbooks/">Статьи партнеров</a>
+                                            </div>
+                </section>
+
+            </div>
+
+        </div>
+    </div><!--! end of .second_border -->
+</aside>                               
+                
+            </div><!--! end of .fixed_width_block -->
+        </div><!--! end of #main -->
+        <div class="footer_push">
+        </div>
+    </div> <!--! end of #container -->
+
+    <div class="super-side-panel">
+        <a class="sp-up sp-up-total" href="#"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/page-arrow-up.png" alt="￪"></a>
+    </div>
+
+    <footer role="contentinfo"><div class="fixed_width_block clearfix">
+    <div class="footer-logo">
+        <a href="http://render.ru/"><div id="footer_logo" class="main_logo_back bg_lessons"></div></a>
+    </div>
+    <div class="footer-link-1">
+        <p><a href="http://render.ru/show_page.php?page_name=pr">Реклама</a></p>
+        <p><a href="http://render.ru/show_page.php?page_name=purpose%20and%20mission">Миссия сайта</a></p>
+        <p><a href="http://render.ru/xen/">Форум</a></p>
+        <p><a href="http://render.ru/user/bloglist.php">Блоги</a></p>
+    </div>
+    <div class="footer-link-2">
+        <p><a href="http://render.ru/center/center.php?mp=list">Курсы RENDER.RU</a></p>
+        <p><a href="http://render.ru/download/">Журнал Render Magazine</a></p>
+        <p><a href="http://publishing.render.ru/" rel="nofollow">Издательство render.ru</a></p>
+        <p><a href="http://render.ru/vacancy/vacancy.php">Вакансии</a></p>
+    </div>
+    <div class="footer-link-3">
+        <p><a href="http://render.ru/vacancy/freelance.php">Фриланс</a></p>
+        <p><a href="http://render.ru/gallery/">Галерея</a></p>
+        <p><a href="http://render.ru/books/?book_cat=31">Статьи</a></p>
+        <p><a href="http://render.ru/books/?book_cat=0">Уроки</a></p>
+    </div>
+    <div class="footer-link-4">
+        <p><a href="http://render.ru/show_page.php?page_name=rules">Правила</a></p>
+        <p><a href="http://render.ru/show_page.php?page_name=contacts">Контакты</a></p>
+    </div>
+    <div class="footer-contact">
+        Вопросы и предложения, пожалуйста, отправляйте на адрес <a href="mailto:support@render.ru">support@render.ru</a>
+
+        <!-- begin of Top100 code -->
+
+        <script id="top100Counter" type="text/javascript" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/top100.jcn"></script>
+        <noscript>
+            <a href="http://top100.rambler.ru/navi/3115950/" rel="nofollow">
+                <img src="http://counter.rambler.ru/top100.cnt?3115950" alt="Rambler's Top100" border="0" />
+            </a>
+
+        </noscript>
+        <!-- end of Top100 code -->
+        
+        Присоединяйся к нам в соц. сетях:<br>
+        <a rel="nofollow" target="_blank" href="https://www.facebook.com/groups/render.ru/"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/soc_button_fb.png" alt=""></a>
+        <a rel="nofollow" target="_blank" href="https://twitter.com/renderRu"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/soc_button_twit.png" alt=""></a>
+        <a rel="nofollow" target="_blank" href="https://vk.com/render_ru"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/soc_button_vk.png" alt=""></a>
+        <a rel="nofollow" target="_blank" href="https://plus.google.com/b/103334409369664867952/103334409369664867952/posts"><img src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/soc_button_goog.png" alt=""></a>
+    </div>
+    <div class="footer-copyright">
+        Статьи, переводы, изображения и торговые марки принадлежат их авторам и владельцам.
+        Articles, translations, images and trademarks belong to their respective authors and owners.<br>
+        Copyright (c) render.ru , 1999-2016.
+    </div>
+    <div style="text-align:right;color:#333;clear:both;">0,025918960571289</div>
+</div><!--! end of .fixed_width_block --></footer>
+
+    
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-W4TSF7"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W4TSF7');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-706006-1', 'auto');
+      ga('require', 'linkid', 'linkid.js');
+      ga('require', 'displayfeatures');
+      ga('send', 'pageview');
+</script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+(function (d, w, c) {
+    (w[c] = w[c] || []).push(function() {
+        try {
+            w.yaCounter25114673 = new Ya.Metrika({id:25114673,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true});
+        } catch(e) { }
+    });
+
+    var n = d.getElementsByTagName("script")[0],
+        s = d.createElement("script"),
+        f = function () { n.parentNode.insertBefore(s, n); };
+    s.type = "text/javascript";
+    s.async = true;
+    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+    if (w.opera == "[object Opera]") {
+        d.addEventListener("DOMContentLoaded", f, false);
+    } else { f(); }
+})(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/25114673" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">
+var _tmr = _tmr || [];
+_tmr.push({id: "43010", type: "pageView", start: (new Date()).getTime()});
+(function (d, w) {
+   var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true;
+   ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+   var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+   if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window);
+</script><noscript><div style="position:absolute;left:-10000px;">
+<img src="//top-fwz1.mail.ru/counter?id=43010;js=na" style="border:0;" height="1" width="1" alt="Рейтинг@Mail.ru" />
+</div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<script async="async" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/zp.js" type="text/javascript"></script>
+    
+
+<div id="lightboxOverlay" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src=""><div class="lb-nav"><a class="lb-prev" href=""></a><a class="lb-next" href=""></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div><iframe style="width: 1px; height: 1px; position: absolute; left: -100px; top: 0px; border: medium none;" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/impression.htm"></iframe><iframe src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/support.htm" style="width: 1px; height: 1px; left: -100px; top: -100px; position: absolute; margin: 0px; border: 0px none;"></iframe><iframe name="oauth2relay614475625" id="oauth2relay614475625" src="%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8%20%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80%D0%B0%20Cycles%20-%20%D0%A3%D1%80%D0%BE%D0%BA%D0%B8%20Blender_files/postmessageRelay.htm" style="width: 1px; height: 1px; position: absolute; top: -100px;" tabindex="-1" aria-hidden="true"></iframe><iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe></body></html>

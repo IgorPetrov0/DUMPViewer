@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>toolWidget</class>
+ <widget class="QWidget" name="toolWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>221</width>
+    <height>898</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>220</width>
+     <height>901</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="phisicTabWidget">
+    <attribute name="title">
+     <string>Phisic</string>
+    </attribute>
+    <widget class="QTabWidget" name="phisicTab">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>220</width>
+       <height>871</height>
+      </rect>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Triangular</enum>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="rigidBodyesTab" name="rigidBodiesTabBar">
+      <attribute name="title">
+       <string>Rigid bodies</string>
+      </attribute>
+     </widget>
+     <widget class="constraintsTab" name="constraintsTabBar">
+      <attribute name="title">
+       <string>Constraints</string>
+      </attribute>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="graphicTabWidget">
+    <attribute name="title">
+     <string>Graphic</string>
+    </attribute>
+    <widget class="QTabWidget" name="graphicTab">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>216</width>
+       <height>461</height>
+      </rect>
+     </property>
+     <property name="tabShape">
+      <enum>QTabWidget::Triangular</enum>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <property name="usesScrollButtons">
+      <bool>true</bool>
+     </property>
+     <property name="documentMode">
+      <bool>false</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>false</bool>
+     </property>
+     <widget class="meshTab" name="meshTabBar">
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <attribute name="title">
+       <string>Mesh</string>
+      </attribute>
+     </widget>
+     <widget class="QWidget" name="plusLODTabBar">
+      <attribute name="title">
+       <string>Add LOD</string>
+      </attribute>
+      <widget class="QGroupBox" name="groupBox">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>211</width>
+         <height>71</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Error</string>
+       </property>
+       <widget class="QLabel" name="label">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>20</y>
+          <width>191</width>
+          <height>21</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Please define previous LOD befor </string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>151</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>created new.</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QRadioButton" name="showRadioButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>191</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show graphic</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>rigidBodyesTab</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets/rigidbodyestab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>constraintsTab</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets/constraintstab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>meshTab</class>
+   <extends>QWidget</extends>
+   <header location="global">widgets/meshtab.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
