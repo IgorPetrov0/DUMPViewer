@@ -16,17 +16,11 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     viewwindow.cpp \
-    objectCompiller/parsers/ducParser/configitem.cpp \
-    objectCompiller/parsers/ducParser/ducparser.cpp \
-    objectCompiller/sceneObject/material.cpp \
-    objectCompiller/parsers/parserobj.cpp \
-    objectCompiller/sceneObject/sceneobject.cpp \
     mathPrimitives/vertex.cpp \
     mathPrimitives/vector3.cpp \
     mathPrimitives/vector2.cpp \
     gameObject/graphicobject.cpp \
     gameObject/phisycobject.cpp \
-    objectCompiller/objectcompiller.cpp \
     gameObject/gameobject.cpp \
     gameObject/gameobjectmaterial.cpp \
     gameObject/gameobjecttexture.cpp \
@@ -36,7 +30,6 @@ SOURCES += main.cpp\
     gameObject/editabelObjects/editabelgameobject.cpp \
     gameObject/lod.cpp \
     gameObject/editabelObjects/editabelphisycobject.cpp \
-    objectCompiller/loader.cpp \
     gameObject/stream.cpp \
     gameObject/editabelObjects/editabelgraphicobject.cpp \
     gameObject/editabelObjects/editablelod.cpp \
@@ -63,23 +56,16 @@ SOURCES += main.cpp\
     GUI/tooltabinfobox.cpp \
     GUI/tooltabshortinfobox.cpp \
     GUI/toolwidget.cpp \
-    objectCompiller/parsers/parserdae.cpp \
-    objectCompiller/parsers/abstractparser.cpp \
-    editorCore.cpp
+    editorCore.cpp \
+    gameObject/gameindexobject.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
-    objectCompiller/parsers/ducParser/configitem.h \
-    objectCompiller/parsers/ducParser/ducparser.h \
-    objectCompiller/sceneObject/material.h \
-    objectCompiller/parsers/parserobj.h \
-    objectCompiller/sceneObject/sceneobject.h \
     mathPrimitives/vertex.h \
     mathPrimitives/vector3.h \
     mathPrimitives/vector2.h \
     gameObject/graphicobject.h \
     gameObject/phisycobject.h \
-    objectCompiller/objectcompiller.h \
     gameObject/gameobject.h \
     gameObject/gameobjectmaterial.h \
     gameObject/gameobjecttexture.h \
@@ -89,7 +75,6 @@ HEADERS  += mainwindow.h \
     gameObject/editabelObjects/editabelgameobject.h \
     gameObject/lod.h \
     gameObject/editabelObjects/editabelphisycobject.h \
-    objectCompiller/loader.h \
     gameObject/stream.h \
     defines.h \
     gameObject/editabelObjects/editabelgraphicobject.h \
@@ -117,10 +102,9 @@ HEADERS  += mainwindow.h \
     GUI/tooltabinfobox.h \
     GUI/tooltabshortinfobox.h \
     GUI/toolWidget.h \
-    objectCompiller/parsers/parserdae.h \
-    objectCompiller/parsers/abstractparser.h \
     gameObject/dArray.h \
-    editorCore.h
+    editorCore.h \
+    gameObject/gameindexobject.h
 
 FORMS    += \
     mainwindow.ui \

@@ -6,6 +6,7 @@
 #include "gameObject/dArray.h"
 #include "gameObject/gameobjecttexture.h"
 
+
 using namespace std;
 
 class gameObjectMaterial
@@ -29,9 +30,7 @@ public:
     unsigned int getSizeInBytes();
 
 protected:
-    dArray<gameObjectTexture*> *difTextures;//указатель на массив текстур
     gameObjectTexture *texture;
-    dArray<unsigned int> *indicesArray;//массив индексов
     unsigned int VAOname;
 };
 

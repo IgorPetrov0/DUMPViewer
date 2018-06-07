@@ -12,7 +12,7 @@ enum viewType{
     VIEW_CARCAS
 };
 
-
+//класс редактируемого графического объекта
 
 class editabelGraphicObject : public virtual graphicObject
 {

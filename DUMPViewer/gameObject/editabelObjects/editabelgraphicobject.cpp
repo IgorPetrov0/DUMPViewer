@@ -19,11 +19,7 @@ editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
         texCoordsArray = new dArray<texCoordinates>(texCooordsArray);
     }
 
-    arraySize size=gObject->getMaterialsSize();
-    materialsArray = new dArray<gameObjectMaterial *>(size);
-    for(arraySize n=0;n!=size;n++){
-        materialsArray->addElement(n,new gameObjectMaterial(gObject->getMaterialPointer(n)));
-    }
+
 
     visible=gObject->isVisible();
 
@@ -61,12 +57,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene){
     }
     vertexesArray = new dArray<vertexCoordinates>(numVertices*3);
 
-    if(materialsArray!=NULL){
-        materialsArray->deletePointers();
-        delete materialsArray;
-    }
-    materialsArray = new dArray<gameObjectMaterial*>(scene->mNumMeshes);//количество материалов соответствует количеству
-    //мешей в сцене assimp-а т.к. там мешу соответствует только один материал
+//    if(materialsArray!=NULL){
+//        materialsArray->deletePointers();
+//        delete materialsArray;
+//    }
+//    materialsArray = new dArray<gameObjectMaterial*>(scene->mNumMeshes);//количество материалов соответствует количеству
+//    //мешей в сцене assimp-а т.к. там мешу соответствует только один материал
 
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         lastVertexNumber=counter;
@@ -91,7 +87,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene){
             indices->addElement(indCounter+2,faces[m].mIndices[2]+lastVertexNumber);
             indCounter+=3;
         }
-        material->setIndicesArray(indices);
+        //material->setIndicesArray(indices);
 
         //получаем диффузные текстуры
         aiMaterial *mat=scene->mMaterials[meshes[n]->mMaterialIndex];
@@ -99,7 +95,5 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene){
         aiString path;
         aiReturn rez=mat->GetTexture(aiTextureType_DIFFUSE,meshes[n]->mMaterialIndex,&path);
 
-
-        materialsArray->addElement(n,material);
     }
 }

@@ -15,11 +15,11 @@
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/stream.h"
 #include "viewwindow.h"
-#include "objectCompiller/loader.h"
 
 //класс ядра приложения. В нем должен быть весь основной функционал
 //
 
+using namespace Assimp;
 
 class editorCore
 {
@@ -56,8 +56,9 @@ protected:
     float a_lastDistance;
     QVector<gameObjectTexture*> texturesArray;
     QString a_error;
-
+    QVector<gameObjectMaterial*> globalMaterialsArray;
     bool loadTextures(graphicObject *object);
+    void addMaterials(const aiScene *scene);//собирает все материалы сцены в одно глобальное хранилище
 };
 
 #endif // EDITORCORE_H

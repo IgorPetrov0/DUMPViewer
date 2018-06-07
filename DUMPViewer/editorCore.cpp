@@ -122,48 +122,48 @@ bool editorCore::loadCurrentGameObject(QString fileName){
 ////////////////////////////////////////////////////////////////////////////////////////
 bool editorCore::loadTextures(graphicObject *object){
     //грузим текстуры для mainMesh
-    int mSize=object->getMaterialsSize();
-    for(int n=0;n!=mSize;n++){
-        gameObjectMaterial *material=object->getMaterialPointer(n);
-        QString fileName=QString::fromStdString(material->getTexture()->getName());
-        int m=0;
-        for(;m!=texturesArray.size();m++){//ищем такую текстуру в массиве
-            if(texturesArray.at(m)->getName()==fileName.toStdString()){//если нашли
-                material->getTexture()->deleteTexture();//удаляем дефолтную текстуру
-                material->setTexture(texturesArray.at(m));//присваиваем указатель на текстуру материалу
-                break;
-            }
-        }
-        if(m==texturesArray.size()){
-            //если так и не нашли
-            //то загружаем или создаем дефолтную
-            gameObjectTexture *texture=material->getTexture();
-            QString name=QString::fromStdString(material->getTexture()->getName());
-            if(!name.isEmpty()){
-                QString g=TEXTURES_DIR+"/"+name;
-                QImage tex(g);
-                if(tex.isNull()){
-                    a_error=QObject::tr("Can't open texture file ")+QString::fromStdString(texture->getName())+QObject::tr(" .");
-                    return false;
-                }
-                tex=tex.convertToFormat(QImage::Format_RGBA8888);//конвертим в формат RGBA8888
-                tex=tex.mirrored();
-                texture->setWidth(tex.width());
-                texture->setHeight(tex.height());
+//    int mSize=object->getMaterialsSize();
+//    for(int n=0;n!=mSize;n++){
+//        gameObjectMaterial *material=object->getMaterialPointer(n);
+//        QString fileName=QString::fromStdString(material->getTexture()->getName());
+//        int m=0;
+//        for(;m!=texturesArray.size();m++){//ищем такую текстуру в массиве
+//            if(texturesArray.at(m)->getName()==fileName.toStdString()){//если нашли
+//                material->getTexture()->deleteTexture();//удаляем дефолтную текстуру
+//                material->setTexture(texturesArray.at(m));//присваиваем указатель на текстуру материалу
+//                break;
+//            }
+//        }
+//        if(m==texturesArray.size()){
+//            //если так и не нашли
+//            //то загружаем или создаем дефолтную
+//            gameObjectTexture *texture=material->getTexture();
+//            QString name=QString::fromStdString(material->getTexture()->getName());
+//            if(!name.isEmpty()){
+//                QString g=TEXTURES_DIR+"/"+name;
+//                QImage tex(g);
+//                if(tex.isNull()){
+//                    a_error=QObject::tr("Can't open texture file ")+QString::fromStdString(texture->getName())+QObject::tr(" .");
+//                    return false;
+//                }
+//                tex=tex.convertToFormat(QImage::Format_RGBA8888);//конвертим в формат RGBA8888
+//                tex=tex.mirrored();
+//                texture->setWidth(tex.width());
+//                texture->setHeight(tex.height());
 
-                int size=tex.byteCount();
-                dArray<unsigned char> *tmp=new dArray<unsigned char>(size);
-                //а это ацкий велосипед на костылях потому, что я пока не нашел, как иначе не таскать с собой объекты QImage, но держать в памяти битмап
-                for(int n=0;n!=size;n++){
-                    tmp->addElement(n,tex.bits()[n]);
-                }
-                texture->setTexturePointer(tmp);
-            }
-            texturesArray.append(texture);
-        }
-        material->getTexture()->addOuner();//добавляем текстуре владельца
-    }
-    return true;
+//                int size=tex.byteCount();
+//                dArray<unsigned char> *tmp=new dArray<unsigned char>(size);
+//                //а это ацкий велосипед на костылях потому, что я пока не нашел, как иначе не таскать с собой объекты QImage, но держать в памяти битмап
+//                for(int n=0;n!=size;n++){
+//                    tmp->addElement(n,tex.bits()[n]);
+//                }
+//                texture->setTexturePointer(tmp);
+//            }
+//            texturesArray.append(texture);
+//        }
+//        material->getTexture()->addOuner();//добавляем текстуре владельца
+//    }
+//    return true;
 }
 /////////////////////////////////////////////////////////////////////////////////////
 bool editorCore::saveCurrentGameObject(QString fileName){
@@ -202,23 +202,20 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
         a_error=QObject::tr("Model ")+fileName+QObject::tr(" has no meshes.");
         return false;
     }
-    object->loadFromAiScene(scene);
+    if(scene->HasMaterials()){//собираем материалы, если они есть
+        addMaterials(scene);
+    }
 
-
-
-
-    //пробуем обойтись без лоадера
-    //    loader lr;
-//    lr.setTexturesVector(&texturesArray);
-//    if(!lr.loadGraphicObject(object,fileName)){
-//        a_error=lr.getLastError();
-//        return false;
-//    }
-//    return true;
+    object->loadFromAiScene(scene);  
+    return true;
 }
 /////////////////////////////////////////////////////////////////////////////////
 QString editorCore::getLastError(){
     QString tmp=a_error;
     a_error.clear();
     return tmp;
+}
+///////////////////////////////////////////////////////////////////////////////////
+void editorCore::addMaterials(const aiScene *scene){
+
 }
