@@ -111,7 +111,8 @@ SOURCES       = ../DUMPViewer/main.cpp \
 		debug/moc_toolpanel.cpp \
 		debug/moc_tooltabinfobox.cpp \
 		debug/moc_tooltabshortinfobox.cpp \
-		debug/moc_toolWidget.cpp
+		debug/moc_toolWidget.cpp \
+		debug/moc_editorCore.cpp
 OBJECTS       = debug/main.o \
 		debug/mainwindow.o \
 		debug/viewwindow.o \
@@ -179,7 +180,8 @@ OBJECTS       = debug/main.o \
 		debug/moc_toolpanel.o \
 		debug/moc_tooltabinfobox.o \
 		debug/moc_tooltabshortinfobox.o \
-		debug/moc_toolWidget.o
+		debug/moc_toolWidget.o \
+		debug/moc_editorCore.o
 
 DIST          =  ../DUMPViewer/mainwindow.h \
 		../DUMPViewer/viewwindow.h \
@@ -293,7 +295,7 @@ dist:
 	$(ZIP) DUMPViewer.zip $(SOURCES) $(DIST) ../DUMPViewer/DUMPViewer.pro C:/Qt/5.11.0/mingw53_32/mkspecs/features/spec_pre.prf C:/Qt/5.11.0/mingw53_32/mkspecs/qdevice.pri C:/Qt/5.11.0/mingw53_32/mkspecs/features/device_config.prf C:/Qt/5.11.0/mingw53_32/mkspecs/common/sanitize.conf C:/Qt/5.11.0/mingw53_32/mkspecs/common/gcc-base.conf C:/Qt/5.11.0/mingw53_32/mkspecs/common/g++-base.conf C:/Qt/5.11.0/mingw53_32/mkspecs/common/angle.conf C:/Qt/5.11.0/mingw53_32/mkspecs/common/windows-vulkan.conf C:/Qt/5.11.0/mingw53_32/mkspecs/common/g++-win32.conf C:/Qt/5.11.0/mingw53_32/mkspecs/qconfig.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3danimation.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3danimation_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dcore.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dcore_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dextras.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dextras_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dinput.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dinput_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dlogic.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dlogic_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquick.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquick_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickanimation.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickanimation_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickextras.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickextras_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickinput.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickinput_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickrender.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickrender_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickscene2d.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3dquickscene2d_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3drender.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_3drender_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_accessibility_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axbase.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axbase_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axcontainer.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axcontainer_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axserver.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_axserver_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_bluetooth.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_bluetooth_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_bootstrap_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_charts.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_charts_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_concurrent.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_concurrent_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_core.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_core_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_datavisualization.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_datavisualization_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_dbus.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_dbus_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_designer.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_designer_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_designercomponents_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_devicediscovery_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_edid_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_egl_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_fb_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_gamepad.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_gamepad_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_gui.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_gui_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_help.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_help_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_location.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_location_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_multimedia.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_multimedia_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_multimediawidgets.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_multimediawidgets_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_network.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_network_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_networkauth.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_networkauth_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_nfc.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_nfc_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_opengl.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_opengl_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_openglextensions.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_openglextensions_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_packetprotocol_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_platformcompositor_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_positioning.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_positioning_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_positioningquick.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_positioningquick_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_printsupport.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_printsupport_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_purchasing.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_purchasing_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qml.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qml_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qmldebug_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qmldevtools_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qmltest.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qmltest_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_qtmultimediaquicktools_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quick.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quick_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quickcontrols2.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quickcontrols2_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quickparticles_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quickwidgets.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_quickwidgets_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_remoteobjects.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_remoteobjects_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_repparser.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_repparser_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_script.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_script_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_scripttools.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_scripttools_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_scxml.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_scxml_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_sensors.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_sensors_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_serialbus.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_serialbus_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_serialport.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_serialport_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_sql.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_sql_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_svg.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_svg_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_testlib.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_testlib_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_texttospeech.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_texttospeech_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_theme_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_uiplugin.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_uitools.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_uitools_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_webchannel.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_webchannel_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_websockets.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_websockets_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_widgets.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_widgets_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_windowsuiautomation_support_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_winextras.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_winextras_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_xml.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_xml_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_xmlpatterns.pri C:/Qt/5.11.0/mingw53_32/mkspecs/modules/qt_lib_xmlpatterns_private.pri C:/Qt/5.11.0/mingw53_32/mkspecs/features/qt_functions.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/qt_config.prf C:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++/qmake.conf C:/Qt/5.11.0/mingw53_32/mkspecs/features/spec_post.prf .qmake.stash C:/Qt/5.11.0/mingw53_32/mkspecs/features/exclusive_builds.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/toolchain.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/default_pre.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/win32/default_pre.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/resolve_config.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/exclusive_builds_post.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/default_post.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/build_pass.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/qml_debug.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/precompile_header.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/warn_on.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/qt.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/resources.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/moc.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/win32/opengl.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/uic.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/qmake_use.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/file_copies.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/win32/windows.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/testcase_targets.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/exceptions.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/yacc.prf C:/Qt/5.11.0/mingw53_32/mkspecs/features/lex.prf ../DUMPViewer/DUMPViewer.pro C:/Qt/5.11.0/mingw53_32/lib/qtmaind.prl C:/Qt/5.11.0/mingw53_32/lib/Qt5Widgetsd.prl C:/Qt/5.11.0/mingw53_32/lib/Qt5Guid.prl C:/Qt/5.11.0/mingw53_32/lib/Qt5Xmld.prl C:/Qt/5.11.0/mingw53_32/lib/Qt5Cored.prl    C:/Qt/5.11.0/mingw53_32/mkspecs/features/data/dummy.cpp ../DUMPViewer/mainwindow.h ../DUMPViewer/viewwindow.h ../DUMPViewer/mathPrimitives/vertex.h ../DUMPViewer/mathPrimitives/vector3.h ../DUMPViewer/mathPrimitives/vector2.h ../DUMPViewer/gameObject/graphicobject.h ../DUMPViewer/gameObject/phisycobject.h ../DUMPViewer/gameObject/gameobject.h ../DUMPViewer/gameObject/gameobjectmaterial.h ../DUMPViewer/gameObject/gameobjecttexture.h ../DUMPViewer/gameObject/meshobject.h ../DUMPViewer/gameObject/rigidbody.h ../DUMPViewer/gameObject/constraint.h ../DUMPViewer/gameObject/editabelObjects/editabelgameobject.h ../DUMPViewer/gameObject/lod.h ../DUMPViewer/gameObject/editabelObjects/editabelphisycobject.h ../DUMPViewer/gameObject/stream.h ../DUMPViewer/defines.h ../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.h ../DUMPViewer/gameObject/editabelObjects/editablelod.h ../DUMPViewer/gameObject/editabelObjects/editabelrigidbody.h ../DUMPViewer/GUI/serviceWindows/dfiledialog.h ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h ../DUMPViewer/GUI/tabs/constraintstab.h ../DUMPViewer/GUI/tabs/lodtab.h ../DUMPViewer/GUI/tabs/meshtab.h ../DUMPViewer/GUI/tabs/rigidbodyestab.h ../DUMPViewer/GUI/tabs/tabbar.h ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.h ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.h ../DUMPViewer/GUI/widgets/distancewidget.h ../DUMPViewer/GUI/widgets/dumpviewerwidget.h ../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.h ../DUMPViewer/GUI/widgets/rigidbodieswidget.h ../DUMPViewer/GUI/infobox.h ../DUMPViewer/GUI/lodsbox.h ../DUMPViewer/GUI/toolpanel.h ../DUMPViewer/GUI/tooltabinfobox.h ../DUMPViewer/GUI/tooltabshortinfobox.h ../DUMPViewer/GUI/toolWidget.h ../DUMPViewer/gameObject/dArray.h ../DUMPViewer/editorCore.h ../DUMPViewer/gameObject/gameindexobject.h  ../DUMPViewer/main.cpp ../DUMPViewer/mainwindow.cpp ../DUMPViewer/viewwindow.cpp ../DUMPViewer/mathPrimitives/vertex.cpp ../DUMPViewer/mathPrimitives/vector3.cpp ../DUMPViewer/mathPrimitives/vector2.cpp ../DUMPViewer/gameObject/graphicobject.cpp ../DUMPViewer/gameObject/phisycobject.cpp ../DUMPViewer/gameObject/gameobject.cpp ../DUMPViewer/gameObject/gameobjectmaterial.cpp ../DUMPViewer/gameObject/gameobjecttexture.cpp ../DUMPViewer/gameObject/meshobject.cpp ../DUMPViewer/gameObject/rigidbody.cpp ../DUMPViewer/gameObject/constraint.cpp ../DUMPViewer/gameObject/editabelObjects/editabelgameobject.cpp ../DUMPViewer/gameObject/lod.cpp ../DUMPViewer/gameObject/editabelObjects/editabelphisycobject.cpp ../DUMPViewer/gameObject/stream.cpp ../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.cpp ../DUMPViewer/gameObject/editabelObjects/editablelod.cpp ../DUMPViewer/gameObject/editabelObjects/editabelrigidbody.cpp ../DUMPViewer/GUI/serviceWindows/dfiledialog.cpp ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.cpp ../DUMPViewer/GUI/tabs/constraintstab.cpp ../DUMPViewer/GUI/tabs/lodtab.cpp ../DUMPViewer/GUI/tabs/meshtab.cpp ../DUMPViewer/GUI/tabs/rigidbodyestab.cpp ../DUMPViewer/GUI/tabs/tabbar.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.cpp ../DUMPViewer/GUI/widgets/distancewidget.cpp ../DUMPViewer/GUI/widgets/dumpviewerwidget.cpp ../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.cpp ../DUMPViewer/GUI/widgets/rigidbodieswidget.cpp ../DUMPViewer/GUI/infobox.cpp ../DUMPViewer/GUI/lodsbox.cpp ../DUMPViewer/GUI/toolpanel.cpp ../DUMPViewer/GUI/tooltabinfobox.cpp ../DUMPViewer/GUI/tooltabshortinfobox.cpp ../DUMPViewer/GUI/toolwidget.cpp ../DUMPViewer/editorCore.cpp ../DUMPViewer/gameObject/gameindexobject.cpp ../DUMPViewer/mainwindow.ui ../DUMPViewer/GUI/lodsbox.ui ../DUMPViewer/GUI/tooltabinfobox.ui ../DUMPViewer/GUI/tooltabshortinfobox.ui ../DUMPViewer/GUI/toolwidget.ui ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.ui ../DUMPViewer/GUI/tabs/constraintstab.ui ../DUMPViewer/GUI/tabs/lodtab.ui ../DUMPViewer/GUI/tabs/meshtab.ui ../DUMPViewer/GUI/tabs/rigidbodyestab.ui ../DUMPViewer/GUI/widgets/distancewidget.ui ../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.ui ../DUMPViewer/GUI/widgets/rigidbodieswidget.ui ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.ui ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.ui ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.ui ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.ui ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug/main.o debug/mainwindow.o debug/viewwindow.o debug/vertex.o debug/vector3.o debug/vector2.o debug/graphicobject.o debug/phisycobject.o debug/gameobject.o debug/gameobjectmaterial.o debug/gameobjecttexture.o debug/meshobject.o debug/rigidbody.o debug/constraint.o debug/editabelgameobject.o debug/lod.o debug/editabelphisycobject.o debug/stream.o debug/editabelgraphicobject.o debug/editablelod.o debug/editabelrigidbody.o debug/dfiledialog.o debug/newgameobjectnamewindow.o debug/constraintstab.o debug/lodtab.o debug/meshtab.o debug/rigidbodyestab.o debug/tabbar.o debug/conetwistwidget.o debug/hingewidget.o debug/pivotwidget.o debug/pointtopointwidget.o debug/transformwidget.o debug/distancewidget.o debug/dumpviewerwidget.o debug/ridgidbodypropertyeswidget.o debug/rigidbodieswidget.o debug/infobox.o debug/lodsbox.o debug/toolpanel.o debug/tooltabinfobox.o debug/tooltabshortinfobox.o debug/toolwidget.o debug/editorCore.o debug/gameindexobject.o debug/moc_mainwindow.o debug/moc_viewwindow.o debug/moc_newgameobjectnamewindow.o debug/moc_constraintstab.o debug/moc_lodtab.o debug/moc_meshtab.o debug/moc_rigidbodyestab.o debug/moc_tabbar.o debug/moc_conetwistwidget.o debug/moc_hingewidget.o debug/moc_pivotwidget.o debug/moc_pointtopointwidget.o debug/moc_transformwidget.o debug/moc_distancewidget.o debug/moc_dumpviewerwidget.o debug/moc_ridgidbodypropertyeswidget.o debug/moc_rigidbodieswidget.o debug/moc_infobox.o debug/moc_lodsbox.o debug/moc_toolpanel.o debug/moc_tooltabinfobox.o debug/moc_tooltabshortinfobox.o debug/moc_toolWidget.o
+	-$(DEL_FILE) debug/main.o debug/mainwindow.o debug/viewwindow.o debug/vertex.o debug/vector3.o debug/vector2.o debug/graphicobject.o debug/phisycobject.o debug/gameobject.o debug/gameobjectmaterial.o debug/gameobjecttexture.o debug/meshobject.o debug/rigidbody.o debug/constraint.o debug/editabelgameobject.o debug/lod.o debug/editabelphisycobject.o debug/stream.o debug/editabelgraphicobject.o debug/editablelod.o debug/editabelrigidbody.o debug/dfiledialog.o debug/newgameobjectnamewindow.o debug/constraintstab.o debug/lodtab.o debug/meshtab.o debug/rigidbodyestab.o debug/tabbar.o debug/conetwistwidget.o debug/hingewidget.o debug/pivotwidget.o debug/pointtopointwidget.o debug/transformwidget.o debug/distancewidget.o debug/dumpviewerwidget.o debug/ridgidbodypropertyeswidget.o debug/rigidbodieswidget.o debug/infobox.o debug/lodsbox.o debug/toolpanel.o debug/tooltabinfobox.o debug/tooltabshortinfobox.o debug/toolwidget.o debug/editorCore.o debug/gameindexobject.o debug/moc_mainwindow.o debug/moc_viewwindow.o debug/moc_newgameobjectnamewindow.o debug/moc_constraintstab.o debug/moc_lodtab.o debug/moc_meshtab.o debug/moc_rigidbodyestab.o debug/moc_tabbar.o debug/moc_conetwistwidget.o debug/moc_hingewidget.o debug/moc_pivotwidget.o debug/moc_pointtopointwidget.o debug/moc_transformwidget.o debug/moc_distancewidget.o debug/moc_dumpviewerwidget.o debug/moc_ridgidbodypropertyeswidget.o debug/moc_rigidbodieswidget.o debug/moc_infobox.o debug/moc_lodsbox.o debug/moc_toolpanel.o debug/moc_tooltabinfobox.o debug/moc_tooltabshortinfobox.o debug/moc_toolWidget.o debug/moc_editorCore.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -318,9 +320,9 @@ compiler_moc_predefs_clean:
 debug/moc_predefs.h: C:/Qt/5.11.0/mingw53_32/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -dM -E -o debug/moc_predefs.h C:/Qt/5.11.0/mingw53_32/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: debug/moc_mainwindow.cpp debug/moc_viewwindow.cpp debug/moc_newgameobjectnamewindow.cpp debug/moc_constraintstab.cpp debug/moc_lodtab.cpp debug/moc_meshtab.cpp debug/moc_rigidbodyestab.cpp debug/moc_tabbar.cpp debug/moc_conetwistwidget.cpp debug/moc_hingewidget.cpp debug/moc_pivotwidget.cpp debug/moc_pointtopointwidget.cpp debug/moc_transformwidget.cpp debug/moc_distancewidget.cpp debug/moc_dumpviewerwidget.cpp debug/moc_ridgidbodypropertyeswidget.cpp debug/moc_rigidbodieswidget.cpp debug/moc_infobox.cpp debug/moc_lodsbox.cpp debug/moc_toolpanel.cpp debug/moc_tooltabinfobox.cpp debug/moc_tooltabshortinfobox.cpp debug/moc_toolWidget.cpp
+compiler_moc_header_make_all: debug/moc_mainwindow.cpp debug/moc_viewwindow.cpp debug/moc_newgameobjectnamewindow.cpp debug/moc_constraintstab.cpp debug/moc_lodtab.cpp debug/moc_meshtab.cpp debug/moc_rigidbodyestab.cpp debug/moc_tabbar.cpp debug/moc_conetwistwidget.cpp debug/moc_hingewidget.cpp debug/moc_pivotwidget.cpp debug/moc_pointtopointwidget.cpp debug/moc_transformwidget.cpp debug/moc_distancewidget.cpp debug/moc_dumpviewerwidget.cpp debug/moc_ridgidbodypropertyeswidget.cpp debug/moc_rigidbodieswidget.cpp debug/moc_infobox.cpp debug/moc_lodsbox.cpp debug/moc_toolpanel.cpp debug/moc_tooltabinfobox.cpp debug/moc_tooltabshortinfobox.cpp debug/moc_toolWidget.cpp debug/moc_editorCore.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug/moc_mainwindow.cpp debug/moc_viewwindow.cpp debug/moc_newgameobjectnamewindow.cpp debug/moc_constraintstab.cpp debug/moc_lodtab.cpp debug/moc_meshtab.cpp debug/moc_rigidbodyestab.cpp debug/moc_tabbar.cpp debug/moc_conetwistwidget.cpp debug/moc_hingewidget.cpp debug/moc_pivotwidget.cpp debug/moc_pointtopointwidget.cpp debug/moc_transformwidget.cpp debug/moc_distancewidget.cpp debug/moc_dumpviewerwidget.cpp debug/moc_ridgidbodypropertyeswidget.cpp debug/moc_rigidbodieswidget.cpp debug/moc_infobox.cpp debug/moc_lodsbox.cpp debug/moc_toolpanel.cpp debug/moc_tooltabinfobox.cpp debug/moc_tooltabshortinfobox.cpp debug/moc_toolWidget.cpp
+	-$(DEL_FILE) debug/moc_mainwindow.cpp debug/moc_viewwindow.cpp debug/moc_newgameobjectnamewindow.cpp debug/moc_constraintstab.cpp debug/moc_lodtab.cpp debug/moc_meshtab.cpp debug/moc_rigidbodyestab.cpp debug/moc_tabbar.cpp debug/moc_conetwistwidget.cpp debug/moc_hingewidget.cpp debug/moc_pivotwidget.cpp debug/moc_pointtopointwidget.cpp debug/moc_transformwidget.cpp debug/moc_distancewidget.cpp debug/moc_dumpviewerwidget.cpp debug/moc_ridgidbodypropertyeswidget.cpp debug/moc_rigidbodieswidget.cpp debug/moc_infobox.cpp debug/moc_lodsbox.cpp debug/moc_toolpanel.cpp debug/moc_tooltabinfobox.cpp debug/moc_tooltabshortinfobox.cpp debug/moc_toolWidget.cpp debug/moc_editorCore.cpp
 debug/moc_mainwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMainWindow \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qmainwindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -464,12 +466,12 @@ debug/moc_mainwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMainWindow 
 		../DUMPViewer/gameObject/meshobject.h \
 		../DUMPViewer/gameObject/dArray.h \
 		../DUMPViewer/defines.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -742,12 +744,12 @@ debug/moc_viewwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QOpenGLWidge
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
@@ -1041,12 +1043,12 @@ debug/moc_constraintstab.cpp: ../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -1293,12 +1295,12 @@ debug/moc_lodtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTableWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -1558,12 +1560,12 @@ debug/moc_meshtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -1812,12 +1814,12 @@ debug/moc_rigidbodyestab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QListWid
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -2010,12 +2012,12 @@ debug/moc_tabbar.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -3445,12 +3447,12 @@ debug/moc_toolpanel.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -3671,12 +3673,12 @@ debug/moc_tooltabinfobox.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDia
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -3807,6 +3809,10 @@ debug/moc_tooltabshortinfobox.cpp: ../DUMPViewer/GUI/infobox.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
 		../DUMPViewer/mathPrimitives/vector3.h \
 		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/GUI/tooltabshortinfobox.h \
@@ -3933,12 +3939,12 @@ debug/moc_toolWidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -4064,6 +4070,228 @@ debug/moc_toolWidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
 	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/toolWidget.h -o debug/moc_toolWidget.cpp
+
+debug/moc_editorCore.cpp: C:/Qt/5.11.0/mingw53_32/include/QtCore/QString \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstring.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qchar.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qglobal.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qconfig-bootstrapped.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qconfig.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qtcore-config.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qsystemdetection.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qprocessordetection.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qcompilerdetection.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qtypeinfo.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qsysinfo.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qlogging.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qflags.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qatomic.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qbasicatomic.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qatomic_bootstrap.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qgenericatomic.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qatomic_cxx11.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qglobalstatic.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qmutex.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qnumeric.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qversiontagging.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qbytearray.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qrefcount.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qnamespace.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qarraydata.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringliteral.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringalgorithms.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringview.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringbuilder.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtguiglobal.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtgui-config.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtwidgets-config.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qwindowdefs.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qobjectdefs.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qobjectdefs_impl.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qwindowdefs_win.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qobject.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qlist.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qalgorithms.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qiterator.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qhashfunctions.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qpair.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qbytearraylist.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringlist.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qregexp.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstringmatcher.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qcoreevent.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qscopedpointer.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qmetatype.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qvarlengtharray.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qcontainerfwd.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qobject_impl.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qmargins.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpaintdevice.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qrect.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qsize.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qpoint.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpalette.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qcolor.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qrgb.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qrgba64.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qbrush.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qvector.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qmatrix.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpolygon.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qregion.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdatastream.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qiodevice.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qline.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtransform.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpainterpath.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qimage.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpixelformat.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qpixmap.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qsharedpointer.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qshareddata.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qhash.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qfont.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qfontmetrics.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qfontinfo.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qsizepolicy.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qcursor.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qkeysequence.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qevent.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qvariant.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qmap.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdebug.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qtextstream.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qlocale.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qset.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qcontiguouscache.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qurl.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qurlquery.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfile.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfiledevice.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qvector2d.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QFile \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMessageBox \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qmessagebox.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdialog.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QObject \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QVector \
+		../DUMPViewer/include/assimp/Importer.hpp \
+		../DUMPViewer/include/assimp/types.h \
+		../DUMPViewer/include/assimp/defs.h \
+		../DUMPViewer/include/assimp/vector3.h \
+		../DUMPViewer/include/assimp/Compiler/pushpack1.h \
+		../DUMPViewer/include/assimp/Compiler/poppack1.h \
+		../DUMPViewer/include/assimp/vector2.h \
+		../DUMPViewer/include/assimp/color4.h \
+		../DUMPViewer/include/assimp/matrix3x3.h \
+		../DUMPViewer/include/assimp/matrix4x4.h \
+		../DUMPViewer/include/assimp/quaternion.h \
+		../DUMPViewer/include/assimp/vector2.inl \
+		../DUMPViewer/include/assimp/vector3.inl \
+		../DUMPViewer/include/assimp/color4.inl \
+		../DUMPViewer/include/assimp/quaternion.inl \
+		../DUMPViewer/include/assimp/matrix3x3.inl \
+		../DUMPViewer/include/assimp/matrix4x4.inl \
+		../DUMPViewer/include/assimp/config.h \
+		../DUMPViewer/include/assimp/scene.h \
+		../DUMPViewer/include/assimp/texture.h \
+		../DUMPViewer/include/assimp/mesh.h \
+		../DUMPViewer/include/assimp/light.h \
+		../DUMPViewer/include/assimp/camera.h \
+		../DUMPViewer/include/assimp/material.h \
+		../DUMPViewer/include/assimp/material.inl \
+		../DUMPViewer/include/assimp/anim.h \
+		../DUMPViewer/include/assimp/metadata.h \
+		../DUMPViewer/include/assimp/Compiler/pstdint.h \
+		../DUMPViewer/include/assimp/postprocess.h \
+		../DUMPViewer/gameObject/editabelObjects/editabelgameobject.h \
+		../DUMPViewer/gameObject/gameobject.h \
+		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/meshobject.h \
+		../DUMPViewer/gameObject/dArray.h \
+		../DUMPViewer/defines.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QApplication \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qapplication.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qeventloop.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/phisycobject.h \
+		../DUMPViewer/gameObject/rigidbody.h \
+		../DUMPViewer/gameObject/constraint.h \
+		../DUMPViewer/bulletengine/LinearMath/btTransform.h \
+		../DUMPViewer/bulletengine/LinearMath/btMatrix3x3.h \
+		../DUMPViewer/bulletengine/LinearMath/btVector3.h \
+		../DUMPViewer/bulletengine/LinearMath/btScalar.h \
+		../DUMPViewer/bulletengine/LinearMath/btMinMax.h \
+		../DUMPViewer/bulletengine/LinearMath/btAlignedAllocator.h \
+		../DUMPViewer/bulletengine/LinearMath/btQuaternion.h \
+		../DUMPViewer/bulletengine/LinearMath/btQuadWord.h \
+		../DUMPViewer/gameObject/lod.h \
+		../DUMPViewer/gameObject/editabelObjects/editabelphisycobject.h \
+		../DUMPViewer/gameObject/editabelObjects/editabelrigidbody.h \
+		../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.h \
+		../DUMPViewer/gameObject/editabelObjects/editablelod.h \
+		../DUMPViewer/gameObject/stream.h \
+		../DUMPViewer/mathPrimitives/vertex.h \
+		../DUMPViewer/gameObject/editabelgameobject.h \
+		../DUMPViewer/viewwindow.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QOpenGLWidget \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qopenglwidget.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QSurfaceFormat \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qsurfaceformat.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopengl.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qt_windows.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtANGLE/GLES3/gl3.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtANGLE/GLES3/gl3platform.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtANGLE/KHR/khrplatform.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtANGLE/GLES2/gl2.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtANGLE/GLES2/gl2platform.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopengles2ext.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglext.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QOpenGLVertexArrayObject \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglvertexarrayobject.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QOpenGLBuffer \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglbuffer.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QOpenGLShaderProgram \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglshaderprogram.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qvector3d.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qvector4d.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qmatrix4x4.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qquaternion.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qgenericmatrix.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QMouseEvent \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QPoint \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QVector3D \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QQuaternion \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QOpenGLFunctions_3_3_Core \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglfunctions_3_3_core.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/QOpenGLVersionFunctions \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglversionfunctions.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
+		../DUMPViewer/GUI/tooltabinfobox.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDialog \
+		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/editorCore.h \
+		debug/moc_predefs.h \
+		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/editorCore.h -o debug/moc_editorCore.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -4197,6 +4425,10 @@ ui_tooltabinfobox.h: ../DUMPViewer/GUI/tooltabinfobox.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
 		../DUMPViewer/mathPrimitives/vector3.h \
 		../DUMPViewer/mathPrimitives/vector2.h
 	'C:\Qt\5.11.0\mingw53_32\bin\uic.exe' ../DUMPViewer/GUI/tooltabinfobox.ui -o ui_tooltabinfobox.h
@@ -4387,12 +4619,12 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -4581,12 +4813,12 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -4843,12 +5075,12 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -5048,12 +5280,12 @@ ui_lodtab.h: ../DUMPViewer/GUI/tabs/lodtab.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -5291,12 +5523,12 @@ ui_meshtab.h: ../DUMPViewer/GUI/tabs/meshtab.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -5427,6 +5659,10 @@ ui_rigidbodyestab.h: ../DUMPViewer/GUI/tabs/rigidbodyestab.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
 		../DUMPViewer/mathPrimitives/vector3.h \
 		../DUMPViewer/mathPrimitives/vector2.h
 	'C:\Qt\5.11.0\mingw53_32\bin\uic.exe' ../DUMPViewer/GUI/tabs/rigidbodyestab.ui -o ui_rigidbodyestab.h
@@ -5930,12 +6166,12 @@ debug/main.o: ../DUMPViewer/main.cpp C:/Qt/5.11.0/mingw53_32/include/QtWidgets/Q
 		../DUMPViewer/gameObject/meshobject.h \
 		../DUMPViewer/gameObject/dArray.h \
 		../DUMPViewer/defines.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -6198,12 +6434,12 @@ debug/mainwindow.o: ../DUMPViewer/mainwindow.cpp ../DUMPViewer/mainwindow.h \
 		../DUMPViewer/gameObject/meshobject.h \
 		../DUMPViewer/gameObject/dArray.h \
 		../DUMPViewer/defines.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -6487,12 +6723,12 @@ debug/viewwindow.o: ../DUMPViewer/viewwindow.cpp ../DUMPViewer/viewwindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
@@ -6678,12 +6914,12 @@ debug/graphicobject.o: ../DUMPViewer/gameObject/graphicobject.cpp ../DUMPViewer/
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/graphicobject.o ../DUMPViewer/gameObject/graphicobject.cpp
 
 debug/phisycobject.o: ../DUMPViewer/gameObject/phisycobject.cpp ../DUMPViewer/gameObject/phisycobject.h \
@@ -6799,13 +7035,13 @@ debug/phisycobject.o: ../DUMPViewer/gameObject/phisycobject.cpp ../DUMPViewer/ga
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
-		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/graphicobject.h \
 		../DUMPViewer/gameObject/constraint.h \
 		../DUMPViewer/bulletengine/LinearMath/btTransform.h \
 		../DUMPViewer/bulletengine/LinearMath/btMatrix3x3.h \
@@ -6930,12 +7166,12 @@ debug/gameobject.o: ../DUMPViewer/gameObject/gameobject.cpp ../DUMPViewer/gameOb
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -7062,8 +7298,7 @@ debug/gameobjectmaterial.o: ../DUMPViewer/gameObject/gameobjectmaterial.cpp ../D
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
-		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/gameobjectmaterial.o ../DUMPViewer/gameObject/gameobjectmaterial.cpp
 
 debug/gameobjecttexture.o: ../DUMPViewer/gameObject/gameobjecttexture.cpp ../DUMPViewer/gameObject/gameobjecttexture.h \
@@ -7291,6 +7526,10 @@ debug/meshobject.o: ../DUMPViewer/gameObject/meshobject.cpp ../DUMPViewer/gameOb
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
 		../DUMPViewer/mathPrimitives/vector3.h \
 		../DUMPViewer/mathPrimitives/vector2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/meshobject.o ../DUMPViewer/gameObject/meshobject.cpp
@@ -7407,13 +7646,13 @@ debug/rigidbody.o: ../DUMPViewer/gameObject/rigidbody.cpp ../DUMPViewer/gameObje
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
-		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/graphicobject.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/rigidbody.o ../DUMPViewer/gameObject/rigidbody.cpp
 
 debug/constraint.o: ../DUMPViewer/gameObject/constraint.cpp ../DUMPViewer/gameObject/constraint.h \
@@ -7529,13 +7768,13 @@ debug/constraint.o: ../DUMPViewer/gameObject/constraint.cpp ../DUMPViewer/gameOb
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
-		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/graphicobject.h \
 		../DUMPViewer/bulletengine/LinearMath/btTransform.h \
 		../DUMPViewer/bulletengine/LinearMath/btMatrix3x3.h \
 		../DUMPViewer/bulletengine/LinearMath/btVector3.h \
@@ -7661,12 +7900,12 @@ debug/editabelgameobject.o: ../DUMPViewer/gameObject/editabelObjects/editabelgam
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -7826,12 +8065,12 @@ debug/lod.o: ../DUMPViewer/gameObject/lod.cpp ../DUMPViewer/gameObject/lod.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/lod.o ../DUMPViewer/gameObject/lod.cpp
 
 debug/editabelphisycobject.o: ../DUMPViewer/gameObject/editabelObjects/editabelphisycobject.cpp ../DUMPViewer/gameObject/editabelObjects/editabelphisycobject.h \
@@ -7949,13 +8188,13 @@ debug/editabelphisycobject.o: ../DUMPViewer/gameObject/editabelObjects/editabelp
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
-		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/graphicobject.h \
 		../DUMPViewer/gameObject/constraint.h \
 		../DUMPViewer/bulletengine/LinearMath/btTransform.h \
 		../DUMPViewer/bulletengine/LinearMath/btMatrix3x3.h \
@@ -8118,10 +8357,10 @@ debug/stream.o: ../DUMPViewer/gameObject/stream.cpp ../DUMPViewer/gameObject/str
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -8279,12 +8518,12 @@ debug/editabelgraphicobject.o: ../DUMPViewer/gameObject/editabelObjects/editabel
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/editabelgraphicobject.o ../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.cpp
 
 debug/editablelod.o: ../DUMPViewer/gameObject/editabelObjects/editablelod.cpp ../DUMPViewer/gameObject/editabelObjects/editablelod.h \
@@ -8401,12 +8640,12 @@ debug/editablelod.o: ../DUMPViewer/gameObject/editabelObjects/editablelod.cpp ..
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.h \
 		../DUMPViewer/include/assimp/Importer.hpp \
 		../DUMPViewer/include/assimp/types.h \
@@ -8551,13 +8790,13 @@ debug/editabelrigidbody.o: ../DUMPViewer/gameObject/editabelObjects/editabelrigi
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qtouchdevice.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
-		../DUMPViewer/gameObject/graphicobject.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/graphicobject.h \
 		../DUMPViewer/gameObject/editabelObjects/editabelgraphicobject.h \
 		../DUMPViewer/include/assimp/Importer.hpp \
 		../DUMPViewer/include/assimp/types.h \
@@ -8746,12 +8985,12 @@ debug/dfiledialog.o: ../DUMPViewer/GUI/serviceWindows/dfiledialog.cpp ../DUMPVie
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -9063,12 +9302,12 @@ debug/constraintstab.o: ../DUMPViewer/GUI/tabs/constraintstab.cpp ../DUMPViewer/
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -9341,12 +9580,12 @@ debug/lodtab.o: ../DUMPViewer/GUI/tabs/lodtab.cpp ../DUMPViewer/GUI/tabs/lodtab.
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -9607,12 +9846,12 @@ debug/meshtab.o: ../DUMPViewer/GUI/tabs/meshtab.cpp ../DUMPViewer/GUI/tabs/mesht
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -9861,12 +10100,12 @@ debug/rigidbodyestab.o: ../DUMPViewer/GUI/tabs/rigidbodyestab.cpp ../DUMPViewer/
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -10075,12 +10314,12 @@ debug/tabbar.o: ../DUMPViewer/GUI/tabs/tabbar.cpp ../DUMPViewer/GUI/tabs/tabbar.
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -11668,12 +11907,12 @@ debug/toolpanel.o: ../DUMPViewer/GUI/toolpanel.cpp ../DUMPViewer/GUI/toolpanel.h
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -11892,12 +12131,12 @@ debug/tooltabinfobox.o: ../DUMPViewer/GUI/tooltabinfobox.cpp ../DUMPViewer/GUI/t
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -12043,6 +12282,10 @@ debug/tooltabshortinfobox.o: ../DUMPViewer/GUI/tooltabshortinfobox.cpp ../DUMPVi
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/gameObject/gameobjectmaterial.h \
+		../DUMPViewer/gameObject/gameobjecttexture.h \
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
 		../DUMPViewer/mathPrimitives/vector3.h \
 		../DUMPViewer/mathPrimitives/vector2.h \
 		ui_tooltabshortinfobox.h \
@@ -12174,12 +12417,12 @@ debug/toolwidget.o: ../DUMPViewer/GUI/toolwidget.cpp ../DUMPViewer/GUI/toolwidge
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -12473,12 +12716,12 @@ debug/editorCore.o: ../DUMPViewer/editorCore.cpp ../DUMPViewer/editorCore.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdesktopwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qguiapplication.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qinputmethod.h \
-		../DUMPViewer/mathPrimitives/vector3.h \
-		../DUMPViewer/mathPrimitives/vector2.h \
+		../DUMPViewer/gameObject/gameindexobject.h \
 		../DUMPViewer/gameObject/gameobjectmaterial.h \
 		../DUMPViewer/gameObject/gameobjecttexture.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QDataStream \
-		../DUMPViewer/gameObject/gameindexobject.h \
+		../DUMPViewer/mathPrimitives/vector3.h \
+		../DUMPViewer/mathPrimitives/vector2.h \
 		../DUMPViewer/gameObject/phisycobject.h \
 		../DUMPViewer/gameObject/rigidbody.h \
 		../DUMPViewer/gameObject/constraint.h \
@@ -12725,6 +12968,9 @@ debug/moc_tooltabshortinfobox.o: debug/moc_tooltabshortinfobox.cpp
 
 debug/moc_toolWidget.o: debug/moc_toolWidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_toolWidget.o debug/moc_toolWidget.cpp
+
+debug/moc_editorCore.o: debug/moc_editorCore.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/moc_editorCore.o debug/moc_editorCore.cpp
 
 ####### Install
 

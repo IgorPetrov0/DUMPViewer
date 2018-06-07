@@ -67,4 +67,5 @@ INPUT(
 ./release/moc_tooltabinfobox.o
 ./release/moc_tooltabshortinfobox.o
 ./release/moc_toolWidget.o
+./release/moc_editorCore.o
 );

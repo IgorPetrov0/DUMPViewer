@@ -202,8 +202,15 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
         a_error=QObject::tr("Model ")+fileName+QObject::tr(" has no meshes.");
         return false;
     }
+    if(scene->HasTextures()){//для форматов, которые хранят текстуры внутри файла
+        if(!addTextures(scene,QFileInfo(fileName).absolutePath())){
+            return false;
+        }
+    }
     if(scene->HasMaterials()){//собираем материалы, если они есть
-        addMaterials(scene);
+        if(!addMaterials(scene,QFileInfo(fileName).absolutePath())){
+            return false;
+        }
     }
 
     object->loadFromAiScene(scene);  
@@ -216,6 +223,63 @@ QString editorCore::getLastError(){
     return tmp;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-void editorCore::addMaterials(const aiScene *scene){
+bool editorCore::addMaterials(const aiScene *scene, QString objectPath){
 
+    gameObjectMaterial *material = new gameObjectMaterial;
+    unsigned int size=scene->mNumMaterials;
+    for(unsigned int n=0;n!=size;n++){
+        aiMaterial *mat=scene->mMaterials[n];
+        unsigned int texCount=scene->mMaterials[n]->GetTextureCount(aiTextureType_DIFFUSE);//добавляем диффузные текстуры
+        for(unsigned int m=0;m!=texCount;m++){
+            gameObjectTexture *newTexture=addTexturesFromFiles(mat,aiTextureType_DIFFUSE,m,objectPath);
+            if(newTexture!=NULL){
+                material->addTexture(newTexture);
+            }
+            else{
+                return false;
+            }
+        }
+    }
+
+
+
+
+    return true;
+}
+///////////////////////////////////////////////////////////////////////////////////
+bool editorCore::addTextures(const aiScene *scene, QString objectPath){
+
+}
+////////////////////////////////////////////////////////////////////////////////////
+gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath){
+    gameObjectTexture *newTexture=NULL;
+    aiString filePath;
+
+    aiReturn r=material->GetTexture(type,index,&filePath,NULL,NULL,NULL,NULL,NULL);
+    if(r==aiReturn_SUCCESS){
+        QString fileName=QString::fromLatin1(filePath.data, filePath.length);
+        //ищем название в хранилище
+        unsigned int size=texturesArray.size();
+        for(unsigned int n=0;n!=size;n++){
+            gameObjectTexture *tex=texturesArray[n];
+            if(tex->getName()==filePath.C_Str()){//если текстура найдена, то выходим и ничего не делаем
+                tex->addOuner();//добавляем владельца
+                return tex;//возвращаем существующую текстуру
+            }
+        }
+        QString fullPath=objectPath+"/"+QString::fromLatin1(filePath.data,filePath.length);
+        QFile file(fullPath);
+        if(!file.exists()){
+            a_error=tr("Texture file ")+fileName+tr(" not found.");
+            return newTexture;
+        }
+        QFileInfo fi(fullPath);
+        newTexture = new gameObjectTexture;
+        newTexture->setName(fi.fileName().toStdString());//имя текстуры - это имя файла с расширением без путей
+        return newTexture;
+    }
+    else{
+        a_error==tr("Error read diffuse texture from material.");
+        return NULL;
+    }
 }

@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QVector>
+#include <QObject>
+#include <string>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/mesh.h>
@@ -21,8 +23,9 @@
 
 using namespace Assimp;
 
-class editorCore
+class editorCore : public QObject
 {
+    Q_OBJECT
 public:
     editorCore();
     QString modelFilter();
@@ -58,7 +61,9 @@ protected:
     QString a_error;
     QVector<gameObjectMaterial*> globalMaterialsArray;
     bool loadTextures(graphicObject *object);
-    void addMaterials(const aiScene *scene);//собирает все материалы сцены в одно глобальное хранилище
+    bool addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
+    bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
+    gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
 };
 
 #endif // EDITORCORE_H

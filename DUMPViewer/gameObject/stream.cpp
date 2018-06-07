@@ -144,7 +144,7 @@ void stream::out(gameObjectTexture *var){
 //////////////////////////////////////////////////////////////////////////
 void stream::out(gameObjectMaterial *var){
     VAR_NOT_NULL
-    out(var->getTexture());
+    out(var->getDiffuseTexture());
     //out(var->getIndices()->getArrayPointer(),var->getIndecesSize());//индексы
 }
 //////////////////////////////////////////////////////////////////////////
@@ -399,7 +399,7 @@ void stream::in(gameObjectMaterial *var){
 
     gameObjectTexture *texture = new gameObjectTexture;
     in(texture);
-    var->setTexture(texture);
+    var->addTexture(texture);
 
     unsigned int *tmpArray;
     in(&tmpArray,size);
