@@ -276,6 +276,13 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         QFileInfo fi(fullPath);
         newTexture = new gameObjectTexture;
         newTexture->setName(fi.fileName().toStdString());//имя текстуры - это имя файла с расширением без путей
+        ILuint id;
+        ilInit();
+        ilGenImages(1,&id);
+        ilBindImage(id);
+        ilLoadImage((wchar_t*)fi.absoluteFilePath().data());
+
+
         return newTexture;
     }
     else{

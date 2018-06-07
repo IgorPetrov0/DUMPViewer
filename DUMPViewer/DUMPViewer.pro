@@ -136,3 +136,10 @@ DEPENDPATH += $$PWD/include
 win32: LIBS += -L$$PWD/include/ -lassimp_dll
 
 
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/DevIL/ -lDevIL
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/DevIL/ -lDevIL
+
+INCLUDEPATH += $$PWD/DevIL
+DEPENDPATH += $$PWD/DevIL

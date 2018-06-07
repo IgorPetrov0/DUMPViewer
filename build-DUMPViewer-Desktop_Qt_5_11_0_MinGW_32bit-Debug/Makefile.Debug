@@ -14,10 +14,10 @@ CXX           = g++
 DEFINES       = -DUNICODE -D_UNICODE -DWIN32 -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_XML_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -fno-keep-inline-dllexport -g -Wall -W -Wextra $(DEFINES)
 CXXFLAGS      = -fno-keep-inline-dllexport -g -std=gnu++11 -Wall -W -Wextra -fexceptions -mthreads $(DEFINES)
-INCPATH       = -I../DUMPViewer -I. -I../DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -Idebug -I. -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ 
+INCPATH       = -I../DUMPViewer -I. -I../DUMPViewer/include -I../DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -Idebug -I. -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ 
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
-LIBS        =        -lmingw32 -LC:/Qt/5.11.0/mingw53_32/lib C:/Qt/5.11.0/mingw53_32/lib/libqtmaind.a -LC:/openssl/lib -LC:/Utils/my_sql/my_sql/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 C:/Qt/5.11.0/mingw53_32/lib/libQt5Cored.a -LD:/Projects/GIT/DUMPViewer/DUMPViewer/include -lassimp_dll C:/Qt/5.11.0/mingw53_32/lib/libQt5Widgetsd.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Guid.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Xmld.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Cored.a 
+LIBS        =        -lmingw32 -LC:/Qt/5.11.0/mingw53_32/lib C:/Qt/5.11.0/mingw53_32/lib/libqtmaind.a -LC:/openssl/lib -LC:/Utils/my_sql/my_sql/lib -LC:/Utils/postgresql/pgsql/lib -lshell32 C:/Qt/5.11.0/mingw53_32/lib/libQt5Cored.a -LD:/Projects/GIT/DUMPViewer/DUMPViewer/include -lassimp_dll -LD:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -lDevIL C:/Qt/5.11.0/mingw53_32/lib/libQt5Widgetsd.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Guid.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Xmld.a C:/Qt/5.11.0/mingw53_32/lib/libQt5Cored.a 
 QMAKE         = C:/Qt/5.11.0/mingw53_32/bin/qmake.exe
 IDC           = idc
 IDL           = midl
@@ -585,13 +585,14 @@ debug/moc_mainwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMainWindow 
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QDialog \
 		../DUMPViewer/mainwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/mainwindow.h -o debug/moc_mainwindow.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/mainwindow.h -o debug/moc_mainwindow.cpp
 
 debug/moc_viewwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QOpenGLWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qopenglwidget.h \
@@ -807,7 +808,7 @@ debug/moc_viewwindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QOpenGLWidge
 		../DUMPViewer/viewwindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/viewwindow.h -o debug/moc_viewwindow.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/viewwindow.h -o debug/moc_viewwindow.cpp
 
 debug/moc_newgameobjectnamewindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QDialog \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qdialog.h \
@@ -915,7 +916,7 @@ debug/moc_newgameobjectnamewindow.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets
 		../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h -o debug/moc_newgameobjectnamewindow.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h -o debug/moc_newgameobjectnamewindow.cpp
 
 debug/moc_constraintstab.cpp: ../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
@@ -1145,13 +1146,14 @@ debug/moc_constraintstab.cpp: ../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
 		../DUMPViewer/GUI/tabs/constraintstab.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/constraintstab.h -o debug/moc_constraintstab.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/constraintstab.h -o debug/moc_constraintstab.cpp
 
 debug/moc_lodtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTableWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtablewidget.h \
@@ -1397,11 +1399,12 @@ debug/moc_lodtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTableWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		../DUMPViewer/GUI/tabs/lodtab.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/lodtab.h -o debug/moc_lodtab.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/lodtab.h -o debug/moc_lodtab.cpp
 
 debug/moc_meshtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -1622,6 +1625,7 @@ debug/moc_meshtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMessageBox \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtabbar.h \
@@ -1635,7 +1639,7 @@ debug/moc_meshtab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QMessageBox \
 		../DUMPViewer/GUI/tabs/meshtab.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/meshtab.h -o debug/moc_meshtab.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/meshtab.h -o debug/moc_meshtab.cpp
 
 debug/moc_rigidbodyestab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QListWidgetItem \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qlistwidget.h \
@@ -1876,6 +1880,7 @@ debug/moc_rigidbodyestab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QListWid
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QScrollBar \
@@ -1885,7 +1890,7 @@ debug/moc_rigidbodyestab.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QListWid
 		../DUMPViewer/GUI/tabs/rigidbodyestab.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/rigidbodyestab.h -o debug/moc_rigidbodyestab.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/rigidbodyestab.h -o debug/moc_rigidbodyestab.cpp
 
 debug/moc_tabbar.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtabbar.h \
@@ -2114,10 +2119,11 @@ debug/moc_tabbar.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/tabbar.h -o debug/moc_tabbar.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tabs/tabbar.h -o debug/moc_tabbar.cpp
 
 debug/moc_conetwistwidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
@@ -2225,7 +2231,7 @@ debug/moc_conetwistwidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h -o debug/moc_conetwistwidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h -o debug/moc_conetwistwidget.cpp
 
 debug/moc_hingewidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
@@ -2333,7 +2339,7 @@ debug/moc_hingewidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h -o debug/moc_hingewidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h -o debug/moc_hingewidget.cpp
 
 debug/moc_pivotwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -2442,7 +2448,7 @@ debug/moc_pivotwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.h -o debug/moc_pivotwidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pivotwidget.h -o debug/moc_pivotwidget.cpp
 
 debug/moc_pointtopointwidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
@@ -2550,7 +2556,7 @@ debug/moc_pointtopointwidget.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h -o debug/moc_pointtopointwidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h -o debug/moc_pointtopointwidget.cpp
 
 debug/moc_transformwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -2657,7 +2663,7 @@ debug/moc_transformwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.h -o debug/moc_transformwidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/transformwidget.h -o debug/moc_transformwidget.cpp
 
 debug/moc_distancewidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -2764,7 +2770,7 @@ debug/moc_distancewidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget 
 		../DUMPViewer/GUI/widgets/distancewidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/distancewidget.h -o debug/moc_distancewidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/distancewidget.h -o debug/moc_distancewidget.cpp
 
 debug/moc_dumpviewerwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -2871,7 +2877,7 @@ debug/moc_dumpviewerwidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidge
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/dumpviewerwidget.h -o debug/moc_dumpviewerwidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/dumpviewerwidget.h -o debug/moc_dumpviewerwidget.cpp
 
 debug/moc_ridgidbodypropertyeswidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -2978,7 +2984,7 @@ debug/moc_ridgidbodypropertyeswidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidg
 		../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.h -o debug/moc_ridgidbodypropertyeswidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/ridgidbodypropertyeswidget.h -o debug/moc_ridgidbodypropertyeswidget.cpp
 
 debug/moc_rigidbodieswidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -3085,7 +3091,7 @@ debug/moc_rigidbodieswidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidg
 		../DUMPViewer/GUI/widgets/rigidbodieswidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/rigidbodieswidget.h -o debug/moc_rigidbodieswidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/widgets/rigidbodieswidget.h -o debug/moc_rigidbodieswidget.cpp
 
 debug/moc_infobox.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
@@ -3193,7 +3199,7 @@ debug/moc_infobox.cpp: ../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
 		../DUMPViewer/GUI/infobox.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/infobox.h -o debug/moc_infobox.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/infobox.h -o debug/moc_infobox.cpp
 
 debug/moc_lodsbox.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -3300,7 +3306,7 @@ debug/moc_lodsbox.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		../DUMPViewer/GUI/lodsbox.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/lodsbox.h -o debug/moc_lodsbox.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/lodsbox.h -o debug/moc_lodsbox.cpp
 
 debug/moc_toolpanel.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtabwidget.h \
@@ -3548,11 +3554,12 @@ debug/moc_toolpanel.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglversionfunctions.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/widgets/distancewidget.h \
 		../DUMPViewer/GUI/toolpanel.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/toolpanel.h -o debug/moc_toolpanel.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/toolpanel.h -o debug/moc_toolpanel.cpp
 
 debug/moc_tooltabinfobox.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
@@ -3693,7 +3700,7 @@ debug/moc_tooltabinfobox.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDia
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tooltabinfobox.h -o debug/moc_tooltabinfobox.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tooltabinfobox.h -o debug/moc_tooltabinfobox.cpp
 
 debug/moc_tooltabshortinfobox.cpp: ../DUMPViewer/GUI/infobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
@@ -3818,7 +3825,7 @@ debug/moc_tooltabshortinfobox.cpp: ../DUMPViewer/GUI/infobox.h \
 		../DUMPViewer/GUI/tooltabshortinfobox.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tooltabshortinfobox.h -o debug/moc_tooltabshortinfobox.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/tooltabshortinfobox.h -o debug/moc_tooltabshortinfobox.cpp
 
 debug/moc_toolWidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qwidget.h \
@@ -4065,11 +4072,12 @@ debug/moc_toolWidget.cpp: C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QWidget \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		../DUMPViewer/GUI/toolWidget.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/toolWidget.h -o debug/moc_toolWidget.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/GUI/toolWidget.h -o debug/moc_toolWidget.cpp
 
 debug/moc_editorCore.cpp: C:/Qt/5.11.0/mingw53_32/include/QtCore/QString \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qstring.h \
@@ -4288,10 +4296,11 @@ debug/moc_editorCore.cpp: C:/Qt/5.11.0/mingw53_32/include/QtCore/QString \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/editorCore.h \
 		debug/moc_predefs.h \
 		C:/Qt/5.11.0/mingw53_32/bin/moc.exe
-	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/editorCore.h -o debug/moc_editorCore.cpp
+	'C:\Qt\5.11.0\mingw53_32\bin\moc.exe' $(DEFINES) --include debug/moc_predefs.h -IC:/Qt/5.11.0/mingw53_32/mkspecs/win32-g++ -ID:/Projects/GIT/DUMPViewer/DUMPViewer -ID:/Projects/GIT/DUMPViewer/DUMPViewer/include -ID:/Projects/GIT/DUMPViewer/DUMPViewer/DevIL -IC:/Qt/5.11.0/mingw53_32/include -IC:/Qt/5.11.0/mingw53_32/include/QtWidgets -IC:/Qt/5.11.0/mingw53_32/include/QtGui -IC:/Qt/5.11.0/mingw53_32/include/QtANGLE -IC:/Qt/5.11.0/mingw53_32/include/QtXml -IC:/Qt/5.11.0/mingw53_32/include/QtCore -I. -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -IC:/Qt/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++ -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -IC:/Qt/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ../DUMPViewer/editorCore.h -o debug/moc_editorCore.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -4681,6 +4690,7 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QScrollBar \
@@ -4915,6 +4925,7 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
@@ -5137,6 +5148,7 @@ ui_toolwidget.h: ../DUMPViewer/GUI/toolwidget.ui \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtabbar.h \
@@ -6285,6 +6297,7 @@ debug/main.o: ../DUMPViewer/main.cpp C:/Qt/5.11.0/mingw53_32/include/QtWidgets/Q
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QDialog
@@ -6553,6 +6566,7 @@ debug/mainwindow.o: ../DUMPViewer/mainwindow.cpp ../DUMPViewer/mainwindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QDialog \
@@ -9046,7 +9060,8 @@ debug/dfiledialog.o: ../DUMPViewer/GUI/serviceWindows/dfiledialog.cpp ../DUMPVie
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
-		../DUMPViewer/GUI/widgets/dumpviewerwidget.h
+		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/dfiledialog.o ../DUMPViewer/GUI/serviceWindows/dfiledialog.cpp
 
 debug/newgameobjectnamewindow.o: ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.cpp ../DUMPViewer/GUI/serviceWindows/newgameobjectnamewindow.h \
@@ -9404,6 +9419,7 @@ debug/constraintstab.o: ../DUMPViewer/GUI/tabs/constraintstab.cpp ../DUMPViewer/
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/hingewidget.h \
 		../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
@@ -9682,6 +9698,7 @@ debug/lodtab.o: ../DUMPViewer/GUI/tabs/lodtab.cpp ../DUMPViewer/GUI/tabs/lodtab.
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		ui_lodtab.h \
 		../DUMPViewer/GUI/widgets/distancewidget.h \
@@ -9908,6 +9925,7 @@ debug/meshtab.o: ../DUMPViewer/GUI/tabs/meshtab.cpp ../DUMPViewer/GUI/tabs/mesht
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qtabbar.h \
@@ -10162,6 +10180,7 @@ debug/rigidbodyestab.o: ../DUMPViewer/GUI/tabs/rigidbodyestab.cpp ../DUMPViewer/
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
 		../DUMPViewer/GUI/tooltabinfobox.h \
 		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/tabs/tabbar.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QTabBar \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QScrollBar \
@@ -10415,7 +10434,8 @@ debug/tabbar.o: ../DUMPViewer/GUI/tabs/tabbar.cpp ../DUMPViewer/GUI/tabs/tabbar.
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/QFileDialog \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
-		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h
+		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/tabbar.o ../DUMPViewer/GUI/tabs/tabbar.cpp
 
 debug/conetwistwidget.o: ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.cpp ../DUMPViewer/GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
@@ -12008,6 +12028,7 @@ debug/toolpanel.o: ../DUMPViewer/GUI/toolpanel.cpp ../DUMPViewer/GUI/toolpanel.h
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglversionfunctions.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtGui/qopenglcontext.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/QScopedPointer \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/widgets/distancewidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/toolpanel.o ../DUMPViewer/GUI/toolpanel.cpp
 
@@ -12543,6 +12564,7 @@ debug/toolwidget.o: ../DUMPViewer/GUI/toolwidget.cpp ../DUMPViewer/GUI/toolwidge
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
+		../DUMPViewer/DevIL/include/il.h \
 		../DUMPViewer/GUI/serviceWindows/dfiledialog.h \
 		ui_toolwidget.h \
 		../DUMPViewer/GUI/tabs/constraintstab.h \
@@ -12781,7 +12803,8 @@ debug/editorCore.o: ../DUMPViewer/editorCore.cpp ../DUMPViewer/editorCore.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtWidgets/qfiledialog.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qdir.h \
 		C:/Qt/5.11.0/mingw53_32/include/QtCore/qfileinfo.h \
-		../DUMPViewer/GUI/widgets/dumpviewerwidget.h
+		../DUMPViewer/GUI/widgets/dumpviewerwidget.h \
+		../DUMPViewer/DevIL/include/il.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug/editorCore.o ../DUMPViewer/editorCore.cpp
 
 debug/gameindexobject.o: ../DUMPViewer/gameObject/gameindexobject.cpp ../DUMPViewer/gameObject/gameindexobject.h \

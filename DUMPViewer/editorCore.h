@@ -17,6 +17,7 @@
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/stream.h"
 #include "viewwindow.h"
+#include "DevIL/include/il.h"
 
 //класс ядра приложения. В нем должен быть весь основной функционал
 //
