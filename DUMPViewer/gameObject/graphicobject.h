@@ -17,13 +17,9 @@ class graphicObject : public meshObject
 public:
     graphicObject();
     virtual ~graphicObject();
-    void setMaterials(dArray<gameObjectMaterial*> *dArray);
     void setTexCoordinates(dArray<texCoordinates> *dArray);
     dArray<float> *getTexCoordArrayPointer();
     arraySize getTexCoordsSize();
-    dArray<gameObjectMaterial*> *getMaterialsArrayPointer();
-    gameObjectMaterial* getMaterialPointer(unsigned int index);
-    unsigned int getMaterialsSize();
     void clear();
     graphicObject &operator =(graphicObject &gObject);
     bool operator ==(graphicObject &gObject);
@@ -36,7 +32,6 @@ public:
 
 protected:
     dArray<texCoordinates> *texCoordsArray;//массив текстурных координат
-    dArray<gameObjectMaterial*> *materialsArray;//массив материалов
     bool visible;
 
 };

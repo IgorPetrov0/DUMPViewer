@@ -133,17 +133,7 @@ void stream::out(graphicObject *var){
         out((int)0);
     }
     int size=0;
-    dArray<gameObjectMaterial*> *mArray=var->getMaterialsArrayPointer();
-    if(mArray!=NULL){
-        size=mArray->getSize();
-        out(size);
-        for(int n=0;n!=size;n++){
-            out(mArray->operator [](n));
-        }
-    }
-    else{
-        out((int)0);
-    }
+
     out(var->isVisible());
 }
 //////////////////////////////////////////////////////////////////////////
@@ -154,8 +144,8 @@ void stream::out(gameObjectTexture *var){
 //////////////////////////////////////////////////////////////////////////
 void stream::out(gameObjectMaterial *var){
     VAR_NOT_NULL
-    out(var->getTexture());
-    out(var->getIndices()->getArrayPointer(),var->getIndecesSize());//индексы
+    out(var->getDiffuseTexture());
+    //out(var->getIndices()->getArrayPointer(),var->getIndecesSize());//индексы
 }
 //////////////////////////////////////////////////////////////////////////
 void stream::out(constraint *var){
@@ -391,7 +381,6 @@ void stream::in(graphicObject *var){
         in(material);
         materialsArray->addElement(n,material);
     }
-    var->setMaterials(materialsArray);
 
     in(&visible);
     var->setVisible(visible);
@@ -410,12 +399,12 @@ void stream::in(gameObjectMaterial *var){
 
     gameObjectTexture *texture = new gameObjectTexture;
     in(texture);
-    var->setTexture(texture);
+    var->addTexture(texture);
 
     unsigned int *tmpArray;
     in(&tmpArray,size);
     indicesArray=new dArray<unsigned int>(tmpArray,size);
-    var->setIndicesArray(indicesArray);
+    //var->setIndicesArray(indicesArray);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(constraint *var){

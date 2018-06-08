@@ -3,6 +3,7 @@
 
 #include <string>
 #include "gameObject/dArray.h"
+#include "gameindexobject.h"
 #include "mathPrimitives/vector3.h"
 #include "defines.h"
 
@@ -33,6 +34,7 @@ public:
 
 protected:
     dArray<vertexCoordinates> *vertexesArray;//массив вершин
+    dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     string *meshName;//имя нужно только для редактора и создается в функции setName
     unsigned int *trianglesCount;//аналогично имени
     vector3 boundBox;

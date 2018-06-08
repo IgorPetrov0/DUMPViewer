@@ -12,7 +12,6 @@
 #include <QLabel>
 #include "GUI/toolWidget.h"
 #include "viewwindow.h"
-#include "objectCompiller/objectcompiller.h"
 #include "GUI/serviceWindows/newgameobjectnamewindow.h"
 #include "editorCore.h"
 #include "gameObject/stream.h"

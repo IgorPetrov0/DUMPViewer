@@ -45,6 +45,9 @@ public:
     virtual bool mainMeshExsist();
 
 protected:
+    vector3 position;
+    vector3 rotation;
+    vector3 scale;
     graphicObject *mainMesh;
     dArray<LOD*> *LODs;
     phisycObject *pObject;

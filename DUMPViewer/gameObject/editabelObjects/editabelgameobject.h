@@ -5,7 +5,6 @@
 #include <vector>
 #include "gameObject/gameobject.h"
 #include "editabelphisycobject.h"
-#include "objectCompiller/loader.h"
 #include "editabelgraphicobject.h"
 #include "editablelod.h"
 

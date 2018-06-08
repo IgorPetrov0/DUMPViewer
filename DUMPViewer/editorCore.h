@@ -7,6 +7,8 @@
 #include <QMessageBox>
 #include <QObject>
 #include <QVector>
+#include <QObject>
+#include <string>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/mesh.h>
@@ -15,14 +17,16 @@
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/stream.h"
 #include "viewwindow.h"
-#include "objectCompiller/loader.h"
+#include "DevIL/include/il.h"
 
 //класс ядра приложения. В нем должен быть весь основной функционал
 //
 
+using namespace Assimp;
 
-class editorCore
+class editorCore : public QObject
 {
+    Q_OBJECT
 public:
     editorCore();
     QString modelFilter();
@@ -56,8 +60,11 @@ protected:
     float a_lastDistance;
     QVector<gameObjectTexture*> texturesArray;
     QString a_error;
-
+    QVector<gameObjectMaterial*> globalMaterialsArray;
     bool loadTextures(graphicObject *object);
+    bool addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
+    bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
+    gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
 };
 
 #endif // EDITORCORE_H

@@ -12,6 +12,7 @@ class gameObjectTexture
 public:
     gameObjectTexture();
     gameObjectTexture(gameObjectTexture *texture);
+    ~gameObjectTexture();
     void setName(string tName);
     void setTexturePointer(dArray<unsigned char> *dArray);
     void setWidth(int value);
@@ -33,7 +34,6 @@ public:
     unsigned int getOunerCounter();
 
 protected:
-    ~gameObjectTexture();
     dArray<unsigned char> *textureArray;//указатель на массив текстуры
     string name;
     unsigned int oglName;//имя, присваеваемое OpenGL при создании текстуры

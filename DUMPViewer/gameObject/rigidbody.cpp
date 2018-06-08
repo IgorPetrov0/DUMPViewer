@@ -131,12 +131,7 @@ void rigidBody::setMeshObject(meshObject *object){
 }
 //////////////////////////////////////////////////////////////////////////
 void rigidBody::createIndicesArray(graphicObject *object){
-    unsigned int matSize=object->getMaterialsSize();
     unsigned int indicesCount=0;
-
-    for(unsigned int n=0;n!=matSize;n++){//подсчет количества индексов во всех материалах
-        indicesCount+=object->getMaterialPointer(n)->getIndecesSize();
-    }
 
     if(indicesArray!=NULL){
         delete indicesArray;
@@ -144,10 +139,4 @@ void rigidBody::createIndicesArray(graphicObject *object){
     indicesArray=new dArray<unsigned int>(indicesCount);
 
     arraySize pos=0;
-    for(unsigned int n=0;n!=object->getMaterialsSize();n++){
-        gameObjectMaterial *tmpMat=object->getMaterialPointer(n);
-        for(unsigned int m=0;m!=tmpMat->getIndecesSize();m++){
-            indicesArray->addElement(pos,tmpMat->getIndices()->operator [](m));
-        }
-    }
 }
