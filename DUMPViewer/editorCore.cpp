@@ -281,8 +281,9 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         ilGenImages(1,&id);
         ilBindImage(id);
         ilLoadImage((wchar_t*)fi.absoluteFilePath().data());
-
-
+        ILubyte *data=ilGetData();
+        ilDeleteImages(1,&id);
+        ilShutDown();
         return newTexture;
     }
     else{
