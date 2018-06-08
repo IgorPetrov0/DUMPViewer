@@ -102,10 +102,10 @@ bool editorCore::loadCurrentGameObject(QString fileName){
             texturesArray.clear();
             //грузим текстуры
             if(newObject->mainMeshExsist()){
-                loadTextures(newObject->getMainMesh());
+                //loadTextures(newObject->getMainMesh());
             }
             for(unsigned int n=0;n!=newObject->LODsSize();n++){
-                loadTextures(newObject->getLod(n));
+                //loadTextures(newObject->getLod(n));
             }
             setCurrentObject(newObject);
             file.close();
@@ -119,52 +119,7 @@ bool editorCore::loadCurrentGameObject(QString fileName){
     box.exec();
     return false;
 }
-////////////////////////////////////////////////////////////////////////////////////////
-bool editorCore::loadTextures(graphicObject *object){
-    //грузим текстуры для mainMesh
-//    int mSize=object->getMaterialsSize();
-//    for(int n=0;n!=mSize;n++){
-//        gameObjectMaterial *material=object->getMaterialPointer(n);
-//        QString fileName=QString::fromStdString(material->getTexture()->getName());
-//        int m=0;
-//        for(;m!=texturesArray.size();m++){//ищем такую текстуру в массиве
-//            if(texturesArray.at(m)->getName()==fileName.toStdString()){//если нашли
-//                material->getTexture()->deleteTexture();//удаляем дефолтную текстуру
-//                material->setTexture(texturesArray.at(m));//присваиваем указатель на текстуру материалу
-//                break;
-//            }
-//        }
-//        if(m==texturesArray.size()){
-//            //если так и не нашли
-//            //то загружаем или создаем дефолтную
-//            gameObjectTexture *texture=material->getTexture();
-//            QString name=QString::fromStdString(material->getTexture()->getName());
-//            if(!name.isEmpty()){
-//                QString g=TEXTURES_DIR+"/"+name;
-//                QImage tex(g);
-//                if(tex.isNull()){
-//                    a_error=QObject::tr("Can't open texture file ")+QString::fromStdString(texture->getName())+QObject::tr(" .");
-//                    return false;
-//                }
-//                tex=tex.convertToFormat(QImage::Format_RGBA8888);//конвертим в формат RGBA8888
-//                tex=tex.mirrored();
-//                texture->setWidth(tex.width());
-//                texture->setHeight(tex.height());
 
-//                int size=tex.byteCount();
-//                dArray<unsigned char> *tmp=new dArray<unsigned char>(size);
-//                //а это ацкий велосипед на костылях потому, что я пока не нашел, как иначе не таскать с собой объекты QImage, но держать в памяти битмап
-//                for(int n=0;n!=size;n++){
-//                    tmp->addElement(n,tex.bits()[n]);
-//                }
-//                texture->setTexturePointer(tmp);
-//            }
-//            texturesArray.append(texture);
-//        }
-//        material->getTexture()->addOuner();//добавляем текстуре владельца
-//    }
-//    return true;
-}
 /////////////////////////////////////////////////////////////////////////////////////
 bool editorCore::saveCurrentGameObject(QString fileName){
     QFile file(fileName);
@@ -263,7 +218,6 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         for(unsigned int n=0;n!=size;n++){
             gameObjectTexture *tex=texturesArray[n];
             if(tex->getName()==filePath.C_Str()){//если текстура найдена, то выходим и ничего не делаем
-                tex->addOuner();//добавляем владельца
                 return tex;//возвращаем существующую текстуру
             }
         }
@@ -271,18 +225,39 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         QFile file(fullPath);
         if(!file.exists()){
             a_error=tr("Texture file ")+fileName+tr(" not found.");
-            return newTexture;
+            return NULL;
         }
         QFileInfo fi(fullPath);
+
+        //строим текстуру
         newTexture = new gameObjectTexture;
         newTexture->setName(fi.fileName().toStdString());//имя текстуры - это имя файла с расширением без путей
         ILuint id;
+        ILinfo imageInfo;
         ilInit();
+        ILenum error=ilGetError();
+        iluInit();
+        error=ilGetError();
         ilGenImages(1,&id);
+        error=ilGetError();
         ilBindImage(id);
+        error=ilGetError();
+        wchar_t *d =(wchar_t*) fi.absoluteFilePath().data();
         ilLoadImage((wchar_t*)fi.absoluteFilePath().data());
-
-
+        error=ilGetError();
+        iluGetImageInfo(&imageInfo);
+        error=ilGetError();
+        newTexture->setWidth(imageInfo.Width);
+        newTexture->setHeight(imageInfo.Height);
+        ILubyte *data = ilGetData();
+        dArray<unsigned char> *texDataBuffer = new dArray<unsigned char>(imageInfo.SizeOfData);
+        //копируем массив текстуры в свой буфер
+        for(unsigned int n=0;n!=imageInfo.SizeOfData;n++){
+            texDataBuffer->addElement(n,data[n]);
+        }
+        newTexture->setTexturePointer(texDataBuffer);
+        ilDeleteImage(id);
+        ilShutDown();
         return newTexture;
     }
     else{

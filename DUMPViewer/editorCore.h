@@ -18,6 +18,7 @@
 #include "gameObject/stream.h"
 #include "viewwindow.h"
 #include "DevIL/include/il.h"
+#include "DevIL/include/ilu.h"
 
 //класс ядра приложения. В нем должен быть весь основной функционал
 //
@@ -61,7 +62,6 @@ protected:
     QVector<gameObjectTexture*> texturesArray;
     QString a_error;
     QVector<gameObjectMaterial*> globalMaterialsArray;
-    bool loadTextures(graphicObject *object);
     bool addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
     bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
     gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
