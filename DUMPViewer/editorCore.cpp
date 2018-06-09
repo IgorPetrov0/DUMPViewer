@@ -242,9 +242,9 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         error=ilGetError();
         ilBindImage(id);
         error=ilGetError();
-        string s=fi.absoluteFilePath().toStdString();
-        //ilLoadImage(fi.absoluteFilePath().data());
-        ilDeleteImages(1,&id);
+        wchar_t arr[fi.absoluteFilePath().size()];
+        fi.absoluteFilePath().toWCharArray(arr);
+        ilLoadImage(arr);
         error=ilGetError();
         iluGetImageInfo(&imageInfo);
         error=ilGetError();
