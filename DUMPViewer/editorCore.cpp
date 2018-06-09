@@ -242,12 +242,9 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         error=ilGetError();
         ilBindImage(id);
         error=ilGetError();
-        wchar_t *d =(wchar_t*) fi.absoluteFilePath().data();
-        ilLoadImage((wchar_t*)fi.absoluteFilePath().data());
-<<<<<<< HEAD
-        ILubyte *data=ilGetData();
+        string s=fi.absoluteFilePath().toStdString();
+        //ilLoadImage(fi.absoluteFilePath().data());
         ilDeleteImages(1,&id);
-=======
         error=ilGetError();
         iluGetImageInfo(&imageInfo);
         error=ilGetError();
@@ -261,7 +258,6 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         }
         newTexture->setTexturePointer(texDataBuffer);
         ilDeleteImage(id);
->>>>>>> 1e267acbc43aa43c3776b0ba649913866e951938
         ilShutDown();
         return newTexture;
     }
