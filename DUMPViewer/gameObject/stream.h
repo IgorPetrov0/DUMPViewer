@@ -2,7 +2,7 @@
 #define STREAM_H
 
 #include <string.h>
-#include <mem.h>
+//#include <mem.h>
 #include "mathPrimitives/vector2.h"
 #include "mathPrimitives/vector3.h"
 #include "mathPrimitives/vertex.h"
