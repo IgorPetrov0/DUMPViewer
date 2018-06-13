@@ -17,8 +17,6 @@ class graphicObject : public meshObject
 public:
     graphicObject();
     virtual ~graphicObject();
-    void setTexCoordinates(dArray<texCoordinates> *dArray);
-    dArray<float> *getTexCoordArrayPointer();
     arraySize getTexCoordsSize();
     void clear();
     graphicObject &operator =(graphicObject &gObject);
@@ -30,8 +28,8 @@ public:
     void reloadVideoData();
 
 
+
 protected:
-    dArray<texCoordinates> *texCoordsArray;//массив текстурных координат
     bool visible;
 
 };

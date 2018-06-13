@@ -57,7 +57,8 @@ SOURCES += main.cpp\
     GUI/tooltabshortinfobox.cpp \
     GUI/toolwidget.cpp \
     editorCore.cpp \
-    gameObject/gameindexobject.cpp
+    gameObject/gameindexobject.cpp \
+    gameObject/slaveobject.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -104,7 +105,8 @@ HEADERS  += mainwindow.h \
     GUI/toolWidget.h \
     gameObject/dArray.h \
     editorCore.h \
-    gameObject/gameindexobject.h
+    gameObject/gameindexobject.h \
+    gameObject/slaveobject.h
 
 FORMS    += \
     mainwindow.ui \
@@ -133,16 +135,18 @@ INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
 
 
-win32: LIBS += -L$$PWD/include/ -lassimp_dll
+win32: LIBS += -L$$PWD/include/ -lassimp-vc140-mt
 
-
+INCLUDEPATH += $$PWD/include/assimp
+DEPENDPATH += $$PWD/include/assimp
 
 win32: LIBS += -L$$PWD/DevIL/ -lDevIL
 
-INCLUDEPATH += $$PWD/DevIL
-DEPENDPATH += $$PWD/DevIL
+INCLUDEPATH += $$PWD/DevIL/include
+DEPENDPATH += $$PWD/DevIL/include
+
 
 win32: LIBS += -L$$PWD/DevIL/ -lILU
 
-INCLUDEPATH += $$PWD/DevIL
-DEPENDPATH += $$PWD/DevIL
+INCLUDEPATH += $$PWD/DevIL/include
+DEPENDPATH += $$PWD/DevIL/include

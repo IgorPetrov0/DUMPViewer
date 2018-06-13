@@ -31,7 +31,7 @@ void gameObjectMaterial::setVAOName(unsigned int name){
 }
 /////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::addTexture(gameObjectTexture *tex){
-    tex->addOuner();
+    tex->addOwner();
     diffuseTexture=tex;
 }
 /////////////////////////////////////////////////////////////////////
@@ -40,8 +40,7 @@ unsigned int gameObjectMaterial::getVAOName(){
 }
 /////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::clear(){
-    diffuseTexture->deleteTexture();
-    diffuseTexture=NULL;
+    diffuseTexture->release();
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial &gameObjectMaterial::operator =(gameObjectMaterial *material){
@@ -66,4 +65,11 @@ unsigned int gameObjectMaterial::getSizeInBytes(){
     size+=diffuseTexture->getSizeInBytes();
     return size;
 }
-
+//////////////////////////////////////////////////////////////////////////////////
+void gameObjectMaterial::setName(string name){
+    this->name=name;
+}
+//////////////////////////////////////////////////////////////////////////////////
+string gameObjectMaterial::getName(){
+    return name;
+}

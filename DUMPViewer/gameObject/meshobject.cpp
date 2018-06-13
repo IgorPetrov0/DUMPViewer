@@ -2,13 +2,14 @@
 
 meshObject::meshObject()
 {
-    vertexesArray=NULL;
+    vertexAtributesArray=NULL;
     meshName=NULL;
     trianglesCount=NULL;
+    indicesObjectsArray=NULL;
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
-    vertexesArray = new dArray<vertexCoordinates>(*mesh->getVertexArray());
+    vertexAtributesArray = new dArray<vertexCoordinates>(*mesh->getVertexAtributesArray());
     meshName = new string(mesh->getName());
     trianglesCount = new unsigned int(mesh->getTrianglesCount());
     boundBox=mesh->getBoundBox();
@@ -18,18 +19,18 @@ meshObject::~meshObject(){
     clear();
 }
 //////////////////////////////////////////////////////////////////////
-void meshObject::setVertexes(dArray<vertexCoordinates> *array){
+void meshObject::setVertexAtributes(dArray<vertexCoordinates> *array){
     if(array!=NULL){
-        vertexesArray=array;
+        vertexAtributesArray=array;
     }
 }
 //////////////////////////////////////////////////////////////////////
 const vertexCoordinates *meshObject::getVertexesPointer(){
-    return vertexesArray->getArrayPointer();
+    return vertexAtributesArray->getArrayPointer();
 }
 //////////////////////////////////////////////////////////////////////
 arraySize meshObject::getVertexseSize(){
-    return vertexesArray->getSize();
+    return vertexAtributesArray->getSize();
 }
 //////////////////////////////////////////////////////////////////////
 string meshObject::getName(){
@@ -44,8 +45,8 @@ void meshObject::clear(){
     delete meshName;
     meshName=NULL;
 
-    delete vertexesArray;
-    vertexesArray=NULL;
+    delete vertexAtributesArray;
+    vertexAtributesArray=NULL;
 
     delete trianglesCount;
     trianglesCount=NULL;
@@ -63,10 +64,10 @@ meshObject *meshObject::operator =(meshObject &mesh){
     if(!mesh.getName().empty()){
         setName(mesh.getName());
     }
-    if(vertexesArray!=NULL){
-        delete vertexesArray;
+    if(vertexAtributesArray!=NULL){
+        delete vertexAtributesArray;
     }
-    vertexesArray=new dArray<float>(*mesh.getVertexArray());
+    vertexAtributesArray=new dArray<float>(*mesh.getVertexAtributesArray());
     return this;
 }
 //////////////////////////////////////////////////////////////////////
@@ -76,7 +77,7 @@ bool meshObject::operator ==(meshObject &mesh){
             return false;
         }
     }
-    if(vertexesArray->operator !=(*mesh.getVertexArray())){
+    if(vertexAtributesArray->operator !=(*mesh.getVertexAtributesArray())){
         return false;
     }
     return true;
@@ -87,16 +88,16 @@ bool meshObject::operator !=(meshObject &mesh){
 }
 ////////////////////////////////////////////////////////////////
 bool meshObject::isEmpty(){
-    if(vertexesArray!=NULL){
-        if(vertexesArray->getSize()){
+    if(vertexAtributesArray!=NULL){
+        if(vertexAtributesArray->getSize()){
             return false;
         }
     }
     return true;
 }
 /////////////////////////////////////////////////////////////////////
-dArray<vertexCoordinates> *meshObject::getVertexArray(){
-    return vertexesArray;
+dArray<vertexCoordinates> *meshObject::getVertexAtributesArray(){
+    return vertexAtributesArray;
 }
 /////////////////////////////////////////////////////////////////////
 vector3 meshObject::getBoundBox(){
@@ -123,10 +124,10 @@ unsigned int meshObject::getTrianglesCount(){
 /////////////////////////////////////////////////////////////////////////
 unsigned int meshObject::getSizeInBytes(){
     unsigned int size=0;
-    size+=vertexesArray->getSize()*sizeof(vertexCoordinates);
+    size+=vertexAtributesArray->getSize()*sizeof(vertexCoordinates);
     size+=sizeof(unsigned int);//под размер
     if(meshName!=NULL){
-        size+=meshName->capacity()+sizeof(int);
+        size+=(unsigned int)meshName->capacity()+sizeof(int);
     }
     if(trianglesCount!=NULL){
         size+=sizeof(int);
@@ -135,4 +136,20 @@ unsigned int meshObject::getSizeInBytes(){
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////
-
+unsigned int meshObject::getVaoName() const
+{
+    return vaoName;
+}
+////////////////////////////////////////////////////////////////////////////////
+void meshObject::setVaoName(unsigned int value)
+{
+    vaoName = value;
+}
+////////////////////////////////////////////////////////////////////////////////
+unsigned int meshObject::getNumIndicesObjects(){
+    return indicesObjectsArray->getSize();
+}
+////////////////////////////////////////////////////////////////////////////////
+gameIndexObject *meshObject::getIndexObject(unsigned int index){
+    return indicesObjectsArray->operator [](index);
+}

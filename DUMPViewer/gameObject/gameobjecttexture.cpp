@@ -12,7 +12,6 @@ gameObjectTexture::gameObjectTexture()
     for(unsigned int n=0;n!=size;n++){
         textureArray->addElement(n,255);
     }
-    ounerCounter=0;
 }
 //////////////////////////////////////////////////
 gameObjectTexture::gameObjectTexture(gameObjectTexture *texture){
@@ -24,30 +23,11 @@ gameObjectTexture::gameObjectTexture(gameObjectTexture *texture){
     oglName=texture->getOglName();
     tWidth=texture->width();
     tHeigth=texture->height();
-    ounerCounter=texture->getOunerCounter();
+    //ounerCounter=texture->getOunerCounter();
 }
 /////////////////////////////////////////////////
 gameObjectTexture::~gameObjectTexture(){
     delete textureArray;
-}
-///////////////////////////////////////////////
-void gameObjectTexture::setName(string tName){
-    name=tName;
-}
-/////////////////////////////////////////////////////
-void gameObjectTexture::setHeight(int value){
-    tHeigth=value;
-}
-/////////////////////////////////////////////////////
-void gameObjectTexture::setWidth(int value){
-    tWidth=value;
-}
-////////////////////////////////////////////////
-void gameObjectTexture::setTexturePointer(dArray<unsigned char> *array){
-    if(array!=NULL){
-        delete textureArray;
-        textureArray=array;
-    }
 }
 ///////////////////////////////////////////////////////////////////////////
 string gameObjectTexture::getName(){
@@ -104,6 +84,7 @@ bool gameObjectTexture::operator !=(gameObjectTexture &texture){
 //////////////////////////////////////////////////////////////////////////////
 void gameObjectTexture::clear(){
     delete textureArray;
+    textureArray=NULL;
 }
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int gameObjectTexture::getSizeInBytes(){
@@ -113,29 +94,54 @@ unsigned int gameObjectTexture::getSizeInBytes(){
 
     return size;
 }
-////////////////////////////////////////////////////////////////////////////////////////
-void gameObjectTexture::addOuner(){
-    ounerCounter++;
-}
-/////////////////////////////////////////////////////////////////////////////////////////
-bool gameObjectTexture::isUsed(){
-    if(ounerCounter>1){
-        return true;
-    }
-    return false;
-}
 ///////////////////////////////////////////////////////////////////////////////////////
 void gameObjectTexture::deleteTexture(){
-    if(ounerCounter>1){
-        ounerCounter--;
+    if(ownerCounter>1){
+        ownerCounter--;
         return;
     }
     delete this;
 }
-/////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int gameObjectTexture::getOunerCounter(){
-    return ounerCounter;
+/////////////////////////////////////////////////////////////////////////////////////
+GLint gameObjectTexture::getOGLFormat() const{
+    return format;
 }
-
-
+/////////////////////////////////////////////////////////////////////////////////////
+GLint gameObjectTexture::getDataType() const
+{
+    return dataType;
+}
+////////////////////////////////////////////////////////////////////////////////////
+bool gameObjectTexture::loadFromFile(string name, string path ){
+    this->name=name;//имя текстуры - это имя файла с расширением без путей
+    ILuint id;
+    ILinfo imageInfo;
+    ilInit();
+    iluInit();
+    ilGenImages(1,&id);
+    ilBindImage(id);
+    ilLoadImage(path.data());
+    if(ilGetError()!=IL_NO_ERROR){
+        ilDeleteImage(id);
+        ilShutDown();
+        return false;
+    }
+    iluGetImageInfo(&imageInfo);
+    tWidth=imageInfo.Width;
+    tHeigth=imageInfo.Height;
+    format=imageInfo.Format;
+    dataType=imageInfo.Type;
+    ILubyte *data = ilGetData();
+    if(textureArray!=NULL){
+        delete textureArray;
+    }
+    textureArray=new dArray<unsigned char>(imageInfo.SizeOfData);
+    //копируем массив текстуры в свой буфер
+    for(unsigned int n=0;n!=imageInfo.SizeOfData;n++){
+        textureArray->addElement(n,data[n]);
+    }
+    ilDeleteImage(id);
+    ilShutDown();
+}
+////////////////////////////////////////////////////////////////////////////////////
 

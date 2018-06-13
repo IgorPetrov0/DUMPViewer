@@ -7,17 +7,14 @@ editabelGraphicObject::editabelGraphicObject()
 ////////////////////////////////////////////////////////////////////
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
 
-    vertexesArray = new dArray<vertexCoordinates>(gObject->getVertexArray());
+    vertexAtributesArray = new dArray<vertexCoordinates>(gObject->getVertexAtributesArray());
 
     meshName = new string(gObject->getName());
 
     trianglesCount = new unsigned int(gObject->getTrianglesCount());
     boundBox=gObject->getBoundBox();
 
-    dArray<float> *texCooordsArray=gObject->getTexCoordArrayPointer();
-    if(texCooordsArray!=NULL){
-        texCoordsArray = new dArray<texCoordinates>(texCooordsArray);
-    }
+
 
 
 
@@ -38,11 +35,10 @@ void editabelGraphicObject::compileObject(){
 
 }
 //////////////////////////////////////////////////////////////////////////
-void editabelGraphicObject::loadFromAiScene(const aiScene *scene){
+void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameObjectMaterial*> *materials){
 
-    unsigned int counter=0;
-    unsigned int lastVertexNumber=0;
     unsigned int numVertices=0;
+    unsigned int lastIndex=0;
 
     //вершины
     //подсчитываем общее кол-во вершин в сцене
@@ -50,50 +46,83 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene){
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         numVertices+=meshes[n]->mNumVertices;
     }
-    //создаем массив вершин для объекта и заполняем его
-    //массив вершин один на объект
-    if(vertexesArray!=NULL){
-        delete vertexesArray;
+    //создаем массив вершинных атрибутов для объекта и заполняем его
+    //массив один на объект
+    //формат: vX,vY,vZ,tX,tY,nX,nY,nZ
+    if(vertexAtributesArray!=NULL){
+        delete vertexAtributesArray;
     }
-    vertexesArray = new dArray<vertexCoordinates>(numVertices*3);
+    vertexAtributesArray = new dArray<vertexCoordinates>(numVertices*3+numVertices*2+numVertices*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
 
-//    if(materialsArray!=NULL){
-//        materialsArray->deletePointers();
-//        delete materialsArray;
-//    }
-//    materialsArray = new dArray<gameObjectMaterial*>(scene->mNumMeshes);//количество материалов соответствует количеству
-//    //мешей в сцене assimp-а т.к. там мешу соответствует только один материал
-
+    //проходим по всем мешам сцены собираем вершины, текстурные координаты и нормали
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
-        lastVertexNumber=counter;
-        for(unsigned int m=0;m!=meshes[n]->mNumVertices;m++){
-            aiVector3D v=meshes[n]->mVertices[m];
-            vertexesArray->addElement(counter,v.x);
-            vertexesArray->addElement(counter+1,v.y);
-            vertexesArray->addElement(counter+2,v.z);
-            counter+=3;
+        aiMesh *mesh=meshes[n];
+        aiVector3D *vertexes=mesh->mVertices;
+        aiVector3D *texCoords=mesh->mTextureCoords[0];
+        aiVector3D *normals=mesh->mNormals;
+        for(unsigned int m=0;m!=numVertices;m++){
+            vertexAtributesArray->addElement(m*8,vertexes[m].x);
+            vertexAtributesArray->addElement(m*8+1,vertexes[m].y);
+            vertexAtributesArray->addElement(m*8+2,vertexes[m].z);
+            if(mesh->HasTextureCoords(0)){
+                vertexAtributesArray->addElement(m*8+3,texCoords[m].x);
+                vertexAtributesArray->addElement(m*8+4,texCoords[m].y);
+            }
+            else{
+                vertexAtributesArray->addElement(m*8+3,0);
+                vertexAtributesArray->addElement(m*8+4,0);
+            }
+            if(mesh->HasNormals()){
+                vertexAtributesArray->addElement(m*8+5,normals[m].x);
+                vertexAtributesArray->addElement(m*8+6,normals[m].y);
+                vertexAtributesArray->addElement(m*8+7,normals[m].z);
+            }
+            else{
+                vertexAtributesArray->addElement(m*8+5,0);
+                vertexAtributesArray->addElement(m*8+6,0);
+                vertexAtributesArray->addElement(m*8+7,0);
+            }
         }
-        //создаем материал
-        gameObjectMaterial *material = new gameObjectMaterial;
-        unsigned int size=meshes[n]->mNumFaces;//на 3 потому, что делаем триангуляцию в постпроцессе
-        unsigned int indCounter=0;
-        dArray<unsigned int> *indices = new dArray<unsigned int>(size*3);//общий массив индексов
+    }
 
-        aiFace *faces=meshes[n]->mFaces;
-        for(unsigned int m=0;m!=size;m++){//берем индексы со всех поверхностей
-            //меняем значение идексов в соответствии со сквозной индексацией
-            indices->addElement(indCounter,faces[m].mIndices[0]+lastVertexNumber);
-            indices->addElement(indCounter+1,faces[m].mIndices[1]+lastVertexNumber);
-            indices->addElement(indCounter+2,faces[m].mIndices[2]+lastVertexNumber);
-            indCounter+=3;
+    //создаем массив индексных объектов
+    if(indicesObjectsArray!=NULL){
+        delete indicesObjectsArray;
+    }
+    indicesObjectsArray = new dArray<gameIndexObject*>(scene->mNumMeshes);
+    for(unsigned int nn=0;nn!=scene->mNumMeshes;nn++){
+        aiMesh *mesh=scene->mMeshes[nn];
+        dArray<unsigned int> *array = new  dArray<unsigned int>(mesh->mNumFaces*3);
+        unsigned int index=0;
+        for(unsigned int n=0;n!=mesh->mNumFaces;n++){
+            for(int m=0;m!=mesh->mFaces[n].mNumIndices;m++){
+                unsigned int currentIndex=mesh->mFaces[n].mIndices[m]+lastIndex;//сквозная нумерация
+                array->addElement(n*3+m,currentIndex);
+                if(currentIndex>index){//за одно ищем наибольший индекс
+                    index=currentIndex;
+                }
+            }
+
         }
-        //material->setIndicesArray(indices);
+        lastIndex=index+1;
+        gameIndexObject *indexObject = new gameIndexObject;
+        indexObject->addIndicesArray(array);
 
-        //получаем диффузные текстуры
-        aiMaterial *mat=scene->mMaterials[meshes[n]->mMaterialIndex];
-        unsigned int numTex=mat->GetTextureCount(aiTextureType_DIFFUSE);
-        aiString path;
-        aiReturn rez=mat->GetTexture(aiTextureType_DIFFUSE,meshes[n]->mMaterialIndex,&path);
-
+        //получаем материал из глобального хранилища
+        aiMaterial *mat=scene->mMaterials[mesh->mMaterialIndex];
+        unsigned int globalArraySize=materials->size();
+        aiString matName;
+        mat->Get(AI_MATKEY_NAME,matName);
+        unsigned int n;
+        for(n=0;n!=globalArraySize;n++){
+            if(materials->at(n)->getName()==matName.C_Str()){
+                indexObject->addMaterialPointer(materials->at(n));
+                break;
+            }
+        }
+        if(n==globalArraySize){//если материал не нашли
+            indexObject->addMaterialPointer(materials->at(0));//то присваиваем первый из массива. Он должен быть дефолтный.
+        }
+        indicesObjectsArray->addElement(nn,indexObject);
     }
 }

@@ -107,7 +107,7 @@ void stream::  out(phisycObject *var){
 //////////////////////////////////////////////////////////////////////////
 void stream::out(meshObject *var){
     VAR_NOT_NULL
-    dArray<float> *vArray=var->getVertexArray();
+    dArray<float> *vArray=var->getVertexAtributesArray();
     out(vArray->getArrayPointer(),vArray->getSize());
     out(var->getName());
     vector3 bb=var->getBoundBox();
@@ -125,13 +125,7 @@ void stream::out(graphicObject *var){
     VAR_NOT_NULL
     out((meshObject*)var);
 
-    dArray<float> *cArray=var->getTexCoordArrayPointer();
-    if(cArray!=NULL){
-        out(cArray->getArrayPointer(),cArray->getSize());
-    }
-    else{
-        out((int)0);
-    }
+
     int size=0;
 
     out(var->isVisible());
@@ -341,7 +335,7 @@ void stream::in(meshObject *var){
     float* tmpArray;
     in(&tmpArray,size);
     vertexArray=new dArray<float>(tmpArray,size);
-    var->setVertexes(vertexArray);
+    var->setVertexAtributes(vertexArray);
 
     in(&meshName);
     var->setName(meshName);
@@ -372,7 +366,7 @@ void stream::in(graphicObject *var){
     float *tmpArray;
     in(&tmpArray,size);
     texCoordsArray=new dArray<float>(tmpArray,size);
-    var->setTexCoordinates(texCoordsArray);
+
 
     in((int*)&size);
     materialsArray= new dArray<gameObjectMaterial*>(size);
@@ -388,9 +382,7 @@ void stream::in(graphicObject *var){
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(gameObjectTexture *var){
     string name;
-
     in(&name);
-    var->setName(name);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(gameObjectMaterial *var){
