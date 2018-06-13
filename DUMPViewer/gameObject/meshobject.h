@@ -15,13 +15,15 @@ public:
     meshObject();
     meshObject(meshObject *mesh);
     virtual ~meshObject();
-    void setVertexes(dArray<vertexCoordinates> *dArray);
-    dArray<vertexCoordinates> *getVertexArray();
+    void setVertexAtributes(dArray<vertexCoordinates> *array);
+    dArray<vertexCoordinates> *getVertexAtributesArray();
     const vertexCoordinates *getVertexesPointer();
     arraySize getVertexseSize();
     string getName();
     vector3 getBoundBox();
     unsigned int getTrianglesCount();
+    unsigned int getNumIndicesObjects();
+    gameIndexObject *getIndexObject(unsigned int index);
     void setBoundBox(vector3 box);
     void setTrianglesCount(unsigned int count);
     void setName(string name);
@@ -33,7 +35,7 @@ public:
     virtual unsigned int getSizeInBytes();
 
 protected:
-    dArray<vertexCoordinates> *vertexesArray;//массив вершин
+    dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     string *meshName;//имя нужно только для редактора и создается в функции setName
     unsigned int *trianglesCount;//аналогично имени

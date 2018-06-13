@@ -19,8 +19,8 @@ editabelRigidBody::editabelRigidBody(rigidBody *body){
     erbMesh = new editabelGraphicObject;
     //собираем графический объект из меша
     arraySize size=body->getMeshPointer()->getVertexseSize();
-    dArray<vertexCoordinates> *vertexesArray = new dArray<vertexCoordinates>(body->getMeshPointer()->getVertexArray());
-    erbMesh->setVertexes(vertexesArray);
+    dArray<vertexCoordinates> *vertexesArray = new dArray<vertexCoordinates>(body->getMeshPointer()->getVertexAtributesArray());
+    erbMesh->setVertexAtributes(vertexesArray);
     erbMesh->setName(body->getMeshPointer()->getName());//имя для editabelRigidBody обязательно
     erbMesh->setTrianglesCount(body->getMeshPointer()->getTrianglesCount());//количество треугольников тоже
     erbMesh->setBoundBox(body->getMeshPointer()->getBoundBox());

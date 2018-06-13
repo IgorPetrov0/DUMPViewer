@@ -1,0 +1,24 @@
+#include "slaveobject.h"
+
+slaveObject::slaveObject()
+{
+
+}
+////////////////////////////////////////////////////////////////////////
+void slaveObject::addOwner(){
+    ownerCounter++;
+}
+/////////////////////////////////////////////////////////////////////////
+void slaveObject::release(){
+    if(ownerCounter==0){
+        return;
+    }
+    ownerCounter--;
+}
+////////////////////////////////////////////////////////////////////////
+bool slaveObject::isUsed(){
+if(ownerCounter>1){
+    return true;
+}
+return false;
+}

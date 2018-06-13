@@ -17,8 +17,6 @@
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/stream.h"
 #include "viewwindow.h"
-#include "DevIL/include/il.h"
-#include "DevIL/include/ilu.h"
 
 //класс ядра приложения. В нем должен быть весь основной функционал
 //
@@ -49,7 +47,6 @@ public:
     bool loadGraphicObject(QString fileName, editabelGraphicObject *object);//загрузка графического объекта через Assimp
     QString getLastError();
 
-
 protected:
     QString a_modelFilter;//TODO фильтр файлов моделей. добавлять здесь по мере расширения парсеров
     QString a_defaultObjectName;
@@ -59,10 +56,10 @@ protected:
     editabelGameObject *a_currentObject;
     viewWindow *a_view;
     float a_lastDistance;
-    QVector<gameObjectTexture*> texturesArray;
-    QString a_error;
+    QVector<gameObjectTexture*> globalTexturesArray;
     QVector<gameObjectMaterial*> globalMaterialsArray;
-    bool addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
+    QString a_error;
+    gameObjectMaterial *addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
     bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
     gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
 };

@@ -51,7 +51,7 @@ void editorCore::setCurrentPath(QString path){
 //////////////////////////////////////////////////////////////////////////////
 void editorCore::setViewWindowPointer(viewWindow *pointer){
     a_view=pointer;
-    pointer->setTexturesVector(&texturesArray);
+    pointer->setTexturesVector(&globalTexturesArray);
 }
 //////////////////////////////////////////////////////////////////////////
 viewWindow *editorCore::view(){
@@ -96,10 +96,10 @@ bool editorCore::loadCurrentGameObject(QString fileName){
             newObject->compileGameObject();
 
             //очищаем массив текстур
-            for(int n=0;n!=texturesArray.size();n++){
-                texturesArray[n]->deleteTexture();
+            for(int n=0;n!=globalTexturesArray.size();n++){
+                globalTexturesArray[n]->deleteTexture();
             }
-            texturesArray.clear();
+            globalTexturesArray.clear();
             //грузим текстуры
             if(newObject->mainMeshExsist()){
                 //loadTextures(newObject->getMainMesh());
@@ -168,7 +168,7 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
         }
     }
 
-    object->loadFromAiScene(scene);  
+    object->loadFromAiScene(scene,&globalMaterialsArray);
     return true;
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -178,32 +178,41 @@ QString editorCore::getLastError(){
     return tmp;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-bool editorCore::addMaterials(const aiScene *scene, QString objectPath){
+gameObjectMaterial *editorCore::addMaterials(const aiScene *scene, QString objectPath){
 
-    gameObjectMaterial *material = new gameObjectMaterial;
+    gameObjectMaterial *material=NULL;
     unsigned int size=scene->mNumMaterials;
     for(unsigned int n=0;n!=size;n++){
         aiMaterial *mat=scene->mMaterials[n];
-        unsigned int texCount=scene->mMaterials[n]->GetTextureCount(aiTextureType_DIFFUSE);//добавляем диффузные текстуры
+        aiString name;
+        mat->Get(AI_MATKEY_NAME,name);
+        unsigned int size=globalMaterialsArray.size();
+        for(unsigned int n=0;n!=size;n++){//ищем материал в глобальном массиве по имени
+            material=globalMaterialsArray[n];
+            if(material->getName()==name.C_Str()){
+                return material;
+            }
+        }
+        material = new gameObjectMaterial;
+        unsigned int texCount=mat->GetTextureCount(aiTextureType_DIFFUSE);//добавляем диффузные текстуры
         for(unsigned int m=0;m!=texCount;m++){
             gameObjectTexture *newTexture=addTexturesFromFiles(mat,aiTextureType_DIFFUSE,m,objectPath);
             if(newTexture!=NULL){
                 material->addTexture(newTexture);
+                material->setName(name.C_Str());
+                globalMaterialsArray.append(material);
             }
             else{
-                return false;
+                delete material;
+                return NULL;
             }
         }
     }
-
-
-
-
-    return true;
+    return material;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 bool editorCore::addTextures(const aiScene *scene, QString objectPath){
-
+    return false;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath){
@@ -212,54 +221,34 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
 
     aiReturn r=material->GetTexture(type,index,&filePath,NULL,NULL,NULL,NULL,NULL);
     if(r==aiReturn_SUCCESS){
-        QString fileName=QString::fromLatin1(filePath.data, filePath.length);
+        QString fullPath=objectPath+"/"+QString::fromLatin1(filePath.data,filePath.length);
+        QFileInfo fi(fullPath);
         //ищем название в хранилище
-        unsigned int size=texturesArray.size();
+        unsigned int size=globalTexturesArray.size();
         for(unsigned int n=0;n!=size;n++){
-            gameObjectTexture *tex=texturesArray[n];
-            if(tex->getName()==filePath.C_Str()){//если текстура найдена, то выходим и ничего не делаем
+            gameObjectTexture *tex=globalTexturesArray[n];
+            if(tex->getName()==fi.fileName().toStdString()){//если текстура найдена, то выходим и ничего не делаем
                 return tex;//возвращаем существующую текстуру
             }
         }
-        QString fullPath=objectPath+"/"+QString::fromLatin1(filePath.data,filePath.length);
+
         QFile file(fullPath);
         if(!file.exists()){
-            a_error=tr("Texture file ")+fileName+tr(" not found.");
+            a_error=tr("Texture file ")+fi.absoluteFilePath()+tr(" not found.");
             return NULL;
         }
-        QFileInfo fi(fullPath);
 
         //строим текстуру
         newTexture = new gameObjectTexture;
-        newTexture->setName(fi.fileName().toStdString());//имя текстуры - это имя файла с расширением без путей
-        ILuint id;
-        ILinfo imageInfo;
-        ilInit();
-        ILenum error=ilGetError();
-        iluInit();
-        error=ilGetError();
-        ilGenImages(1,&id);
-        error=ilGetError();
-        ilBindImage(id);
-        error=ilGetError();
-        wchar_t arr[fi.absoluteFilePath().size()];
-        fi.absoluteFilePath().toWCharArray(arr);
-        ilLoadImage(arr);
-        error=ilGetError();
-        iluGetImageInfo(&imageInfo);
-        error=ilGetError();
-        newTexture->setWidth(imageInfo.Width);
-        newTexture->setHeight(imageInfo.Height);
-        ILubyte *data = ilGetData();
-        dArray<unsigned char> *texDataBuffer = new dArray<unsigned char>(imageInfo.SizeOfData);
-        //копируем массив текстуры в свой буфер
-        for(unsigned int n=0;n!=imageInfo.SizeOfData;n++){
-            texDataBuffer->addElement(n,data[n]);
+        if(newTexture->loadFromFile(fi.fileName().toStdString(),fi.absoluteFilePath().toStdString())){
+            globalTexturesArray.append(newTexture);
+            return newTexture;
         }
-        newTexture->setTexturePointer(texDataBuffer);
-        ilDeleteImage(id);
-        ilShutDown();
-        return newTexture;
+        else{
+            delete newTexture;
+            a_error=tr("Texture ")+fi.absoluteFilePath()+tr(" not loaded. Used default texture.");
+            return NULL;
+        }
     }
     else{
         a_error==tr("Error read diffuse texture from material.");
