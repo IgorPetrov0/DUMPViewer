@@ -35,6 +35,7 @@ void viewWindow::addModel(editabelGraphicObject *model){
     modelsArray.append(model);
 
     makeCurrent();//делаем контекст OpenGL текущим
+<<<<<<< HEAD
     for(unsigned int n=0;n!=modelsArray.size();n++){
         GLuint vaoName;
         glGenBuffers(1,&vaoName);
@@ -55,12 +56,66 @@ void viewWindow::addModel(editabelGraphicObject *model){
     }
 
 
+=======
+    //создаем общий буфер атрибутов вершин. В нем все и вертексы и нормали и текстурные координаты. см.: loader::compileGraphicObject
+    QOpenGLBuffer vBuf(QOpenGLBuffer::VertexBuffer);
+    vBuf.create();
+    vBuf.bind();
+    vBuf.setUsagePattern(QOpenGLBuffer::DynamicDraw);
+    vBuf.allocate(model->getVertexesPointer(),model->getVertexseSize()*sizeof(float));
+    vBuf.release();
+    //создаем все текстуры, задействованные в сцене
+    unsigned int size=texturesVector->size();
+    for(unsigned int n=0;n!=size;n++){
+        GLuint tName;
+        glGenTextures(1,&tName);
+        glBindTexture(GL_TEXTURE_2D,tName);
+        glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+        gameObjectTexture *tex=texturesVector->at(n);
+        tex->setOglName(tName);
+        glTexImage2D(GL_TEXTURE_2D, 0, tex->getOGLFormat(), tex->width(),tex->height(),0,tex->getOGLFormat(),tex->getDataType(),tex->getTexturePointer()->getArrayPointer());
+        //параметры фильтрации - линейная
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glBindTexture(GL_TEXTURE_2D,0);
+    }
 
 
 
+    //создаем свой массив индексов на каждый материал
+    size=model->getNumIndicesObjects();
+    for(unsigned int n=0;n!=size;n++){
+        GLuint oglTmpName=0;
+        gameObjectMaterial *mPointer=model->getIndexObject(n)->getMaterial();
+
+        glGenVertexArrays(1,&oglTmpName);//получаем свободный идентификатор
+        mPointer->setVAOName(oglTmpName);//передаем идентификатор материалу
+        glBindVertexArray(oglTmpName);//биндим VAO
+>>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 
 
+<<<<<<< HEAD
 
+
+=======
+        int stride=8*sizeof(float);
+        sProgram->enableAttributeArray("position");
+        sProgram->setAttributeBuffer("position",GL_FLOAT,0,3,stride);
+
+        sProgram->enableAttributeArray("texCoord");
+        sProgram->setAttributeBuffer("texCoord",GL_FLOAT,5*sizeof(float),2,stride);
+
+        QOpenGLBuffer iBuf(QOpenGLBuffer::IndexBuffer);//создаем буфер вершинных индексов
+        iBuf.create();
+        iBuf.bind();
+        dArray<unsigned int> *indArray=model->getIndexObject(n)->getIndices();
+        iBuf.allocate(indArray->getArrayPointer(),indArray->getSize()*sizeof(unsigned int));
+>>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
+
+
+<<<<<<< HEAD
 //    //создаем общий буфер атрибутов вершин. В нем все и вертексы и нормали и текстурные координаты. см.: loader::compileGraphicObject
 //    QOpenGLBuffer vBuf(QOpenGLBuffer::VertexBuffer);
 //    vBuf.create();
@@ -119,6 +174,12 @@ void viewWindow::addModel(editabelGraphicObject *model){
 //        vBuf.release();
 
 //    }
+=======
+        iBuf.release();
+        vBuf.release();
+
+    }
+>>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 
 }
 ////////////////////////////////////////////////////

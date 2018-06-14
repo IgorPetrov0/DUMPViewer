@@ -136,6 +136,7 @@ unsigned int meshObject::getSizeInBytes(){
     return size;
 }
 ////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 unsigned int meshObject::getVaoName() const
 {
     return vaoName;
@@ -146,6 +147,8 @@ void meshObject::setVaoName(unsigned int value)
     vaoName = value;
 }
 ////////////////////////////////////////////////////////////////////////////////
+=======
+>>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 unsigned int meshObject::getNumIndicesObjects(){
     return indicesObjectsArray->getSize();
 }
