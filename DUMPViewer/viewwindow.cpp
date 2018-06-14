@@ -35,7 +35,7 @@ void viewWindow::addModel(editabelGraphicObject *model){
     modelsArray.append(model);
 
     makeCurrent();//делаем контекст OpenGL текущим
-<<<<<<< HEAD
+
     for(unsigned int n=0;n!=modelsArray.size();n++){
         GLuint vaoName;
         glGenBuffers(1,&vaoName);
@@ -55,8 +55,6 @@ void viewWindow::addModel(editabelGraphicObject *model){
 
     }
 
-
-=======
     //создаем общий буфер атрибутов вершин. В нем все и вертексы и нормали и текстурные координаты. см.: loader::compileGraphicObject
     QOpenGLBuffer vBuf(QOpenGLBuffer::VertexBuffer);
     vBuf.create();
@@ -93,13 +91,7 @@ void viewWindow::addModel(editabelGraphicObject *model){
         glGenVertexArrays(1,&oglTmpName);//получаем свободный идентификатор
         mPointer->setVAOName(oglTmpName);//передаем идентификатор материалу
         glBindVertexArray(oglTmpName);//биндим VAO
->>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 
-
-<<<<<<< HEAD
-
-
-=======
         int stride=8*sizeof(float);
         sProgram->enableAttributeArray("position");
         sProgram->setAttributeBuffer("position",GL_FLOAT,0,3,stride);
@@ -112,10 +104,7 @@ void viewWindow::addModel(editabelGraphicObject *model){
         iBuf.bind();
         dArray<unsigned int> *indArray=model->getIndexObject(n)->getIndices();
         iBuf.allocate(indArray->getArrayPointer(),indArray->getSize()*sizeof(unsigned int));
->>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 
-
-<<<<<<< HEAD
 //    //создаем общий буфер атрибутов вершин. В нем все и вертексы и нормали и текстурные координаты. см.: loader::compileGraphicObject
 //    QOpenGLBuffer vBuf(QOpenGLBuffer::VertexBuffer);
 //    vBuf.create();
@@ -174,12 +163,10 @@ void viewWindow::addModel(editabelGraphicObject *model){
 //        vBuf.release();
 
 //    }
-=======
         iBuf.release();
         vBuf.release();
 
     }
->>>>>>> 515090b98458b3bcd35f339ce9568267673c652b
 
 }
 ////////////////////////////////////////////////////
