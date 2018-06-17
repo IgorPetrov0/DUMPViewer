@@ -3,20 +3,19 @@
 meshObject::meshObject()
 {
     vertexAtributesArray=NULL;
-    meshName=NULL;
-    trianglesCount=NULL;
     indicesObjectsArray=NULL;
+
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
     vertexAtributesArray = new dArray<vertexCoordinates>(*mesh->getVertexAtributesArray());
-    meshName = new string(mesh->getName());
-    trianglesCount = new unsigned int(mesh->getTrianglesCount());
     boundBox=mesh->getBoundBox();
 }
 //////////////////////////////////////////////////////////////////
 meshObject::~meshObject(){
-    clear();
+    delete vertexAtributesArray;
+    indicesObjectsArray->deletePointers();
+    delete indicesObjectsArray;
 }
 //////////////////////////////////////////////////////////////////////
 void meshObject::setVertexAtributes(dArray<vertexCoordinates> *array){
@@ -33,37 +32,17 @@ arraySize meshObject::getVertexseSize(){
     return vertexAtributesArray->getSize();
 }
 //////////////////////////////////////////////////////////////////////
-string meshObject::getName(){
-    string name;
-    if(meshName!=NULL){
-        name=*meshName;
-    }
-    return name;
-}
-//////////////////////////////////////////////////////////////////////
 void meshObject::clear(){
-    delete meshName;
-    meshName=NULL;
-
     delete vertexAtributesArray;
     vertexAtributesArray=NULL;
-
-    delete trianglesCount;
-    trianglesCount=NULL;
-}
-//////////////////////////////////////////////////////////////////////
-void meshObject::setName(string name){
-    if(meshName==NULL){
-        meshName=new string;
+    unsigned int size=indicesObjectsArray->getSize();
+    for(int n=0;n!=size;n++){
+        indicesObjectsArray->operator [](n)->clear();
     }
-    *meshName=name;
 }
 //////////////////////////////////////////////////////////////////////
 meshObject *meshObject::operator =(meshObject &mesh){
 
-    if(!mesh.getName().empty()){
-        setName(mesh.getName());
-    }
     if(vertexAtributesArray!=NULL){
         delete vertexAtributesArray;
     }
@@ -72,11 +51,6 @@ meshObject *meshObject::operator =(meshObject &mesh){
 }
 //////////////////////////////////////////////////////////////////////
 bool meshObject::operator ==(meshObject &mesh){
-    if(meshName!=NULL){
-        if(*meshName!=mesh.getName()){
-            return false;
-        }
-    }
     if(vertexAtributesArray->operator !=(*mesh.getVertexAtributesArray())){
         return false;
     }
@@ -107,43 +81,21 @@ vector3 meshObject::getBoundBox(){
 void meshObject::setBoundBox(vector3 box){
     boundBox=box;
 }
-////////////////////////////////////////////////////////////////////////
-void meshObject::setTrianglesCount(unsigned int count){
-    if(trianglesCount==NULL){
-        trianglesCount=new unsigned int;
-    }
-    *trianglesCount=count;
-}
-//////////////////////////////////////////////////////////////////////////
-unsigned int meshObject::getTrianglesCount(){
-    if(trianglesCount!=NULL){
-        return *trianglesCount;
-    }
-    return 0;
-}
 /////////////////////////////////////////////////////////////////////////
 unsigned int meshObject::getSizeInBytes(){
     unsigned int size=0;
     size+=vertexAtributesArray->getSize()*sizeof(vertexCoordinates);
     size+=sizeof(unsigned int);//под размер
-    if(meshName!=NULL){
-        size+=(unsigned int)meshName->capacity()+sizeof(int);
-    }
-    if(trianglesCount!=NULL){
-        size+=sizeof(int);
-    }
     size+=boundBox.getSizeInBytes();
     return size;
 }
-////////////////////////////////////////////////////////////////////////////////
-unsigned int meshObject::getVaoName() const
-{
-    return vaoName;
+//////////////////////////////////////////////////////////////////////////////
+unsigned int meshObject::getVboName() const{
+    return vboName;
 }
-////////////////////////////////////////////////////////////////////////////////
-void meshObject::setVaoName(unsigned int value)
-{
-    vaoName = value;
+//////////////////////////////////////////////////////////////////////////////
+void meshObject::setVboName(unsigned int value){
+    vboName = value;
 }
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int meshObject::getNumIndicesObjects(){

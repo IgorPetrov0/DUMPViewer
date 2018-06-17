@@ -18,10 +18,17 @@ public:
     gameObjectMaterial *getMaterial();
     dArray<unsigned int> *getIndices();
     unsigned int getNumFaces();
+    unsigned int getIndicesCount();
+    unsigned int getEbo() const;
+    void setEbo(unsigned int value);
+    void clear();//очистка данных, загруженных в видеопамять
 
 protected:
     dArray<unsigned int> *indices;//индексы
     gameObjectMaterial *materialPointer;//указатель на материал
+    unsigned int ebo;
+    unsigned int size;//размер храним отдельно т.к. при загрузке в видеопамять массив индексов очищается
+
 
 };
 

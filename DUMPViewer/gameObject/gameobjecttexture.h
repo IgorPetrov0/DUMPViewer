@@ -34,6 +34,7 @@ public:
     void deleteTexture();
     GLint getOGLFormat() const;
     GLint getDataType() const;
+    bool isExistInOpenGL();
 
 protected:
     dArray<unsigned char> *textureArray;//указатель на массив текстуры
@@ -43,6 +44,7 @@ protected:
     GLint format;
     GLint dataType;
     void convertFormat();
+    bool existInOpenGL;//маркер существования текстуры. Присваивается, когда текстура создается в видеопамяти. TODO:предусмотреть отключение маркера
 };
 
 #endif // GAMEOBJECTTEXTURE_H

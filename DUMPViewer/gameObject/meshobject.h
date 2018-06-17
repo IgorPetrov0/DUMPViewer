@@ -19,30 +19,25 @@ public:
     dArray<vertexCoordinates> *getVertexAtributesArray();
     const vertexCoordinates *getVertexesPointer();
     arraySize getVertexseSize();
-    string getName();
     vector3 getBoundBox();
-    unsigned int getTrianglesCount();
     unsigned int getNumIndicesObjects();
     gameIndexObject *getIndexObject(unsigned int index);
     void setBoundBox(vector3 box);
-    void setTrianglesCount(unsigned int count);
-    void setName(string name);
     bool isEmpty();
-    void clear();
+    void clear();//очистка данных меша, которые переносятся в видеопамять
     meshObject *operator =(meshObject &mesh);
     bool operator ==(meshObject &mesh);
     bool operator !=(meshObject &mesh);
     virtual unsigned int getSizeInBytes();
-    unsigned int getVaoName() const;
     void setVaoName(unsigned int value);
+    unsigned int getVboName() const;
+    void setVboName(unsigned int value);
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
-    string *meshName;//имя нужно только для редактора и создается в функции setName
-    unsigned int *trianglesCount;//аналогично имени
     vector3 boundBox;
-    unsigned int vaoName;//имя, присвоенное буферу VAO OpenGL
+    unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
 
 
 };

@@ -9,6 +9,7 @@
 #include "gameObject/gameobjecttexture.h"
 #include "defines.h"
 
+//TODO наверное нет в этом классе смысла. Надо постепенно от него избавляться.
 
 using namespace std;
 
@@ -18,7 +19,6 @@ public:
     graphicObject();
     virtual ~graphicObject();
     arraySize getTexCoordsSize();
-    void clear();
     graphicObject &operator =(graphicObject &gObject);
     bool operator ==(graphicObject &gObject);
     bool operator !=(graphicObject &gObject);

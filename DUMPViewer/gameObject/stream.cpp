@@ -109,10 +109,8 @@ void stream::out(meshObject *var){
     VAR_NOT_NULL
     dArray<float> *vArray=var->getVertexAtributesArray();
     out(vArray->getArrayPointer(),vArray->getSize());
-    out(var->getName());
     vector3 bb=var->getBoundBox();
     out(&bb);
-    out((int)var->getTrianglesCount());
 }
 //////////////////////////////////////////////////////////////////////////
 void stream::out(LOD *var){
@@ -338,13 +336,11 @@ void stream::in(meshObject *var){
     var->setVertexAtributes(vertexArray);
 
     in(&meshName);
-    var->setName(meshName);
 
     in(&boundBox);
     var->setBoundBox(boundBox);
 
     in(&trianglesCount);
-    var->setTrianglesCount(trianglesCount);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(LOD *var){

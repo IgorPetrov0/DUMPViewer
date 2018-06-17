@@ -22,7 +22,7 @@ void toolTabShortInfoBox::clear(){
 }
 //////////////////////////////////////////////////////////////////
 void toolTabShortInfoBox::calculateMeshParameters(meshObject *object){
-   ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(object->getTrianglesCount()));
+   //ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(object->getTrianglesCount()));
    ui->xSizeLabel->setText(tr("X Size = ")+QString::number(object->getBoundBox().x()));
    ui->ySizeLabel->setText(tr("Y Size = ")+QString::number(object->getBoundBox().y()));
    ui->zSizeLabel->setText(tr("Z Size = ")+QString::number(object->getBoundBox().z()));

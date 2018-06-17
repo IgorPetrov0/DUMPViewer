@@ -8,18 +8,8 @@ editabelGraphicObject::editabelGraphicObject()
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
 
     vertexAtributesArray = new dArray<vertexCoordinates>(gObject->getVertexAtributesArray());
-
-    meshName = new string(gObject->getName());
-
-    trianglesCount = new unsigned int(gObject->getTrianglesCount());
     boundBox=gObject->getBoundBox();
-
-
-
-
-
     visible=gObject->isVisible();
-
     ego_type=VIEW_TEXTURED;
 }
 ////////////////////////////////////////////////////////////////////
@@ -39,6 +29,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
 
     unsigned int numVertices=0;
     unsigned int lastIndex=0;
+    unsigned int c=0;
 
     //вершины
     //подсчитываем общее кол-во вершин в сцене
@@ -59,30 +50,34 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         aiMesh *mesh=meshes[n];
         aiVector3D *vertexes=mesh->mVertices;
         aiVector3D *texCoords=mesh->mTextureCoords[0];
-        aiVector3D *normals=mesh->mNormals;
-        for(unsigned int m=0;m!=numVertices;m++){
-            vertexAtributesArray->addElement(m*8,vertexes[m].x);
-            vertexAtributesArray->addElement(m*8+1,vertexes[m].y);
-            vertexAtributesArray->addElement(m*8+2,vertexes[m].z);
+        aiVector3D *normals=mesh->mNormals; 
+        unsigned int m=0;
+        for(m=0;m!=mesh->mNumVertices;m++){
+            unsigned int cm=c+m;
+            vertexAtributesArray->addElement(cm*8,vertexes[m].x);
+            vertexAtributesArray->addElement(cm*8+1,vertexes[m].y);
+            vertexAtributesArray->addElement(cm*8+2,vertexes[m].z);
             if(mesh->HasTextureCoords(0)){
-                vertexAtributesArray->addElement(m*8+3,texCoords[m].x);
-                vertexAtributesArray->addElement(m*8+4,texCoords[m].y);
+                vertexAtributesArray->addElement(cm*8+3,texCoords[m].x);
+                vertexAtributesArray->addElement(cm*8+4,texCoords[m].y);
             }
             else{
-                vertexAtributesArray->addElement(m*8+3,0);
-                vertexAtributesArray->addElement(m*8+4,0);
+                vertexAtributesArray->addElement(cm*8+3,0);
+                vertexAtributesArray->addElement(cm*8+4,0);
             }
             if(mesh->HasNormals()){
-                vertexAtributesArray->addElement(m*8+5,normals[m].x);
-                vertexAtributesArray->addElement(m*8+6,normals[m].y);
-                vertexAtributesArray->addElement(m*8+7,normals[m].z);
+                vertexAtributesArray->addElement(cm*8+5,normals[m].x);
+                vertexAtributesArray->addElement(cm*8+6,normals[m].y);
+                vertexAtributesArray->addElement(cm*8+7,normals[m].z);
             }
             else{
-                vertexAtributesArray->addElement(m*8+5,0);
-                vertexAtributesArray->addElement(m*8+6,0);
-                vertexAtributesArray->addElement(m*8+7,0);
+                vertexAtributesArray->addElement(cm*8+5,0);
+                vertexAtributesArray->addElement(cm*8+6,0);
+                vertexAtributesArray->addElement(cm*8+7,0);
             }
         }
+        c+=m;
+        m=0;
     }
 
     //создаем массив индексных объектов
@@ -125,4 +120,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         }
         indicesObjectsArray->addElement(nn,indexObject);
     }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+string editabelGraphicObject::getName(){
+    return name;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::setName(string name){
+    this->name=name;
 }

@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QVector3D>
 #include <QQuaternion>
-#include <QtGui/QOpenGLFunctions_3_3_Core>
+#include <QtGui/QOpenGLFunctions_4_5_Core>
 #include <math.h>
 #include <QMessageBox>
 
@@ -21,7 +21,7 @@
 
 
 
-class viewWindow: public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
+class viewWindow: public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
 {
      Q_OBJECT
 public:
@@ -48,9 +48,9 @@ protected:
     void angleYInc(int dir);
 
     QWidget *parent;//указатель на родителя
-    QOpenGLShaderProgram *sProgram;
+    GLuint sProgram;
     GLuint vertexArray,textureArray,indicesArray;//массивы координат вершин, текстурных координат и индексов
-    QMatrix4x4 matrix;
+    GLint matrixLocation;
     bool loaded;
     int angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши

@@ -199,14 +199,14 @@ gameObjectMaterial *editorCore::addMaterials(const aiScene *scene, QString objec
             gameObjectTexture *newTexture=addTexturesFromFiles(mat,aiTextureType_DIFFUSE,m,objectPath);
             if(newTexture!=NULL){
                 material->addTexture(newTexture);
-                material->setName(name.C_Str());
-                globalMaterialsArray.append(material);
             }
             else{
                 delete material;
                 return NULL;
             }
         }
+        material->setName(name.C_Str());
+        globalMaterialsArray.append(material);
     }
     return material;
 }

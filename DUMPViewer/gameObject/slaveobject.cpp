@@ -2,7 +2,7 @@
 
 slaveObject::slaveObject()
 {
-
+    ownerCounter=0;
 }
 ////////////////////////////////////////////////////////////////////////
 void slaveObject::addOwner(){

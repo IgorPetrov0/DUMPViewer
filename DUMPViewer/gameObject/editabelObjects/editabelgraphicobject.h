@@ -24,9 +24,12 @@ public:
     void setViewType(viewType type);
     viewType getViewType();
     void compileObject();
+    string getName();
+    void setName(string name);
 
 protected:
     viewType ego_type;
+    string name;
 
 
 
