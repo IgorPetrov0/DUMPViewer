@@ -68,7 +68,7 @@ dArray<pointerType>::dArray(pointerType *arr, arraySize size){
 //////////////////////////////////////////////////////////
 template<typename pointerType>
 dArray<pointerType>::~dArray(){
-   clear();
+   delete []arrayPointer;
 }
 ///////////////////////////////////////////////////////////
 template <class pointerType>

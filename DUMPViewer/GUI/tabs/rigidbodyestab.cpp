@@ -154,7 +154,7 @@ void rigidBodyesTab::updateList(){
     for(unsigned int n=0;n!=size;n++){
         QListWidgetItem *item=new QListWidgetItem();
         item->setData(Qt::UserRole,n);
-        item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
+        //item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
         item->setFlags(item->flags()|Qt::ItemIsEditable);
         ui->rigidBodiesList->addItem(item);
     }
@@ -201,7 +201,7 @@ void rigidBodyesTab::bodyChangeSlot(){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::nameChangedSlot(){
-    currentBody->getMeshPointer()->setName(ui->rigidBodiesList->currentItem()->text().toStdString());
+    //currentBody->getMeshPointer()->setName(ui->rigidBodiesList->currentItem()->text().toStdString());
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::setMassSlot(double value){

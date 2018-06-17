@@ -6,6 +6,7 @@ gameObjectTexture::gameObjectTexture()
     oglName=0;
     tWidth=24;
     tHeigth=24;
+    existInOpenGL=false;
     //создаем дефолтную текстуру на случай, если назначенная материалу структура не загрузилась
     unsigned int size=tWidth*tHeigth*4*sizeof(char);
     textureArray=new dArray<unsigned char>(size);
@@ -27,7 +28,9 @@ gameObjectTexture::gameObjectTexture(gameObjectTexture *texture){
 }
 /////////////////////////////////////////////////
 gameObjectTexture::~gameObjectTexture(){
-    delete textureArray;
+    if(textureArray!=NULL){
+        delete textureArray;
+    }
 }
 ///////////////////////////////////////////////////////////////////////////
 string gameObjectTexture::getName(){
@@ -52,6 +55,7 @@ unsigned int gameObjectTexture::getOglName(){
 ////////////////////////////////////////////////////////////////////////////
 void gameObjectTexture::setOglName(unsigned int n){
     oglName=n;
+    existInOpenGL=true;
 }
 //////////////////////////////////////////////////////////////////////////////
 gameObjectTexture &gameObjectTexture::operator =(gameObjectTexture &texture){
@@ -83,15 +87,16 @@ bool gameObjectTexture::operator !=(gameObjectTexture &texture){
 }
 //////////////////////////////////////////////////////////////////////////////
 void gameObjectTexture::clear(){
-    delete textureArray;
-    textureArray=NULL;
+    if(textureArray!=NULL){
+        delete textureArray;
+        textureArray=NULL;
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int gameObjectTexture::getSizeInBytes(){
     unsigned int size=0;
     size+=name.capacity();
     size+=sizeof(unsigned int);//под размер
-
     return size;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -144,4 +149,6 @@ bool gameObjectTexture::loadFromFile(string name, string path ){
     ilShutDown();
 }
 ////////////////////////////////////////////////////////////////////////////////////
-
+bool gameObjectTexture::isExistInOpenGL(){
+    return existInOpenGL;
+}

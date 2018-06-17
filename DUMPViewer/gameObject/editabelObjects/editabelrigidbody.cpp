@@ -21,8 +21,6 @@ editabelRigidBody::editabelRigidBody(rigidBody *body){
     arraySize size=body->getMeshPointer()->getVertexseSize();
     dArray<vertexCoordinates> *vertexesArray = new dArray<vertexCoordinates>(body->getMeshPointer()->getVertexAtributesArray());
     erbMesh->setVertexAtributes(vertexesArray);
-    erbMesh->setName(body->getMeshPointer()->getName());//имя для editabelRigidBody обязательно
-    erbMesh->setTrianglesCount(body->getMeshPointer()->getTrianglesCount());//количество треугольников тоже
     erbMesh->setBoundBox(body->getMeshPointer()->getBoundBox());
 
     //создаем материал для отображения rigidBody в редакторе
