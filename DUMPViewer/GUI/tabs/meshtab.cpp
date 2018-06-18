@@ -48,8 +48,9 @@ void meshTab::loadMeshSlot(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::mainMeshDeleteSlot(){
-    app->removeModelFromView(app->currentObject()->getMainMesh());
+    app->view()->removeModel(app->currentObject()->getMainMesh());
     app->currentObject()->deleteMainMesh();
+    app->checkMaterials();
     resetTab();
     app->view()->update();
 }

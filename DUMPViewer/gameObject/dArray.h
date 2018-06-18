@@ -94,7 +94,6 @@ void dArray<pointerType>::deletePointers(){
     for(unsigned int n=0;n!=size;n++){
         delete arrayPointer[n];
     }
-    clear();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 template<class pointerType>

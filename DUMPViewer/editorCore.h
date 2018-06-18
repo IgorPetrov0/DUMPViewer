@@ -46,7 +46,8 @@ public:
     bool saveCurrentGameObject(QString fileName);//сохранение скомпилированного gameObject в файл
     bool loadGraphicObject(QString fileName, editabelGraphicObject *object);//загрузка графического объекта через Assimp
     QString getLastError();
-    void removeModelFromView(editabelGraphicObject *model);
+    void checkMaterials();//проверяет все материалы и текстуры на отсутствие владельцев и удаляет бесхозные
+
 
 protected:
     QString a_modelFilter;//TODO фильтр файлов моделей. добавлять здесь по мере расширения парсеров
@@ -63,6 +64,7 @@ protected:
     gameObjectMaterial *addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
     bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
     gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
+
 };
 
 #endif // EDITORCORE_H

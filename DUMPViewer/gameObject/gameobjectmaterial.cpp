@@ -15,7 +15,9 @@ gameObjectMaterial::gameObjectMaterial(gameObjectMaterial *material){
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial::~gameObjectMaterial(){
-    diffuseTexture->release();//текстура только освобождается, но не уничтожается т.к. ей еще кто-то может пользоваться
+    if(diffuseTexture!=NULL){
+        diffuseTexture->release();//текстура только освобождается, но не уничтожается т.к. ей еще кто-то может пользоваться
+    }
 }
 /////////////////////////////////////////////////////////////////////
 unsigned int gameObjectMaterial::getOGLTextureName(){
@@ -40,7 +42,9 @@ unsigned int gameObjectMaterial::getVAOName(){
 }
 /////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::clear(){
-    diffuseTexture->clear();
+    if(diffuseTexture!=NULL){
+        diffuseTexture->clear();
+    }
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial &gameObjectMaterial::operator =(gameObjectMaterial *material){

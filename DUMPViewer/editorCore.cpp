@@ -177,26 +177,6 @@ QString editorCore::getLastError(){
     a_error.clear();
     return tmp;
 }
-//////////////////////////////////////////////////////////////////////////////////
-void editorCore::removeModelFromView(editabelGraphicObject *model){
-    a_view->removeModel(model);
-    unsigned int size=globalMaterialsArray.size();
-    //такой порядок важен. Сначала удаляем материалы. Материалы освобождают текстуры.
-    for(unsigned n=0;n!=size;n++){//проходим по глобальному массиву текстур и удаляем неиспользуемые
-        if(!globalMaterialsArray.at(n)->isUsed()){
-            delete globalMaterialsArray.at(n);
-            globalMaterialsArray.remove(n);
-        }
-    }
-
-    size=globalTexturesArray.size();
-    for(unsigned int n=0;n!=size;n++){//проходим по глобальному массиву текстур и удаляем неиспользуемые
-        if(!globalTexturesArray.at(n)->isUsed()){
-            delete globalTexturesArray.at(n);
-            globalTexturesArray.remove(n);
-        }
-    }
-}
 ///////////////////////////////////////////////////////////////////////////////////
 gameObjectMaterial *editorCore::addMaterials(const aiScene *scene, QString objectPath){
 
@@ -273,5 +253,35 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
     else{
         a_error==tr("Error read diffuse texture from material.");
         return NULL;
+    }
+}
+/////////////////////////////////////////////////////////////////////////////
+void editorCore::checkMaterials(){
+    unsigned int size=globalMaterialsArray.size();
+    unsigned int n=0;
+    //такой порядок важен. Сначала удаляем материалы. Материалы освобождают текстуры.
+    while(n!=size){//проходим по глобальному массиву текстур и удаляем неиспользуемые
+        if(!globalMaterialsArray.at(n)->isUsed()){
+            delete globalMaterialsArray.at(n);
+            globalMaterialsArray.remove(n);//если удалили элемент вектора,
+            size=globalMaterialsArray.size();//то обновляем информацию о размере
+            n=0;//и начинаем цикл заново
+        }
+        else{
+            n++;
+        }
+    }
+    n=0;
+    size=globalTexturesArray.size();
+    while(n!=size){//проходим по глобальному массиву текстур и удаляем неиспользуемые
+        if(!globalTexturesArray.at(n)->isUsed()){
+            delete globalTexturesArray.at(n);
+            globalTexturesArray.remove(n);//если удалили элемент вектора,
+            size=globalTexturesArray.size();//то обновляем информацию о размере
+            n=0;//и начинаем цикл заново
+        }
+        else{
+            n++;
+        }
     }
 }

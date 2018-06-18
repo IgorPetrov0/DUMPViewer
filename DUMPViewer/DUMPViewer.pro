@@ -135,18 +135,21 @@ INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
 
 
-win32: LIBS += -L$$PWD/include/ -lassimp-vc140-mt
 
-INCLUDEPATH += $$PWD/include/assimp
-DEPENDPATH += $$PWD/include/assimp
+
+
+win32: LIBS += -L$$PWD/include/ -lassimp_dll
+
+INCLUDEPATH += $$PWD/include
+DEPENDPATH += $$PWD/include
+
 
 win32: LIBS += -L$$PWD/DevIL/ -lDevIL
 
-INCLUDEPATH += $$PWD/DevIL/include
-DEPENDPATH += $$PWD/DevIL/include
-
+INCLUDEPATH += $$PWD/DevIL
+DEPENDPATH += $$PWD/DevIL
 
 win32: LIBS += -L$$PWD/DevIL/ -lILU
 
-INCLUDEPATH += $$PWD/DevIL/include
-DEPENDPATH += $$PWD/DevIL/include
+INCLUDEPATH += $$PWD/DevIL
+DEPENDPATH += $$PWD/DevIL

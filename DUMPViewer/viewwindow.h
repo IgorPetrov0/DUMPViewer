@@ -9,7 +9,7 @@
 #include <QPoint>
 #include <QVector3D>
 #include <QQuaternion>
-#include <QtGui/QOpenGLFunctions_4_5_Core>
+#include <QtGui/QOpenGLFunctions_3_3_Core>
 #include <math.h>
 #include <QMessageBox>
 
@@ -21,7 +21,7 @@
 
 
 
-class viewWindow: public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
+class viewWindow: public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 {
      Q_OBJECT
 public:

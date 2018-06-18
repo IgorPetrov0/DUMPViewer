@@ -6,7 +6,6 @@ editabelGraphicObject::editabelGraphicObject()
 }
 ////////////////////////////////////////////////////////////////////
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
-
     vertexAtributesArray = new dArray<vertexCoordinates>(gObject->getVertexAtributesArray());
     boundBox=gObject->getBoundBox();
     visible=gObject->isVisible();

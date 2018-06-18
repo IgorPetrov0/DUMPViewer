@@ -354,9 +354,11 @@ void viewWindow::removeModel(editabelGraphicObject *model){
                     //удаляем текстуры
                     gameIndexObject *indObject=model->getIndexObject(m);
                     gameObjectTexture *tex=indObject->getMaterial()->getDiffuseTexture();
-                    if(!tex->isUsed()){
-                        f=tex->getOglName();
-                        glDeleteTextures(1,&f);
+                    if(tex!=NULL){
+                        if(!tex->isUsed()){
+                            f=tex->getOglName();
+                            glDeleteTextures(1,&f);
+                        }
                     }
                     //удаляем EBO
                     f=indObject->getEbo();
