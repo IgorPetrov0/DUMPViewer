@@ -16,9 +16,6 @@ gameObjectMaterial::gameObjectMaterial(gameObjectMaterial *material){
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial::~gameObjectMaterial(){
     diffuseTexture->release();//текстура только освобождается, но не уничтожается т.к. ей еще кто-то может пользоваться
-    if(!diffuseTexture->isUsed()){
-        delete diffuseTexture;
-    }
 }
 /////////////////////////////////////////////////////////////////////
 unsigned int gameObjectMaterial::getOGLTextureName(){

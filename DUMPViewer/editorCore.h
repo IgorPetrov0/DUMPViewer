@@ -46,6 +46,7 @@ public:
     bool saveCurrentGameObject(QString fileName);//сохранение скомпилированного gameObject в файл
     bool loadGraphicObject(QString fileName, editabelGraphicObject *object);//загрузка графического объекта через Assimp
     QString getLastError();
+    void removeModelFromView(editabelGraphicObject *model);
 
 protected:
     QString a_modelFilter;//TODO фильтр файлов моделей. добавлять здесь по мере расширения парсеров
