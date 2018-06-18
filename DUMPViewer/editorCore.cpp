@@ -177,6 +177,26 @@ QString editorCore::getLastError(){
     a_error.clear();
     return tmp;
 }
+//////////////////////////////////////////////////////////////////////////////////
+void editorCore::removeModelFromView(editabelGraphicObject *model){
+    a_view->removeModel(model);
+    unsigned int size=globalMaterialsArray.size();
+    //такой порядок важен. Сначала удаляем материалы. Материалы освобождают текстуры.
+    for(unsigned n=0;n!=size;n++){//проходим по глобальному массиву текстур и удаляем неиспользуемые
+        if(!globalMaterialsArray.at(n)->isUsed()){
+            delete globalMaterialsArray.at(n);
+            globalMaterialsArray.remove(n);
+        }
+    }
+
+    size=globalTexturesArray.size();
+    for(unsigned int n=0;n!=size;n++){//проходим по глобальному массиву текстур и удаляем неиспользуемые
+        if(!globalTexturesArray.at(n)->isUsed()){
+            delete globalTexturesArray.at(n);
+            globalTexturesArray.remove(n);
+        }
+    }
+}
 ///////////////////////////////////////////////////////////////////////////////////
 gameObjectMaterial *editorCore::addMaterials(const aiScene *scene, QString objectPath){
 

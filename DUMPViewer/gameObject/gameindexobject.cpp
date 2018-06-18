@@ -9,9 +9,6 @@ gameIndexObject::gameIndexObject()
 //////////////////////////////////////////////////////////////////////
 gameIndexObject::~gameIndexObject(){
     materialPointer->release();//материал только отпускается, но не уничтожается т.к. им еще может кто-то пользоваться
-    if(!materialPointer->isUsed()){
-        delete materialPointer;
-    }
     if(indices!=NULL){
         delete indices;
     }
