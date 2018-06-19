@@ -21,8 +21,8 @@ void toolTabShortInfoBox::clear(){
     ui->zSizeLabel->setText(tr("Z Size = "));
 }
 //////////////////////////////////////////////////////////////////
-void toolTabShortInfoBox::calculateMeshParameters(meshObject *object){
-   //ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(object->getTrianglesCount()));
+void toolTabShortInfoBox::calculateMeshParameters(editabelGraphicObject *object){
+   ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(object->getTrianglesCount()));
    ui->xSizeLabel->setText(tr("X Size = ")+QString::number(object->getBoundBox().x()));
    ui->ySizeLabel->setText(tr("Y Size = ")+QString::number(object->getBoundBox().y()));
    ui->zSizeLabel->setText(tr("Z Size = ")+QString::number(object->getBoundBox().z()));

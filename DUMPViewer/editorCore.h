@@ -28,6 +28,7 @@ class editorCore : public QObject
     Q_OBJECT
 public:
     editorCore();
+    ~editorCore();
     QString modelFilter();
     QString defaultObjectName();
     QString programmName();

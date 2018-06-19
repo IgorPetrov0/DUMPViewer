@@ -3,7 +3,7 @@
 
 #include "GUI/infobox.h"
 #include "widgets/dumpviewerwidget.h"
-#include "gameObject/meshobject.h"
+#include "gameObject/editabelObjects/editabelgraphicobject.h"
 
 namespace Ui {
 class toolTabShortInfoBox;
@@ -15,7 +15,7 @@ class toolTabShortInfoBox : public dumpViewerWidget
 
 public:
     explicit toolTabShortInfoBox(QWidget *parent = 0);
-    void calculateMeshParameters(meshObject *object);
+    void calculateMeshParameters(editabelGraphicObject *object);
     ~toolTabShortInfoBox();
     void clear();
 

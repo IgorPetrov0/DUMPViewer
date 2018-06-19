@@ -3,6 +3,7 @@
 editabelGraphicObject::editabelGraphicObject()
 {
     ego_type=VIEW_TEXTURED;
+    trianglesCount=0;
 }
 ////////////////////////////////////////////////////////////////////
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
@@ -119,6 +120,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         }
         indicesObjectsArray->addElement(nn,indexObject);
     }
+    //считаем количество треугольников в сцене
+    unsigned int size=indicesObjectsArray->getSize();
+    for(unsigned int n=0;n!=size;n++){
+        trianglesCount+=indicesObjectsArray->operator [](n)->getIndicesCount();
+    }
+    trianglesCount=trianglesCount/3;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 string editabelGraphicObject::getName(){
@@ -127,4 +134,8 @@ string editabelGraphicObject::getName(){
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void editabelGraphicObject::setName(string name){
     this->name=name;
+}
+///////////////////////////////////////////////////////////////////////////////////
+unsigned int editabelGraphicObject::getTrianglesCount() const{
+    return trianglesCount;
 }

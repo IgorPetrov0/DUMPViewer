@@ -11,8 +11,7 @@ meshTab::meshTab(QTabWidget *parent) :
     connect(ui->meshInfoWidget,SIGNAL(deleteSignal()),this,SLOT(mainMeshDeleteSlot()));
 }
 ///////////////////////////////////////////////////////
-meshTab::~meshTab()
-{
+meshTab::~meshTab(){
     delete ui;
 }
 ///////////////////////////////////////////////////////

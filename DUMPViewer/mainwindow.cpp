@@ -17,7 +17,6 @@ MainWindow::~MainWindow()
     delete tPanel;
     core->deleteCurrentObject();
     delete view;
-    delete core;
 }
 ////////////////////////////////////////////////////////
 void MainWindow::connections(){

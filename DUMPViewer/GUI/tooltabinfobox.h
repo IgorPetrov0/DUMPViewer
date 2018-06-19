@@ -37,7 +37,6 @@ signals:
 private slots:
     void loadSlot();
 
-
 private:
     Ui::toolTabInfoBox *ui;
 };
