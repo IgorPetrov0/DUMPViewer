@@ -17,7 +17,6 @@ public:
     void addIndicesArray(dArray<unsigned int> *indices);
     gameObjectMaterial *getMaterial();
     dArray<unsigned int> *getIndices();
-    unsigned int getNumFaces();
     unsigned int getIndicesCount();
     unsigned int getEbo() const;
     void setEbo(unsigned int value);

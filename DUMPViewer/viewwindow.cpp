@@ -219,8 +219,8 @@ void viewWindow::paintGL(){
                     glBindVertexArray(vao);
                     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
                     error=glGetError();
-                    GLsizei faces=(GLsizei)indObject->getNumFaces();
-                    glDrawElements(GL_TRIANGLES,faces*3,GL_UNSIGNED_INT,NULL);
+                    GLsizei indices=(GLsizei)indObject->getIndicesCount();
+                    glDrawElements(GL_TRIANGLES,indices,GL_UNSIGNED_INT,NULL);
                     error=glGetError();
                     glBindTexture(GL_TEXTURE_2D,0);
                     glBindVertexArray(0);

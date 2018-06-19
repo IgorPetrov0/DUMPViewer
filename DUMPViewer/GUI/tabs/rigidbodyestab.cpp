@@ -142,7 +142,7 @@ void rigidBodyesTab::addSlot(){
     if(body!=NULL){
         app->currentObject()->addRigiBody(body);
         updateList();
-        ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
+        //ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
         setCurrentBody(body);
         ui->typeComboBox->setEditable(true);
     }
@@ -174,7 +174,7 @@ void rigidBodyesTab::bodyChangeSlot(){
         setCurrentBody(app->currentObject()->getPhisycObject()->getRigitBody(item->data(Qt::UserRole).toInt()));
         if(currentBody!=NULL){
             disconnectAll();
-            ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
+            //ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
             ui->massSpinBox->setValue(currentBody->getMass());
             ui->massCenterXSpinBox->setValue(currentBody->getMassCenter().x());
             ui->massCenterYSpinBox->setValue(currentBody->getMassCenter().y());

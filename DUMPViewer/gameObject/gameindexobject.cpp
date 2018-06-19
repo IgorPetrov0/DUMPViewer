@@ -34,13 +34,9 @@ gameObjectMaterial *gameIndexObject::getMaterial(){
 dArray<unsigned int> *gameIndexObject::getIndices(){
     return indices;
 }
-//////////////////////////////////////////////////////////////////////////////
-unsigned int gameIndexObject::getNumFaces(){
-    return size/3;
-}
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int gameIndexObject::getIndicesCount(){
-    return indices->getSize();
+    return size;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 unsigned int gameIndexObject::getEbo() const{

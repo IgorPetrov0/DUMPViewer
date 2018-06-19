@@ -26,12 +26,11 @@ public:
     void compileObject();
     string getName();
     void setName(string name);
-    unsigned int getTrianglesCount() const;
 
 protected:
     viewType ego_type;
     string name;
-    unsigned int trianglesCount;
+
 
 
 

@@ -90,7 +90,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         dArray<unsigned int> *array = new  dArray<unsigned int>(mesh->mNumFaces*3);
         unsigned int index=0;
         for(unsigned int n=0;n!=mesh->mNumFaces;n++){
-            for(int m=0;m!=mesh->mFaces[n].mNumIndices;m++){
+            for(unsigned int m=0;m!=mesh->mFaces[n].mNumIndices;m++){
                 unsigned int currentIndex=mesh->mFaces[n].mIndices[m]+lastIndex;//сквозная нумерация
                 array->addElement(n*3+m,currentIndex);
                 if(currentIndex>index){//за одно ищем наибольший индекс
@@ -120,12 +120,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         }
         indicesObjectsArray->addElement(nn,indexObject);
     }
-    //считаем количество треугольников в сцене
-    unsigned int size=indicesObjectsArray->getSize();
-    for(unsigned int n=0;n!=size;n++){
-        trianglesCount+=indicesObjectsArray->operator [](n)->getIndicesCount();
-    }
-    trianglesCount=trianglesCount/3;
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 string editabelGraphicObject::getName(){
@@ -136,6 +131,4 @@ void editabelGraphicObject::setName(string name){
     this->name=name;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-unsigned int editabelGraphicObject::getTrianglesCount() const{
-    return trianglesCount;
-}
+

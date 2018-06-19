@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     GUI/toolwidget.cpp \
     editorCore.cpp \
     gameObject/gameindexobject.cpp \
-    gameObject/slaveobject.cpp
+    gameObject/slaveobject.cpp \
+    mathPrimitives/boundbox.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -106,7 +107,8 @@ HEADERS  += mainwindow.h \
     gameObject/dArray.h \
     editorCore.h \
     gameObject/gameindexobject.h \
-    gameObject/slaveobject.h
+    gameObject/slaveobject.h \
+    mathPrimitives/boundbox.h
 
 FORMS    += \
     mainwindow.ui \

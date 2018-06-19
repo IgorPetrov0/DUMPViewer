@@ -15,7 +15,7 @@ class toolTabShortInfoBox : public dumpViewerWidget
 
 public:
     explicit toolTabShortInfoBox(QWidget *parent = 0);
-    void calculateMeshParameters(editabelGraphicObject *object);
+    void calculateMeshParameters(meshObject *object);
     ~toolTabShortInfoBox();
     void clear();
 
