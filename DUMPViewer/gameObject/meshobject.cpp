@@ -4,11 +4,6 @@ meshObject::meshObject()
 {
     vertexAtributesArray=NULL;
     indicesObjectsArray=NULL;
-    modelMatrix = glm::mat4(glm::vec4(1.0f,1.0f,1.0f,1.0f),
-                   glm::vec4(1.0f,1.0f,1.0f,1.0f),
-                   glm::vec4(1.0f,1.0f,1.0f,1.0f),
-                   glm::vec4(1.0f,1.0f,1.0f,1.0f));
-
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){

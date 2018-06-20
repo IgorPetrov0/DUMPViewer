@@ -190,24 +190,15 @@ void viewWindow::resizeGL(){
 }
 //////////////////////////////////////////////////////
 void viewWindow::paintGL(){
-    GLenum error;
     if(modelsArray.size()!=0){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_CULL_FACE);
         glDisable(GL_DEPTH_TEST);
 
-        glm::mat4 projection = glm::perspective(60.0f,4.0f/3.0f,0.1f,100.0f);
+        glm::mat4 projection = glm::perspective(glm::radians(60.0f),4.0f/3.0f,0.1f,100.0f);
         glm::mat4 viewTranslate = glm::translate(glm::mat4(1.0f),glm::vec3(moveX,moveY,distance));
-        glm::mat4 viewRotateX = glm::rotate(viewTranslate,angleY,glm::vec3(-1.0f,0.0f,0.0f));
-        glm::mat4 view = glm::rotate(viewRotateX,angleX,glm::vec3(0.0f,1.0f,0.0f));
-
-
-//        QMatrix4x4 matrix;
-//        matrix.perspective(60.0f, 4.0f/3.0f, 0.1f, 100.0f);
-//        matrix.translate(moveX, moveY, distance);
-//        matrix.rotate(angleX,1,0,0);
-//        matrix.rotate(angleY,0,1,0);
-//        glUniformMatrix4fv(matrixLocation,1,false,matrix.data());
+        glm::mat4 viewRotateX = glm::rotate(viewTranslate,glm::radians(angleX),glm::vec3(-1.0f,0.0f,0.0f));
+        glm::mat4 view = glm::rotate(viewRotateX,glm::radians(angleY),glm::vec3(0.0f,1.0f,0.0f));
 
         unsigned int mSize=modelsArray.size();
         for(unsigned int n=0;n!=mSize;n++){
@@ -224,12 +215,10 @@ void viewWindow::paintGL(){
                     GLint ebo=indObject->getEbo();
                     glBindVertexArray(vao);
                     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
-                    error=glGetError();
                     GLsizei indices=(GLsizei)indObject->getIndicesCount();
                     glm::mat4 MVP = projection*view*modelsArray[n]->getModelMatrix();
                     glUniformMatrix4fv(matrixLocation,1,false,glm::value_ptr(MVP));
                     glDrawElements(GL_TRIANGLES,indices,GL_UNSIGNED_INT,NULL);
-                    error=glGetError();
                     glBindTexture(GL_TEXTURE_2D,0);
                     glBindVertexArray(0);
                     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);

@@ -41,7 +41,7 @@ protected:
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
-    glm::mat4 modelMatrix;
+    glm::mat4 modelMatrix = glm::mat4(1.0f);
 
 };
 
