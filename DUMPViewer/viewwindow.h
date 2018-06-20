@@ -12,7 +12,9 @@
 #include <QtGui/QOpenGLFunctions_3_3_Core>
 #include <math.h>
 #include <QMessageBox>
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "gameObject/graphicobject.h"
 #include "GUI/tooltabinfobox.h"
 #include "mathPrimitives/vertex.h"
@@ -52,7 +54,7 @@ protected:
     GLuint vertexArray,textureArray,indicesArray;//массивы координат вершин, текстурных координат и индексов
     GLint matrixLocation;
     bool loaded;
-    int angleX,angleY;//углы вращения
+    float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши
     float distance;
     float moveX,moveY;//смещения

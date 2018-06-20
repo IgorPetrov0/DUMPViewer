@@ -3,7 +3,6 @@
 editabelGraphicObject::editabelGraphicObject()
 {
     ego_type=VIEW_TEXTURED;
-    trianglesCount=0;
 }
 ////////////////////////////////////////////////////////////////////
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){

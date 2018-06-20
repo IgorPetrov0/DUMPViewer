@@ -4,6 +4,10 @@ meshObject::meshObject()
 {
     vertexAtributesArray=NULL;
     indicesObjectsArray=NULL;
+    modelMatrix = glm::mat4(glm::vec4(1.0f,1.0f,1.0f,1.0f),
+                   glm::vec4(1.0f,1.0f,1.0f,1.0f),
+                   glm::vec4(1.0f,1.0f,1.0f,1.0f),
+                   glm::vec4(1.0f,1.0f,1.0f,1.0f));
 
 }
 //////////////////////////////////////////////////////////////////
@@ -96,6 +100,14 @@ unsigned int meshObject::getVboName() const{
 //////////////////////////////////////////////////////////////////////////////
 void meshObject::setVboName(unsigned int value){
     vboName = value;
+}
+/////////////////////////////////////////////////////////////////////////////
+glm::mat4 meshObject::getModelMatrix() const{
+    return modelMatrix;
+}
+///////////////////////////////////////////////////////////////////////////////////
+void meshObject::setModelMatrix(const glm::mat4 &value){
+    modelMatrix = value;
 }
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int meshObject::getNumIndicesObjects(){

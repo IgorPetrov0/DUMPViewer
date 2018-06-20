@@ -130,15 +130,8 @@ FORMS    += \
     GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.ui \
     GUI/widgets/constraintPropertiesWidgets/transformwidget.ui
 
-
-
-
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
-
-
-
-
 
 win32: LIBS += -L$$PWD/include/ -lassimp_dll
 
@@ -155,3 +148,6 @@ win32: LIBS += -L$$PWD/DevIL/ -lILU
 
 INCLUDEPATH += $$PWD/DevIL
 DEPENDPATH += $$PWD/DevIL
+
+
+INCLUDEPATH += $$PWD/glm

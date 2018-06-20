@@ -6,6 +6,7 @@
 #include "gameindexobject.h"
 #include "mathPrimitives/vector3.h"
 #include "defines.h"
+#include "glm/glm.hpp"
 
 using namespace std;
 
@@ -32,13 +33,15 @@ public:
     void setVaoName(unsigned int value);
     unsigned int getVboName() const;
     void setVboName(unsigned int value);
+    glm::mat4 getModelMatrix() const;
+    void setModelMatrix(const glm::mat4 &value);
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
-
+    glm::mat4 modelMatrix;
 
 };
 
