@@ -54,7 +54,7 @@ void LODTab::loadSlot(){
         app->view()->addModel(lodPointer);
         app->currentObject()->showLOD(LODNumber,true);
         app->view()->update();
-        ui->LOD1InfoWidget->calculateMeshParameters(lodPointer);
+        //ui->LOD1InfoWidget-setMe(lodPointer);
     } 
 }
 /////////////////////////////////////////////////////////////////
@@ -109,6 +109,6 @@ void LODTab::deleteLod(){
 void LODTab::updateInfoSlot(){
     lodPointer=app->currentObject()->getLod(LODNumber);
     ui->LOD1DistanceWidget->setValue(lodPointer->getDistance());
-    ui->LOD1InfoWidget->calculateMeshParameters(lodPointer->getGraphicObject());
+    //ui->LOD1InfoWidget->calculateMeshParameters(lodPointer->getGraphicObject());
     ui->LOD1InfoWidget->setFileName(QString::fromStdString(lodPointer->getName()));
 }

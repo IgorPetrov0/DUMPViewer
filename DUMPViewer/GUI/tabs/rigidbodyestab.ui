@@ -23,7 +23,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="toolTabShortInfoBox" name="meshInfoWidget" native="true">
+  <widget class="meshInfoBox" name="meshInfoWidget" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -248,9 +248,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>toolTabShortInfoBox</class>
+   <class>meshInfoBox</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/tooltabshortinfobox.h</header>
+   <header location="global">GUI/meshinfobox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

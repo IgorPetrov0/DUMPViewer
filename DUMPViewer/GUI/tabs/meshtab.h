@@ -28,7 +28,7 @@ private:
 protected slots:
     void loadMeshSlot();
     void mainMeshDeleteSlot();
-    void updateInfoSlot();
+    //void updateInfoSlot();//скорее всего нигде не используется и не нужен
 
 };
 

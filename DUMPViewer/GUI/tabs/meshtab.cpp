@@ -42,7 +42,7 @@ void meshTab::loadMeshSlot(){
         app->currentObject()->setMainMesh(object);
         app->view()->addModel(app->currentObject()->getMainMesh());
         app->view()->update();
-        ui->meshInfoWidget->calculateMeshParameters(app->currentObject()->getMainMesh());
+        ui->meshInfoWidget->setMesh(app->currentObject()->getMainMesh());
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -54,15 +54,15 @@ void meshTab::mainMeshDeleteSlot(){
     app->view()->update();
 }
 /////////////////////////////////////////////////////////////////////////////////////////
-void meshTab::updateInfoSlot(){
-    if(app->currentObject()!=NULL){
-        ui->meshInfoWidget->setFileName(QString::fromStdString(app->currentObject()->getMainMesh()->getName()));
-        ui->meshInfoWidget->calculateMeshParameters(app->currentObject()->getMainMesh());
-    }
-    else{
-        ui->meshInfoWidget->clear();
-    }
-}
+//void meshTab::updateInfoSlot(){
+//    if(app->currentObject()!=NULL){
+//        ui->meshInfoWidget->setFileName(QString::fromStdString(app->currentObject()->getMainMesh()->getName()));
+//        ui->meshInfoWidget->calculateMeshParameters(app->currentObject()->getMainMesh());
+//    }
+//    else{
+//        ui->meshInfoWidget->clear();
+//    }
+//}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::resetTab(){
     ui->meshInfoWidget->clear();

@@ -9,7 +9,7 @@
 #ifndef UI_RIGIDBODYESTAB_H
 #define UI_RIGIDBODYESTAB_H
 
-#include <GUI/tooltabshortinfobox.h>
+#include <GUI/meshinfobox.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
@@ -27,7 +27,7 @@ class Ui_rigidBodyesTab
 {
 public:
     QComboBox *typeComboBox;
-    toolTabShortInfoBox *meshInfoWidget;
+    meshInfoBox *meshInfoWidget;
     QRadioButton *showRigidBodyRadioButton;
     QGroupBox *rigidBodyesGroup;
     QGroupBox *addGroup;
@@ -54,7 +54,7 @@ public:
         typeComboBox = new QComboBox(rigidBodyesTab);
         typeComboBox->setObjectName(QStringLiteral("typeComboBox"));
         typeComboBox->setGeometry(QRect(10, 360, 191, 22));
-        meshInfoWidget = new toolTabShortInfoBox(rigidBodyesTab);
+        meshInfoWidget = new meshInfoBox(rigidBodyesTab);
         meshInfoWidget->setObjectName(QStringLiteral("meshInfoWidget"));
         meshInfoWidget->setGeometry(QRect(10, 390, 191, 140));
         meshInfoWidget->setContextMenuPolicy(Qt::NoContextMenu);

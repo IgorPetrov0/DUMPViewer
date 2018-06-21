@@ -9,7 +9,7 @@
 #ifndef UI_MESHTAB_H
 #define UI_MESHTAB_H
 
-#include <GUI/tooltabinfobox.h>
+#include <GUI/meshbox.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QWidget>
@@ -19,16 +19,16 @@ QT_BEGIN_NAMESPACE
 class Ui_meshTab
 {
 public:
-    toolTabInfoBox *meshInfoWidget;
+    meshBox *meshInfoWidget;
 
     void setupUi(QWidget *meshTab)
     {
         if (meshTab->objectName().isEmpty())
             meshTab->setObjectName(QStringLiteral("meshTab"));
         meshTab->resize(221, 898);
-        meshInfoWidget = new toolTabInfoBox(meshTab);
+        meshInfoWidget = new meshBox(meshTab);
         meshInfoWidget->setObjectName(QStringLiteral("meshInfoWidget"));
-        meshInfoWidget->setGeometry(QRect(10, 10, 200, 201));
+        meshInfoWidget->setGeometry(QRect(10, 10, 200, 341));
 
         retranslateUi(meshTab);
 

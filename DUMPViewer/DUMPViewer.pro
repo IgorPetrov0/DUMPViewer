@@ -53,13 +53,13 @@ SOURCES += main.cpp\
     GUI/infobox.cpp \
     GUI/lodsbox.cpp \
     GUI/toolpanel.cpp \
-    GUI/tooltabinfobox.cpp \
-    GUI/tooltabshortinfobox.cpp \
     GUI/toolwidget.cpp \
     editorCore.cpp \
     gameObject/gameindexobject.cpp \
     gameObject/slaveobject.cpp \
-    mathPrimitives/boundbox.cpp
+    mathPrimitives/boundbox.cpp \
+    GUI/meshinfobox.cpp \
+    GUI/meshbox.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -101,20 +101,18 @@ HEADERS  += mainwindow.h \
     GUI/infobox.h \
     GUI/lodsbox.h \
     GUI/toolpanel.h \
-    GUI/tooltabinfobox.h \
-    GUI/tooltabshortinfobox.h \
     GUI/toolWidget.h \
     gameObject/dArray.h \
     editorCore.h \
     gameObject/gameindexobject.h \
     gameObject/slaveobject.h \
-    mathPrimitives/boundbox.h
+    mathPrimitives/boundbox.h \
+    GUI/meshinfobox.h \
+    GUI/meshbox.h
 
 FORMS    += \
     mainwindow.ui \
     GUI/lodsbox.ui \
-    GUI/tooltabinfobox.ui \
-    GUI/tooltabshortinfobox.ui \
     GUI/toolwidget.ui \
     GUI/serviceWindows/newgameobjectnamewindow.ui \
     GUI/tabs/constraintstab.ui \
@@ -128,7 +126,9 @@ FORMS    += \
     GUI/widgets/constraintPropertiesWidgets/hingewidget.ui \
     GUI/widgets/constraintPropertiesWidgets/pivotwidget.ui \
     GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.ui \
-    GUI/widgets/constraintPropertiesWidgets/transformwidget.ui
+    GUI/widgets/constraintPropertiesWidgets/transformwidget.ui \
+    GUI/meshinfobox.ui \
+    GUI/meshbox.ui
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include

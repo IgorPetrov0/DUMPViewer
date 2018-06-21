@@ -9,7 +9,7 @@
 #ifndef UI_LODTAB_H
 #define UI_LODTAB_H
 
-#include <GUI/tooltabinfobox.h>
+#include <GUI/meshbox.h>
 #include <GUI/widgets/distancewidget.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
@@ -20,7 +20,7 @@ QT_BEGIN_NAMESPACE
 class Ui_LODTab
 {
 public:
-    toolTabInfoBox *LOD1InfoWidget;
+    meshBox *LOD1InfoWidget;
     distanceWidget *LOD1DistanceWidget;
 
     void setupUi(QWidget *LODTab)
@@ -28,7 +28,7 @@ public:
         if (LODTab->objectName().isEmpty())
             LODTab->setObjectName(QStringLiteral("LODTab"));
         LODTab->resize(221, 898);
-        LOD1InfoWidget = new toolTabInfoBox(LODTab);
+        LOD1InfoWidget = new meshBox(LODTab);
         LOD1InfoWidget->setObjectName(QStringLiteral("LOD1InfoWidget"));
         LOD1InfoWidget->setGeometry(QRect(10, 10, 200, 201));
         LOD1DistanceWidget = new distanceWidget(LODTab);

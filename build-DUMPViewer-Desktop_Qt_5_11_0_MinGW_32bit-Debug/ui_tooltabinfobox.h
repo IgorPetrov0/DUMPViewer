@@ -9,7 +9,7 @@
 #ifndef UI_TOOLTABINFOBOX_H
 #define UI_TOOLTABINFOBOX_H
 
-#include <GUI/tooltabshortinfobox.h>
+#include <GUI/meshinfobox.h>
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGroupBox>
@@ -26,7 +26,7 @@ public:
     QLineEdit *fileNameLine;
     QPushButton *loadButton;
     QPushButton *deleteButton;
-    toolTabShortInfoBox *infoBox;
+    meshInfoBox *infoBox;
 
     void setupUi(QWidget *toolTabInfoBox)
     {
@@ -45,7 +45,7 @@ public:
         deleteButton = new QPushButton(meshGroup);
         deleteButton->setObjectName(QStringLiteral("deleteButton"));
         deleteButton->setGeometry(QRect(110, 50, 61, 23));
-        infoBox = new toolTabShortInfoBox(meshGroup);
+        infoBox = new meshInfoBox(meshGroup);
         infoBox->setObjectName(QStringLiteral("infoBox"));
         infoBox->setGeometry(QRect(10, 80, 161, 262));
 

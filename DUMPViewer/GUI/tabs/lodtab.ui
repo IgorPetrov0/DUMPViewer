@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="toolTabInfoBox" name="LOD1InfoWidget" native="true">
+  <widget class="meshBox" name="LOD1InfoWidget" native="true">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -36,9 +36,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>toolTabInfoBox</class>
+   <class>meshBox</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/tooltabinfobox.h</header>
+   <header location="global">GUI/meshbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
