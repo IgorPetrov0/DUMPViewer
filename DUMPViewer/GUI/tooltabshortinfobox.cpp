@@ -7,6 +7,7 @@ toolTabShortInfoBox::toolTabShortInfoBox(QWidget *parent) :
 {
     ui->setupUi(this);
     clear();
+    QRect rect=this->geometry();
 }
 ////////////////////////////////////////////////////////////////
 toolTabShortInfoBox::~toolTabShortInfoBox()

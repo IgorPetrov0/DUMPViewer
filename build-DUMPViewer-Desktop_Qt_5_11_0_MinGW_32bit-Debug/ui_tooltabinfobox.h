@@ -32,10 +32,10 @@ public:
     {
         if (toolTabInfoBox->objectName().isEmpty())
             toolTabInfoBox->setObjectName(QStringLiteral("toolTabInfoBox"));
-        toolTabInfoBox->resize(200, 216);
+        toolTabInfoBox->resize(200, 363);
         meshGroup = new QGroupBox(toolTabInfoBox);
         meshGroup->setObjectName(QStringLiteral("meshGroup"));
-        meshGroup->setGeometry(QRect(1, 1, 181, 211));
+        meshGroup->setGeometry(QRect(1, 1, 181, 351));
         fileNameLine = new QLineEdit(meshGroup);
         fileNameLine->setObjectName(QStringLiteral("fileNameLine"));
         fileNameLine->setGeometry(QRect(10, 20, 161, 20));
@@ -47,7 +47,7 @@ public:
         deleteButton->setGeometry(QRect(110, 50, 61, 23));
         infoBox = new toolTabShortInfoBox(meshGroup);
         infoBox->setObjectName(QStringLiteral("infoBox"));
-        infoBox->setGeometry(QRect(10, 80, 161, 121));
+        infoBox->setGeometry(QRect(10, 80, 161, 262));
 
         retranslateUi(toolTabInfoBox);
 

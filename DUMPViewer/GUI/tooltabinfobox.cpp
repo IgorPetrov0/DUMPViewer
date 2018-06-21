@@ -6,7 +6,6 @@ toolTabInfoBox::toolTabInfoBox(QWidget *parent) :
     ui(new Ui::toolTabInfoBox)
 {
     ui->setupUi(this);
-
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
     connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SIGNAL(deleteSignal()));
     ui->infoBox->setOriginSize();
@@ -23,6 +22,7 @@ void toolTabInfoBox::loadSlot(){
 ////////////////////////////////////////////////////////
 void toolTabInfoBox::resizeEvent(QResizeEvent *event){
     QRect rect;
+
     rect=ui->meshGroup->geometry();
     rect.setWidth(this->width()-15);
     ui->meshGroup->setGeometry(rect);

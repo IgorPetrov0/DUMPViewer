@@ -25,6 +25,7 @@ void dTabBar::addWidget(QWidget *widget){
     widgetsArray.append(widget);
     //ищем последний виджет по максимальному значению geometry.y()
     endWidget=widgetsArray[0];
+    QRect r=widget->geometry();
     int size=widgetsArray.size();
     for(int n=0;n!=size;n++){
         if(endWidget->geometry().y()<widgetsArray[n]->geometry().y()){
