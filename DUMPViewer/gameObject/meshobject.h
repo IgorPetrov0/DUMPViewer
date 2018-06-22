@@ -34,17 +34,18 @@ public:
     unsigned int getVboName() const;
     void setVboName(unsigned int value);
     glm::mat4 getModelMatrix() const;
-    void setModelMatrix(const glm::mat4 &value);
+
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
+    glm::mat4 modelMatrix;
     glm::vec3 move;
     glm::vec3 scale;
     glm::vec3 rotate;
+
 
 
 

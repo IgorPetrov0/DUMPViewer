@@ -130,4 +130,37 @@ void editabelGraphicObject::setName(string name){
     this->name=name;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-
+void editabelGraphicObject::setMoveVector(const glm::vec3 vector){
+    move=vector;
+    calculateModelMatrix();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::setRotateVector(const glm::vec3 vector){
+    rotate=vector;
+    calculateModelMatrix();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::setScaleVector(const glm::vec3 vector){
+    scale=vector;
+    calculateModelMatrix();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+glm::vec3 editabelGraphicObject::getMoveVector()const{
+    return move;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+glm::vec3 editabelGraphicObject::getRotateVector()const{
+    return rotate;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+glm::vec3 editabelGraphicObject::getScaleVector()const{
+    return scale;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::calculateModelMatrix(){
+    glm::mat4 mScale = glm::scale(glm::mat4(1.0f),scale);
+    glm::mat4 mRotateX = glm::rotate(mScale,glm::radians(rotate.x),glm::vec3(1.0f,0.0f,0.0f));
+    glm::mat4 mRotateY = glm::rotate(mRotateX,glm::radians(rotate.y),glm::vec3(0.0f,1.0f,0.0f));
+    glm::mat4 mRotateZ = glm::rotate(mRotateY,glm::radians(rotate.z),glm::vec3(0.0f,0.0f,1.0f));
+    modelMatrix = glm::translate(mRotateZ,move);
+}

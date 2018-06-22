@@ -26,12 +26,19 @@ public:
     void compileObject();
     string getName();
     void setName(string name);
+    void setMoveVector(const glm::vec3 vector);
+    void setRotateVector(const glm::vec3 vector);
+    void setScaleVector(const glm::vec3 vector);
+    glm::vec3 getMoveVector()const;
+    glm::vec3 getRotateVector()const;
+    glm::vec3 getScaleVector()const;
+
 
 protected:
     viewType ego_type;
     string name;
 
-
+    void calculateModelMatrix();
 
 
 };
