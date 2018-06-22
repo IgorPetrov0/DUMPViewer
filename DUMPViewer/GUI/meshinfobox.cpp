@@ -27,14 +27,21 @@ void meshInfoBox::setMesh(editabelGraphicObject *value){
 }
 //////////////////////////////////////////////////////////////////
 void meshInfoBox::calculateMeshParameters(){
-   unsigned int indexObjectsCount=mesh->getNumIndicesObjects();
-   unsigned int indicesCount=0;
-   for(unsigned int n=0;n!=indexObjectsCount;n++){
-       indicesCount+=mesh->getIndexObject(n)->getIndicesCount();
-   }
-   ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(indicesCount/3));
-   ui->xSizeLabel->setText(tr("X Size = ")+QString::number(mesh->getBoundBox().x()));
-   ui->ySizeLabel->setText(tr("Y Size = ")+QString::number(mesh->getBoundBox().y()));
-   ui->zSizeLabel->setText(tr("Z Size = ")+QString::number(mesh->getBoundBox().z()));
+    unsigned int indexObjectsCount=mesh->getNumIndicesObjects();
+    unsigned int indicesCount=0;
+    for(unsigned int n=0;n!=indexObjectsCount;n++){
+        indicesCount+=mesh->getIndexObject(n)->getIndicesCount();
+    }
+    ui->trianglesValueLabel->setText(tr("Tiangles = ")+QString::number(indicesCount/3));
+    ui->xSizeLabel->setText(tr("X Size = ")+QString::number(mesh->getBoundBox().x()));
+    ui->ySizeLabel->setText(tr("Y Size = ")+QString::number(mesh->getBoundBox().y()));
+    ui->zSizeLabel->setText(tr("Z Size = ")+QString::number(mesh->getBoundBox().z()));
+    glm::mat4 mat=mesh->getModelMatrix();
+    glm::vec4 vec=mat[0];
+    int n=0;
+
+
+
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////

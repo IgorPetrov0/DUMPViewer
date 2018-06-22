@@ -4,6 +4,9 @@ meshObject::meshObject()
 {
     vertexAtributesArray=NULL;
     indicesObjectsArray=NULL;
+    move=glm::vec3(0,0,0);
+    scale=glm::vec3(1,1,1);
+    rotate=glm::vec3(0,0,0);
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
@@ -98,7 +101,12 @@ void meshObject::setVboName(unsigned int value){
 }
 /////////////////////////////////////////////////////////////////////////////
 glm::mat4 meshObject::getModelMatrix() const{
-    return modelMatrix;
+    glm::mat4 mScale = glm::scale(glm::mat4(1.0f),scale);
+    glm::mat4 mRotateX = glm::rotate(mScale,glm::radians(rotate.x),glm::vec3(1.0f,0.0f,0.0f));
+    glm::mat4 mRotateY = glm::rotate(mRotateX,glm::radians(rotate.y),glm::vec3(0.0f,1.0f,0.0f));
+    glm::mat4 mRotateZ = glm::rotate(mRotateY,glm::radians(rotate.z),glm::vec3(0.0f,0.0f,1.0f));
+    glm::mat4 mModel = glm::translate(mRotateZ,move);
+    return mModel;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 void meshObject::setModelMatrix(const glm::mat4 &value){

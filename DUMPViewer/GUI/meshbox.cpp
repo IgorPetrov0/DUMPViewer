@@ -9,7 +9,6 @@ meshBox::meshBox(QWidget *parent) :
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
     connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SIGNAL(deleteSignal()));
     ui->infoBox->setOriginSize();
-
 }
 /////////////////////////////////////////////////////////////////////////////
 meshBox::~meshBox(){

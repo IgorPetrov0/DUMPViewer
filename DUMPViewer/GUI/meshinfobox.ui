@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>172</width>
-    <height>218</height>
+    <height>407</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>161</width>
-     <height>211</height>
+     <height>401</height>
     </rect>
    </property>
    <property name="title">
@@ -96,80 +96,257 @@
       <x>10</x>
       <y>124</y>
       <width>141</width>
-      <height>81</height>
+      <height>271</height>
      </rect>
     </property>
     <property name="title">
      <string>Model matrix</string>
     </property>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox">
-     <property name="geometry">
-      <rect>
-       <x>55</x>
-       <y>15</y>
-       <width>79</width>
-       <height>17</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
+    <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>15</y>
-       <width>47</width>
-       <height>16</height>
+       <y>16</y>
+       <width>120</width>
+       <height>80</height>
       </rect>
      </property>
-     <property name="text">
+     <property name="title">
       <string>Position</string>
      </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>34</y>
-       <width>47</width>
-       <height>16</height>
+       <y>100</y>
+       <width>120</width>
+       <height>80</height>
       </rect>
      </property>
-     <property name="text">
+     <property name="title">
       <string>Rotation</string>
      </property>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QGroupBox" name="groupBox_4">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>52</y>
-       <width>47</width>
-       <height>16</height>
+       <y>180</y>
+       <width>120</width>
+       <height>80</height>
       </rect>
      </property>
-     <property name="text">
+     <property name="title">
       <string>Scale</string>
      </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
-     <property name="geometry">
-      <rect>
-       <x>55</x>
-       <y>55</y>
-       <width>79</width>
-       <height>17</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
-     <property name="geometry">
-      <rect>
-       <x>55</x>
-       <y>35</y>
-       <width>79</width>
-       <height>17</height>
-      </rect>
-     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
