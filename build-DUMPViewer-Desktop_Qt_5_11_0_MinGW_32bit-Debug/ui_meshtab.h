@@ -28,7 +28,7 @@ public:
         meshTab->resize(221, 898);
         meshInfoWidget = new meshBox(meshTab);
         meshInfoWidget->setObjectName(QStringLiteral("meshInfoWidget"));
-        meshInfoWidget->setGeometry(QRect(10, 10, 200, 341));
+        meshInfoWidget->setGeometry(QRect(10, 10, 200, 510));
 
         retranslateUi(meshTab);
 

@@ -17,7 +17,7 @@ toolWidget::toolWidget(editorCore *app, QWidget *parent) :
     ui->meshTabBar->setApplication(app);
     ui->showRadioButton->setChecked(true);
 
-    connect(this,SIGNAL(updateInfo()),ui->meshTabBar,SLOT(updateInfoSlot()));
+    //connect(this,SIGNAL(updateInfo()),ui->meshTabBar,SLOT(updateInfoSlot()));
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
     connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
     

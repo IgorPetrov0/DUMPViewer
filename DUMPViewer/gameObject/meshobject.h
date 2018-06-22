@@ -7,7 +7,7 @@
 #include "mathPrimitives/vector3.h"
 #include "defines.h"
 #include "glm/glm.hpp"
-
+#include "glm/gtc/matrix_transform.hpp"
 using namespace std;
 
 class meshObject
@@ -42,6 +42,12 @@ protected:
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
     glm::mat4 modelMatrix = glm::mat4(1.0f);
+    glm::vec3 move;
+    glm::vec3 scale;
+    glm::vec3 rotate;
+
+
+
 
 };
 

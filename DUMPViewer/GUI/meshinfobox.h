@@ -1,6 +1,7 @@
 #ifndef MESHINFOBOX_H
 #define MESHINFOBOX_H
 
+#include <glm/glm.hpp>
 #include "GUI/infobox.h"
 #include "widgets/dumpviewerwidget.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"
