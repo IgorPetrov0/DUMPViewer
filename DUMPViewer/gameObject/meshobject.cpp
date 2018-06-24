@@ -112,3 +112,10 @@ unsigned int meshObject::getNumIndicesObjects(){
 gameIndexObject *meshObject::getIndexObject(unsigned int index){
     return indicesObjectsArray->operator [](index);
 }
+bool meshObject::isVisible(){
+   return visible;
+}
+///////////////////////////////////////////////////////////////////////////////
+void meshObject::setVisible(bool visible){
+    this->visible=visible;
+}

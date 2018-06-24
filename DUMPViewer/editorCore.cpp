@@ -57,10 +57,6 @@ void editorCore::setViewWindowPointer(viewWindow *pointer){
     a_view=pointer;
     pointer->setTexturesVector(&globalTexturesArray);
 }
-//////////////////////////////////////////////////////////////////////////
-viewWindow *editorCore::view(){
-    return a_view;
-}
 ////////////////////////////////////////////////////////////////////////////
 void editorCore::setLastDistance(float distance){
     a_lastDistance=distance;
@@ -182,37 +178,31 @@ QString editorCore::getLastError(){
     return tmp;
 }
 ///////////////////////////////////////////////////////////////////////////////////
-gameObjectMaterial *editorCore::addMaterials(const aiScene *scene, QString objectPath){
+bool editorCore::addMaterials(const aiScene *scene, QString objectPath){
 
-    gameObjectMaterial *material=NULL;
     unsigned int size=scene->mNumMaterials;
     for(unsigned int n=0;n!=size;n++){
         aiMaterial *mat=scene->mMaterials[n];
         aiString name;
         mat->Get(AI_MATKEY_NAME,name);
-        unsigned int size=globalMaterialsArray.size();
-        for(unsigned int n=0;n!=size;n++){//ищем материал в глобальном массиве по имени
-            material=globalMaterialsArray[n];
-            if(material->getName()==name.C_Str()){
-                return material;
+        if(!findMaterialFromGlobalArray(name)){//ищем материал в глобальном массиве
+            gameObjectMaterial *material = new gameObjectMaterial;//если не нашли - создаем новый
+            unsigned int texCount=mat->GetTextureCount(aiTextureType_DIFFUSE);//добавляем диффузные текстуры
+            for(unsigned int m=0;m!=texCount;m++){
+                gameObjectTexture *newTexture=addTexturesFromFiles(mat,aiTextureType_DIFFUSE,m,objectPath);
+                if(newTexture!=NULL){
+                    material->addTexture(newTexture);
+                }
+                else{
+                    delete material;
+                    return false;
+                }
             }
+            material->setName(name.C_Str());
+            globalMaterialsArray.append(material);
         }
-        material = new gameObjectMaterial;
-        unsigned int texCount=mat->GetTextureCount(aiTextureType_DIFFUSE);//добавляем диффузные текстуры
-        for(unsigned int m=0;m!=texCount;m++){
-            gameObjectTexture *newTexture=addTexturesFromFiles(mat,aiTextureType_DIFFUSE,m,objectPath);
-            if(newTexture!=NULL){
-                material->addTexture(newTexture);
-            }
-            else{
-                delete material;
-                return NULL;
-            }
-        }
-        material->setName(name.C_Str());
-        globalMaterialsArray.append(material);
     }
-    return material;
+    return true;
 }
 ///////////////////////////////////////////////////////////////////////////////////
 bool editorCore::addTextures(const aiScene *scene, QString objectPath){
@@ -259,6 +249,19 @@ gameObjectTexture *editorCore::addTexturesFromFiles(aiMaterial *material, aiText
         return NULL;
     }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+bool editorCore::findMaterialFromGlobalArray(aiString name){
+
+    unsigned int size=globalMaterialsArray.size();
+    for(unsigned int n=0;n!=size;n++){//ищем материал в глобальном массиве по имени
+        gameObjectMaterial *material;
+        material=globalMaterialsArray[n];
+        if(material->getName()==name.C_Str()){//если нашли
+            return true;
+        }
+    }
+    return false;//если не нашли
+}
 /////////////////////////////////////////////////////////////////////////////
 void editorCore::checkMaterials(){
     unsigned int size=globalMaterialsArray.size();
@@ -288,4 +291,48 @@ void editorCore::checkMaterials(){
             n++;
         }
     }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::addMainMesh(editabelGraphicObject *mesh){
+    a_currentObject->setMainMesh(mesh);
+    a_view->addModel(mesh);
+    a_view->update();
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::addLOD(unsigned int number, editableLOD *lod){
+    a_currentObject->addLOD(lod,number);
+    a_view->addModel((editabelGraphicObject*)lod);
+    a_view->update();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::deleteMesh(meshType type){
+    switch(type){
+        case(MESH_MAIN_MESH):{
+            a_view->removeModel(currentObject()->getMainMesh());
+            a_currentObject->deleteMainMesh();
+            checkMaterials();
+            a_view->update();
+            break;
+        }
+        case(MESH_LOD1):{
+            a_view->removeModel(currentObject()->getLod(0));
+            a_currentObject->deleteLOD(0);
+            checkMaterials();
+            a_view->update();
+            break;
+        }
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::setViewDistance(float value){
+    a_view->setDistance(value);
+    a_view->update();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+float editorCore::getViewDistance(){
+    return a_view->getDistance();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::updateView(){
+    a_view->update();
 }

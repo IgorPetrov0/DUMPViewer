@@ -34,6 +34,8 @@ public:
     unsigned int getVboName() const;
     void setVboName(unsigned int value);
     glm::mat4 getModelMatrix() const;
+    bool isVisible();
+    void setVisible(bool visible);
 
 
 protected:
@@ -45,6 +47,7 @@ protected:
     glm::vec3 move;
     glm::vec3 scale;
     glm::vec3 rotate;
+    bool visible;
 
 
 

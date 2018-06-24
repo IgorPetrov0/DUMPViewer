@@ -6,6 +6,18 @@ gameIndexObject::gameIndexObject()
     materialPointer=NULL;
     size=0;
 }
+/////////////////////////////////////////////////////////////////////
+gameIndexObject::gameIndexObject(gameIndexObject *object)
+{
+    unsigned int aSize=object->getIndicesCount();
+    this->indices = new dArray<unsigned int>(aSize);
+    for(unsigned int n=0;n!=aSize;n++){
+        indices->addElement(n,object->getIndices()->operator [](n));
+    }
+    this->materialPointer=object->getMaterial();
+    this->ebo=object->getEbo();
+    this->size=object->getIndicesCount();
+}
 //////////////////////////////////////////////////////////////////////
 gameIndexObject::~gameIndexObject(){
     materialPointer->release();//материал только отпускается, но не уничтожается т.к. им еще может кто-то пользоваться

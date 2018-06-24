@@ -37,60 +37,58 @@ void viewWindow::addModel(editabelGraphicObject *model){
     }
     modelsArray.append(model);
     makeCurrent();//делаем контекст OpenGL текущим
-    for(unsigned int n=0;n!=modelsArray.size();n++){
-        GLuint vboName,  vaoName, indBuffer;
-        //сначала создаем VBO и заполняем его данными
-        glGenBuffers(1,&vboName);
-        glBindBuffer(GL_ARRAY_BUFFER,vboName);
-        arSize=modelsArray[n]->getVertexseSize()*sizeof(float);
-        const vertexCoordinates *arr=modelsArray[n]->getVertexesPointer();
-        glBufferData(GL_ARRAY_BUFFER,arSize,arr,GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER,0);
-        model->setVboName(vboName);
+    GLuint vboName,  vaoName, indBuffer;
+    //сначала создаем VBO и заполняем его данными
+    glGenBuffers(1,&vboName);
+    glBindBuffer(GL_ARRAY_BUFFER,vboName);
+    arSize=model->getVertexseSize()*sizeof(float);
+    const vertexCoordinates *arr=model->getVertexesPointer();
+    glBufferData(GL_ARRAY_BUFFER,arSize,arr,GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+    model->setVboName(vboName);
 
-        unsigned int size=modelsArray[n]->getNumIndicesObjects();
-        for(unsigned int m=0;m!=size;m++){//проходим по всем индексным объектам
-            gameIndexObject *indObject = modelsArray[n]->getIndexObject(m);
-            gameObjectTexture *tex=indObject->getMaterial()->getDiffuseTexture();
-            if(tex!=NULL){
-                if(!tex->isExistInOpenGL()){//создаем текстуру, если она еще не создана
-                    GLuint tName;
-                    glGenTextures(1,&tName);
-                    glBindTexture(GL_TEXTURE_2D,tName);
-                    glPixelStorei(GL_UNPACK_ALIGNMENT,1);
-                    tex->setOglName(tName);
-                    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex->width(),tex->height(),0,tex->getOGLFormat(),tex->getDataType(),tex->getTexturePointer()->getArrayPointer());
-                    //параметры фильтрации - линейная
-                    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-                    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-                    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-                    glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-                    glBindTexture(GL_TEXTURE_2D,0);
-                }
+    unsigned int size=model->getNumIndicesObjects();
+    for(unsigned int m=0;m!=size;m++){//проходим по всем индексным объектам
+        gameIndexObject *indObject = model->getIndexObject(m);
+        gameObjectTexture *tex=indObject->getMaterial()->getDiffuseTexture();
+        if(tex!=NULL){
+            if(!tex->isExistInOpenGL()){//создаем текстуру, если она еще не создана
+                GLuint tName;
+                glGenTextures(1,&tName);
+                glBindTexture(GL_TEXTURE_2D,tName);
+                glPixelStorei(GL_UNPACK_ALIGNMENT,1);
+                tex->setOglName(tName);
+                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, tex->width(),tex->height(),0,tex->getOGLFormat(),tex->getDataType(),tex->getTexturePointer()->getArrayPointer());
+                //параметры фильтрации - линейная
+                glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+                glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+                glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+                glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+                glBindTexture(GL_TEXTURE_2D,0);
             }
-            //создаем буферы индексов
-            glGenBuffers(1,&indBuffer);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,indBuffer);
-            const unsigned int *indArray=indObject->getIndices()->getArrayPointer();
-            GLsizeiptr indSize=indObject->getIndicesCount();
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER,indSize*sizeof(unsigned int),indArray,GL_STATIC_DRAW);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-            indObject->setEbo(indBuffer);
-
-            //создаем VAO
-            glGenVertexArrays(1,&vaoName);
-            glBindVertexArray(vaoName);
-            glBindBuffer(GL_ARRAY_BUFFER,vboName);//биндим к нему VBO
-            GLsizei strade=8*sizeof(float);
-            glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,strade,NULL);
-            glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(3*sizeof(float)));
-            glEnableVertexAttribArray(1);
-            glEnableVertexAttribArray(2);
-            glBindVertexArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER,0);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-            indObject->getMaterial()->setVAOName(vaoName);
         }
+        //создаем буферы индексов
+        glGenBuffers(1,&indBuffer);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,indBuffer);
+        const unsigned int *indArray=indObject->getIndices()->getArrayPointer();
+        GLsizeiptr indSize=indObject->getIndicesCount();
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER,indSize*sizeof(unsigned int),indArray,GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+        indObject->setEbo(indBuffer);
+
+        //создаем VAO
+        glGenVertexArrays(1,&vaoName);
+        glBindVertexArray(vaoName);
+        glBindBuffer(GL_ARRAY_BUFFER,vboName);//биндим к нему VBO
+        GLsizei strade=8*sizeof(float);
+        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,strade,NULL);
+        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(3*sizeof(float)));
+        glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(2);
+        glBindVertexArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER,0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
+        indObject->getMaterial()->setVAOName(vaoName);
     }
     model->clear();//удаление из ОЗУ данных, которые загружены в видеопамять
 }
@@ -105,6 +103,7 @@ void viewWindow::initializeGL(){
     initializeOpenGLFunctions();
     glClearColor(0.0,0.0,0,0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
 
     static const GLchar *vertexShaderSource[] =
@@ -192,8 +191,6 @@ void viewWindow::resizeGL(){
 void viewWindow::paintGL(){
     if(modelsArray.size()!=0){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glEnable(GL_CULL_FACE);
-        glDisable(GL_DEPTH_TEST);
 
         glm::mat4 projection = glm::perspective(glm::radians(60.0f),4.0f/3.0f,0.1f,100.0f);
         glm::mat4 viewTranslate = glm::translate(glm::mat4(1.0f),glm::vec3(moveX,moveY,distance));

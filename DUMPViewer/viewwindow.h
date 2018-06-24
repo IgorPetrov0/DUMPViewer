@@ -16,7 +16,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "gameObject/graphicobject.h"
-#include "GUI/meshbox.h"
 #include "mathPrimitives/vertex.h"
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"

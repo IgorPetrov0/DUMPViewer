@@ -30,8 +30,8 @@ public:
     ~dTabBar();
     void addWidget(QWidget *widget);
     void setEndWidget(QWidget *winget);
-    void setApplication(editorCore *app);
     void disableTab(bool disable);
+    virtual void setCorePointer(editorCore *pointer);
 
 protected:
     void wheelEvent(QWheelEvent *event);
@@ -42,7 +42,7 @@ protected:
     QVector<QWidget*> widgetsArray;//массив указателей на размещенные виджеты
     QScrollBar *scrollBar;
     QWidget *endWidget;//последний виджет в таббаре, по которому считается скролбар
-    editorCore *app;
+    editorCore *core;
 
 signals:
     void changeSygnal();

@@ -3,6 +3,7 @@
 editabelGraphicObject::editabelGraphicObject()
 {
     ego_type=VIEW_TEXTURED;
+    calculateModelMatrix();
 }
 ////////////////////////////////////////////////////////////////////
 editabelGraphicObject::editabelGraphicObject(graphicObject *gObject){
@@ -163,4 +164,5 @@ void editabelGraphicObject::calculateModelMatrix(){
     glm::mat4 mRotateY = glm::rotate(mRotateX,glm::radians(rotate.y),glm::vec3(0.0f,1.0f,0.0f));
     glm::mat4 mRotateZ = glm::rotate(mRotateY,glm::radians(rotate.z),glm::vec3(0.0f,0.0f,1.0f));
     modelMatrix = glm::translate(mRotateZ,move);
+    int n=0;
 }

@@ -7,7 +7,6 @@ class LOD : public virtual graphicObject
 {
 public:
     LOD();
-    LOD(graphicObject *gObject, float distance);
     void setDistance(float value);
     float getDistance();
     graphicObject *getGraphicObject();

@@ -4,6 +4,7 @@
 #include <QString>
 #include <QWidget>
 #include <QFile>
+#include <QFileInfo>
 #include <QMessageBox>
 #include <QObject>
 #include <QVector>
@@ -15,6 +16,7 @@
 #include <assimp/types.h>
 #include <assimp/postprocess.h>
 #include "gameObject/editabelObjects/editabelgameobject.h"
+#include "gameObject/editabelObjects/editabelgraphicobject.h"
 #include "gameObject/stream.h"
 #include "viewwindow.h"
 
@@ -35,7 +37,6 @@ public:
     QWidget *mainWindowPointer();
     QString currentPath();
     editabelGameObject *currentObject();
-    viewWindow *view();
     void setMainWindowPointer(QWidget *pointer);
     void setViewWindowPointer(viewWindow *pointer);
     void setCurrentObject(editabelGameObject *object);
@@ -48,6 +49,12 @@ public:
     bool loadGraphicObject(QString fileName, editabelGraphicObject *object);//загрузка графического объекта через Assimp
     QString getLastError();
     void checkMaterials();//проверяет все материалы и текстуры на отсутствие владельцев и удаляет бесхозные
+    void addMainMesh(editabelGraphicObject *mesh);
+    void addLOD(unsigned int number, editableLOD *lod);
+    void deleteMesh(meshType type);
+    void setViewDistance(float value);
+    float getViewDistance();
+    void updateView();
 
 
 protected:
@@ -62,10 +69,10 @@ protected:
     QVector<gameObjectTexture*> globalTexturesArray;
     QVector<gameObjectMaterial*> globalMaterialsArray;
     QString a_error;
-    gameObjectMaterial *addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
+    bool addMaterials(const aiScene *scene, QString objectPath);//собирает все материалы сцены в одно глобальное хранилище
     bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
     gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
-
+    bool findMaterialFromGlobalArray(aiString name);
 };
 
 #endif // EDITORCORE_H

@@ -4,11 +4,6 @@ LOD::LOD()
 {
 
 }
-///////////////////////////////////////////////////////
-LOD::LOD(graphicObject *gObject, float distance)
-{
-    //this=gObject;
-}
 //////////////////////////////////////////////////////
 void LOD::setDistance(float value){
     LODDistance=value;

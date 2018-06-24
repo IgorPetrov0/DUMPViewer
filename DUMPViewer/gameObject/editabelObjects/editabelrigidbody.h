@@ -9,7 +9,7 @@ class editabelRigidBody : public rigidBody
 {
 public:
     editabelRigidBody();
-    editabelRigidBody(editabelGraphicObject *gObject, meshSource source);
+    editabelRigidBody(editabelGraphicObject *gObject, meshType source);
     editabelRigidBody(rigidBody *body);
     ~editabelRigidBody();
     void setTexture(gameObjectTexture *texture);

@@ -48,70 +48,94 @@ void meshInfoBox::calculateMeshParameters(){
     ui->ySizeLabel->setText(tr("Y Size = ")+QString::number(mesh->getBoundBox().y()));
     ui->zSizeLabel->setText(tr("Z Size = ")+QString::number(mesh->getBoundBox().z()));
 
-    ui->posXSpinBox->setValue((double)mesh->getMoveVector().x);
-    ui->posYSpinBox->setValue((double)mesh->getMoveVector().y);
-    ui->posZSpinBox->setValue((double)mesh->getMoveVector().z);
+    glm::vec3 vector=mesh->getMoveVector();
+    ui->posXSpinBox->setValue((double)vector.x);
+    ui->posYSpinBox->setValue((double)vector.y);
+    ui->posZSpinBox->setValue((double)vector.z);
 
-    ui->rotXSpinBox->setValue((double)mesh->getRotateVector().x);
-    ui->rotYSpinBox->setValue((double)mesh->getRotateVector().y);
-    ui->rotZSpinBox->setValue((double)mesh->getRotateVector().z);
+    vector=mesh->getRotateVector();
+    ui->rotXSpinBox->setValue((double)vector.x);
+    ui->rotYSpinBox->setValue((double)vector.y);
+    ui->rotZSpinBox->setValue((double)vector.z);
 
-    ui->scaleXSpinBox->setValue((double)mesh->getScaleVector().x);
-    ui->scaleYSpinBox->setValue((double)mesh->getScaleVector().y);
-    ui->scaleZSpinBox->setValue((double)mesh->getScaleVector().z);
+    vector=mesh->getScaleVector();
+    ui->scaleXSpinBox->setValue((double)vector.x);
+    ui->scaleYSpinBox->setValue((double)vector.y);
+    ui->scaleZSpinBox->setValue((double)vector.z);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posXChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getMoveVector();
     vector.x=(float)value;
     mesh->setMoveVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posYChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getMoveVector();
     vector.y=(float)value;
     mesh->setMoveVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posZChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getMoveVector();
     vector.z=(float)value;
     mesh->setMoveVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotXChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getRotateVector();
     vector.x=(float)value;
     mesh->setRotateVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotYChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getRotateVector();
     vector.y=(float)value;
     mesh->setRotateVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotZChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getRotateVector();
     vector.z=(float)value;
     mesh->setRotateVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleXChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getScaleVector();
     vector.x=(float)value;
     mesh->setScaleVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleYChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getScaleVector();
     vector.y=(float)value;
     mesh->setScaleVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleZChange(double value){
-    glm::vec3 vector;
+    IS_CORE_POINTER
+    glm::vec3 vector = mesh->getScaleVector();
     vector.z=(float)value;
     mesh->setScaleVector(vector);
+    core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
+void meshInfoBox::setCorePointer(editorCore *pointer){
+    core=pointer;
+}

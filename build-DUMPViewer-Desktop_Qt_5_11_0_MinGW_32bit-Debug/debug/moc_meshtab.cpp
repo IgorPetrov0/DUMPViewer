@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_meshTab_t {
-    QByteArrayData data[4];
-    char stringdata0[41];
+    QByteArrayData data[6];
+    char stringdata0[60];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,12 +32,15 @@ struct qt_meta_stringdata_meshTab_t {
 static const qt_meta_stringdata_meshTab_t qt_meta_stringdata_meshTab = {
     {
 QT_MOC_LITERAL(0, 0, 7), // "meshTab"
-QT_MOC_LITERAL(1, 8, 12), // "loadMeshSlot"
-QT_MOC_LITERAL(2, 21, 0), // ""
-QT_MOC_LITERAL(3, 22, 18) // "mainMeshDeleteSlot"
+QT_MOC_LITERAL(1, 8, 10), // "meshLoaded"
+QT_MOC_LITERAL(2, 19, 0), // ""
+QT_MOC_LITERAL(3, 20, 22), // "editabelGraphicObject*"
+QT_MOC_LITERAL(4, 43, 4), // "mesh"
+QT_MOC_LITERAL(5, 48, 11) // "meshDeleted"
 
     },
-    "meshTab\0loadMeshSlot\0\0mainMeshDeleteSlot"
+    "meshTab\0meshLoaded\0\0editabelGraphicObject*\0"
+    "mesh\0meshDeleted"
 };
 #undef QT_MOC_LITERAL
 
@@ -55,11 +58,11 @@ static const uint qt_meta_data_meshTab[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   24,    2, 0x09 /* Protected */,
-       3,    0,   25,    2, 0x09 /* Protected */,
+       1,    1,   24,    2, 0x09 /* Protected */,
+       5,    0,   27,    2, 0x09 /* Protected */,
 
  // slots: parameters
-    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void,
 
        0        // eod
@@ -71,12 +74,11 @@ void meshTab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         meshTab *_t = static_cast<meshTab *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->loadMeshSlot(); break;
-        case 1: _t->mainMeshDeleteSlot(); break;
+        case 0: _t->meshLoaded((*reinterpret_cast< editabelGraphicObject*(*)>(_a[1]))); break;
+        case 1: _t->meshDeleted(); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 QT_INIT_METAOBJECT const QMetaObject meshTab::staticMetaObject = {

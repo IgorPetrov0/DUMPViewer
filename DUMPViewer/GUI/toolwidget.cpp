@@ -1,7 +1,7 @@
 #include "toolwidget.h"
 #include "ui_toolwidget.h"
 
-toolWidget::toolWidget(editorCore *app, QWidget *parent) :
+toolWidget::toolWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::toolWidget)
 {
@@ -9,19 +9,11 @@ toolWidget::toolWidget(editorCore *app, QWidget *parent) :
     ui->setupUi(this);
     ui->graphicTab->setCurrentIndex(0);
     ui->graphicTab->setUsesScrollButtons(true);
-
-    this->app=app;
-    ui->constraintsTabBar->setApplication(app);
-    ui->constraintsTabBar->setApplication(app);
-    ui->rigidBodiesTabBar->setApplication(app);
-    ui->meshTabBar->setApplication(app);
     ui->showRadioButton->setChecked(true);
+    core=NULL;
 
-    //connect(this,SIGNAL(updateInfo()),ui->meshTabBar,SLOT(updateInfoSlot()));
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
     connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
-    
-
 
 }
 /////////////////////////////////////////////////
@@ -58,9 +50,10 @@ void toolWidget::resetToolPanel(){
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::graphicTabSelectedSlot(int index){
+    IS_CORE_POINTER
+
     static int lastIndex=0;
     static float lastDistance=0;
-
 
     if(index==ui->graphicTab->count()-1){
         if(LODTabsArray.size() < 4){
@@ -70,24 +63,21 @@ void toolWidget::graphicTabSelectedSlot(int index){
     }
     if(ui->showRadioButton->isChecked()){//если галка show стоит
         if(index==0){//если переключились на mainMesh
-            app->view()->setDistance(lastDistance);
-            app->currentObject()->showMainMesh(true);
-            app->view()->update();
+            core->setViewDistance(lastDistance);
+            core->currentObject()->showMainMesh(true);
         }
         else{
             if(lastIndex==0){
-                lastDistance=app->view()->getDistance();
+                lastDistance=core->getViewDistance();
             }
-            LOD *lod=app->currentObject()->getLod(index-1);
+            LOD *lod=core->currentObject()->getLod(index-1);
             if(lod!=NULL){
-                app->view()->setDistance(-lod->getDistance());
-                app->currentObject()->showLOD(index-1,true);
+                core->setViewDistance(-lod->getDistance());
+                core->currentObject()->showLOD(index-1,true);
             }
-            app->view()->update();
         }
         lastIndex=index;
     }
-
 }
 ///////////////////////////////////////////////////////////////////////
 void toolWidget::LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber){
@@ -109,13 +99,14 @@ void toolWidget::LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber)
 }
 //////////////////////////////////////////////////////////////////////
 void toolWidget::addLODTab(){
+    IS_CORE_POINTER
+
     for(int n=0;n!=LODTabsArray.size();n++){//если хоть в одном предыдущем табе не определен лод
         if(!LODTabsArray[n]->isLODDefined()){
             return;//то выходим
         }
     }
     LODTab *newLODTab=new LODTab;
-    newLODTab->setApplication(app);
     LODTabsArray.append(newLODTab);
     newLODTab->setTabNumber(ui->graphicTab->count()-1);
     newLODTab->setLODNumber(LODTabsArray.size()-1);
@@ -124,6 +115,7 @@ void toolWidget::addLODTab(){
     if(LODTabsArray.size()>=4){
         ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,false);
     }
+    newLODTab->setCorePointer(core);
     connect(newLODTab,SIGNAL(deleteSignal(uint,uint)),this,SLOT(LODTabDeleteSlot(uint,uint)));
     connect(this,SIGNAL(updateInfo()),newLODTab,SLOT(updateInfoSlot()));
 }
@@ -136,11 +128,13 @@ void toolWidget::clearLODTabsArray(){
     }
     LODTabsArray.clear();
     ui->graphicTab->setCurrentIndex(0);
-    ui->meshTabBar->resetTab();
+    //ui->meshTabBar->resetTab();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::updateInfoSlot(){
-    unsigned int size=app->currentObject()->LODsSize();
+    IS_CORE_POINTER
+
+    unsigned int size=core->currentObject()->LODsSize();
     if(size!=0){
         for(unsigned int n=0;n!=size;n++){
             addLODTab();
@@ -153,12 +147,24 @@ void toolWidget::updateInfoSlot(){
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::showGraphicSlot(bool checked){
+    IS_CORE_POINTER
+
     if(!checked){
-        app->currentObject()->showMainMesh(false);
-        app->currentObject()->showLOD(0,false);
-        app->view()->update();
+        core->currentObject()->showMainMesh(false);
+        core->currentObject()->showLOD(0,false);
+        core->updateView();
     }
     else{
         graphicTabSelectedSlot(ui->graphicTab->currentIndex());
     }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+void toolWidget::setCorePointer(editorCore *core){
+    IS_CORE_POINTER
+
+    this->core=core;
+    ui->constraintsTabBar->setCorePointer(core);
+    ui->rigidBodiesTabBar->setCorePointer(core);
+    ui->meshTabBar->setCorePointer(core);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////

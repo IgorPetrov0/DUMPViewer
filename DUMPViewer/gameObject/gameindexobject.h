@@ -12,6 +12,7 @@ class gameIndexObject
 {
 public:
     gameIndexObject();
+    gameIndexObject(gameIndexObject *object);
     ~gameIndexObject();
     void addMaterialPointer(gameObjectMaterial *pointer);
     void addIndicesArray(dArray<unsigned int> *indices);

@@ -51,8 +51,6 @@ SOURCES += main.cpp\
     GUI/widgets/ridgidbodypropertyeswidget.cpp \
     GUI/widgets/rigidbodieswidget.cpp \
     GUI/infobox.cpp \
-    GUI/lodsbox.cpp \
-    GUI/toolpanel.cpp \
     GUI/toolwidget.cpp \
     editorCore.cpp \
     gameObject/gameindexobject.cpp \
@@ -99,8 +97,6 @@ HEADERS  += mainwindow.h \
     GUI/widgets/ridgidbodypropertyeswidget.h \
     GUI/widgets/rigidbodieswidget.h \
     GUI/infobox.h \
-    GUI/lodsbox.h \
-    GUI/toolpanel.h \
     GUI/toolWidget.h \
     gameObject/dArray.h \
     editorCore.h \
@@ -112,7 +108,6 @@ HEADERS  += mainwindow.h \
 
 FORMS    += \
     mainwindow.ui \
-    GUI/lodsbox.ui \
     GUI/toolwidget.ui \
     GUI/serviceWindows/newgameobjectnamewindow.ui \
     GUI/tabs/constraintstab.ui \

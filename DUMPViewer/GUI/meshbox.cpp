@@ -7,7 +7,8 @@ meshBox::meshBox(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
-    connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SIGNAL(deleteSignal()));
+    connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SLOT(deleteSlot()));
+    ui->infoBox->setCorePointer(core);
     ui->infoBox->setOriginSize();
 }
 /////////////////////////////////////////////////////////////////////////////
@@ -16,7 +17,29 @@ meshBox::~meshBox(){
 }
 ////////////////////////////////////////////////////////
 void meshBox::loadSlot(){
-    emit loadSignal();
+
+    IS_CORE_POINTER
+
+    QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
+    if(!name.isEmpty()){
+        if(core->currentObject()->mainMeshExsist()){
+            deleteSlot();
+        }
+        QFileInfo fi(name);
+        ui->fileNameLine->setText(fi.fileName());
+        editabelGraphicObject *object = new editabelGraphicObject;
+        if(!core->loadGraphicObject(name,object)){
+            QMessageBox box(core->mainWindowPointer());
+            box.setWindowTitle(tr("Error"));
+            box.setIcon(QMessageBox::Warning);
+            box.setDefaultButton(QMessageBox::Ok);
+            box.setText(core->getLastError());
+            box.exec();
+            return;
+        }
+        ui->infoBox->setMesh(object);
+        emit meshLoaded(object);
+    }
 }
 ////////////////////////////////////////////////////////
 void meshBox::resizeEvent(QResizeEvent *event){
@@ -43,16 +66,18 @@ void meshBox::resizeEvent(QResizeEvent *event){
     rect.setWidth(ui->meshGroup->geometry().width()-20);
     ui->infoBox->setGeometry(rect);
 }
-/////////////////////////////////////////////////////////////////
-void meshBox::setFileName(QString fileName){
-    ui->fileNameLine->setText(fileName);
-}
 ///////////////////////////////////////////////////////////////////
 void meshBox::clear(){
     ui->fileNameLine->clear();
     ui->infoBox->clear();
 }
-///////////////////////////////////////////////////////////////////
-void meshBox::setMesh(editabelGraphicObject *mesh){
-    ui->infoBox->setMesh(mesh);
+/////////////////////////////////////////////////////////////////////
+void meshBox::deleteSlot(){
+    clear();
+    emit meshDeleted();
+}
+///////////////////////////////////////////////////////////////////////
+void meshBox::setCorePointer(editorCore *pointer){
+    core=pointer;
+    ui->infoBox->setCorePointer(pointer);
 }
