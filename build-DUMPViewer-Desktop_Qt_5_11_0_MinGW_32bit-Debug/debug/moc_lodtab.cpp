@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_LODTab_t {
-    QByteArrayData data[11];
-    char stringdata0[116];
+    QByteArrayData data[13];
+    char stringdata0[147];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,17 +36,20 @@ QT_MOC_LITERAL(1, 7, 12), // "deleteSignal"
 QT_MOC_LITERAL(2, 20, 0), // ""
 QT_MOC_LITERAL(3, 21, 9), // "tabNumber"
 QT_MOC_LITERAL(4, 31, 9), // "LODNumber"
-QT_MOC_LITERAL(5, 41, 8), // "loadSlot"
-QT_MOC_LITERAL(6, 50, 10), // "deleteSlot"
-QT_MOC_LITERAL(7, 61, 14), // "setLodDistance"
-QT_MOC_LITERAL(8, 76, 5), // "value"
-QT_MOC_LITERAL(9, 82, 18), // "moveToDistanceSlot"
-QT_MOC_LITERAL(10, 101, 14) // "updateInfoSlot"
+QT_MOC_LITERAL(5, 41, 10), // "meshLoaded"
+QT_MOC_LITERAL(6, 52, 22), // "editabelGraphicObject*"
+QT_MOC_LITERAL(7, 75, 4), // "mesh"
+QT_MOC_LITERAL(8, 80, 11), // "meshDeleted"
+QT_MOC_LITERAL(9, 92, 14), // "setLodDistance"
+QT_MOC_LITERAL(10, 107, 5), // "value"
+QT_MOC_LITERAL(11, 113, 18), // "moveToDistanceSlot"
+QT_MOC_LITERAL(12, 132, 14) // "updateInfoSlot"
 
     },
     "LODTab\0deleteSignal\0\0tabNumber\0LODNumber\0"
-    "loadSlot\0deleteSlot\0setLodDistance\0"
-    "value\0moveToDistanceSlot\0updateInfoSlot"
+    "meshLoaded\0editabelGraphicObject*\0"
+    "mesh\0meshDeleted\0setLodDistance\0value\0"
+    "moveToDistanceSlot\0updateInfoSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -67,19 +70,19 @@ static const uint qt_meta_data_LODTab[] = {
        1,    2,   44,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       5,    0,   49,    2, 0x09 /* Protected */,
-       6,    0,   50,    2, 0x09 /* Protected */,
-       7,    1,   51,    2, 0x09 /* Protected */,
-       9,    0,   54,    2, 0x09 /* Protected */,
-      10,    0,   55,    2, 0x09 /* Protected */,
+       5,    1,   49,    2, 0x09 /* Protected */,
+       8,    0,   52,    2, 0x09 /* Protected */,
+       9,    1,   53,    2, 0x09 /* Protected */,
+      11,    0,   56,    2, 0x09 /* Protected */,
+      12,    0,   57,    2, 0x09 /* Protected */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::UInt, QMetaType::UInt,    3,    4,
 
  // slots: parameters
+    QMetaType::Void, 0x80000000 | 6,    7,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void, QMetaType::Double,    8,
+    QMetaType::Void, QMetaType::Double,   10,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -93,8 +96,8 @@ void LODTab::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->deleteSignal((*reinterpret_cast< uint(*)>(_a[1])),(*reinterpret_cast< uint(*)>(_a[2]))); break;
-        case 1: _t->loadSlot(); break;
-        case 2: _t->deleteSlot(); break;
+        case 1: _t->meshLoaded((*reinterpret_cast< editabelGraphicObject*(*)>(_a[1]))); break;
+        case 2: _t->meshDeleted(); break;
         case 3: _t->setLodDistance((*reinterpret_cast< double(*)>(_a[1]))); break;
         case 4: _t->moveToDistanceSlot(); break;
         case 5: _t->updateInfoSlot(); break;

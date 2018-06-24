@@ -37,8 +37,6 @@ INPUT(
 ./release\ridgidbodypropertyeswidget.o
 ./release\rigidbodieswidget.o
 ./release\infobox.o
-./release\lodsbox.o
-./release\toolpanel.o
 ./release\toolwidget.o
 ./release\editorCore.o
 ./release\gameindexobject.o
@@ -64,8 +62,6 @@ INPUT(
 ./release\moc_ridgidbodypropertyeswidget.o
 ./release\moc_rigidbodieswidget.o
 ./release\moc_infobox.o
-./release\moc_lodsbox.o
-./release\moc_toolpanel.o
 ./release\moc_toolWidget.o
 ./release\moc_editorCore.o
 ./release\moc_meshinfobox.o

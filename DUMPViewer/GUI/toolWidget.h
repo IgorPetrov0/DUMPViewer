@@ -16,7 +16,8 @@ class toolWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit toolWidget(editorCore *app, QWidget *parent);
+    explicit toolWidget(QWidget *parent);
+    void setCorePointer(editorCore *core);
     void disableToolPanel(bool disable);
     void resetToolPanel();
     void createLODTab(LOD *lod);
@@ -30,7 +31,7 @@ protected:
     void addLODTab();
     void clearLODTabsArray();
     QVector<LODTab*>LODTabsArray;
-    editorCore *app;
+    editorCore *core;
 
 
 protected slots:

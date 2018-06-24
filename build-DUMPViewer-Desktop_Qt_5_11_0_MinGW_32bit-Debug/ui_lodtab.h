@@ -30,10 +30,10 @@ public:
         LODTab->resize(221, 898);
         LOD1InfoWidget = new meshBox(LODTab);
         LOD1InfoWidget->setObjectName(QStringLiteral("LOD1InfoWidget"));
-        LOD1InfoWidget->setGeometry(QRect(10, 10, 200, 201));
+        LOD1InfoWidget->setGeometry(QRect(10, 10, 200, 510));
         LOD1DistanceWidget = new distanceWidget(LODTab);
         LOD1DistanceWidget->setObjectName(QStringLiteral("LOD1DistanceWidget"));
-        LOD1DistanceWidget->setGeometry(QRect(10, 210, 200, 89));
+        LOD1DistanceWidget->setGeometry(QRect(10, 530, 200, 89));
 
         retranslateUi(LODTab);
 

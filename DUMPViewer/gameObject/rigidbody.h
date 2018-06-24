@@ -11,21 +11,13 @@ enum rigidBodyType{
     RIGID_BODY_STATIC
 };
 
-enum meshSource{
-    MESH_NOMESH,
-    MESH_ORIGINAL,
-    MESH_MAIN_MESH,
-    MESH_LOD1,
-    MESH_LOD2,
-    MESH_LOD3,
-    MESH_LOD4
-};
+
 
 class rigidBody
 {
 public:
     rigidBody();
-    rigidBody(graphicObject *object, meshSource source);
+    rigidBody(graphicObject *object, meshType source);
     ~rigidBody();
     rigidBody& operator = (rigidBody &body);
     bool operator ==(rigidBody &body);
@@ -39,8 +31,8 @@ public:
     void setMassCenter(vector3 mCenter);
     void setMass(float mass);
     unsigned int getSizeInBytes();
-    meshSource getSource();
-    void setSource(meshSource source);
+    meshType getSource();
+    void setSource(meshType source);
     void setType(rigidBodyType type);
     rigidBodyType getType();
 
@@ -50,7 +42,7 @@ protected:
     void createIndicesArray(graphicObject *object);
 
     meshObject *rbMesh;//указатель на меш
-    meshSource rbSource;//источник меша для твердого тела
+    meshType rbSource;//источник меша для твердого тела
     dArray<unsigned int> *indicesArray;
     float mass;
     vector3 massCenter;

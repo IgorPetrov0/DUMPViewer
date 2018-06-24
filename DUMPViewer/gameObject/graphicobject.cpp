@@ -20,14 +20,6 @@ bool graphicObject::operator ==(graphicObject &gObject){
 bool graphicObject::operator !=(graphicObject &gObject){
     return !operator ==(gObject);
 }
-///////////////////////////////////////////////////////////////////////////////
-bool graphicObject::isVisible(){
-   return visible;
-}
-///////////////////////////////////////////////////////////////////////////////
-void graphicObject::setVisible(bool visible){
-    this->visible=visible;
-}
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int graphicObject::getSizeInBytes(){
     unsigned int size=0;

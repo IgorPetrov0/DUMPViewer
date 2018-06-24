@@ -200,7 +200,8 @@ void MainWindow::setCorePointer(editorCore *pointer){
 
     progressBar=new QProgressBar;
     statusLable=new QLabel(tr("Status:"));
-    tPanel=new toolWidget(core,this);
+    tPanel=new toolWidget(this);
+    tPanel->setCorePointer(pointer);
     disableTools(true);
 
     setWidgetsGeometry();

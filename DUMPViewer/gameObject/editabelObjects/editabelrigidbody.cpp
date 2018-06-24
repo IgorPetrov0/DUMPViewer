@@ -5,7 +5,7 @@ editabelRigidBody::editabelRigidBody()
     erbMesh=NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
-editabelRigidBody::editabelRigidBody(editabelGraphicObject *gObject, meshSource source){
+editabelRigidBody::editabelRigidBody(editabelGraphicObject *gObject, meshType source){
     if(source==MESH_ORIGINAL){
         erbMesh=new editabelGraphicObject(gObject);
     }

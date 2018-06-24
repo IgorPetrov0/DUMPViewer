@@ -15,6 +15,7 @@ public:
     explicit rigidBodiesWidget(QWidget *parent = 0);
     ~rigidBodiesWidget();
 
+
 protected:
 
 

@@ -57,10 +57,6 @@ void editorCore::setViewWindowPointer(viewWindow *pointer){
     a_view=pointer;
     pointer->setTexturesVector(&globalTexturesArray);
 }
-//////////////////////////////////////////////////////////////////////////
-viewWindow *editorCore::view(){
-    return a_view;
-}
 ////////////////////////////////////////////////////////////////////////////
 void editorCore::setLastDistance(float distance){
     a_lastDistance=distance;
@@ -288,4 +284,41 @@ void editorCore::checkMaterials(){
             n++;
         }
     }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::addMainMesh(editabelGraphicObject *mesh){
+    a_currentObject->setMainMesh(mesh);
+    a_view->addModel(mesh);
+    a_view->update();
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::addLOD(unsigned int number, editableLOD *lod){
+    a_currentObject->addLOD(lod,number);
+    a_view->addModel((editabelGraphicObject*)lod);
+    a_view->update();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::deleteMesh(meshType type){
+    switch(type){
+        case(MESH_MAIN_MESH):{
+            a_view->removeModel(currentObject()->getMainMesh());
+            a_currentObject->deleteMainMesh();
+            checkMaterials();
+            a_view->update();
+            break;
+        }
+    }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::setViewDistance(float value){
+    a_view->setDistance(value);
+    a_view->update();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+float editorCore::getViewDistance(){
+    return a_view->getDistance();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+void editorCore::updateView(){
+    a_view->update();
 }

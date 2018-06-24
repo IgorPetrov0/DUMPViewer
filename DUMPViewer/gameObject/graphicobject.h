@@ -22,15 +22,13 @@ public:
     graphicObject &operator =(graphicObject &gObject);
     bool operator ==(graphicObject &gObject);
     bool operator !=(graphicObject &gObject);
-    bool isVisible();
-    void setVisible(bool visible);
     unsigned int getSizeInBytes();
     void reloadVideoData();
 
 
 
 protected:
-    bool visible;
+
 
 };
 

@@ -268,7 +268,7 @@ void stream::in(vertex *var){
 void stream::in(rigidBody *var){
     unsigned int size=0;
     unsigned int *inArray;
-    meshSource source=MESH_NOMESH;
+    meshType source=MESH_NOMESH;
     vector3 mCenter;
     float mass=0;
     int type=0;
@@ -465,7 +465,7 @@ void stream::in(gameObject *var){
         var->setPhisycObject(pObject);
         for(arraySize n=0;n!=pObject->rigidBodyesCount();n++){
             rigidBody *rb=pObject->getRigidBodiesPointer()->operator [](n);
-            meshSource source=rb->getSource();
+            meshType source=rb->getSource();
             if(source!=MESH_ORIGINAL){
                 switch((int)source){
                     case(MESH_MAIN_MESH):{

@@ -2,25 +2,24 @@
 #define DUMPVIEWERWIDGET_H
 
 #include <QWidget>
+#include "editorCore.h"
 
 #define SCROLLBAR_WIDTH 13
 
 
-
-class dumpViewerWidget:public QWidget
+class dumpViewerWidget : public QWidget
 {
-
     Q_OBJECT
 
 public:
     dumpViewerWidget(QWidget *parent);
     void setOriginSize();
+    virtual void setCorePointer(editorCore *value);
 
 protected:
-     int boxWidth, boxHeigth;
-
-     void resizeEvent(QResizeEvent *event);
-
+    int boxWidth, boxHeigth;
+    editorCore *core;
+    void resizeEvent(QResizeEvent *event);
 
 };
 

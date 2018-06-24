@@ -15,10 +15,11 @@ class meshInfoBox : public dumpViewerWidget
     Q_OBJECT
 
 public:
-    explicit meshInfoBox(QWidget *parent = 0);  
+    explicit meshInfoBox(QWidget *parent);
     ~meshInfoBox();
     void clear();
     void setMesh(editabelGraphicObject *value);
+    void setCorePointer(editorCore *pointer);
 
 protected:
     editabelGraphicObject *mesh;
@@ -36,6 +37,9 @@ protected slots:
     void scaleXChange(double value);
     void scaleYChange(double value);
     void scaleZChange(double value);
+
+
+
 
 
 private:
