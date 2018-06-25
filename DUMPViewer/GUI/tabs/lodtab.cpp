@@ -33,7 +33,11 @@ void LODTab::meshLoaded(editabelGraphicObject *mesh){
 }
 /////////////////////////////////////////////////////////////////
 void LODTab::meshDeleted(){
+<<<<<<< HEAD
     core->deleteMesh(getLodType());
+=======
+
+>>>>>>> 14c2b3c92176f93d6e936474e654a1459aba2c2e
 }
 //////////////////////////////////////////////////////////////////
 unsigned int LODTab::getTabNumber(){

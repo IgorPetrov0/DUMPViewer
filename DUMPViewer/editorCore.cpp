@@ -314,6 +314,7 @@ void editorCore::deleteMesh(meshType type){
             a_view->update();
             break;
         }
+<<<<<<< HEAD
         case(MESH_LOD1):{
             a_view->removeModel(currentObject()->getLod(0));
             a_currentObject->deleteLOD(0);
@@ -321,6 +322,8 @@ void editorCore::deleteMesh(meshType type){
             a_view->update();
             break;
         }
+=======
+>>>>>>> 14c2b3c92176f93d6e936474e654a1459aba2c2e
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////

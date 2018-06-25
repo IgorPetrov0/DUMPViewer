@@ -73,8 +73,13 @@ void meshBox::clear(){
 }
 /////////////////////////////////////////////////////////////////////
 void meshBox::deleteSlot(){
+<<<<<<< HEAD
     clear();
     emit meshDeleted();
+=======
+    emit meshDeleted();
+    clear();
+>>>>>>> 14c2b3c92176f93d6e936474e654a1459aba2c2e
 }
 ///////////////////////////////////////////////////////////////////////
 void meshBox::setCorePointer(editorCore *pointer){
