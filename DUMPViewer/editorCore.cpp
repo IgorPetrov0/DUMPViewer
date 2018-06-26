@@ -310,21 +310,31 @@ void editorCore::deleteMesh(meshType type){
         case(MESH_MAIN_MESH):{
             a_view->removeModel(currentObject()->getMainMesh());
             a_currentObject->deleteMainMesh();
-            checkMaterials();
-            a_view->update();
             break;
         }
-<<<<<<< HEAD
         case(MESH_LOD1):{
             a_view->removeModel(currentObject()->getLod(0));
             a_currentObject->deleteLOD(0);
-            checkMaterials();
-            a_view->update();
             break;
         }
-=======
->>>>>>> 14c2b3c92176f93d6e936474e654a1459aba2c2e
+        case(MESH_LOD2):{
+            a_view->removeModel(currentObject()->getLod(1));
+            a_currentObject->deleteLOD(1);
+            break;
+        }
+        case(MESH_LOD3):{
+            a_view->removeModel(currentObject()->getLod(2));
+            a_currentObject->deleteLOD(2);
+            break;
+        }
+        case(MESH_LOD4):{
+            a_view->removeModel(currentObject()->getLod(3));
+            a_currentObject->deleteLOD(3);
+            break;
+        }
     }
+    checkMaterials();
+    a_view->update();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 void editorCore::setViewDistance(float value){

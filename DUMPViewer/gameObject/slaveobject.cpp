@@ -17,8 +17,8 @@ void slaveObject::release(){
 }
 ////////////////////////////////////////////////////////////////////////
 bool slaveObject::isUsed(){
-if(ownerCounter>1){
-    return true;
-}
-return false;
+    if(ownerCounter>0){
+        return true;
+    }
+    return false;
 }
