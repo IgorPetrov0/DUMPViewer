@@ -199,6 +199,7 @@ void viewWindow::paintGL(){
 
         unsigned int mSize=modelsArray.size();
         for(unsigned int n=0;n!=mSize;n++){
+            editabelGraphicObject *obj=modelsArray[n];
             if(modelsArray[n]->isVisible()){
                 unsigned int matSize=modelsArray[n]->getNumIndicesObjects();
                 for(unsigned int m=0;m!=matSize;m++){
@@ -359,6 +360,8 @@ void viewWindow::removeModel(editabelGraphicObject *model){
                     glDeleteBuffers(1,&f);
                 }
                 modelsArray.remove(n);
+                editabelGraphicObject *m=modelsArray[0];
+                m=modelsArray[1];
                 break;
             }
         }
