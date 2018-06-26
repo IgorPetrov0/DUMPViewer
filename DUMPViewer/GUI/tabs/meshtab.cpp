@@ -8,13 +8,9 @@ meshTab::meshTab(QTabWidget *parent) :
     ui->setupUi(this);
     addWidget(ui->meshInfoWidget);
     ui->meshInfoWidget->setOriginSize();
-<<<<<<< HEAD
     connect(ui->meshInfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
-=======
     connect(ui->meshInfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshDeleted()));
->>>>>>> 14c2b3c92176f93d6e936474e654a1459aba2c2e
     connect(ui->meshInfoWidget,SIGNAL(meshDeleted()),this,SLOT(meshDeleted()));
-
 }
 ///////////////////////////////////////////////////////
 meshTab::~meshTab(){
