@@ -31,7 +31,6 @@ private:
     Ui::LODTab *ui;
 
 protected:
-    void deleteLod();
     unsigned int tabNumber;
     unsigned int LODNumber;
     editableLOD *lodPointer;

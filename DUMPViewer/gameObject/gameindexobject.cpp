@@ -14,7 +14,7 @@ gameIndexObject::gameIndexObject(gameIndexObject *object)
     for(unsigned int n=0;n!=aSize;n++){
         indices->addElement(n,object->getIndices()->operator [](n));
     }
-    this->materialPointer=object->getMaterial();
+    this->addMaterialPointer(object->getMaterial());//материал нужно именно добавлять, чтобы добавился владелец
     this->ebo=object->getEbo();
     this->size=object->getIndicesCount();
 }

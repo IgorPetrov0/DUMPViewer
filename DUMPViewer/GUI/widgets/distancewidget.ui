@@ -37,6 +37,12 @@
     <property name="decimals">
      <number>4</number>
     </property>
+    <property name="minimum">
+     <double>-999.000000000000000</double>
+    </property>
+    <property name="maximum">
+     <double>999.000000000000000</double>
+    </property>
    </widget>
    <widget class="QPushButton" name="moveButton">
     <property name="geometry">

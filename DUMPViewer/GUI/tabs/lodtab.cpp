@@ -60,8 +60,7 @@ void LODTab::setLodDistance(double value){
 }
 //////////////////////////////////////////////////////////////////////
 void LODTab::moveToDistanceSlot(){
-    //core->view()->setDistance(-ui->LOD1DistanceWidget->getValue());
-    //core->view()->update();
+    core->setViewDistance(-ui->LOD1DistanceWidget->getValue());
 }
 //////////////////////////////////////////////////////////////////////////
 bool LODTab::isLODDefined(){
@@ -74,15 +73,6 @@ bool LODTab::isLODDefined(){
 void LODTab::setCorePointer(editorCore *pointer){
     core=pointer;
     ui->LOD1InfoWidget->setCorePointer(pointer);
-}
-/////////////////////////////////////////////////////////////////////////////
-void LODTab::deleteLod(){
-    if(lodPointer!=NULL){
-        //core->view()->removeModel(lodPointer);
-        //core->currentObject()->deleteLOD(LODNumber);
-        //core->view()->update();
-        lodPointer=NULL;
-    }
 }
 /////////////////////////////////////////////////////////////////////////////////
 void LODTab::updateInfoSlot(){

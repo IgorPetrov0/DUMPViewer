@@ -37,6 +37,8 @@ public:
         distanceSpinBox->setObjectName(QStringLiteral("distanceSpinBox"));
         distanceSpinBox->setGeometry(QRect(10, 20, 161, 22));
         distanceSpinBox->setDecimals(4);
+        distanceSpinBox->setMinimum(-999);
+        distanceSpinBox->setMaximum(999);
         moveButton = new QPushButton(groupBox);
         moveButton->setObjectName(QStringLiteral("moveButton"));
         moveButton->setGeometry(QRect(10, 50, 161, 23));
