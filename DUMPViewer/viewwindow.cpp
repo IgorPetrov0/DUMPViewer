@@ -288,11 +288,9 @@ void viewWindow::angleYInc(int dir){
 }
 ////////////////////////////////////////////////////////////////////////////////
 void viewWindow::mousePressEvent(QMouseEvent *event){
-
     //при каждом нажатии запоминаем позицию. при движении считаем от нее
     mPosX=event->pos().x();
     mPosY=event->pos().y();
-
 }
 //////////////////////////////////////////////////////////////////////////////////
 void viewWindow::wheelEvent(QWheelEvent *event){
@@ -360,8 +358,6 @@ void viewWindow::removeModel(editabelGraphicObject *model){
                     glDeleteBuffers(1,&f);
                 }
                 modelsArray.remove(n);
-                editabelGraphicObject *m=modelsArray[0];
-                m=modelsArray[1];
                 break;
             }
         }

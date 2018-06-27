@@ -167,7 +167,6 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
             return false;
         }
     }
-
     object->loadFromAiScene(scene,&globalMaterialsArray);
     return true;
 }
@@ -179,8 +178,8 @@ QString editorCore::getLastError(){
 }
 ///////////////////////////////////////////////////////////////////////////////////
 bool editorCore::addMaterials(const aiScene *scene, QString objectPath){
-
     unsigned int size=scene->mNumMaterials;
+
     for(unsigned int n=0;n!=size;n++){
         aiMaterial *mat=scene->mMaterials[n];
         aiString name;
