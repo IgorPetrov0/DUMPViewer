@@ -15,6 +15,7 @@
 #include <assimp/mesh.h>
 #include <assimp/types.h>
 #include <assimp/postprocess.h>
+#include "glm/glm.hpp"
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"
 #include "gameObject/stream.h"
@@ -73,6 +74,8 @@ protected:
     bool addTextures(const aiScene *scene, QString objectPath);//собираем все текстуры сцены в одно глобальное хранилище
     gameObjectTexture *addTexturesFromFiles(aiMaterial *material, aiTextureType type, unsigned int index, QString objectPath);//Загружает тектуры из файлов и добавляет в глобальное хранилище
     bool findMaterialFromGlobalArray(aiString name);
+    MatProperties compileMatProperties(aiMaterial *material);
+    glm::vec4 colorToVector4(aiColor4D color);
 };
 
 #endif // EDITORCORE_H

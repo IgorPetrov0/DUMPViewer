@@ -375,3 +375,13 @@ float viewWindow::getDistance(){
 void viewWindow::setTexturesVector(QVector<gameObjectTexture *> *vector){
     texturesVector=vector;
 }
+///////////////////////////////////////////////////////////////////////////////////////
+void viewWindow::setVertexShader(QString shaderText)
+{
+
+}
+///////////////////////////////////////////////////////////////////////////////////////
+void viewWindow::setFragmentShader(QString shaderText)
+{
+
+}

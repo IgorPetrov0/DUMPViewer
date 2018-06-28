@@ -198,6 +198,7 @@ bool editorCore::addMaterials(const aiScene *scene, QString objectPath){
                 }
             }
             material->setName(name.C_Str());
+            material->setMatProperties(compileMatProperties(mat));
             globalMaterialsArray.append(material);
         }
     }
@@ -260,6 +261,36 @@ bool editorCore::findMaterialFromGlobalArray(aiString name){
         }
     }
     return false;//если не нашли
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+MatProperties editorCore::compileMatProperties(aiMaterial *material){
+    MatProperties matPropStruct;
+    aiColor4D color;
+    glm::vec4 vec;
+
+    material->Get(AI_MATKEY_COLOR_AMBIENT,color);
+    matPropStruct.ambient=colorToVector4(color);
+    material->Get(AI_MATKEY_COLOR_DIFFUSE,color);
+    matPropStruct.diffuse=colorToVector4(color);
+    material->Get(AI_MATKEY_COLOR_SPECULAR,color);
+    matPropStruct.specular=colorToVector4(color);
+    material->Get(AI_MATKEY_COLOR_EMISSIVE,color);
+    matPropStruct.emission=colorToVector4(color);
+    float shines;
+    material->Get(AI_MATKEY_SHININESS,shines);
+    matPropStruct.shines=shines;
+
+    return matPropStruct;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+glm::vec4 editorCore::colorToVector4(aiColor4D color){
+    glm::vec4 vector;
+
+    vector.x=color.r;
+    vector.y=color.g;
+    vector.z=color.b;
+    vector.w=color.a;
+    return vector;
 }
 /////////////////////////////////////////////////////////////////////////////
 void editorCore::checkMaterials(){

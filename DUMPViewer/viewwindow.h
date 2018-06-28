@@ -35,6 +35,8 @@ public:
     float getDistance();
     void deleteAll();
     void setTexturesVector(QVector<gameObjectTexture *> *vector);
+    void setVertexShader(QString shaderText);
+    void setFragmentShader(QString shaderText);
 
 
 protected:   
@@ -59,6 +61,8 @@ protected:
     float moveX,moveY;//смещения
     QVector<editabelGraphicObject*> modelsArray;
     QVector<gameObjectTexture*> *texturesVector;
+    static const GLchar *vertexShaderSource[];
+    static const GLchar *fragmentShaderSource[];
 
 
 };

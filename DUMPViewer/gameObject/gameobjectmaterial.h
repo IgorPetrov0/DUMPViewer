@@ -6,6 +6,16 @@
 #include "gameObject/dArray.h"
 #include "gameObject/gameobjecttexture.h"
 #include "gameObject/slaveobject.h"
+#include "glm/glm.hpp"
+
+struct MatProperties
+{
+    glm::vec4 ambient;
+    glm::vec4 diffuse;
+    glm::vec4 specular;
+    glm::vec4 emission;
+    float shines;
+};
 
 
 using namespace std;
@@ -30,12 +40,16 @@ public:
     bool operator ==(gameObjectMaterial &material);
     bool operator !=(gameObjectMaterial &material);
     unsigned int getSizeInBytes();
-
+    MatProperties getMatProperties() const;
+    void setMatProperties(const MatProperties &value);
 
 protected:
     string name;
     gameObjectTexture *diffuseTexture;
     unsigned int VAOname;
+    MatProperties matProp;
+
+
 
 };
 
