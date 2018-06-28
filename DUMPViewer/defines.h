@@ -5,6 +5,7 @@
 
 
 #define TEXTURES_DIR QApplication::applicationDirPath()+"/../../DUMPViewer/models/textures"
+#define SHADERS_DIR QApplication::applicationDirPath()+"/../../DUMPViewer/shaders"
 
 typedef float texCoordinates;
 typedef unsigned int arraySize;

@@ -148,6 +148,15 @@ void MainWindow::saveGameObjectAsSlot(){
 }
 /////////////////////////////////////////////////////////////////////
 void MainWindow::newGameObjectSlot(){
+    if(!core->loadDefaultShaders(SHADERS_DIR)){
+        QMessageBox box(this);
+        box.setWindowTitle(tr("Shaders load error!"));
+        box.setIcon(QMessageBox::Critical);
+        box.setText(core->getLastError());
+        box.exec();
+        return;
+    }
+
     newGameObjectNameWindow nameDialog(this);
     nameDialog.setDefaultName(core->defaultObjectName());
     if(nameDialog.exec()==QDialog::Accepted){
@@ -165,7 +174,7 @@ void MainWindow::showBoundBoxSlot(){
 /////////////////////////////////////////////////////////////////////
 void MainWindow::closeCurrentObjectSlot(){
     if(!core->currentObject()->isSaved()){
-        QMessageBox box;
+        QMessageBox box(this);
         box.setWindowTitle(tr("Save?"));
         box.setIcon(QMessageBox::Question);
         box.setText(tr("Save object \n")+QString::fromStdString(core->currentObject()->getName()));
@@ -186,6 +195,12 @@ void MainWindow::closeCurrentObjectSlot(){
     tPanel->resetToolPanel();
     modelFileName.clear();
     core->deleteCurrentObject();
+}
+///////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::loadShaders(){
+
+
+
 }
 /////////////////////////////////////////////////////////////////////////
 bool MainWindow::saveModelFile(){
@@ -210,4 +225,7 @@ void MainWindow::setCorePointer(editorCore *pointer){
     lastOpenDir=QApplication::applicationDirPath();
     createStatusBar();
     this->setWindowTitle(core->programmName());
+
+
+
 }

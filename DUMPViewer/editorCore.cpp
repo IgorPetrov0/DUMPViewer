@@ -379,3 +379,46 @@ float editorCore::getViewDistance(){
 void editorCore::updateView(){
     a_view->update();
 }
+///////////////////////////////////////////////////////////////////////////////////////////////
+bool editorCore::loadDefaultShaders(QString path){
+    QString fileName=path+"/defaultVertexShader.vert";
+    QFile file(fileName);
+    if(!file.exists()){
+        a_error=tr("File ")+fileName+tr(" not found.");
+        return false;
+    }
+    if(!file.open(QIODevice::ReadOnly)){
+        a_error=tr("File ")+fileName+tr(" exist, but not open.");
+        return false;
+    }
+    QByteArray arr=file.readAll();
+    file.close();
+    if(!a_view->setVertexShader(&arr)){
+        a_error=a_view->getLastError();
+        return false;
+    }
+
+
+    fileName=path+"/defaultFragmentShader.fsh";
+    file.setFileName(fileName);
+    if(!file.exists()){
+        a_error=tr("File ")+fileName+tr(" not found.");
+        return false;
+    }
+    if(!file.open(QIODevice::ReadOnly)){
+        a_error=tr("File ")+fileName+tr(" exist, but not open.");
+        return false;
+    }
+    arr=file.readAll();
+    file.close();
+    if(!a_view->setFragmentShader(&arr)){
+        a_error=a_view->getLastError();
+        return false;
+    }
+
+
+
+
+
+    return true;
+}

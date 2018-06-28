@@ -56,6 +56,7 @@ public:
     void setViewDistance(float value);
     float getViewDistance();
     void updateView();
+    bool loadDefaultShaders(QString path);
 
 
 protected:

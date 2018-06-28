@@ -35,12 +35,12 @@ public:
     float getDistance();
     void deleteAll();
     void setTexturesVector(QVector<gameObjectTexture *> *vector);
-    void setVertexShader(QString shaderText);
-    void setFragmentShader(QString shaderText);
+    bool setVertexShader(QByteArray *shaderText);
+    bool setFragmentShader(QByteArray *shaderText);
+    bool compileShaderProgramm();
+    QString getLastError();
 
-
-protected:   
-    void updateView();
+protected:
     void initializeGL();
     void resizeGL();
     void paintGL();
@@ -49,6 +49,7 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void angleXInc(int dir);
     void angleYInc(int dir);
+
 
     QWidget *parent;//указатель на родителя
     GLuint sProgram;
@@ -63,6 +64,7 @@ protected:
     QVector<gameObjectTexture*> *texturesVector;
     static const GLchar *vertexShaderSource[];
     static const GLchar *fragmentShaderSource[];
+    QString a_error;
 
 
 };

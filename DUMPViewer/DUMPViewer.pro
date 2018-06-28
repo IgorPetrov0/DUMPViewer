@@ -146,3 +146,7 @@ DEPENDPATH += $$PWD/DevIL
 
 
 INCLUDEPATH += $$PWD/glm
+
+DISTFILES += \
+    shaders/defaultVertexShader.vert \
+    shaders/defaultfragmentshader.fsh

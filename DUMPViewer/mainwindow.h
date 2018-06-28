@@ -52,13 +52,14 @@ protected:
 
 protected slots:
     void openModel();
-
     void openGameObjectSlot();
     bool saveGameObjectSlot();
     void saveGameObjectAsSlot();
     void newGameObjectSlot();
     void showBoundBoxSlot();
     void closeCurrentObjectSlot();
+    void loadShaders();
+
 
 signals:
     void objectLoaded();//сигнал для дочерних виджетов обновить информацию об объекте
