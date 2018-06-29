@@ -324,12 +324,22 @@ void editorCore::checkMaterials(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 void editorCore::addMainMesh(editabelGraphicObject *mesh){
+    editabelGraphicObject *mMesh=currentObject()->getMainMesh();
+    if(mMesh!=NULL){
+        a_view->removeModel(mMesh);
+        a_currentObject->deleteMainMesh();
+    }
     a_currentObject->setMainMesh(mesh);
     a_view->addModel(mesh);
     a_view->update();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 void editorCore::addLOD(unsigned int number, editableLOD *lod){
+    editabelGraphicObject *LOD=a_currentObject->getLod(number);
+    if(LOD!=NULL){
+        a_view->removeModel(lod);
+        a_currentObject->deleteLOD(number);
+    }
     a_currentObject->addLOD(lod,number);
     a_view->addModel((editabelGraphicObject*)lod);
     a_view->update();
@@ -381,6 +391,7 @@ void editorCore::updateView(){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
 bool editorCore::loadDefaultShaders(QString path){
+
     QString fileName=path+"/defaultVertexShader.vert";
     QFile file(fileName);
     if(!file.exists()){
@@ -397,7 +408,6 @@ bool editorCore::loadDefaultShaders(QString path){
         a_error=a_view->getLastError();
         return false;
     }
-
 
     fileName=path+"/defaultFragmentShader.fsh";
     file.setFileName(fileName);
@@ -416,9 +426,9 @@ bool editorCore::loadDefaultShaders(QString path){
         return false;
     }
 
-
-
-
-
+    if(!a_view->compileShaderProgramm()){
+        a_error=a_view->getLastError();
+        return false;
+    }
     return true;
 }
