@@ -8,8 +8,8 @@
 #include "mathPrimitives/vector3.h"
 #include "gameObject/gameobjecttexture.h"
 #include "defines.h"
-
-//TODO наверное нет в этом классе смысла. Надо постепенно от него избавляться.
+#include "gameObject/gameobjectlight.h"
+#include "dArray.h"
 
 using namespace std;
 
@@ -18,17 +18,14 @@ class graphicObject : public meshObject
 public:
     graphicObject();
     virtual ~graphicObject();
-    arraySize getTexCoordsSize();
     graphicObject &operator =(graphicObject &gObject);
     bool operator ==(graphicObject &gObject);
     bool operator !=(graphicObject &gObject);
     unsigned int getSizeInBytes();
-    void reloadVideoData();
-
-
+    unsigned int numLights();
 
 protected:
-
+    dArray<gameObjectLight*>lightSorces;
 
 };
 

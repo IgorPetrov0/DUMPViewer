@@ -115,7 +115,6 @@ void MainWindow::openGameObjectSlot(){
             for(unsigned int n=0;n!=core->currentObject()->LODsSize();n++){
                 view->addModel(core->currentObject()->getLod(n));
             }
-            view->update();
             setWindowTitle(QString::fromStdString(core->currentObject()->getName()));
             disableTools(false);
             emit objectLoaded();//сигналим подчиненным виджетам обновиться

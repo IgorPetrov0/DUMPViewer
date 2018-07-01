@@ -49,12 +49,16 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void angleXInc(int dir);
     void angleYInc(int dir);
+    void calculateViewMatrix();
 
 
     QWidget *parent;//указатель на родителя
     GLuint sProgram;
     GLuint vertexArray,textureArray,indicesArray;//массивы координат вершин, текстурных координат и индексов
-    GLint matrixLocation;
+    GLint MVPMatrixLocation;
+    GLint modelMatrixLocation;
+    GLint normalMatrixLocation;
+    GLint cameraPosLocation;
     bool loaded;
     float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши
@@ -65,7 +69,10 @@ protected:
     static const GLchar *vertexShaderSource[];
     static const GLchar *fragmentShaderSource[];
     QString a_error;
-
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    glm::mat4 view;//видовая матрица
+    glm::mat4 projection;//проекционная матрица
 
 };
 

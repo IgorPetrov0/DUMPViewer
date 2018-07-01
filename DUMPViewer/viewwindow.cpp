@@ -19,7 +19,8 @@ viewWindow::viewWindow(QWidget *parent)
       moveX=0;
       moveY=0;
       distance=-1;
-      matrixLocation=0;
+      MVPMatrixLocation=0;
+      projection = glm::perspective(glm::radians(60.0f),4.0f/3.0f,0.1f,100.0f);
 }
 ////////////////////////////////////////////////////////////
 viewWindow::~viewWindow(){
@@ -81,105 +82,27 @@ void viewWindow::addModel(editabelGraphicObject *model){
         glBindVertexArray(vaoName);
         glBindBuffer(GL_ARRAY_BUFFER,vboName);//биндим к нему VBO
         GLsizei strade=8*sizeof(float);
-        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,strade,NULL);
-        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(3*sizeof(float)));
+        glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,strade,NULL);//координаты вершины
+        glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(3*sizeof(float)));//текстурные координаты
+        glVertexAttribPointer(3,3,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(5*sizeof(float)));//нормаль
         glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
+        glEnableVertexAttribArray(3);
         glBindVertexArray(0);
         glBindBuffer(GL_ARRAY_BUFFER,0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
         indObject->getMaterial()->setVAOName(vaoName);
     }
     model->clear();//удаление из ОЗУ данных, которые загружены в видеопамять
+    calculateViewMatrix();
+    update();
 }
 ////////////////////////////////////////////////////
 void viewWindow::initializeGL(){
-    GLuint vertexShader, fragmentShader;
-    GLint param=1;
-    GLint ret=0;
-
-
     initializeOpenGLFunctions();
     glClearColor(0.0,0.0,0,0);
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-
-    sProgram=glCreateProgram();
-
-    static const GLchar *vertexShaderSource[] =
-           {
-               "#version 330 core\n"
-
-               "layout(location=1) in vec3 position;\n"
-               "layout(location=2) in vec2 texCoord;\n"
-               "out vec2 tC;\n"
-               "uniform mat4 projectionMatrix;\n"
-
-               "void main(void)\n"
-               "{\n"
-               "        // перевод вершинных координат в однородные\n"
-               "        gl_Position   = projectionMatrix * vec4(position, 1.0);\n"
-               "        tC=texCoord;\n"
-               "}\n"
-           };
-
-           static const GLchar *fragmentShaderSource[] =
-           {
-               "#version 330 core\n"
-               "in vec2 tC;\n"
-               "uniform sampler2D tex;\n"
-               "out vec4 color;\n"
-
-               "void main(void)\n"
-               "{\n"
-               "        // цвет пикселя определяется текстурой\n"
-               "        color=texture2D(tex,tC);\n"
-               "}\n"
-           };
-            vertexShader=glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShader,1,vertexShaderSource,0);
-        glCompileShader(vertexShader);
-
-        glGetShaderiv(vertexShader,GL_COMPILE_STATUS,&param);
-        if(param!=GL_TRUE){
-            glGetShaderiv(vertexShader,GL_INFO_LOG_LENGTH,&param);
-            GLchar *log = new GLchar[param];
-            glGetShaderInfoLog(vertexShader,param,&ret,log);
-            qWarning(log);
-            delete log;
-        }
-
-
-        fragmentShader=glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShader,1,fragmentShaderSource,0);
-        glCompileShader(fragmentShader);
-        glGetShaderiv(fragmentShader,GL_COMPILE_STATUS,&param);
-        if(param!=GL_TRUE){
-            glGetShaderiv(fragmentShader,GL_INFO_LOG_LENGTH,&param);
-            GLchar *log = new GLchar[param];
-            glGetShaderInfoLog(fragmentShader,param,&ret,log);
-            qWarning(log);
-            delete log;
-        }
-
-
-        sProgram=glCreateProgram();
-        glAttachShader(sProgram,vertexShader);
-        glAttachShader(sProgram,fragmentShader);
-        glLinkProgram(sProgram);
-        glGetProgramiv(sProgram,GL_LINK_STATUS,&param);
-        if(param!=GL_TRUE){
-            glGetProgramiv(sProgram,GL_INFO_LOG_LENGTH,&param);
-            GLchar *log=new GLchar[param];
-            glGetProgramInfoLog(sProgram,param,&ret,log);
-            qWarning(log);
-            delete log;
-        }
-        matrixLocation=glGetUniformLocation(sProgram,"projectionMatrix");
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
-
-        glUseProgram(sProgram);
 }
 /////////////////////////////////////////////////////
 void viewWindow::resizeGL(){
@@ -189,15 +112,9 @@ void viewWindow::resizeGL(){
 void viewWindow::paintGL(){
     if(modelsArray.size()!=0){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        glm::mat4 projection = glm::perspective(glm::radians(60.0f),4.0f/3.0f,0.1f,100.0f);
-        glm::mat4 viewTranslate = glm::translate(glm::mat4(1.0f),glm::vec3(moveX,moveY,distance));
-        glm::mat4 viewRotateX = glm::rotate(viewTranslate,glm::radians(angleX),glm::vec3(-1.0f,0.0f,0.0f));
-        glm::mat4 view = glm::rotate(viewRotateX,glm::radians(angleY),glm::vec3(0.0f,1.0f,0.0f));
-
+        glUseProgram(sProgram);
         unsigned int mSize=modelsArray.size();
         for(unsigned int n=0;n!=mSize;n++){
-            editabelGraphicObject *obj=modelsArray[n];
             if(modelsArray[n]->isVisible()){
                 unsigned int matSize=modelsArray[n]->getNumIndicesObjects();
                 for(unsigned int m=0;m!=matSize;m++){
@@ -213,7 +130,10 @@ void viewWindow::paintGL(){
                     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
                     GLsizei indices=(GLsizei)indObject->getIndicesCount();
                     glm::mat4 MVP = projection*view*modelsArray[n]->getModelMatrix();
-                    glUniformMatrix4fv(matrixLocation,1,false,glm::value_ptr(MVP));
+                    glUniformMatrix4fv(MVPMatrixLocation,1,false,glm::value_ptr(MVP));
+                    glUniformMatrix4fv(modelMatrixLocation,1,false,glm::value_ptr(modelsArray[n]->getModelMatrix()));
+                    float cp[3]={moveX,moveY,distance};
+                    glUniform3fv(cameraPosLocation,1,cp);
                     glDrawElements(GL_TRIANGLES,indices,GL_UNSIGNED_INT,NULL);
                     glBindTexture(GL_TEXTURE_2D,0);
                     glBindVertexArray(0);
@@ -231,12 +151,14 @@ void viewWindow::mouseMoveEvent(QMouseEvent *event){
             mPosX=event->pos().x();
             angleXInc(mPosY-event->pos().y());
             mPosY=event->pos().y();
+            calculateViewMatrix();
             update();
             break;
         }
         case(Qt::MidButton):{
             moveX=moveX-(mPosX-event->pos().x())*0.01;
             moveY=moveY+(mPosY-event->pos().y())*0.01;
+            calculateViewMatrix();
             update();
             break;
         }
@@ -262,6 +184,7 @@ void viewWindow::keyPressed(int key){
             break;
         }
     }
+    calculateViewMatrix();
     update();
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -284,6 +207,12 @@ void viewWindow::angleYInc(int dir){
         angleY=360-angleY;//то смотрим, на сколько вывалились
     }
 }
+///////////////////////////////////////////////////////////////////////////////
+void viewWindow::calculateViewMatrix(){
+    glm::mat4 viewTranslate = glm::translate(glm::mat4(1.0f),glm::vec3(moveX,moveY,distance));
+    glm::mat4 viewRotateX = glm::rotate(viewTranslate,glm::radians(angleX),glm::vec3(-1.0f,0.0f,0.0f));
+    view = glm::rotate(viewRotateX,glm::radians(angleY),glm::vec3(0.0f,1.0f,0.0f));
+}
 ////////////////////////////////////////////////////////////////////////////////
 void viewWindow::mousePressEvent(QMouseEvent *event){
     //при каждом нажатии запоминаем позицию. при движении считаем от нее
@@ -299,6 +228,7 @@ void viewWindow::wheelEvent(QWheelEvent *event){
     else if(event->delta()<0){
         distance-=0.1;
     }
+    calculateViewMatrix();
     update();
 }
 //////////////////////////////////////////////////////////////////////////////////
@@ -368,11 +298,10 @@ void viewWindow::setTexturesVector(QVector<gameObjectTexture *> *vector){
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 bool viewWindow::setVertexShader(QByteArray *shaderText){
-    GLuint vertexShader;
+
     GLint param=1;
     GLint ret=0;
-    GLenum er;
-    return true;
+
     const GLchar *vertexShaderSource = new GLchar[shaderText->size()];
     vertexShaderSource=shaderText->data();
 
@@ -390,19 +319,15 @@ bool viewWindow::setVertexShader(QByteArray *shaderText){
         glDeleteShader(vertexShader);
         return false;
     }
-    glAttachShader(sProgram,vertexShader);
-    er=glGetError();
-    //delete vertexShaderSource;
-    //glDeleteShader(vertexShader);
+    delete vertexShaderSource;
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 bool viewWindow::setFragmentShader(QByteArray *shaderText){
-    GLuint fragmentShader;
+
     GLint param=1;
     GLint ret=0;
-    GLenum er;
-    return true;
+
     const GLchar *fragmentShaderSource = new GLchar[shaderText->size()];
     fragmentShaderSource=(GLchar*)shaderText->data();
 
@@ -420,20 +345,20 @@ bool viewWindow::setFragmentShader(QByteArray *shaderText){
         glDeleteShader(fragmentShader);
         return false;
     }
-    glAttachShader(sProgram,fragmentShader);
-    er=glGetError();
-    //delete fragmentShaderSource;
-    //glDeleteShader(fragmentShader);
+
+    delete fragmentShaderSource;
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool viewWindow::compileShaderProgramm(){
     GLint param=1;
     GLint ret=0;
-    GLenum er;
-    return true;
+
+    sProgram=glCreateProgram();
+    glAttachShader(sProgram,vertexShader);
+    glAttachShader(sProgram,fragmentShader);
+
     glLinkProgram(sProgram);
-    er=glGetError();
     glGetProgramiv(sProgram,GL_LINK_STATUS,&param);
     if(param!=GL_TRUE){
         glGetProgramiv(sProgram,GL_INFO_LOG_LENGTH,&param);
@@ -443,87 +368,13 @@ bool viewWindow::compileShaderProgramm(){
         delete log;
         return false;
     }
-    matrixLocation=glGetUniformLocation(sProgram,"projectionMatrix");
-    er=glGetError();
-    glUseProgram(sProgram);
-    er=glGetError();
-    GLboolean r=glIsProgram(sProgram);
+    MVPMatrixLocation=glGetUniformLocation(sProgram,"MVPMatrix");
+    modelMatrixLocation=glGetUniformLocation(sProgram,"modelMatrix");
+    normalMatrixLocation=glGetUniformLocation(sProgram,"normalMatrix");
+    cameraPosLocation=glGetUniformLocation(sProgram,"cameraPos");
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
     return true;
-
-//    static const GLchar *vertexShaderSource[] =
-//       {
-//           "#version 330 core\n"
-
-//           "layout(location=1) in vec3 position;\n"
-//           "layout(location=2) in vec2 texCoord;\n"
-//           "out vec2 tC;\n"
-//           "uniform mat4 projectionMatrix;\n"
-
-//           "void main(void)\n"
-//           "{\n"
-//           "        // перевод вершинных координат в однородные\n"
-//           "        gl_Position   = projectionMatrix * vec4(position, 1.0);\n"
-//           "        tC=texCoord;\n"
-//           "}\n"
-//       };
-
-//       static const GLchar *fragmentShaderSource[] =
-//       {
-//           "#version 330 core\n"
-//           "in vec2 tC;\n"
-//           "uniform sampler2D tex;\n"
-//           "out vec4 color;\n"
-
-//           "void main(void)\n"
-//           "{\n"
-//           "        // цвет пикселя определяется текстурой\n"
-//           "        color=texture(tex,tC);\n"
-//           "}\n"
-//       };
-    //    vertexShader=glCreateShader(GL_VERTEX_SHADER);
-//    glShaderSource(vertexShader,1,vertexShaderSource,0);
-//    glCompileShader(vertexShader);
-
-//    glGetShaderiv(vertexShader,GL_COMPILE_STATUS,&param);
-//    if(param!=GL_TRUE){
-//        glGetShaderiv(vertexShader,GL_INFO_LOG_LENGTH,&param);
-//        GLchar *log = new GLchar[param];
-//        glGetShaderInfoLog(vertexShader,param,&ret,log);
-//        qWarning(log);
-//        delete log;
-//    }
-
-
-//    fragmentShader=glCreateShader(GL_FRAGMENT_SHADER);
-//    glShaderSource(fragmentShader,1,fragmentShaderSource,0);
-//    glCompileShader(fragmentShader);
-//    glGetShaderiv(fragmentShader,GL_COMPILE_STATUS,&param);
-//    if(param!=GL_TRUE){
-//        glGetShaderiv(fragmentShader,GL_INFO_LOG_LENGTH,&param);
-//        GLchar *log = new GLchar[param];
-//        glGetShaderInfoLog(fragmentShader,param,&ret,log);
-//        qWarning(log);
-//        delete log;
-//    }
-
-
-//    sProgram=glCreateProgram();
-//    glAttachShader(sProgram,vertexShader);
-//    glAttachShader(sProgram,fragmentShader);
-//    glLinkProgram(sProgram);
-//    glGetProgramiv(sProgram,GL_LINK_STATUS,&param);
-//    if(param!=GL_TRUE){
-//        glGetProgramiv(sProgram,GL_INFO_LOG_LENGTH,&param);
-//        GLchar *log=new GLchar[param];
-//        glGetProgramInfoLog(sProgram,param,&ret,log);
-//        qWarning(log);
-//        delete log;
-//    }
-//    matrixLocation=glGetUniformLocation(sProgram,"projectionMatrix");
-//    glDeleteShader(vertexShader);
-//    glDeleteShader(fragmentShader);
-
-//    glUseProgram(sProgram);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 QString viewWindow::getLastError(){

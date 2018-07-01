@@ -8,6 +8,7 @@ meshObject::meshObject()
     scale=glm::vec3(1,1,1);
     rotate=glm::vec3(0,0,0);
     modelMatrix=glm::mat4(1.0f);
+    normalMatrix=glm::transpose(glm::inverse(modelMatrix));
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
@@ -118,4 +119,9 @@ bool meshObject::isVisible(){
 ///////////////////////////////////////////////////////////////////////////////
 void meshObject::setVisible(bool visible){
     this->visible=visible;
+}
+////////////////////////////////////////////////////////////////////////////////
+glm::mat4 meshObject::getNormalMatrix() const
+{
+    return normalMatrix;
 }

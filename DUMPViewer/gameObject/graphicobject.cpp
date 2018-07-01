@@ -26,24 +26,14 @@ unsigned int graphicObject::getSizeInBytes(){
     unsigned int arSize=0;
 
     size+=meshObject::getSizeInBytes();
-
     size+=sizeof(arraySize);//место под размер массива
-
-
     size+=sizeof(arraySize);//место под размер массива
     size+=sizeof(bool);//запас под visible
     return size;
 }
-///////////////////////////////////////////////////////////////////////////////////
-void graphicObject::reloadVideoData(){
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+unsigned int graphicObject::numLights(){
+    return lightSorces.getSize();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
-arraySize graphicObject::getTexCoordsSize(){
-    return 0;
-}
 

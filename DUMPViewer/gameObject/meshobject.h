@@ -36,7 +36,7 @@ public:
     glm::mat4 getModelMatrix() const;
     bool isVisible();
     void setVisible(bool visible);
-
+    glm::mat4 getNormalMatrix() const;
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
@@ -44,6 +44,7 @@ protected:
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
     glm::mat4 modelMatrix;
+    glm::mat4 normalMatrix;
     glm::vec3 move;
     glm::vec3 scale;
     glm::vec3 rotate;
