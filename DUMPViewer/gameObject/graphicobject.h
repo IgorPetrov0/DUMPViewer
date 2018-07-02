@@ -25,7 +25,7 @@ public:
     unsigned int numLights();
 
 protected:
-    dArray<gameObjectLight*>lightSorces;
+    dArray<gameObjectLight*>*lightSorces;
 
 };
 

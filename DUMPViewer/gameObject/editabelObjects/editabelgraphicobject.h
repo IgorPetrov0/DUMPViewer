@@ -39,6 +39,7 @@ protected:
     string name;
 
     void calculateModelMatrix();
+    void loadLights(const aiScene *scene);
 
 
 };

@@ -27,7 +27,7 @@ void editabelGraphicObject::compileObject(){
 //////////////////////////////////////////////////////////////////////////
 void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameObjectMaterial*> *materials){
 
-    unsigned int numVertices=0;
+    unsigned int size=0;
     unsigned int lastIndex=0;
     unsigned int c=0;
 
@@ -35,7 +35,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     //подсчитываем общее кол-во вершин в сцене
     aiMesh **meshes=scene->mMeshes;
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
-        numVertices+=meshes[n]->mNumVertices;
+        size+=meshes[n]->mNumVertices;
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
     //массив один на объект
@@ -43,7 +43,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     if(vertexAtributesArray!=NULL){
         delete vertexAtributesArray;
     }
-    vertexAtributesArray = new dArray<vertexCoordinates>(numVertices*3+numVertices*2+numVertices*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
+    vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
 
     //проходим по всем мешам сцены собираем вершины, текстурные координаты и нормали
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
@@ -120,6 +120,10 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         }
         indicesObjectsArray->addElement(nn,indexObject);
     }
+    //собираем источники света
+    if(scene->HasLights()){
+        loadLights(scene);
+    }
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -165,4 +169,48 @@ void editabelGraphicObject::calculateModelMatrix(){
     glm::mat4 mRotateZ = glm::rotate(mRotateY,glm::radians(rotate.z),glm::vec3(0.0f,0.0f,1.0f));
     modelMatrix = glm::translate(mRotateZ,move);
     normalMatrix=glm::transpose(glm::inverse(modelMatrix));
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::loadLights(const aiScene *scene){
+    unsigned int size=scene->mNumLights;
+    lightSorces = new dArray<gameObjectLight*>(size);
+    for(unsigned int n=0;n!=size;n++){
+        lightPropetries prop;
+        aiLight *light=scene->mLights[n];
+        prop.angleInnerCone=light->mAngleInnerCone;
+        prop.angleOuterCone=light->mAngleOuterCone;
+        prop.attenuationConstant=light->mAttenuationConstant;
+        prop.attenuationLinear=light->mAttenuationLinear;
+        prop.attenuationQuadratic=light->mAttenuationQuadratic;
+        prop.cAmbient=glm::vec3(light->mColorAmbient.r,light->mColorAmbient.g,light->mColorAmbient.b);
+        prop.cDiffuse=glm::vec3(light->mColorDiffuse.r,light->mColorDiffuse.g,light->mColorDiffuse.b);
+        prop.cSpecular=glm::vec3(light->mColorSpecular.r,light->mColorSpecular.g,light->mColorSpecular.b);
+        prop.direction=glm::vec3(light->mDirection.x,light->mDirection.y,light->mDirection.z);
+        prop.position=glm::vec3(light->mPosition.x,light->mPosition.y,light->mPosition.z);
+        gameObjectLight *gLight = new gameObjectLight;
+        gLight->setProperties(prop);
+        switch (light->mType) {
+            case(aiLightSource_DIRECTIONAL):{
+                gLight->setType(LIGHT_DIRECTIONAL);
+                break;
+            }
+            case(aiLightSource_POINT):{
+                gLight->setType(LIGHT_POINT);
+                break;
+            }
+            case(aiLightSource_SPOT):{
+                gLight->setType(LIGHT_SPOT);
+                break;
+            }
+            case(aiLightSource_AMBIENT):{
+                gLight->setType(LIGHT_AMBIENT);
+                break;
+            }
+            default:{
+                gLight->setType(LIGHT_UNDEFINED);
+                break;
+            }
+        }
+        lightSorces->addElement(n,gLight);
+    }
 }

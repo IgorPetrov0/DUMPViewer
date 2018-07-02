@@ -34,7 +34,7 @@ public:
     gameObjectLight();
     lightType getType() const;
     void setType(const lightType &value);
-    lightPropetries getProperties() const;
+    const lightPropetries *getProperties() const;
     void setProperties(const lightPropetries &value);
 
 protected:

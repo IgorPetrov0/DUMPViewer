@@ -59,6 +59,7 @@ protected:
     GLint modelMatrixLocation;
     GLint normalMatrixLocation;
     GLint cameraPosLocation;
+    GLint defaultLightLocation;
     bool loaded;
     float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши
@@ -73,6 +74,7 @@ protected:
     GLuint fragmentShader;
     glm::mat4 view;//видовая матрица
     glm::mat4 projection;//проекционная матрица
+    gameObjectLight defaultLight;
 
 };
 
