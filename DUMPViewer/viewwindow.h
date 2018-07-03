@@ -60,6 +60,7 @@ protected:
     GLint normalMatrixLocation;
     GLint cameraPosLocation;
     GLint defaultLightLocation;
+    GLint materialParamsLocation;
     bool loaded;
     float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши

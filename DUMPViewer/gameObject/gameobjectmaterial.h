@@ -40,7 +40,7 @@ public:
     bool operator ==(gameObjectMaterial &material);
     bool operator !=(gameObjectMaterial &material);
     unsigned int getSizeInBytes();
-    MatProperties getMatProperties() const;
+    const MatProperties *getMatProperties() const;
     void setMatProperties(const MatProperties &value);
 
 protected:

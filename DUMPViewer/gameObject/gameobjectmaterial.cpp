@@ -70,8 +70,8 @@ unsigned int gameObjectMaterial::getSizeInBytes(){
     return size;
 }
 //////////////////////////////////////////////////////////////////////////////////
-MatProperties gameObjectMaterial::getMatProperties() const{
-    return matProp;
+const MatProperties *gameObjectMaterial::getMatProperties() const{
+    return &matProp;
 }
 //////////////////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::setMatProperties(const MatProperties &value){

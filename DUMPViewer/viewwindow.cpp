@@ -135,6 +135,7 @@ void viewWindow::paintGL(){
                     float cp[3]={moveX,moveY,distance};
                     glUniform3fv(cameraPosLocation,1,cp);
                     glUniform1fv(defaultLightLocation,1,(float*)defaultLight.getProperties());
+                    glUniform1fv(materialParamsLocation,1,(float*)tmpMat->getMatProperties());
                     glDrawElements(GL_TRIANGLES,indices,GL_UNSIGNED_INT,NULL);
                     glBindTexture(GL_TEXTURE_2D,0);
                     glBindVertexArray(0);
@@ -374,6 +375,7 @@ bool viewWindow::compileShaderProgramm(){
     normalMatrixLocation=glGetUniformLocation(sProgram,"normalMatrix");
     cameraPosLocation=glGetUniformLocation(sProgram,"cameraPos");
     defaultLightLocation=glGetUniformLocation(sProgram,"light");
+    materialParamsLocation=glGetUniformLocation(sProgram,"matParam");
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
     return true;
