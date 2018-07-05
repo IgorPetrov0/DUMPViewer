@@ -19,7 +19,6 @@
          vec3 ambient;
          vec3 specular;
          float shines;
-
      };
 
      struct lightSource{
@@ -43,7 +42,7 @@
          vec3 s = normalize(light.position-fragmentPos);
          vec3 v = normalize(-fragmentPos);
          vec3 r = reflect(-s,n);
-         return light.cDiffuse*(matParam.ambient + matParam.diffuse*max(dot(s,n),0.0) + matParam.specular*pow(max(dot(r,v),0.0),matParam.shines));
+         return light.cDiffuse*(matParam.ambient + matParam.diffuse*max(dot(s,n),1.0) + matParam.specular*pow(max(dot(r,v),1.0),matParam.shines));
      }
 
 

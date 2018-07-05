@@ -8,7 +8,7 @@
        uniform mat4 MVPMatrix;
        uniform mat4 modelMatrix;
        uniform mat4 normalMatrix;
-       uniform vec3 cameraPos;
+
 
        out vec2 tC;
        out vec3 fragmentPos;

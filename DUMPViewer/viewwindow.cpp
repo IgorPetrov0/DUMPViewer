@@ -132,6 +132,7 @@ void viewWindow::paintGL(){
                     glm::mat4 MVP = projection*view*modelsArray[n]->getModelMatrix();
                     glUniformMatrix4fv(MVPMatrixLocation,1,false,glm::value_ptr(MVP));
                     glUniformMatrix4fv(modelMatrixLocation,1,false,glm::value_ptr(modelsArray[n]->getModelMatrix()));
+                    glUniformMatrix4fv(normalMatrixLocation,1,false,glm::value_ptr(modelsArray[n]->getNormalMatrix()));
                     float cp[3]={moveX,moveY,distance};
                     glUniform3fv(cameraPosLocation,1,cp);
                     glUniform1fv(defaultLightLocation,1,(float*)defaultLight.getProperties());
@@ -373,7 +374,7 @@ bool viewWindow::compileShaderProgramm(){
     MVPMatrixLocation=glGetUniformLocation(sProgram,"MVPMatrix");
     modelMatrixLocation=glGetUniformLocation(sProgram,"modelMatrix");
     normalMatrixLocation=glGetUniformLocation(sProgram,"normalMatrix");
-    cameraPosLocation=glGetUniformLocation(sProgram,"cameraPos");
+    //cameraPosLocation=glGetUniformLocation(sProgram,"cameraPos");
     defaultLightLocation=glGetUniformLocation(sProgram,"light");
     materialParamsLocation=glGetUniformLocation(sProgram,"matParam");
     glDeleteShader(vertexShader);
