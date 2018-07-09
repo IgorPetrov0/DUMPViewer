@@ -147,15 +147,6 @@ void MainWindow::saveGameObjectAsSlot(){
 }
 /////////////////////////////////////////////////////////////////////
 void MainWindow::newGameObjectSlot(){
-    if(!core->loadDefaultShaders(SHADERS_DIR)){
-        QMessageBox box(this);
-        box.setWindowTitle(tr("Shaders load error!"));
-        box.setIcon(QMessageBox::Critical);
-        box.setText(core->getLastError());
-        box.exec();
-        return;
-    }
-
     newGameObjectNameWindow nameDialog(this);
     nameDialog.setDefaultName(core->defaultObjectName());
     if(nameDialog.exec()==QDialog::Accepted){

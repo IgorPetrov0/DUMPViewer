@@ -4,6 +4,7 @@ gameObjectMaterial::gameObjectMaterial()
 {
     VAOname=0;   
     diffuseTexture=NULL;
+    propertiesCount=5;
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial::gameObjectMaterial(gameObjectMaterial *material){
@@ -76,6 +77,18 @@ const MatProperties *gameObjectMaterial::getMatProperties() const{
 //////////////////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::setMatProperties(const MatProperties &value){
     matProp = value;
+}
+//////////////////////////////////////////////////////////////////////////////////
+bool gameObjectMaterial::getArray(int size, int *offsets, unsigned char *array){
+    if(size!=propertiesCount){
+        return false;
+    }
+    memcpy(array+offsets[0],(void*)&matProp.ambient,sizeof(glm::vec3));
+    memcpy(array+offsets[1],(void*)&matProp.diffuse,sizeof(glm::vec3));
+    memcpy(array+offsets[2],(void*)&matProp.specular,sizeof(glm::vec3));
+    memcpy(array+offsets[3],(void*)&matProp.emission,sizeof(glm::vec3));
+    memcpy(array+offsets[4],(void*)&matProp.shines,sizeof(float));
+    return true;
 }
 //////////////////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::setName(string name){

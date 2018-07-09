@@ -56,7 +56,7 @@ public:
     void setViewDistance(float value);
     float getViewDistance();
     void updateView();
-    bool loadDefaultShaders(QString path);
+    bool loadObjectShaders(graphicObject *object);
 
 
 protected:
@@ -77,6 +77,8 @@ protected:
     bool findMaterialFromGlobalArray(aiString name);
     MatProperties compileMatProperties(aiMaterial *material);
     glm::vec4 colorToVector4(aiColor4D color);
+    bool readShaderFile(string fName, QByteArray *array);
+
 };
 
 #endif // EDITORCORE_H

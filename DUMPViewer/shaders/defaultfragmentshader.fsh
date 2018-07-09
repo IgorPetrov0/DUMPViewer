@@ -14,43 +14,43 @@
      uniform sampler2D tex;
      out vec4 color;
 
-     struct materialParams{
-         vec3 diffuse;
+
+     layout(std140) uniform materialParams{
          vec3 ambient;
+         vec3 diffuse;
          vec3 specular;
+         vec3 emission;
          float shines;
      };
 
-     struct lightSource{
-         float angleInnerCone;
-         float angleOuterCone;
-         float attenuationConstant;
-         float attenuationLinear;
-         float attenuationQuadratic;
-         vec3 cAmbient;
-         vec3 cDiffuse;
-         vec3 cSpecular;
-         vec3 direction;
-         vec3 position;
+     layout(std140) uniform lightSource{
+         float angleInnerCone;//0
+         float angleOuterCone;//4
+         float attenuationConstant;//8
+         float attenuationLinear;//12
+         float attenuationQuadratic;//16
+         vec3 cAmbient;//32
+         vec3 cDiffuse;//48
+         vec3 cSpecular;//64
+         vec3 direction;//80
+         vec3 position;//96
      };
-
-     uniform lightSource light;
-     uniform materialParams matParam;
 
      vec3 ads(){
          vec3 n = normalize(fragmentNormal);
-         vec3 s = normalize(light.position-fragmentPos);
+         vec3 s = normalize(position-fragmentPos);
          vec3 v = normalize(-fragmentPos);
          vec3 r = reflect(-s,n);
-         return light.cDiffuse*(matParam.ambient + matParam.diffuse*max(dot(s,n),1.0) + matParam.specular*pow(max(dot(r,v),1.0),matParam.shines));
+         return cDiffuse*(ambient + diffuse*max(dot(s,n),1.0) + specular*pow(max(dot(r,v),1.0),shines));
      }
-
-
 
 
      void main(void)
      {
          //color=texture2D(tex,tC);
          //color=texture(tex,tC);
-         color=vec4(ads(),1.0);
+         //color=vec4(ads(),1.0);//+texture2D(tex,tC);
+         float cosTheta= dot(fragmentNormal,vec3(1));
+         color=vec4(cDiffuse*cosTheta+diffuse,1.0)+texture2D(tex,tC);
+        //color=vec4(emission,1.0)+texture2D(tex,tC);
      }

@@ -19,7 +19,6 @@ viewWindow::viewWindow(QWidget *parent)
       moveX=0;
       moveY=0;
       distance=-1;
-      MVPMatrixLocation=0;
       projection = glm::perspective(glm::radians(60.0f),4.0f/3.0f,0.1f,100.0f);
 }
 ////////////////////////////////////////////////////////////
@@ -112,14 +111,47 @@ void viewWindow::resizeGL(){
 void viewWindow::paintGL(){
     if(modelsArray.size()!=0){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(sProgram);
-        unsigned int mSize=modelsArray.size();
+        unsigned int mSize=modelsArray.size();   
         for(unsigned int n=0;n!=mSize;n++){
             if(modelsArray[n]->isVisible()){
+                GLuint program=modelsArray[n]->getGLShaderProgram();
+                glUseProgram(program);
+                //переписываем матрицы модели
+                GLint size=0;
+                GLint sizeArray=0;
+                GLuint blockIndex=glGetUniformBlockIndex(program,"modelMatrices");
+                GLint *offsets=getUniformBlockOffsets(program,"modelMatrices",&size);
+                glGetActiveUniformBlockiv(program,blockIndex,GL_UNIFORM_BLOCK_DATA_SIZE,&sizeArray);
+                unsigned char *array = new unsigned char[sizeArray];
+                if(!modelsArray[n]->getMatricesArray(size,offsets,array)){
+                    qWarning("The number of activ uniforms in shader and in gameLightObject does not much.");
+                }
+                glBindBuffer(GL_UNIFORM_BUFFER,matrixBuffer);
+                glBufferData(GL_UNIFORM_BUFFER,MODEL_MATRIX_BUFFER_SIZE,(GLvoid*)array,GL_STATIC_DRAW);
+                glBindBuffer(GL_UNIFORM_BUFFER,0);
+
                 unsigned int matSize=modelsArray[n]->getNumIndicesObjects();
                 for(unsigned int m=0;m!=matSize;m++){
                     gameIndexObject *indObject=modelsArray[n]->getIndexObject(m);
                     gameObjectMaterial *tmpMat=indObject->getMaterial();
+
+                    //переписываем параметры материала для каждого материала
+                    blockIndex=glGetUniformBlockIndex(program,"materialParams");
+                    GLint *offsets=getUniformBlockOffsets(program,"materialParams",&size);
+                    glGetActiveUniformBlockiv(program,blockIndex,GL_UNIFORM_BLOCK_DATA_SIZE,&sizeArray);
+                    unsigned char *array = new unsigned char[sizeArray];
+                    if(!tmpMat->getArray(size,offsets,array)){
+                        qWarning("The number of activ uniforms in shader and in gameLightObject does not much.");
+                    }
+                    glBindBuffer(GL_UNIFORM_BUFFER,materialBuffer);
+                    glBufferData(GL_UNIFORM_BUFFER,MODEL_MATRIX_BUFFER_SIZE,(GLvoid*)array,GL_STATIC_DRAW);
+                    glBindBuffer(GL_UNIFORM_BUFFER,0);
+
+                    //переподключаем буферы после выполнения glBindBuffer
+                    glBindBufferBase(GL_UNIFORM_BUFFER,0,matrixBuffer);
+                    glBindBufferBase(GL_UNIFORM_BUFFER,1,materialBuffer);
+                    glBindBufferBase(GL_UNIFORM_BUFFER,2,lightBuffer);
+
                     if(tmpMat->getDiffuseTexture()!=NULL){//если у материала есть текстура(текстуры может и не быть.)
                         //биндим текстуру
                         glBindTexture(GL_TEXTURE_2D,tmpMat->getOGLTextureName());
@@ -130,13 +162,7 @@ void viewWindow::paintGL(){
                     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,ebo);
                     GLsizei indices=(GLsizei)indObject->getIndicesCount();
                     glm::mat4 MVP = projection*view*modelsArray[n]->getModelMatrix();
-                    glUniformMatrix4fv(MVPMatrixLocation,1,false,glm::value_ptr(MVP));
-                    glUniformMatrix4fv(modelMatrixLocation,1,false,glm::value_ptr(modelsArray[n]->getModelMatrix()));
-                    glUniformMatrix4fv(normalMatrixLocation,1,false,glm::value_ptr(modelsArray[n]->getNormalMatrix()));
-                    float cp[3]={moveX,moveY,distance};
-                    glUniform3fv(cameraPosLocation,1,cp);
-                    glUniform1fv(defaultLightLocation,1,(float*)defaultLight.getProperties());
-                    glUniform1fv(materialParamsLocation,1,(float*)tmpMat->getMatProperties());
+                    glUniformMatrix4fv(MVPMatrixLocation,1,false,(GLfloat*)&MVP);
                     glDrawElements(GL_TRIANGLES,indices,GL_UNSIGNED_INT,NULL);
                     glBindTexture(GL_TEXTURE_2D,0);
                     glBindVertexArray(0);
@@ -264,7 +290,7 @@ void viewWindow::removeModel(editabelGraphicObject *model){
                 GLuint f=0;
                 f=model->getVboName();
                 glDeleteBuffers(1,&f);//удаляем VBO
-
+                glDeleteProgram(model->getGLShaderProgram());
                 //удаляем текстуры
                 unsigned int size=model->getNumIndicesObjects();
                 for(unsigned int m=0;m!=size;m++){
@@ -300,86 +326,130 @@ void viewWindow::setTexturesVector(QVector<gameObjectTexture *> *vector){
     texturesVector=vector;
 }
 ///////////////////////////////////////////////////////////////////////////////////////
-bool viewWindow::setVertexShader(QByteArray *shaderText){
+bool viewWindow::compileShader(QByteArray *shaderText, GLuint &shader, GLenum type){
 
     GLint param=1;
     GLint ret=0;
 
-    const GLchar *vertexShaderSource = new GLchar[shaderText->size()];
-    vertexShaderSource=shaderText->data();
+    const GLchar *shaderSource = shaderText->data();
+    //shaderSource=shaderText->data();
 
-    vertexShader=glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader,1,&vertexShaderSource,0);
-    glCompileShader(vertexShader);
+    shader=glCreateShader(type);
+    glShaderSource(shader,1,&shaderSource,0);
+    glCompileShader(shader);
 
-    glGetShaderiv(vertexShader,GL_COMPILE_STATUS,&param);
+    glGetShaderiv(shader,GL_COMPILE_STATUS,&param);
     if(param!=GL_TRUE){
-        glGetShaderiv(vertexShader,GL_INFO_LOG_LENGTH,&param);
+        glGetShaderiv(shader,GL_INFO_LOG_LENGTH,&param);
         GLchar *log = new GLchar[param];
-        glGetShaderInfoLog(vertexShader,param,&ret,log);
-        a_error=tr("Vertex shader errors:\n")+QString::fromLatin1(log,param);
+        glGetShaderInfoLog(shader,param,&ret,log);
+        switch(type){
+            case(GL_VERTEX_SHADER):{
+                a_error=tr("Vertex shader errors:\n")+QString::fromLatin1(log,param);
+                break;
+            }
+            case(GL_FRAGMENT_SHADER):{
+                a_error=tr("Fragment shader errors:\n")+QString::fromLatin1(log,param);
+                break;
+            }
+            //TODO дописать остальные шейдеры
+        }
         delete log;
-        glDeleteShader(vertexShader);
+        glDeleteShader(shader);
         return false;
     }
-    delete vertexShaderSource;
-    return true;
-}
-///////////////////////////////////////////////////////////////////////////////////////
-bool viewWindow::setFragmentShader(QByteArray *shaderText){
-
-    GLint param=1;
-    GLint ret=0;
-
-    const GLchar *fragmentShaderSource = new GLchar[shaderText->size()];
-    fragmentShaderSource=(GLchar*)shaderText->data();
-
-    fragmentShader=glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader,1,&fragmentShaderSource,0);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader,GL_COMPILE_STATUS,&param);
-    if(param!=GL_TRUE){
-        glGetShaderiv(fragmentShader,GL_INFO_LOG_LENGTH,&param);
-        GLchar *log = new GLchar[param];
-        glGetShaderInfoLog(fragmentShader,param,&ret,log);
-        a_error=tr("Fragment shader errors:\n")+QString::fromLatin1(log,param);
-        delete log;
-        glDeleteShader(fragmentShader);
-        return false;
-    }
-
-    delete fragmentShaderSource;
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////////
-bool viewWindow::compileShaderProgramm(){
+bool viewWindow::compileShaderProgramm(GLuint *shadersArray, unsigned int arraySize, GLuint &program){
     GLint param=1;
     GLint ret=0;
 
-    sProgram=glCreateProgram();
-    glAttachShader(sProgram,vertexShader);
-    glAttachShader(sProgram,fragmentShader);
+    program=glCreateProgram();
+    for(unsigned int n=0;n!=arraySize;n++){
+        glAttachShader(program,shadersArray[n]);
+        if(glGetError()!=GL_NO_ERROR){
+            glDeleteProgram(program);
+            a_error=tr("Attach shader error.");
+            return false;
+        }
+    }
 
-    glLinkProgram(sProgram);
-    glGetProgramiv(sProgram,GL_LINK_STATUS,&param);
+    glLinkProgram(program);
+    glGetProgramiv(program,GL_LINK_STATUS,&param);
     if(param!=GL_TRUE){
-        glGetProgramiv(sProgram,GL_INFO_LOG_LENGTH,&param);
+        glGetProgramiv(program,GL_INFO_LOG_LENGTH,&param);
         GLchar *log=new GLchar[param];
-        glGetProgramInfoLog(sProgram,param,&ret,log);
+        glGetProgramInfoLog(program,param,&ret,log);
         a_error=tr("Link shader programm errors:")+QString::fromLatin1(log,param);
         delete log;
+        glDeleteProgram(program);
         return false;
     }
-    MVPMatrixLocation=glGetUniformLocation(sProgram,"MVPMatrix");
-    modelMatrixLocation=glGetUniformLocation(sProgram,"modelMatrix");
-    normalMatrixLocation=glGetUniformLocation(sProgram,"normalMatrix");
-    //cameraPosLocation=glGetUniformLocation(sProgram,"cameraPos");
-    defaultLightLocation=glGetUniformLocation(sProgram,"light");
-    materialParamsLocation=glGetUniformLocation(sProgram,"matParam");
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+
+    bindUniforms(program);
+
+    for(unsigned int n=0;n!=arraySize;n++){
+        glDeleteShader(shadersArray[n]);
+    }
     return true;
+}
+///////////////////////////////////////////////////////////////////////////////
+void viewWindow::bindUniforms(GLuint program){
+
+    glUseProgram(program);
+    //буфер модельных матриц
+   GLuint blockIndex=glGetUniformBlockIndex(program,"modelMatrices");
+    glUniformBlockBinding(program,blockIndex,0);//привязываем буфер к точке 0 по его индексу
+    glGenBuffers(1,&matrixBuffer);
+    glBindBuffer(GL_UNIFORM_BUFFER,matrixBuffer);
+    glBufferData(GL_UNIFORM_BUFFER,MODEL_MATRIX_BUFFER_SIZE,NULL,GL_STATIC_DRAW);//создаем пустой буфер в видеопамяти
+    glBindBuffer(GL_UNIFORM_BUFFER,0);
+    glBindBufferBase(GL_UNIFORM_BUFFER,0,matrixBuffer);
+
+    //буффер свойств материала
+    blockIndex=glGetUniformBlockIndex(program,"materialParams");
+    glUniformBlockBinding(program,blockIndex,1);//привязываем буфер к точке 1 по его индексу
+    glGenBuffers(1,&materialBuffer);
+    glBindBuffer(GL_UNIFORM_BUFFER,materialBuffer);
+    glBufferData(GL_UNIFORM_BUFFER,MAT_BUFFER_SIZE,NULL,GL_STATIC_DRAW);//создаем пустой буфер в видеопамяти
+    glBindBuffer(GL_UNIFORM_BUFFER,0);
+    glBindBufferBase(GL_UNIFORM_BUFFER,1,materialBuffer);
+
+
+    //буффер источника света
+    blockIndex=glGetUniformBlockIndex(program,"lightSource");
+    glUniformBlockBinding(program,blockIndex,2);//привязываем буфер к точке 2 по его индексу
+    glGenBuffers(1,&lightBuffer);
+    glBindBuffer(GL_UNIFORM_BUFFER,lightBuffer);
+
+    GLint size=0;
+    GLint *offsets=getUniformBlockOffsets(program,"lightSource",&size);
+    GLint sizeArray=0;
+    glGetActiveUniformBlockiv(program,blockIndex,GL_UNIFORM_BLOCK_DATA_SIZE,&sizeArray);
+    unsigned char *array = new unsigned char[sizeArray];
+    if(!defaultLight.getArray(size,offsets,array)){
+        qWarning("The number of activ uniforms in shader and in gameLightObject does not much.");
+    }
+
+    glBufferData(GL_UNIFORM_BUFFER,LIGHT_BUFFER_SIZE,(GLvoid*)array,GL_STATIC_DRAW);//создаем буфер в видеопамяти
+    glBindBuffer(GL_UNIFORM_BUFFER,0);
+    delete []offsets;
+    delete []array;
+    glBindBufferBase(GL_UNIFORM_BUFFER,2,lightBuffer);
+
+    MVPMatrixLocation=glGetUniformLocation(program,"MVPMatrix");
+}
+////////////////////////////////////////////////////////////////////////////////////////////////
+GLint *viewWindow::getUniformBlockOffsets(GLint program, const char *blockName, GLint *size){
+    GLuint blockIndex=glGetUniformBlockIndex(program,blockName);
+    glGetActiveUniformBlockiv(program,blockIndex,GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS,size);
+    GLint *array = new GLint[*size];
+    GLuint *indices = new GLuint[*size];
+    glGetActiveUniformBlockiv(program,blockIndex,GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES,(GLint*)indices);
+    glGetActiveUniformsiv(program,*size,indices,GL_UNIFORM_OFFSET,array);
+    delete []indices;
+    return array;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////
 QString viewWindow::getLastError(){
@@ -387,3 +457,22 @@ QString viewWindow::getLastError(){
     a_error.clear();
     return tmp;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

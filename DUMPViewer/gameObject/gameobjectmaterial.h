@@ -10,10 +10,10 @@
 
 struct MatProperties
 {
-    glm::vec4 ambient;
-    glm::vec4 diffuse;
-    glm::vec4 specular;
-    glm::vec4 emission;
+    glm::vec3 ambient;
+    glm::vec3 diffuse;
+    glm::vec3 specular;
+    glm::vec3 emission;
     float shines;
 };
 
@@ -42,13 +42,14 @@ public:
     unsigned int getSizeInBytes();
     const MatProperties *getMatProperties() const;
     void setMatProperties(const MatProperties &value);
+    bool getArray(int size, int *offsets, unsigned char *array);
 
 protected:
     string name;
     gameObjectTexture *diffuseTexture;
     unsigned int VAOname;
     MatProperties matProp;
-
+    int propertiesCount;
 
 
 };

@@ -10,6 +10,7 @@
 #include "defines.h"
 #include "gameObject/gameobjectlight.h"
 #include "dArray.h"
+#include "gameObject/bone.h"
 
 using namespace std;
 
@@ -23,10 +24,19 @@ public:
     bool operator !=(graphicObject &gObject);
     unsigned int getSizeInBytes();
     unsigned int numLights();
+    string getVertexShaderFileName() const;
+    string getFragmentShaderFileName() const;
+    GLuint getGLvertexShaderName() const;
+    void setGLvertexShaderName(const GLuint &value);
+    GLuint getGLShaderProgram() const;
+    void setGLShaderProgram(const GLuint &value);
 
 protected:
     dArray<gameObjectLight*>*lightSorces;
-
+    dArray<bone*>*bonesArray;
+    string vertexShader;
+    string fragmentShader;
+    GLuint GLShaderProgram;
 };
 
 #endif // GRAPHICOBJECT_H

@@ -36,6 +36,15 @@ void meshBox::loadSlot(){
             delete object;
             return;
         }
+        if(!core->loadObjectShaders(object)){
+            QMessageBox box(core->mainWindowPointer());
+            box.setWindowTitle(tr("Shaders load error!"));
+            box.setIcon(QMessageBox::Critical);
+            box.setText(core->getLastError());
+            box.exec();
+            delete object;
+            return;
+        }
         ui->infoBox->setMesh(object);
         emit meshLoaded(object);
     }

@@ -35,9 +35,8 @@ public:
     float getDistance();
     void deleteAll();
     void setTexturesVector(QVector<gameObjectTexture *> *vector);
-    bool setVertexShader(QByteArray *shaderText);
-    bool setFragmentShader(QByteArray *shaderText);
-    bool compileShaderProgramm();
+    bool compileShader(QByteArray *shaderText, GLuint &shader, GLenum type);
+    bool compileShaderProgramm(GLuint *shadersArray, unsigned int arraySize, GLuint &program);
     QString getLastError();
 
 protected:
@@ -50,17 +49,20 @@ protected:
     void angleXInc(int dir);
     void angleYInc(int dir);
     void calculateViewMatrix();
+    void bindUniforms(GLuint program);
+    GLint *getUniformBlockOffsets(GLint program, const char *blockName, GLint *size);
 
 
     QWidget *parent;//указатель на родителя
-    GLuint sProgram;
+    //GLuint sProgram;
     GLuint vertexArray,textureArray,indicesArray;//массивы координат вершин, текстурных координат и индексов
     GLint MVPMatrixLocation;
-    GLint modelMatrixLocation;
-    GLint normalMatrixLocation;
-    GLint cameraPosLocation;
-    GLint defaultLightLocation;
-    GLint materialParamsLocation;
+    GLuint matrixBuffer;
+    GLuint materialBuffer;
+    GLuint lightBuffer;
+
+
+
     bool loaded;
     float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши
@@ -71,8 +73,6 @@ protected:
     static const GLchar *vertexShaderSource[];
     static const GLchar *fragmentShaderSource[];
     QString a_error;
-    GLuint vertexShader;
-    GLuint fragmentShader;
     glm::mat4 view;//видовая матрица
     glm::mat4 projection;//проекционная матрица
     gameObjectLight defaultLight;

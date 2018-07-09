@@ -168,6 +168,8 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
         }
     }
     object->loadFromAiScene(scene,&globalMaterialsArray);
+    object->setVertexShaderFileName("/defaultVertexShader.vert");
+    object->setFragmentShaderFileName("/defaultFragmentShader.fsh");
     return true;
 }
 /////////////////////////////////////////////////////////////////////////////////
@@ -388,9 +390,48 @@ void editorCore::updateView(){
     a_view->update();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
-bool editorCore::loadDefaultShaders(QString path){
+bool editorCore::loadObjectShaders(graphicObject *object){
+    #define SHADERS_ARRAY_SIZE 2//TODO изменить размер при добавлении шейдеров
 
-    QString fileName=path+"/defaultVertexShader.vert";
+    if(object==NULL){
+        return false;
+    }
+    GLuint shadersArray[SHADERS_ARRAY_SIZE];
+
+    //компилируем вершинный шейдер
+    QByteArray arr;
+    if(!readShaderFile(object->getVertexShaderFileName(),&arr)){
+        return false;
+    }
+    if(!a_view->compileShader(&arr,shadersArray[0],GL_VERTEX_SHADER)){
+        a_error=a_view->getLastError();
+        return false;
+    }
+
+    //компилируем фрагментный шейдер
+    if(!readShaderFile(object->getFragmentShaderFileName(),&arr)){
+        return false;
+    }
+    if(!a_view->compileShader(&arr,shadersArray[1],GL_FRAGMENT_SHADER)){
+        a_error=a_view->getLastError();
+        return false;
+    }
+    //TODO дописать остальные шейдеры
+
+    //компилируем шейдерную программу
+    GLuint sProgram;
+    if(!a_view->compileShaderProgramm(shadersArray,SHADERS_ARRAY_SIZE,sProgram)){
+        a_error=a_view->getLastError();
+        return false;
+    }
+
+
+    object->setGLShaderProgram(sProgram);
+    return true;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+bool editorCore::readShaderFile(string fName, QByteArray *array){
+    QString fileName=SHADERS_DIR+"/"+QString::fromStdString(fName);
     QFile file(fileName);
     if(!file.exists()){
         a_error=tr("File ")+fileName+tr(" not found.");
@@ -400,33 +441,7 @@ bool editorCore::loadDefaultShaders(QString path){
         a_error=tr("File ")+fileName+tr(" exist, but not open.");
         return false;
     }
-    QByteArray arr=file.readAll();
+    *array=file.readAll();
     file.close();
-    if(!a_view->setVertexShader(&arr)){
-        a_error=a_view->getLastError();
-        return false;
-    }
-
-    fileName=path+"/defaultFragmentShader.fsh";
-    file.setFileName(fileName);
-    if(!file.exists()){
-        a_error=tr("File ")+fileName+tr(" not found.");
-        return false;
-    }
-    if(!file.open(QIODevice::ReadOnly)){
-        a_error=tr("File ")+fileName+tr(" exist, but not open.");
-        return false;
-    }
-    arr=file.readAll();
-    file.close();
-    if(!a_view->setFragmentShader(&arr)){
-        a_error=a_view->getLastError();
-        return false;
-    }
-
-    if(!a_view->compileShaderProgramm()){
-        a_error=a_view->getLastError();
-        return false;
-    }
     return true;
 }

@@ -58,7 +58,8 @@ SOURCES += main.cpp\
     mathPrimitives/boundbox.cpp \
     GUI/meshinfobox.cpp \
     GUI/meshbox.cpp \
-    gameObject/gameobjectlight.cpp
+    gameObject/gameobjectlight.cpp \
+    gameObject/bone.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -106,7 +107,8 @@ HEADERS  += mainwindow.h \
     mathPrimitives/boundbox.h \
     GUI/meshinfobox.h \
     GUI/meshbox.h \
-    gameObject/gameobjectlight.h
+    gameObject/gameobjectlight.h \
+    gameObject/bone.h
 
 FORMS    += \
     mainwindow.ui \

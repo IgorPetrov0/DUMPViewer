@@ -6,6 +6,10 @@
 
 #define TEXTURES_DIR QApplication::applicationDirPath()+"/../../DUMPViewer/models/textures"
 #define SHADERS_DIR QApplication::applicationDirPath()+"/../../DUMPViewer/shaders"
+#define MODEL_MATRIX_BUFFER_SIZE sizeof(glm::mat4)*2
+#define MAT_BUFFER_SIZE sizeof(glm::vec3)*4+sizeof(float)
+#define LIGHT_BUFFER_SIZE sizeof(glm::vec4)*5+sizeof(float)*5
+#define NUM_BONES_PER_VERTEX 4
 
 typedef float texCoordinates;
 typedef unsigned int arraySize;

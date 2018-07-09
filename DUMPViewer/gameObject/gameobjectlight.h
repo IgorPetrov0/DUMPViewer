@@ -36,10 +36,13 @@ public:
     void setType(const lightType &value);
     const lightPropetries *getProperties() const;
     void setProperties(const lightPropetries &value);
+    bool getArray(int size, int *offsets, unsigned char *array);
+
 
 protected:
     lightType type;
     lightPropetries properties;
+    int propertiesCount;
 
 
 

@@ -8,6 +8,10 @@
 #include "defines.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+
+
+
+
 using namespace std;
 
 class meshObject
@@ -36,7 +40,8 @@ public:
     glm::mat4 getModelMatrix() const;
     bool isVisible();
     void setVisible(bool visible);
-    glm::mat4 getNormalMatrix() const;
+    bool getMatricesArray(int size, int *offsets, unsigned char *array);//возвращает указатель на массив, содержащий матрицы модели и нормалей
+
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
@@ -49,6 +54,7 @@ protected:
     glm::vec3 scale;
     glm::vec3 rotate;
     bool visible;
+    int matricesCount;
 
 
 

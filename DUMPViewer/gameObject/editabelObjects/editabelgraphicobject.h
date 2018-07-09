@@ -32,6 +32,8 @@ public:
     glm::vec3 getMoveVector()const;
     glm::vec3 getRotateVector()const;
     glm::vec3 getScaleVector()const;
+    void setVertexShaderFileName(QString name);
+    void setFragmentShaderFileName(QString name);
 
 
 protected:
@@ -40,6 +42,7 @@ protected:
 
     void calculateModelMatrix();
     void loadLights(const aiScene *scene);
+    void loadBones(const aiMesh *mesh);
 
 
 };

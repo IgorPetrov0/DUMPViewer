@@ -9,6 +9,7 @@ meshObject::meshObject()
     rotate=glm::vec3(0,0,0);
     modelMatrix=glm::mat4(1.0f);
     normalMatrix=glm::transpose(glm::inverse(modelMatrix));
+    matricesCount=2;
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
@@ -17,9 +18,13 @@ meshObject::meshObject(meshObject *mesh){
 }
 //////////////////////////////////////////////////////////////////
 meshObject::~meshObject(){
-    delete vertexAtributesArray;
-    indicesObjectsArray->deletePointers();
-    delete indicesObjectsArray;
+    if(vertexAtributesArray!=NULL){
+        indicesObjectsArray->deletePointers();
+        delete vertexAtributesArray;
+    }
+    if(indicesObjectsArray!=NULL){
+        delete indicesObjectsArray;
+    }
 }
 //////////////////////////////////////////////////////////////////////
 void meshObject::setVertexAtributes(dArray<vertexCoordinates> *array){
@@ -113,6 +118,7 @@ unsigned int meshObject::getNumIndicesObjects(){
 gameIndexObject *meshObject::getIndexObject(unsigned int index){
     return indicesObjectsArray->operator [](index);
 }
+////////////////////////////////////////////////////////////////////////////////
 bool meshObject::isVisible(){
    return visible;
 }
@@ -120,8 +126,14 @@ bool meshObject::isVisible(){
 void meshObject::setVisible(bool visible){
     this->visible=visible;
 }
-////////////////////////////////////////////////////////////////////////////////
-glm::mat4 meshObject::getNormalMatrix() const
-{
-    return normalMatrix;
+///////////////////////////////////////////////////////////////////////////////
+bool meshObject::getMatricesArray(int size, int *offsets, unsigned char *array){
+    if(size!=matricesCount){
+        return false;
+    }
+    memcpy(array+offsets[0],(void*)&modelMatrix,sizeof(glm::mat4));
+    memcpy(array+offsets[1],(void*)&normalMatrix,sizeof(glm::mat4));
+    float *f=(float*)array;
+    return true;
 }
+////////////////////////////////////////////////////////////////////////////////

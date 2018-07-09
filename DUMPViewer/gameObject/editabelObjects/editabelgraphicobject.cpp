@@ -39,7 +39,8 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
     //массив один на объект
-    //формат: vX,vY,vZ,tX,tY,nX,nY,nZ
+    //формат: vX,vY,vZ,tX,tY,nX,nY,nZ, -для объектов без костей
+    //формат: vX,vY,vZ,tX,tY,nX,nY,nZ,boneIndex1,w1,boneIndex2,w2,boneIndex3,w3,boneIndex4,w4 -для объектов с костями
     if(vertexAtributesArray!=NULL){
         delete vertexAtributesArray;
     }
@@ -82,6 +83,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
 
     //создаем массив индексных объектов
     if(indicesObjectsArray!=NULL){
+        indicesObjectsArray->deletePointers();
         delete indicesObjectsArray;
     }
     indicesObjectsArray = new dArray<gameIndexObject*>(scene->mNumMeshes);
@@ -97,7 +99,6 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                     index=currentIndex;
                 }
             }
-
         }
         lastIndex=index+1;
         gameIndexObject *indexObject = new gameIndexObject;
@@ -119,6 +120,9 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
             indexObject->addMaterialPointer(materials->at(0));//то присваиваем первый из массива. Он должен быть дефолтный.
         }
         indicesObjectsArray->addElement(nn,indexObject);
+        if(mesh->HasBones()){
+            loadBones(mesh);
+        }
     }
     //собираем источники света
     if(scene->HasLights()){
@@ -162,13 +166,21 @@ glm::vec3 editabelGraphicObject::getScaleVector()const{
     return scale;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::setVertexShaderFileName(QString name){
+    vertexShader=name.toStdString();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::setFragmentShaderFileName(QString name){
+    fragmentShader=name.toStdString();
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
 void editabelGraphicObject::calculateModelMatrix(){
     glm::mat4 mScale = glm::scale(glm::mat4(1.0f),scale);
     glm::mat4 mRotateX = glm::rotate(mScale,glm::radians(rotate.x),glm::vec3(1.0f,0.0f,0.0f));
     glm::mat4 mRotateY = glm::rotate(mRotateX,glm::radians(rotate.y),glm::vec3(0.0f,1.0f,0.0f));
     glm::mat4 mRotateZ = glm::rotate(mRotateY,glm::radians(rotate.z),glm::vec3(0.0f,0.0f,1.0f));
     modelMatrix = glm::translate(mRotateZ,move);
-    normalMatrix=glm::transpose(glm::inverse(modelMatrix));
+    normalMatrix=glm::transpose(glm::inverse(normalMatrix));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void editabelGraphicObject::loadLights(const aiScene *scene){
@@ -182,11 +194,11 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
         prop.attenuationConstant=light->mAttenuationConstant;
         prop.attenuationLinear=light->mAttenuationLinear;
         prop.attenuationQuadratic=light->mAttenuationQuadratic;
-        prop.cAmbient=glm::vec3(light->mColorAmbient.r,light->mColorAmbient.g,light->mColorAmbient.b);
-        prop.cDiffuse=glm::vec3(light->mColorDiffuse.r,light->mColorDiffuse.g,light->mColorDiffuse.b);
-        prop.cSpecular=glm::vec3(light->mColorSpecular.r,light->mColorSpecular.g,light->mColorSpecular.b);
-        prop.direction=glm::vec3(light->mDirection.x,light->mDirection.y,light->mDirection.z);
-        prop.position=glm::vec3(light->mPosition.x,light->mPosition.y,light->mPosition.z);
+        prop.cAmbient=glm::vec4(light->mColorAmbient.r,light->mColorAmbient.g,light->mColorAmbient.b,0.0);
+        prop.cDiffuse=glm::vec4(light->mColorDiffuse.r,light->mColorDiffuse.g,light->mColorDiffuse.b,0.0);
+        prop.cSpecular=glm::vec4(light->mColorSpecular.r,light->mColorSpecular.g,light->mColorSpecular.b,0.0);
+        prop.direction=glm::vec4(light->mDirection.x,light->mDirection.y,light->mDirection.z,0.0);
+        prop.position=glm::vec4(light->mPosition.x,light->mPosition.y,light->mPosition.z,0.0);
         gameObjectLight *gLight = new gameObjectLight;
         gLight->setProperties(prop);
         switch (light->mType) {
@@ -212,5 +224,17 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
             }
         }
         lightSorces->addElement(n,gLight);
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::loadBones(const aiMesh *mesh){
+    unsigned int size=mesh->mNumBones;
+    bonesArray = new dArray<bone*>(size);
+
+    for(unsigned int n=0;n!=size;n++){
+        bone B = new bone;
+        mesh->mBones[n]->
+
+
     }
 }
