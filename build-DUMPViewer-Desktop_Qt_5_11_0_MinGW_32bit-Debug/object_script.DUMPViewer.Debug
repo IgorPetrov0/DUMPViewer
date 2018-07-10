@@ -45,6 +45,7 @@ INPUT(
 ./debug\meshinfobox.o
 ./debug\meshbox.o
 ./debug\gameobjectlight.o
+./debug\bone.o
 ./debug\moc_mainwindow.o
 ./debug\moc_viewwindow.o
 ./debug\moc_newgameobjectnamewindow.o

@@ -17,7 +17,8 @@ public:
     dArray(pointerType* dArray, arraySize size);
     ~dArray();
     void setArray(arraySize pSize);
-    pointerType &operator [](arraySize t);
+    pointerType &operator [](const arraySize t);
+    const pointerType& operator [](const arraySize t) const;
     pointerType &operator =(pointerType& arr);
     bool operator ==(dArray<pointerType> &arr);
     bool operator !=(dArray<pointerType> &arr);
@@ -31,8 +32,6 @@ public:
 protected:
     pointerType *arrayPointer;
     arraySize size;
-
-
 
 };
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +77,12 @@ void dArray<pointerType>::setArray(arraySize pSize){
 }
 ///////////////////////////////////////////////////////////
 template<typename pointerType>
-pointerType &dArray<pointerType>::operator [](arraySize t){
+pointerType &dArray<pointerType>::operator [](const arraySize t){
+    return arrayPointer[t];
+}
+///////////////////////////////////////////////////////////
+template<typename pointerType>
+const pointerType &dArray<pointerType>::operator [](const arraySize t) const{
     return arrayPointer[t];
 }
 //////////////////////////////////////////////////////////////

@@ -30,12 +30,16 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     unsigned int size=0;
     unsigned int lastIndex=0;
     unsigned int c=0;
+    bool hasBones=false;
 
     //вершины
     //подсчитываем общее кол-во вершин в сцене
     aiMesh **meshes=scene->mMeshes;
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         size+=meshes[n]->mNumVertices;
+        if(meshes[n]->HasBones()){//если хоть один меш в сцене имеет кости, то устанавливаем флаг
+            hasBones=true;
+        }
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
     //массив один на объект
@@ -76,6 +80,11 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                 vertexAtributesArray->addElement(cm*8+6,0);
                 vertexAtributesArray->addElement(cm*8+7,0);
             }
+            if(hasBones){//если есть кости хотябы в одном меше сцены, то резервируем место под них
+                for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
+                    vertexAtributesArray->addElement(cm*8+8+cc,0);
+                }
+            }
         }
         c+=m;
         m=0;
@@ -100,6 +109,10 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                 }
             }
         }
+        if(mesh->HasBones()){//если данный меш имеет кости, то собираем их. Иначе места в массиве остаются нулевыми
+            loadBones(mesh,lastIndex);
+        }
+
         lastIndex=index+1;
         gameIndexObject *indexObject = new gameIndexObject;
         indexObject->addIndicesArray(array);
@@ -120,9 +133,6 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
             indexObject->addMaterialPointer(materials->at(0));//то присваиваем первый из массива. Он должен быть дефолтный.
         }
         indicesObjectsArray->addElement(nn,indexObject);
-        if(mesh->HasBones()){
-            loadBones(mesh);
-        }
     }
     //собираем источники света
     if(scene->HasLights()){
@@ -227,14 +237,34 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void editabelGraphicObject::loadBones(const aiMesh *mesh){
+void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int meshOffset){
+    //формат: vX,vY,vZ,tX,tY,nX,nY,nZ,boneIndex1,w1,boneIndex2,w2,boneIndex3,w3,boneIndex4,w4 -для объектов с костями
     unsigned int size=mesh->mNumBones;
     bonesArray = new dArray<bone*>(size);
 
     for(unsigned int n=0;n!=size;n++){
-        bone B = new bone;
-        mesh->mBones[n]->
-
-
+        bone *B = new bone;
+        aiBone *bone=mesh->mBones[n];
+        glm::mat4 mat;
+        aiMatrix4x4 oMatrix=bone->mOffsetMatrix;
+        mat[0][0]=oMatrix.a1; mat[0][1]=oMatrix.a2; mat[0][2]=oMatrix.a3; mat[0][3]=oMatrix.a4;
+        mat[1][0]=oMatrix.b1; mat[1][1]=oMatrix.b2; mat[1][2]=oMatrix.b3; mat[1][3]=oMatrix.b4;
+        mat[2][0]=oMatrix.c1; mat[2][1]=oMatrix.c2; mat[2][2]=oMatrix.c3; mat[2][3]=oMatrix.c4;
+        mat[3][0]=oMatrix.d1; mat[3][1]=oMatrix.d2; mat[3][2]=oMatrix.d3; mat[3][3]=oMatrix.d4;
+        B->setOffsetMatrix(mat);
+        bonesArray->addElement(n,B);
+        unsigned int size=bone->mNumWeights;
+        for(unsigned int m=0;m!=size;m++){
+            aiVertexWeight weight=bone->mWeights[m];
+            unsigned int offset=weight.mVertexId+meshOffset+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
+            for(unsigned int c=0;c!=NUM_BONES_PER_VERTEX;c++){
+                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
+                    vertexAtributesArray[offset+c]=n;//индекс кости
+                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
+                    break;
+                }//иначе проверяем следующую позицию
+                //если все позиции заняты, то кость не записывается
+            }
+        }
     }
 }

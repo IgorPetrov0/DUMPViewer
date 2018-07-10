@@ -45,6 +45,7 @@ INPUT(
 ./release\meshinfobox.o
 ./release\meshbox.o
 ./release\gameobjectlight.o
+./release\bone.o
 ./release\moc_mainwindow.o
 ./release\moc_viewwindow.o
 ./release\moc_newgameobjectnamewindow.o
