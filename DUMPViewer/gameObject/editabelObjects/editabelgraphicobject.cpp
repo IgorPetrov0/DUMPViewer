@@ -80,16 +80,17 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                 vertexAtributesArray->addElement(cm*8+6,0);
                 vertexAtributesArray->addElement(cm*8+7,0);
             }
-            if(hasBones){//если есть кости хотябы в одном меше сцены, то резервируем место под них
+            if(hasBones){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
                 for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
+                    unsigned int s=cm*8+8+cc;что-то тут считается не так
                     vertexAtributesArray->addElement(cm*8+8+cc,0);
                 }
             }
         }
+        unsigned int *a=new unsigned int[12000];
         c+=m;
         m=0;
     }
-
     //создаем массив индексных объектов
     if(indicesObjectsArray!=NULL){
         indicesObjectsArray->deletePointers();
@@ -98,6 +99,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     indicesObjectsArray = new dArray<gameIndexObject*>(scene->mNumMeshes);
     for(unsigned int nn=0;nn!=scene->mNumMeshes;nn++){
         aiMesh *mesh=scene->mMeshes[nn];
+        unsigned int *a=new unsigned int[12000];
         dArray<unsigned int> *array = new  dArray<unsigned int>(mesh->mNumFaces*3);
         unsigned int index=0;
         for(unsigned int n=0;n!=mesh->mNumFaces;n++){
@@ -258,11 +260,12 @@ void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int meshOffse
             aiVertexWeight weight=bone->mWeights[m];
             unsigned int offset=weight.mVertexId+meshOffset+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
             for(unsigned int c=0;c!=NUM_BONES_PER_VERTEX;c++){
-                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
-                    vertexAtributesArray[offset+c]=n;//индекс кости
-                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
-                    break;
-                }//иначе проверяем следующую позицию
+                vertexAtributesArray[0]=4;
+//                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
+//                    vertexAtributesArray[offset+c]=n;//индекс кости
+//                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
+//                    break;
+//                }//иначе проверяем следующую позицию
                 //если все позиции заняты, то кость не записывается
             }
         }
