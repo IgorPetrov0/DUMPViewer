@@ -5,6 +5,7 @@ gameIndexObject::gameIndexObject()
     indices=NULL;
     materialPointer=NULL;
     size=0;
+    ebo=0;
 }
 /////////////////////////////////////////////////////////////////////
 gameIndexObject::gameIndexObject(gameIndexObject *object)
@@ -64,8 +65,5 @@ void gameIndexObject::clear(){
         delete indices;
         indices=NULL;
     }
-
-
-
     materialPointer->clear();
 }

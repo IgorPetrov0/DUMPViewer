@@ -4,7 +4,7 @@ editorCore::editorCore()
 {
     a_mainWindowPointer=NULL;
     a_currentObject=NULL;
-    a_modelFilter="Object files (*.obj *.dae *.blend)";
+    a_modelFilter="Object files (*.obj *.dae *.blend *.fbx)";
     a_defaultObjectName="defaultObject";
     a_lastDistance=-5;
     a_programName="DUMPViewer";

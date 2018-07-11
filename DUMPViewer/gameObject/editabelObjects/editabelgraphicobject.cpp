@@ -30,7 +30,9 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     unsigned int size=0;
     unsigned int lastIndex=0;
     unsigned int c=0;
-    bool hasBones=false;
+    unsigned int offset=8;
+
+
 
     //вершины
     //подсчитываем общее кол-во вершин в сцене
@@ -38,7 +40,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         size+=meshes[n]->mNumVertices;
         if(meshes[n]->HasBones()){//если хоть один меш в сцене имеет кости, то устанавливаем флаг
-            hasBones=true;
+            offset=8+NUM_BONES_PER_VERTEX*2;
         }
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
@@ -48,7 +50,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     if(vertexAtributesArray!=NULL){
         delete vertexAtributesArray;
     }
-    vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
+    if(offset>8){//если с костями
+        vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3+size*NUM_BONES_PER_VERTEX*2);//количество координат вершин+количество текстурных координат+кол-во нормалей+кости
+    }
+    else{//если без костей
+        vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
+    }
 
     //проходим по всем мешам сцены собираем вершины, текстурные координаты и нормали
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
@@ -59,37 +66,36 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         unsigned int m=0;
         for(m=0;m!=mesh->mNumVertices;m++){
             unsigned int cm=c+m;
-            vertexAtributesArray->addElement(cm*8,vertexes[m].x);
-            vertexAtributesArray->addElement(cm*8+1,vertexes[m].y);
-            vertexAtributesArray->addElement(cm*8+2,vertexes[m].z);
+            vertexAtributesArray->addElement(cm*offset,vertexes[m].x);
+            vertexAtributesArray->addElement(cm*offset+1,vertexes[m].y);
+            vertexAtributesArray->addElement(cm*offset+2,vertexes[m].z);
             if(mesh->HasTextureCoords(0)){
-                vertexAtributesArray->addElement(cm*8+3,texCoords[m].x);
-                vertexAtributesArray->addElement(cm*8+4,texCoords[m].y);
+                vertexAtributesArray->addElement(cm*offset+3,texCoords[m].x);
+                vertexAtributesArray->addElement(cm*offset+4,texCoords[m].y);
             }
             else{
-                vertexAtributesArray->addElement(cm*8+3,0);
-                vertexAtributesArray->addElement(cm*8+4,0);
+                vertexAtributesArray->addElement(cm*offset+3,0);
+                vertexAtributesArray->addElement(cm*offset+4,0);
             }
             if(mesh->HasNormals()){
-                vertexAtributesArray->addElement(cm*8+5,normals[m].x);
-                vertexAtributesArray->addElement(cm*8+6,normals[m].y);
-                vertexAtributesArray->addElement(cm*8+7,normals[m].z);
+                vertexAtributesArray->addElement(cm*offset+5,normals[m].x);
+                vertexAtributesArray->addElement(cm*offset+6,normals[m].y);
+                vertexAtributesArray->addElement(cm*offset+7,normals[m].z);
             }
             else{
-                vertexAtributesArray->addElement(cm*8+5,0);
-                vertexAtributesArray->addElement(cm*8+6,0);
-                vertexAtributesArray->addElement(cm*8+7,0);
+                vertexAtributesArray->addElement(cm*offset+5,0);
+                vertexAtributesArray->addElement(cm*offset+6,0);
+                vertexAtributesArray->addElement(cm*offset+7,0);
             }
-            if(hasBones){//если есть кости хотябы в одном меше сцены, то резервируем место под них
+            if(offset>8){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
                 for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
-                    vertexAtributesArray->addElement(cm*8+8+cc,0);
+                    unsigned int s=cm*8+8+cc;
+                    vertexAtributesArray->addElement(cm*offset+8+cc,0);
                 }
             }
         }
         c+=m;
-        m=0;
     }
-
     //создаем массив индексных объектов
     if(indicesObjectsArray!=NULL){
         indicesObjectsArray->deletePointers();
@@ -258,11 +264,12 @@ void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int meshOffse
             aiVertexWeight weight=bone->mWeights[m];
             unsigned int offset=weight.mVertexId+meshOffset+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
             for(unsigned int c=0;c!=NUM_BONES_PER_VERTEX;c++){
-                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
-                    vertexAtributesArray[offset+c]=n;//индекс кости
-                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
-                    break;
-                }//иначе проверяем следующую позицию
+                vertexAtributesArray[0]=4;
+//                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
+//                    vertexAtributesArray[offset+c]=n;//индекс кости
+//                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
+//                    break;
+//                }//иначе проверяем следующую позицию
                 //если все позиции заняты, то кость не записывается
             }
         }
