@@ -87,13 +87,21 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                 vertexAtributesArray->addElement(cm*offset+6,0);
                 vertexAtributesArray->addElement(cm*offset+7,0);
             }
+<<<<<<< HEAD
             if(offset>8){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
                 for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
                     unsigned int s=cm*8+8+cc;
                     vertexAtributesArray->addElement(cm*offset+8+cc,0);
+=======
+            if(hasBones){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
+                for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
+                    unsigned int s=cm*8+8+cc;что-то тут считается не так
+                    vertexAtributesArray->addElement(cm*8+8+cc,0);
+>>>>>>> c3ae446b892b35e63fec8f1cab8a07b002272f6e
                 }
             }
         }
+        unsigned int *a=new unsigned int[12000];
         c+=m;
     }
     //создаем массив индексных объектов
@@ -104,6 +112,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     indicesObjectsArray = new dArray<gameIndexObject*>(scene->mNumMeshes);
     for(unsigned int nn=0;nn!=scene->mNumMeshes;nn++){
         aiMesh *mesh=scene->mMeshes[nn];
+        unsigned int *a=new unsigned int[12000];
         dArray<unsigned int> *array = new  dArray<unsigned int>(mesh->mNumFaces*3);
         unsigned int index=0;
         for(unsigned int n=0;n!=mesh->mNumFaces;n++){
