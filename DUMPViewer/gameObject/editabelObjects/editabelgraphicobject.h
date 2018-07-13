@@ -42,7 +42,7 @@ protected:
 
     void calculateModelMatrix();
     void loadLights(const aiScene *scene);
-    void loadBones(const aiMesh *mesh, unsigned int meshOffset);
+    void loadBones(const aiMesh *mesh, unsigned int beginIndex);
 
 
 };

@@ -31,7 +31,8 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     unsigned int lastIndex=0;
     unsigned int c=0;
     unsigned int offset=8;
-
+    unsigned int beginIndex=0;
+    unsigned int bonesSize=0;
 
 
     //вершины
@@ -41,6 +42,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         size+=meshes[n]->mNumVertices;
         if(meshes[n]->HasBones()){//если хоть один меш в сцене имеет кости, то устанавливаем флаг
             offset=8+NUM_BONES_PER_VERTEX*2;
+            bonesSize+=meshes[n]->mNumBones;//заодно считаем общее количество костей
         }
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
@@ -52,6 +54,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     }
     if(offset>8){//если с костями
         vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3+size*NUM_BONES_PER_VERTEX*2);//количество координат вершин+количество текстурных координат+кол-во нормалей+кости
+        bonesArray = new dArray<bone*>(bonesSize);
     }
     else{//если без костей
         vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
@@ -87,21 +90,13 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
                 vertexAtributesArray->addElement(cm*offset+6,0);
                 vertexAtributesArray->addElement(cm*offset+7,0);
             }
-<<<<<<< HEAD
             if(offset>8){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
                 for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
                     unsigned int s=cm*8+8+cc;
                     vertexAtributesArray->addElement(cm*offset+8+cc,0);
-=======
-            if(hasBones){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
-                for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
-                    unsigned int s=cm*8+8+cc;что-то тут считается не так
-                    vertexAtributesArray->addElement(cm*8+8+cc,0);
->>>>>>> c3ae446b892b35e63fec8f1cab8a07b002272f6e
                 }
             }
         }
-        unsigned int *a=new unsigned int[12000];
         c+=m;
     }
     //создаем массив индексных объектов
@@ -110,9 +105,9 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         delete indicesObjectsArray;
     }
     indicesObjectsArray = new dArray<gameIndexObject*>(scene->mNumMeshes);
+    beginIndex=lastIndex;
     for(unsigned int nn=0;nn!=scene->mNumMeshes;nn++){
         aiMesh *mesh=scene->mMeshes[nn];
-        unsigned int *a=new unsigned int[12000];
         dArray<unsigned int> *array = new  dArray<unsigned int>(mesh->mNumFaces*3);
         unsigned int index=0;
         for(unsigned int n=0;n!=mesh->mNumFaces;n++){
@@ -125,7 +120,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
             }
         }
         if(mesh->HasBones()){//если данный меш имеет кости, то собираем их. Иначе места в массиве остаются нулевыми
-            loadBones(mesh,lastIndex);
+            loadBones(mesh,beginIndex);
         }
 
         lastIndex=index+1;
@@ -252,12 +247,13 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int meshOffset){
+void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int beginIndex){
     //формат: vX,vY,vZ,tX,tY,nX,nY,nZ,boneIndex1,w1,boneIndex2,w2,boneIndex3,w3,boneIndex4,w4 -для объектов с костями
     unsigned int size=mesh->mNumBones;
-    bonesArray = new dArray<bone*>(size);
+    static unsigned int begin=0;
 
-    for(unsigned int n=0;n!=size;n++){
+    unsigned int n=0;
+    for(n=0;n!=size;n++){
         bone *B = new bone;
         aiBone *bone=mesh->mBones[n];
         glm::mat4 mat;
@@ -267,20 +263,40 @@ void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int meshOffse
         mat[2][0]=oMatrix.c1; mat[2][1]=oMatrix.c2; mat[2][2]=oMatrix.c3; mat[2][3]=oMatrix.c4;
         mat[3][0]=oMatrix.d1; mat[3][1]=oMatrix.d2; mat[3][2]=oMatrix.d3; mat[3][3]=oMatrix.d4;
         B->setOffsetMatrix(mat);
-        bonesArray->addElement(n,B);
-        unsigned int size=bone->mNumWeights;
-        for(unsigned int m=0;m!=size;m++){
+        bonesArray->addElement(begin+n,B);
+        for(unsigned int m=0;m!=bone->mNumWeights;m++){
             aiVertexWeight weight=bone->mWeights[m];
-            unsigned int offset=weight.mVertexId+meshOffset+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
+            unsigned int offset=(weight.mVertexId+beginIndex)*(8+NUM_BONES_PER_VERTEX*2)+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
             for(unsigned int c=0;c!=NUM_BONES_PER_VERTEX;c++){
-                vertexAtributesArray[0]=4;
-//                if(vertexAtributesArray[offset+c]==(float)0 & vertexAtributesArray[offset+c+1==(float)0]){//если позиция кости =0, то пишем в нее
-//                    vertexAtributesArray[offset+c]=n;//индекс кости
-//                    vertexAtributesArray[offset+c+1]=weight->mWeight;//вес
-//                    break;
-//                }//иначе проверяем следующую позицию
+                if(vertexAtributesArray->operator [](offset+c)==(float)0 && vertexAtributesArray->operator [](offset+c+1)==(float)0){//если позиция кости =0, то пишем в нее
+                    vertexAtributesArray->operator [](offset+c)=n;//индекс кости
+                    vertexAtributesArray->operator [](offset+c+1)=weight.mWeight;//вес
+                    break;
+                }//иначе проверяем следующую позицию
                 //если все позиции заняты, то кость не записывается
             }
         }
     }
+    begin=n;
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

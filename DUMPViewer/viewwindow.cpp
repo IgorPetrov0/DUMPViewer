@@ -80,7 +80,7 @@ void viewWindow::addModel(editabelGraphicObject *model){
         glGenVertexArrays(1,&vaoName);
         glBindVertexArray(vaoName);
         glBindBuffer(GL_ARRAY_BUFFER,vboName);//биндим к нему VBO
-        GLsizei strade=8*sizeof(float);
+        GLsizei strade=(8+NUM_BONES_PER_VERTEX*2)*sizeof(float);
         glVertexAttribPointer(1,3,GL_FLOAT,GL_FALSE,strade,NULL);//координаты вершины
         glVertexAttribPointer(2,2,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(3*sizeof(float)));//текстурные координаты
         glVertexAttribPointer(3,3,GL_FLOAT,GL_FALSE,strade,(GLvoid*)(5*sizeof(float)));//нормаль

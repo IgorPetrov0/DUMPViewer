@@ -10,6 +10,7 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
+#include <vector>
 #include "GUI/toolWidget.h"
 #include "viewwindow.h"
 #include "GUI/serviceWindows/newgameobjectnamewindow.h"
