@@ -8,13 +8,13 @@
 #include "defines.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-
+#include "gameObject/animation/nodeobject.h"
 
 
 
 using namespace std;
 
-class meshObject
+class meshObject : public nodeObject
 {
 public:
     meshObject();

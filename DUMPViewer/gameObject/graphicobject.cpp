@@ -5,6 +5,9 @@ graphicObject::graphicObject()
     visible=true;
     lightSorces=NULL;
     bonesArray=NULL;
+    rootNode=NULL;
+    emptyNodes=NULL;
+    animationsArray=NULL;
 }
 ///////////////////////////////////////////////////////////
 graphicObject::~graphicObject(){
@@ -15,6 +18,14 @@ graphicObject::~graphicObject(){
     if(bonesArray!=NULL){
         bonesArray->deletePointers();
         delete bonesArray;
+    }
+    if(emptyNodes!=NULL){
+        emptyNodes->deletePointers();
+        delete emptyNodes;
+    }
+    if(animationsArray!=NULL){
+        animationsArray->deletePointers();
+        delete animationsArray;
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,6 +70,10 @@ GLuint graphicObject::getGLShaderProgram() const{
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void graphicObject::setGLShaderProgram(const GLuint &value){
     GLShaderProgram = value;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+void graphicObject::setAnimationsArray(dArray<animation *> *value){
+    animationsArray = value;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 

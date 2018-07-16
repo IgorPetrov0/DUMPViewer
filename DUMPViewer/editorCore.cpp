@@ -4,7 +4,7 @@ editorCore::editorCore()
 {
     a_mainWindowPointer=NULL;
     a_currentObject=NULL;
-    a_modelFilter="Object files (*.obj *.dae *.blend *.fbx)";
+    a_modelFilter="Object files (*.obj *.dae *.blend *.fbx *.3ds)";
     a_defaultObjectName="defaultObject";
     a_lastDistance=-5;
     a_programName="DUMPViewer";
@@ -150,7 +150,8 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
 
     const aiScene *scene=importer.ReadFile(fileName.toStdString(),aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
     if(scene==NULL){
-        a_error=QObject::tr("File ")+fileName+QObject::tr(" is not open.");
+        const char *error=importer.GetErrorString();
+        a_error=QObject::tr("File ")+fileName+QObject::tr(" is not open.")+"\n"+QString::fromLatin1(error);
         return false;
     }
     if(!scene->HasMeshes()){

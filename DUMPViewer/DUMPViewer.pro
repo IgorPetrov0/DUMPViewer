@@ -59,7 +59,11 @@ SOURCES += main.cpp\
     GUI/meshinfobox.cpp \
     GUI/meshbox.cpp \
     gameObject/gameobjectlight.cpp \
-    gameObject/bone.cpp
+    gameObject/animation/bone.cpp \
+    gameObject/animation/nodeobject.cpp \
+    gameObject/animation/animation.cpp \
+    gameObject/animation/animchannel.cpp \
+    gameObject/animation/animkey.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -108,7 +112,11 @@ HEADERS  += mainwindow.h \
     GUI/meshinfobox.h \
     GUI/meshbox.h \
     gameObject/gameobjectlight.h \
-    gameObject/bone.h
+    gameObject/animation/bone.h \
+    gameObject/animation/nodeobject.h \
+    gameObject/animation/animation.h \
+    gameObject/animation/animchannel.h \
+    gameObject/animation/animkey.h
 
 FORMS    += \
     mainwindow.ui \
