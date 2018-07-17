@@ -4,4 +4,4 @@ animChannel::animChannel()
 {
 
 }
-хуй
+

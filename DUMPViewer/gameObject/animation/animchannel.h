@@ -14,6 +14,7 @@ class animChannel
 public:
     animChannel();
 
+
 protected:
     string nodeName;
     dArray<animKey*>positionKeys;

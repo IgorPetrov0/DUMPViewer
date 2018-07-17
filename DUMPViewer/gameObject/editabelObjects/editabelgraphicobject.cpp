@@ -161,6 +161,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         emptyNodesVector.clear();//а вектор очищаем
     }
     meshNames.clear();//имена мешей больше не нужны
+
+    //собираем анимации
+    loadAnimations(scene);
+
+
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 string editabelGraphicObject::getName(){
@@ -289,6 +295,26 @@ void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int beginInde
     if(boneIndex==bonesArray->getSize()){
         boneIndex=0;
     }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void editabelGraphicObject::loadAnimations(const aiScene *scene){
+    unsigned int size=scene->mNumAnimations;
+    animationsArray = new dArray<animation*>(size);
+
+//    for(unsigned int n=0;n!=size;n++){
+//        aiAnimation tmpAnim=scene->mAnimations[n];
+//        unsigned int nChanels=tmpAnim.mNumChannels;
+//        dArray<animChannel*> *tmpChannelsArray = new dArray<animChannel*>(nChanels);
+//        for(unsigned int m=0;m!=nChanels;m++){
+//            animChannel *tmpChannel = new animChannel;
+
+//        }
+
+//    }
+
+
+
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 nodeObject *editabelGraphicObject::createHierarhi(const aiNode *node){

@@ -12,4 +12,4 @@ glm::mat4 bone::getOffsetMatrix() const{
 void bone::setOffsetMatrix(const glm::mat4 &value){
     offsetMatrix = value;
 }
-хуй
+

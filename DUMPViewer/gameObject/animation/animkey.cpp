@@ -4,4 +4,4 @@ animKey::animKey()
 {
 
 }
-хуй
+

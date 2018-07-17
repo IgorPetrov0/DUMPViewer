@@ -44,6 +44,7 @@ protected:
     void calculateModelMatrix();
     void loadLights(const aiScene *scene);
     void loadBones(const aiMesh *mesh, unsigned int beginIndex);
+    void loadAnimations(const aiScene *scene);
     nodeObject *createHierarhi(const aiNode *node);
     nodeObject *findNode(aiString name);
     QVector<aiString> meshNames;
