@@ -3,6 +3,7 @@
 
 #include <string>
 #include "glm/glm.hpp"
+#include "gameObject/animation/nodeobject.h"
 
 
 enum lightType{
@@ -28,7 +29,7 @@ struct lightPropetries{
     glm::vec3 position;
 };
 
-class gameObjectLight
+class gameObjectLight : public nodeObject
 {
 public:
     gameObjectLight();

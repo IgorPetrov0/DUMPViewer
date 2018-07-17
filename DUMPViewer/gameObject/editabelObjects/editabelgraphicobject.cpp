@@ -40,10 +40,12 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     aiMesh **meshes=scene->mMeshes;
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         size+=meshes[n]->mNumVertices;
-        if(meshes[n]->HasBones()){//если хоть один меш в сцене имеет кости, то устанавливаем флаг
+        if(meshes[n]->HasBones()){//если хоть один меш в сцене имеет кости, то меняем смещение
             offset=8+NUM_BONES_PER_VERTEX*2;
             bonesSize+=meshes[n]->mNumBones;//заодно считаем общее количество костей
         }
+        //собираем имена мешей. Нужно для построения иерархии
+        meshNames.append(meshes[n]->mName);
     }
     //создаем массив вершинных атрибутов для объекта и заполняем его
     //массив один на объект
@@ -60,6 +62,7 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
         vertexAtributesArray = new dArray<vertexCoordinates>(size*3+size*2+size*3);//количество координат вершин+количество текстурных координат+кол-во нормалей
     }
 
+    this->setName(meshes[0]->mName.C_Str());//имя меша = имя первого по счету меша в aiScene
     //проходим по всем мешам сцены собираем вершины, текстурные координаты и нормали
     for(unsigned int n=0;n!=scene->mNumMeshes;n++){
         aiMesh *mesh=meshes[n];
@@ -92,7 +95,6 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
             }
             if(offset>8){//если есть кости хотя-бы в одном меше сцены, то резервируем место под них
                 for(unsigned int cc=0;cc!=NUM_BONES_PER_VERTEX*2;cc++){
-                    unsigned int s=cm*8+8+cc;
                     vertexAtributesArray->addElement(cm*offset+8+cc,0);
                 }
             }
@@ -148,7 +150,17 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
     if(scene->HasLights()){
         loadLights(scene);
     }
-
+    //строим иерархию
+    rootNode=createHierarhi(scene->mRootNode);
+    size=emptyNodesVector.size();
+    if(size!=0){//если вектор пустых нодов не пустой, то создаем массив
+        emptyNodes = new dArray<nodeObject*>(size);
+        for(unsigned int n=0;n!=size;n++){//заполняем его
+            emptyNodes->addElement(n,emptyNodesVector[n]);
+        }
+        emptyNodesVector.clear();//а вектор очищаем
+    }
+    meshNames.clear();//имена мешей больше не нужны
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 string editabelGraphicObject::getName(){
@@ -243,6 +255,7 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
                 break;
             }
         }
+        gLight->setName(light->mName.C_Str());
         lightSorces->addElement(n,gLight);
     }
 }
@@ -250,26 +263,21 @@ void editabelGraphicObject::loadLights(const aiScene *scene){
 void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int beginIndex){
     //формат: vX,vY,vZ,tX,tY,nX,nY,nZ,boneIndex1,w1,boneIndex2,w2,boneIndex3,w3,boneIndex4,w4 -для объектов с костями
     unsigned int size=mesh->mNumBones;
-    static unsigned int begin=0;
+    static unsigned int boneIndex=0;
 
     unsigned int n=0;
     for(n=0;n!=size;n++){
         bone *B = new bone;
         aiBone *bone=mesh->mBones[n];
-        glm::mat4 mat;
-        aiMatrix4x4 oMatrix=bone->mOffsetMatrix;
-        mat[0][0]=oMatrix.a1; mat[0][1]=oMatrix.a2; mat[0][2]=oMatrix.a3; mat[0][3]=oMatrix.a4;
-        mat[1][0]=oMatrix.b1; mat[1][1]=oMatrix.b2; mat[1][2]=oMatrix.b3; mat[1][3]=oMatrix.b4;
-        mat[2][0]=oMatrix.c1; mat[2][1]=oMatrix.c2; mat[2][2]=oMatrix.c3; mat[2][3]=oMatrix.c4;
-        mat[3][0]=oMatrix.d1; mat[3][1]=oMatrix.d2; mat[3][2]=oMatrix.d3; mat[3][3]=oMatrix.d4;
-        B->setOffsetMatrix(mat);
-        bonesArray->addElement(begin+n,B);
+        B->setOffsetMatrix(convertMatrix(bone->mOffsetMatrix));
+        B->setName(bone->mName.C_Str());
+        bonesArray->addElement(boneIndex+n,B);
         for(unsigned int m=0;m!=bone->mNumWeights;m++){
             aiVertexWeight weight=bone->mWeights[m];
             unsigned int offset=(weight.mVertexId+beginIndex)*(8+NUM_BONES_PER_VERTEX*2)+8;//смещение для вершины в массиве - индекс+смещение меша+8 флоатов (вершинные атрибуты)
             for(unsigned int c=0;c!=NUM_BONES_PER_VERTEX;c++){
                 if(vertexAtributesArray->operator [](offset+c)==(float)0 && vertexAtributesArray->operator [](offset+c+1)==(float)0){//если позиция кости =0, то пишем в нее
-                    vertexAtributesArray->operator [](offset+c)=n;//индекс кости
+                    vertexAtributesArray->operator [](offset+c)=boneIndex+n;//индекс кости
                     vertexAtributesArray->operator [](offset+c+1)=weight.mWeight;//вес
                     break;
                 }//иначе проверяем следующую позицию
@@ -277,7 +285,84 @@ void editabelGraphicObject::loadBones(const aiMesh *mesh, unsigned int beginInde
             }
         }
     }
-    begin=n;
+    boneIndex+=n;
+    if(boneIndex==bonesArray->getSize()){
+        boneIndex=0;
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+nodeObject *editabelGraphicObject::createHierarhi(const aiNode *node){
+    nodeObject *no=findNode(node->mName);
+    if(no==NULL){
+        no = new nodeObject;
+        emptyNodesVector.append(no);
+    }
+    no->setTransformMatrix(convertMatrix(node->mTransformation));
+    if(node->mParent!=NULL){
+        no->setParent(findNode(node->mParent->mName));
+    }
+    no->setName(node->mName.C_Str());
+    unsigned int size=node->mNumChildren;
+    if(size!=0){
+        dArray<nodeObject*>*nodes = new dArray<nodeObject*>(size);
+        for(unsigned int n=0;n!=size;n++){
+            nodes->addElement(n,createHierarhi(node->mChildren[n]));
+        }
+        no->setChildsArray(nodes);
+    }
+    return no;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+nodeObject *editabelGraphicObject::findNode(aiString name){
+
+    string nodeName=name.C_Str();
+    nodeObject *node;
+    //проверяем, по массиву имен мешей
+    unsigned int size=meshNames.size();
+    for(unsigned int n=0;n!=size;n++){
+        if(meshNames[n]==name){
+            return this;
+        }
+    }
+    //проверяем по массиву костей
+    if(bonesArray!=NULL){
+        size=bonesArray->getSize();
+        for(unsigned int n=0;n!=size;n++){
+            node=bonesArray->operator [](n);
+            if(node->getName()==nodeName){
+                return node;
+            }
+        }
+    }
+    //проверяем по массиву источников света
+    if(lightSorces!=NULL){
+        size=lightSorces->getSize();
+        for(unsigned int n=0;n!=size;n++){
+            node=lightSorces->operator [](n);
+            if(node->getName()==nodeName){
+                return node;
+            }
+        }
+    }
+    //проверяем по массиву пустых нодов
+    size=emptyNodesVector.size();
+    for(unsigned int n=0;n!=size;n++){
+        node=emptyNodesVector[n];
+        if(node->getName()==nodeName){
+            return node;
+        }
+    }
+
+    return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+glm::mat4 editabelGraphicObject::convertMatrix(aiMatrix4x4 matrix){
+    glm::mat4 mat;
+    mat[0][0]=matrix.a1; mat[0][1]=matrix.a2; mat[0][2]=matrix.a3; mat[0][3]=matrix.a4;
+    mat[1][0]=matrix.b1; mat[1][1]=matrix.b2; mat[1][2]=matrix.b3; mat[1][3]=matrix.b4;
+    mat[2][0]=matrix.c1; mat[2][1]=matrix.c2; mat[2][2]=matrix.c3; mat[2][3]=matrix.c4;
+    mat[3][0]=matrix.d1; mat[3][1]=matrix.d2; mat[3][2]=matrix.d3; mat[3][3]=matrix.d4;
+    return mat;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -7,6 +7,7 @@
 #include <assimp/mesh.h>
 #include <assimp/types.h>
 #include "gameObject/graphicobject.h"
+#include "gameObject/animation/nodeobject.h"
 
 enum viewType{
     VIEW_TEXTURED,
@@ -43,7 +44,11 @@ protected:
     void calculateModelMatrix();
     void loadLights(const aiScene *scene);
     void loadBones(const aiMesh *mesh, unsigned int beginIndex);
-
+    nodeObject *createHierarhi(const aiNode *node);
+    nodeObject *findNode(aiString name);
+    QVector<aiString> meshNames;
+    QVector<nodeObject*>emptyNodesVector;
+    glm::mat4 convertMatrix(aiMatrix4x4 matrix);
 
 };
 
