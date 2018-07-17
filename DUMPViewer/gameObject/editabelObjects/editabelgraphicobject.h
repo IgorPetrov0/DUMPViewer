@@ -8,6 +8,7 @@
 #include <assimp/types.h>
 #include "gameObject/graphicobject.h"
 #include "gameObject/animation/nodeobject.h"
+#include "glm/gtc/quaternion.hpp"
 
 enum viewType{
     VIEW_TEXTURED,

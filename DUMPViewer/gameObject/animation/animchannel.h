@@ -4,6 +4,7 @@
 #include <string.h>
 #include <iostream>
 #include "gameObject/animation/animkey.h"
+#include "gameObject/animation/animquatkey.h"
 #include "gameObject/dArray.h"
 
 
@@ -13,13 +14,17 @@ class animChannel
 {
 public:
     animChannel();
-
+    void setPositionKeys(dArray<animKey *> *value);
+    void setRotationKeys(dArray<animQuatKey *> *value);
+    void setScaleKeys(dArray<animKey *> *value);
+    string getNodeName() const;
+    void setNodeName(const string &value);
 
 protected:
     string nodeName;
-    dArray<animKey*>positionKeys;
-    dArray<animKey*>rotationKeys;
-    dArray<animKey*>scaleKeys;
+    dArray<animKey*> *positionKeys;
+    dArray<animQuatKey*> *rotationKeys;
+    dArray<animKey*> *scaleKeys;
 };
 
 #endif // ANIMCHANNEL_H

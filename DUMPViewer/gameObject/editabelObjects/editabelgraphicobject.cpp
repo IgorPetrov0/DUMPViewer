@@ -301,20 +301,60 @@ void editabelGraphicObject::loadAnimations(const aiScene *scene){
     unsigned int size=scene->mNumAnimations;
     animationsArray = new dArray<animation*>(size);
 
-//    for(unsigned int n=0;n!=size;n++){
-//        aiAnimation tmpAnim=scene->mAnimations[n];
-//        unsigned int nChanels=tmpAnim.mNumChannels;
-//        dArray<animChannel*> *tmpChannelsArray = new dArray<animChannel*>(nChanels);
-//        for(unsigned int m=0;m!=nChanels;m++){
-//            animChannel *tmpChannel = new animChannel;
+    for(unsigned int n=0;n!=size;n++){
+        aiAnimation *tmpAnim=scene->mAnimations[n];
+        animation *tmpAnimation = new animation;
+        tmpAnimation->setName(tmpAnim->mName.C_Str());
+        tmpAnimation->setDuration(tmpAnim->mDuration);
+        tmpAnimation->setTickPerSecond(tmpAnim->mTicksPerSecond);
 
-//        }
+        unsigned int nChanels=tmpAnim->mNumChannels;
+        dArray<animChannel*> *tmpChannelsArray = new dArray<animChannel*>(nChanels);
+        for(unsigned int m=0;m!=nChanels;m++){
+            dArray<animKey*> *tmpKeys=NULL;
 
-//    }
+            //ключи позиций
+            animChannel *tmpChannel = new animChannel;
+            tmpChannel->setNodeName(tmpAnim->mChannels[n]->mNodeName.C_Str());
 
+            unsigned int keySize=tmpAnim->mChannels[m]->mNumPositionKeys;
+            tmpKeys = new dArray<animKey*>(keySize);
+            for(unsigned int nm=0;nm!=keySize;nm++){
+                animKey *tmpKey = new animKey;
+                aiVectorKey key=tmpAnim->mChannels[m]->mPositionKeys[nm];
+                tmpKey->setTime(key.mTime);
+                tmpKey->setValue(glm::vec3(key.mValue.x,key.mValue.y,key.mValue.z));
+                tmpKeys->addElement(nm,tmpKey);
+            }
+            tmpChannel->setPositionKeys(tmpKeys);
 
+            //ключи поворотов
+            dArray<animQuatKey*>*tmpQuatKeys = new dArray<animQuatKey*>(keySize);
+            keySize=tmpAnim->mChannels[m]->mNumRotationKeys;
+            for(unsigned int nm=0;nm!=keySize;nm++){
+                animQuatKey *tmpQuatKey = new animQuatKey;
+                aiQuatKey key=tmpAnim->mChannels[m]->mRotationKeys[nm];
+                tmpQuatKey->setTime(key.mTime);
+                tmpQuatKey->setValue(glm::quat(key.mValue.w,key.mValue.x,key.mValue.y,key.mValue.z));
+                tmpQuatKeys->addElement(nm,tmpQuatKey);
+            }
+            tmpChannel->setRotationKeys(tmpQuatKeys);
 
-
+            //ключи масштабирования
+            keySize=tmpAnim->mChannels[m]->mNumScalingKeys;
+            tmpKeys = new dArray<animKey*>(keySize);
+            for(unsigned int nm=0;nm!=keySize;nm++){
+                animKey *tmpKey = new animKey;
+                aiVectorKey key=tmpAnim->mChannels[m]->mScalingKeys[nm];
+                tmpKey->setTime(key.mTime);
+                tmpKey->setValue(glm::vec3(key.mValue.x,key.mValue.y,key.mValue.z));
+                tmpKeys->addElement(nm,tmpKey);
+            }
+            tmpChannel->setScaleKeys(tmpKeys);
+            tmpChannelsArray->addElement(m,tmpChannel);
+        }
+        animationsArray->addElement(n,tmpAnimation);
+    }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 nodeObject *editabelGraphicObject::createHierarhi(const aiNode *node){
