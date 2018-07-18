@@ -7,14 +7,14 @@ toolWidget::toolWidget(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    ui->graphicTab->setCurrentIndex(0);
-    ui->graphicTab->setUsesScrollButtons(true);
+    //ui->graphicTab->setCurrentIndex(0);
+    //ui->graphicTab->setUsesScrollButtons(true);
     ui->showRadioButton->setChecked(true);
     core=NULL;
 
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
     connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
-    connect(this,SIGNAL(updateInfo()),ui->animationWidget,SLOT(updateInfoSlot()));
+   // connect(this,SIGNAL(updateInfo()),ui->animationWidget,SLOT(updateInfoSlot()));
 
 }
 /////////////////////////////////////////////////
@@ -31,18 +31,18 @@ void toolWidget::resizeEvent(QResizeEvent *event){
     int childHeigth=widgetGeometry.height()-ui->tabWidget->tabBar()->rect().height();
     widgetGeometry.setHeight(childHeigth);    
     ui->phisicTab->setGeometry(widgetGeometry);
-    widgetGeometry.setY(ui->graphicTab->geometry().y());
-    ui->graphicTab->setGeometry(widgetGeometry);
+   // widgetGeometry.setY(ui->graphicTab->geometry().y());
+    //ui->graphicTab->setGeometry(widgetGeometry);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::disableToolPanel(bool disable){
-    ui->graphicTab->setDisabled(disable);
+    //ui->graphicTab->setDisabled(disable);
     ui->phisicTab->setDisabled(disable);
     if(disable){
-        disconnect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
+        //disconnect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
     }
     else{
-        connect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
+        //connect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -51,7 +51,7 @@ void toolWidget::resetToolPanel(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::update(){
-    ui->animationWidget->update();
+    //ui->animationWidget->update();
 
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -61,12 +61,12 @@ void toolWidget::graphicTabSelectedSlot(int index){
     static int lastIndex=0;
     static float lastDistance=0;
 
-    if(index==ui->graphicTab->count()-1){
-        if(LODTabsArray.size() < 4){
-            addLODTab();
-            return;
-        }
-    }
+//    if(index==ui->graphicTab->count()-1){
+//        if(LODTabsArray.size() < 4){
+//            addLODTab();
+//            return;
+//        }
+//    }
     if(ui->showRadioButton->isChecked()){//если галка show стоит
         if(index==0){//если переключились на mainMesh
             core->setViewDistance(lastDistance);
@@ -88,19 +88,19 @@ void toolWidget::graphicTabSelectedSlot(int index){
 ///////////////////////////////////////////////////////////////////////
 void toolWidget::LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber){
     if(LODTabsArray.size()>=4){
-        ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,true);
+       // ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,true);
     }
     unsigned int firstTabIndex=LODTabsArray.at(0)->getTabNumber();
 
-    ui->graphicTab->setCurrentIndex(tabIndex-1);
-    ui->graphicTab->removeTab(tabIndex);
+    //ui->graphicTab->setCurrentIndex(tabIndex-1);
+    //ui->graphicTab->removeTab(tabIndex);
     delete LODTabsArray.at(LODNumber);
     LODTabsArray.remove(LODNumber);
     unsigned int size=(unsigned int)LODTabsArray.size();
     for(unsigned int n=0;n!=size;n++){//переписываем все номера LOD-ов
         LODTabsArray.at(n)->setLODNumber(n);
         LODTabsArray.at(n)->setTabNumber(firstTabIndex+n);
-        ui->graphicTab->setTabText(n+1,tr("LOD")+QString::number(n+1));//надписи переписываем, начиная с 1-го таба т.к. 1-й mainMesh
+        //ui->graphicTab->setTabText(n+1,tr("LOD")+QString::number(n+1));//надписи переписываем, начиная с 1-го таба т.к. 1-й mainMesh
     }
 }
 //////////////////////////////////////////////////////////////////////
@@ -114,12 +114,12 @@ void toolWidget::addLODTab(){
     }
     LODTab *newLODTab=new LODTab;
     LODTabsArray.append(newLODTab);
-    newLODTab->setTabNumber(ui->graphicTab->count()-1);
+    //newLODTab->setTabNumber(ui->graphicTab->count()-1);
     newLODTab->setLODNumber(LODTabsArray.size()-1);
-    ui->graphicTab->insertTab(ui->graphicTab->count()-1,newLODTab,tr("LOD")+QString::number(LODTabsArray.size()));
-    ui->graphicTab->setCurrentIndex(ui->graphicTab->count()-2);
+    //ui->graphicTab->insertTab(ui->graphicTab->count()-1,newLODTab,tr("LOD")+QString::number(LODTabsArray.size()));
+    //ui->graphicTab->setCurrentIndex(ui->graphicTab->count()-2);
     if(LODTabsArray.size()>=4){
-        ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,false);
+      //  ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,false);
     }
     newLODTab->setCorePointer(core);
     connect(newLODTab,SIGNAL(deleteSignal(uint,uint)),this,SLOT(LODTabDeleteSlot(uint,uint)));
@@ -129,11 +129,11 @@ void toolWidget::addLODTab(){
 void toolWidget::clearLODTabsArray(){
     int size=LODTabsArray.size();
     for(int n=0;n!=size;n++){
-        ui->graphicTab->removeTab(1);
+       // ui->graphicTab->removeTab(1);
         delete LODTabsArray[n];
     }
     LODTabsArray.clear();
-    ui->graphicTab->setCurrentIndex(0);
+   // ui->graphicTab->setCurrentIndex(0);
     //ui->meshTabBar->resetTab();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,7 +156,7 @@ void toolWidget::showGraphicSlot(bool checked){
         core->updateView();
     }
     else{
-        graphicTabSelectedSlot(ui->graphicTab->currentIndex());
+       //graphicTabSelectedSlot(ui->graphicTab->currentIndex());
     }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,7 +166,7 @@ void toolWidget::setCorePointer(editorCore *core){
     this->core=core;
     ui->constraintsTabBar->setCorePointer(core);
     ui->rigidBodiesTabBar->setCorePointer(core);
-    ui->meshTabBar->setCorePointer(core);
-    ui->animationWidget->setCorePointer(core);
+   // ui->meshTabBar->setCorePointer(core);
+   // ui->animationWidget->setCorePointer(core);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

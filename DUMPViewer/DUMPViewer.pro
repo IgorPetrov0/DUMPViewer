@@ -65,7 +65,7 @@ SOURCES += main.cpp\
     gameObject/animation/animchannel.cpp \
     gameObject/animation/animkey.cpp \
     gameObject/animation/animquatkey.cpp \
-    GUI/tabs/animtab.cpp
+    GUI/widgets/dvbasewidget.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -120,8 +120,9 @@ HEADERS  += mainwindow.h \
     gameObject/animation/animchannel.h \
     gameObject/animation/animkey.h \
     gameObject/animation/animquatkey.h \
-    GUI/tabs/animtab.h \
-    GUI/abstractwidget.h
+    GUI/abstractwidget.h \
+    GUI/widgets/dvbasewidget.h \
+    GUI/widgets/abstractbasewidget.h
 
 FORMS    += \
     mainwindow.ui \
@@ -140,8 +141,7 @@ FORMS    += \
     GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.ui \
     GUI/widgets/constraintPropertiesWidgets/transformwidget.ui \
     GUI/meshinfobox.ui \
-    GUI/meshbox.ui \
-    GUI/tabs/animtab.ui
+    GUI/meshbox.ui
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include
