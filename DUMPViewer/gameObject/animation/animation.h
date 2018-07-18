@@ -12,6 +12,12 @@ public:
     animation();
     ~animation();
     void setChannels(dArray<animChannel *> *value);
+    string getName() const;
+    void setName(const string &value);
+    int getTickPerSecond() const;
+    void setTickPerSecond(int value);
+    int getDuration() const;
+    void setDuration(int value);
 
 protected:
     string name;

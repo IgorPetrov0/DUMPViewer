@@ -63,7 +63,8 @@ SOURCES += main.cpp\
     gameObject/animation/nodeobject.cpp \
     gameObject/animation/animation.cpp \
     gameObject/animation/animchannel.cpp \
-    gameObject/animation/animkey.cpp
+    gameObject/animation/animkey.cpp \
+    gameObject/animation/animquatkey.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -116,7 +117,8 @@ HEADERS  += mainwindow.h \
     gameObject/animation/nodeobject.h \
     gameObject/animation/animation.h \
     gameObject/animation/animchannel.h \
-    gameObject/animation/animkey.h
+    gameObject/animation/animkey.h \
+    gameObject/animation/animquatkey.h
 
 FORMS    += \
     mainwindow.ui \
