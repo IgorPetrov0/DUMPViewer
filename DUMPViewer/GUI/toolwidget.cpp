@@ -166,5 +166,6 @@ void toolWidget::setCorePointer(editorCore *core){
     ui->constraintsTabBar->setCorePointer(core);
     ui->rigidBodiesTabBar->setCorePointer(core);
     ui->meshTabBar->setCorePointer(core);
+    ui->animationWidget->setCorePointer(core);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

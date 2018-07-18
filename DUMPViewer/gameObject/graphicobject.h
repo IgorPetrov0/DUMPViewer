@@ -33,6 +33,9 @@ public:
     GLuint getGLShaderProgram() const;
     void setGLShaderProgram(const GLuint &value);
     void setAnimationsArray(dArray<animation *> *value);
+    unsigned int numAnimations();
+    animation *getAnimation(unsigned int index);
+    animation *getAnimation(string name);
 
 protected:
     nodeObject *rootNode;//указатель на корневой узел/ так же хранится первым в массиве пустых узлов
