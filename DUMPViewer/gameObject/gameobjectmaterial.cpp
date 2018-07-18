@@ -3,51 +3,39 @@
 gameObjectMaterial::gameObjectMaterial()
 {
     VAOname=0;   
-    texture=NULL;
+    diffuseTexture=NULL;
+    propertiesCount=5;
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial::gameObjectMaterial(gameObjectMaterial *material){
     if(material==this){
         return;
     }
-    texture = new gameObjectTexture(material->getTexture());
-    indicesArray = new dArray<unsigned int>(material->getIndices());
+    diffuseTexture = new gameObjectTexture(material->getDiffuseTexture());
     VAOname=material->getVAOName();
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial::~gameObjectMaterial(){
-    clear();
-}
-/////////////////////////////////////////////////////////////////////
-dArray<unsigned int> *gameObjectMaterial::getIndices(){
-    return indicesArray;
-}
-/////////////////////////////////////////////////////////////////////
-unsigned int gameObjectMaterial::getIndecesSize(){
-    if(indicesArray!=NULL){
-        return indicesArray->getSize();
+    if(diffuseTexture!=NULL){
+        diffuseTexture->release();//текстура только освобождается, но не уничтожается т.к. ей еще кто-то может пользоваться
     }
-    return 0;
 }
 /////////////////////////////////////////////////////////////////////
 unsigned int gameObjectMaterial::getOGLTextureName(){
-    return texture->getOglName();
+    return diffuseTexture->getOglName();
 }
 /////////////////////////////////////////////////////////////////////
-gameObjectTexture *gameObjectMaterial::getTexture(){
-    return texture;
-}
-/////////////////////////////////////////////////////////////////////
-void gameObjectMaterial::setIndicesArray(dArray<unsigned int> *indices){
-    indicesArray=indices;
+gameObjectTexture *gameObjectMaterial::getDiffuseTexture(){
+    return diffuseTexture;
 }
 /////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::setVAOName(unsigned int name){
     VAOname=name;
 }
 /////////////////////////////////////////////////////////////////////
-void gameObjectMaterial::setTexture(gameObjectTexture *tex){
-    texture=tex;
+void gameObjectMaterial::addTexture(gameObjectTexture *tex){
+    tex->addOwner();
+    diffuseTexture=tex;
 }
 /////////////////////////////////////////////////////////////////////
 unsigned int gameObjectMaterial::getVAOName(){
@@ -55,23 +43,18 @@ unsigned int gameObjectMaterial::getVAOName(){
 }
 /////////////////////////////////////////////////////////////////////
 void gameObjectMaterial::clear(){
-    delete indicesArray;
-    indicesArray=NULL;
-    texture->deleteTexture();
-    texture=NULL;
+    if(diffuseTexture!=NULL){
+        diffuseTexture->clear();
+    }
 }
 /////////////////////////////////////////////////////////////////////
 gameObjectMaterial &gameObjectMaterial::operator =(gameObjectMaterial *material){
-    *texture=*material->getTexture();
-    *indicesArray=*material->getIndices();
+    *diffuseTexture=*material->getDiffuseTexture();
     return *this;
 }
 /////////////////////////////////////////////////////////////////////
 bool gameObjectMaterial::operator ==(gameObjectMaterial &material){
-    if(*texture!=*material.getTexture()){
-        return false;
-    }
-    if(*indicesArray!=*material.getIndices()){
+    if(*diffuseTexture!=*material.getDiffuseTexture()){
         return false;
     }
     return true;
@@ -83,9 +66,35 @@ bool gameObjectMaterial::operator !=(gameObjectMaterial &material){
 /////////////////////////////////////////////////////////////////////
 unsigned int gameObjectMaterial::getSizeInBytes(){
     unsigned int size=0;
-    size+=indicesArray->getSize()*sizeof(arraySize);
     size+=sizeof(arraySize);//запас под количество
-    size+=texture->getSizeInBytes();
+    size+=diffuseTexture->getSizeInBytes();
     return size;
 }
-
+//////////////////////////////////////////////////////////////////////////////////
+const MatProperties *gameObjectMaterial::getMatProperties() const{
+    return &matProp;
+}
+//////////////////////////////////////////////////////////////////////////////////
+void gameObjectMaterial::setMatProperties(const MatProperties &value){
+    matProp = value;
+}
+//////////////////////////////////////////////////////////////////////////////////
+bool gameObjectMaterial::getArray(int size, int *offsets, unsigned char *array){
+    if(size!=propertiesCount){
+        return false;
+    }
+    memcpy(array+offsets[0],(void*)&matProp.ambient,sizeof(glm::vec3));
+    memcpy(array+offsets[1],(void*)&matProp.diffuse,sizeof(glm::vec3));
+    memcpy(array+offsets[2],(void*)&matProp.specular,sizeof(glm::vec3));
+    memcpy(array+offsets[3],(void*)&matProp.emission,sizeof(glm::vec3));
+    memcpy(array+offsets[4],(void*)&matProp.shines,sizeof(float));
+    return true;
+}
+//////////////////////////////////////////////////////////////////////////////////
+void gameObjectMaterial::setName(string name){
+    this->name=name;
+}
+//////////////////////////////////////////////////////////////////////////////////
+string gameObjectMaterial::getName(){
+    return name;
+}

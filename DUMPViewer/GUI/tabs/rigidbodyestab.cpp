@@ -54,13 +54,13 @@ void rigidBodyesTab::createTab(){
 ////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::configureSourceComboBox(){
     ui->meshSourceComboBox->clear();
-    if(app!=NULL){
-        if(app->currentObject()!=NULL){
+    if(core!=NULL){
+        if(core->currentObject()!=NULL){
             ui->meshSourceComboBox->addItem(tr("File"));
-            if(app->currentObject()->mainMeshExsist()){
+            if(core->currentObject()->mainMeshExsist()){
                 ui->meshSourceComboBox->addItem(tr("Main mesh"));
             }
-            unsigned int size=app->currentObject()->LODsSize();
+            unsigned int size=core->currentObject()->LODsSize();
             for(unsigned int n=0;n!=size;n++){
                 ui->meshSourceComboBox->addItem(tr("from LOD")+QString::number(n+1));
             }
@@ -73,7 +73,7 @@ void rigidBodyesTab::updateInfoSlot(){
     disconnectAll();
     configureSourceComboBox();
     updateList();
-    editabelPhisycObject *object=app->currentObject()->getPhisycObject();
+    editabelPhisycObject *object=core->currentObject()->getPhisycObject();
     if(object!=NULL){
         editabelRigidBody *body=object->getRigitBody(ui->meshSourceComboBox->currentIndex());
         if(body!=NULL){
@@ -96,17 +96,17 @@ void rigidBodyesTab::addSlot(){
     editabelRigidBody *body=NULL;
     switch(ui->meshSourceComboBox->currentIndex()){
         case(0):{//файл
-            QString name=dFileDialog::getOpenFileName(app,tr("Open mesh file"),app->currentPath(),app->modelFilter());
+            QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
             if(!name.isEmpty()){
                 editabelGraphicObject gObject;
                 QFileInfo fi(name);
                 gObject.setName(fi.fileName().toStdString());
-                if(!app->loadGraphicObject(name,&gObject)){
+                if(!core->loadGraphicObject(name,&gObject)){
                     QMessageBox box(parentWidget());
                     box.setWindowTitle(tr("Error"));
                     box.setIcon(QMessageBox::Warning);
                     box.setDefaultButton(QMessageBox::Ok);
-                    box.setText(app->getLastError());
+                    box.setText(core->getLastError());
                     box.exec();
                     return;
                 }
@@ -115,46 +115,46 @@ void rigidBodyesTab::addSlot(){
             break;
         }
         case(1):{//mainMesh
-            body=new editabelRigidBody(app->currentObject()->getMainMesh(),MESH_MAIN_MESH);
+            body=new editabelRigidBody(core->currentObject()->getMainMesh(),MESH_MAIN_MESH);
             break;
         }
         case(2):{//LOD1
-            body=new editabelRigidBody(app->currentObject()->getLod(0),MESH_LOD1);
+            body=new editabelRigidBody(core->currentObject()->getLod(0),MESH_LOD1);
             body->setSource(MESH_LOD1);
             break;
         }
         case(3):{//LOD2
-            body=new editabelRigidBody(app->currentObject()->getLod(1),MESH_LOD2);
+            body=new editabelRigidBody(core->currentObject()->getLod(1),MESH_LOD2);
             body->setSource(MESH_LOD2);
             break;
         }
         case(4):{//LOD3
-            body=new editabelRigidBody(app->currentObject()->getLod(2),MESH_LOD3);
+            body=new editabelRigidBody(core->currentObject()->getLod(2),MESH_LOD3);
             body->setSource(MESH_LOD3);
             break;
         }
         case(5):{//LOD4
-            body=new editabelRigidBody(app->currentObject()->getLod(3),MESH_LOD4);
+            body=new editabelRigidBody(core->currentObject()->getLod(3),MESH_LOD4);
             body->setSource(MESH_LOD4);
             break;
         }
     }
     if(body!=NULL){
-        app->currentObject()->addRigiBody(body);
+        core->currentObject()->addRigiBody(body);
         updateList();
-        ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
+        //ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
         setCurrentBody(body);
         ui->typeComboBox->setEditable(true);
     }
 }
 ///////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::updateList(){
-    unsigned int size=app->currentObject()->rigidBodyesCount();
+    unsigned int size=core->currentObject()->rigidBodyesCount();
     ui->rigidBodiesList->clear();
     for(unsigned int n=0;n!=size;n++){
         QListWidgetItem *item=new QListWidgetItem();
         item->setData(Qt::UserRole,n);
-        item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
+        //item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
         item->setFlags(item->flags()|Qt::ItemIsEditable);
         ui->rigidBodiesList->addItem(item);
     }
@@ -163,7 +163,7 @@ void rigidBodyesTab::updateList(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::deleteSlot(){
-    app->currentObject()->getPhisycObject()->removeRigidBody(currentBody);
+    core->currentObject()->getPhisycObject()->removeRigidBody(currentBody);
     setCurrentBody(NULL);
     updateList();
 }
@@ -171,10 +171,10 @@ void rigidBodyesTab::deleteSlot(){
 void rigidBodyesTab::bodyChangeSlot(){
     QListWidgetItem *item=ui->rigidBodiesList->currentItem();
     if(item!=NULL){
-        setCurrentBody(app->currentObject()->getPhisycObject()->getRigitBody(item->data(Qt::UserRole).toInt()));
+        setCurrentBody(core->currentObject()->getPhisycObject()->getRigitBody(item->data(Qt::UserRole).toInt()));
         if(currentBody!=NULL){
             disconnectAll();
-            ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
+            //ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
             ui->massSpinBox->setValue(currentBody->getMass());
             ui->massCenterXSpinBox->setValue(currentBody->getMassCenter().x());
             ui->massCenterYSpinBox->setValue(currentBody->getMassCenter().y());
@@ -201,7 +201,7 @@ void rigidBodyesTab::bodyChangeSlot(){
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::nameChangedSlot(){
-    currentBody->getMeshPointer()->setName(ui->rigidBodiesList->currentItem()->text().toStdString());
+    //currentBody->getMeshPointer()->setName(ui->rigidBodiesList->currentItem()->text().toStdString());
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::setMassSlot(double value){

@@ -21,7 +21,7 @@ toolPanel::~toolPanel(){
 void toolPanel::createPhisicTab(){
     phisicTab=new dTabBar(this);
 
-    phisicInfo=new toolTabInfoBox();
+    phisicInfo=new meshBox();
     showPhisicMeshCheckBox=new QCheckBox(tr("Show mesh"));
 
     addTab(phisicTab,tr("Phisyc"));
@@ -50,10 +50,10 @@ void toolPanel::createGraphicTab(){
 void toolPanel::createLODsTab(){
     LODsTab=new QTabWidget();
 
-    graphicInfo=new toolTabInfoBox();
-    LOD1Info=new toolTabInfoBox();
-    LOD2Info=new toolTabInfoBox();
-    LOD3Info=new toolTabInfoBox();
+    graphicInfo=new meshBox();
+    LOD1Info=new meshBox();
+    LOD2Info=new meshBox();
+    LOD3Info=new meshBox();
 
     LOD1Distance=new distanceWidget();
     LOD2Distance=new distanceWidget();

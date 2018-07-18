@@ -5,7 +5,7 @@ editabelRigidBody::editabelRigidBody()
     erbMesh=NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////
-editabelRigidBody::editabelRigidBody(editabelGraphicObject *gObject, meshSource source){
+editabelRigidBody::editabelRigidBody(editabelGraphicObject *gObject, meshType source){
     if(source==MESH_ORIGINAL){
         erbMesh=new editabelGraphicObject(gObject);
     }
@@ -19,10 +19,8 @@ editabelRigidBody::editabelRigidBody(rigidBody *body){
     erbMesh = new editabelGraphicObject;
     //собираем графический объект из меша
     arraySize size=body->getMeshPointer()->getVertexseSize();
-    dArray<vertexCoordinates> *vertexesArray = new dArray<vertexCoordinates>(body->getMeshPointer()->getVertexArray());
-    erbMesh->setVertexes(vertexesArray);
-    erbMesh->setName(body->getMeshPointer()->getName());//имя для editabelRigidBody обязательно
-    erbMesh->setTrianglesCount(body->getMeshPointer()->getTrianglesCount());//количество треугольников тоже
+    dArray<vertexCoordinates> *vertexesArray = new dArray<vertexCoordinates>(body->getMeshPointer()->getVertexAtributesArray());
+    erbMesh->setVertexAtributes(vertexesArray);
     erbMesh->setBoundBox(body->getMeshPointer()->getBoundBox());
 
     //создаем материал для отображения rigidBody в редакторе
@@ -33,11 +31,8 @@ editabelRigidBody::editabelRigidBody(rigidBody *body){
     for(arraySize n=0;n!=size;n++){
         iArray->addElement(n,(*body->getIndicesPointer())[n]);
     }
-    material->setIndicesArray(iArray);//присваиваем индексы материалу
+    //material->setIndicesArray(iArray);//присваиваем индексы материалу
 
-    dArray<gameObjectMaterial*> *materialsArray = new dArray<gameObjectMaterial*>(1);
-    materialsArray->addElement(0,material);
-    erbMesh->setMaterials(materialsArray);
 
     rbSource=body->getSource();
     rbType=body->getType();
@@ -51,7 +46,7 @@ editabelRigidBody::~editabelRigidBody(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void editabelRigidBody::setTexture(gameObjectTexture *texture){
-    erbMesh->getMaterialPointer(0)->setTexture(texture);
+    //erbMesh->getMaterialPointer(0)->setTexture(texture);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 meshObject *editabelRigidBody::getMeshPointer(){
@@ -70,12 +65,5 @@ void editabelRigidBody::compileObject(){
     if(indicesArray!=NULL){
         delete indicesArray;
         indicesArray=NULL;
-    }
-    if(erbMesh!=NULL){
-        arraySize size=erbMesh->getMaterialPointer(0)->getIndecesSize();
-        indicesArray = new dArray<unsigned int>(size);
-        for(arraySize n=0;n!=size;n++){
-            indicesArray->addElement(n,(*erbMesh->getMaterialPointer(0)->getIndices())[n]);
-        }
     }
 }

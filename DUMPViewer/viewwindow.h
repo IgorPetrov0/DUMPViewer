@@ -12,9 +12,10 @@
 #include <QtGui/QOpenGLFunctions_3_3_Core>
 #include <math.h>
 #include <QMessageBox>
-
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "gameObject/graphicobject.h"
-#include "GUI/tooltabinfobox.h"
 #include "mathPrimitives/vertex.h"
 #include "gameObject/editabelObjects/editabelgameobject.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"
@@ -34,10 +35,11 @@ public:
     float getDistance();
     void deleteAll();
     void setTexturesVector(QVector<gameObjectTexture *> *vector);
+    bool compileShader(QByteArray *shaderText, GLuint &shader, GLenum type);
+    bool compileShaderProgramm(GLuint *shadersArray, unsigned int arraySize, GLuint &program);
+    QString getLastError();
 
-
-protected:   
-    void updateView();
+protected:
     void initializeGL();
     void resizeGL();
     void paintGL();
@@ -46,19 +48,34 @@ protected:
     void wheelEvent(QWheelEvent *event);
     void angleXInc(int dir);
     void angleYInc(int dir);
+    void calculateViewMatrix();
+    void bindUniforms(GLuint program);
+    GLint *getUniformBlockOffsets(GLint program, const char *blockName, GLint *size);
+
 
     QWidget *parent;//указатель на родителя
-    QOpenGLShaderProgram *sProgram;
+    //GLuint sProgram;
     GLuint vertexArray,textureArray,indicesArray;//массивы координат вершин, текстурных координат и индексов
-    QMatrix4x4 matrix;
+    GLint MVPMatrixLocation;
+    GLuint matrixBuffer;
+    GLuint materialBuffer;
+    GLuint lightBuffer;
+
+
+
     bool loaded;
-    int angleX,angleY;//углы вращения
+    float angleX,angleY;//углы вращения
     int mPosX,mPosY;//предыдущая позиция курсора мыши
     float distance;
     float moveX,moveY;//смещения
     QVector<editabelGraphicObject*> modelsArray;
     QVector<gameObjectTexture*> *texturesVector;
-
+    static const GLchar *vertexShaderSource[];
+    static const GLchar *fragmentShaderSource[];
+    QString a_error;
+    glm::mat4 view;//видовая матрица
+    glm::mat4 projection;//проекционная матрица
+    gameObjectLight defaultLight;
 
 };
 

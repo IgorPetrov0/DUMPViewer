@@ -6,9 +6,11 @@ LODTab::LODTab(QTabWidget *parent) :
     ui(new Ui::LODTab)
 {
     ui->setupUi(this);
-    createTab();
-    connect(ui->LOD1InfoWidget,SIGNAL(loadSignal()),this,SLOT(loadSlot()));
-    connect(ui->LOD1InfoWidget,SIGNAL(deleteSignal()),this,SLOT(deleteSlot()));
+    addWidget(ui->LOD1InfoWidget);
+    addWidget(ui->LOD1DistanceWidget);
+    ui->LOD1InfoWidget->setOriginSize();
+    connect(ui->LOD1InfoWidget,SIGNAL(meshDeleted()),this,SLOT(meshDeleted()));
+    connect(ui->LOD1InfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
     connect(ui->LOD1DistanceWidget,SIGNAL(changeDistance(double)),this,SLOT(setLodDistance(double)));
     connect(ui->LOD1DistanceWidget,SIGNAL(moveMeshToDistance(bool)),this,SLOT(moveToDistanceSlot()));
     lodPointer=NULL;
@@ -18,48 +20,20 @@ LODTab::~LODTab()
 {
     delete ui;
 }
-//////////////////////////////////////////////////////
-void LODTab::createTab(){
-    addWidget(ui->LOD1InfoWidget);
-    addWidget(ui->LOD1DistanceWidget);
-    ui->LOD1InfoWidget->setOriginSize();
+/////////////////////////////////////////////////////////////////
+void LODTab::meshLoaded(editabelGraphicObject *mesh){
+    IS_CORE_POINTER
+
+    if(lodPointer!=NULL){
+        core->deleteMesh(getLodType());
+    }
+    lodPointer = new editableLOD(mesh,0);
+    delete mesh;
+    core->addLOD(LODNumber,lodPointer);
 }
 /////////////////////////////////////////////////////////////////
-void LODTab::loadSlot(){
-
-    QString name=dFileDialog::getOpenFileName(app,tr("Open mesh file"),app->currentPath(),app->modelFilter());
-    if(!name.isEmpty()){
-
-        editableLOD *lod=new editableLOD;
-        if(!app->loadGraphicObject(name,lod)){//загружаем графику
-            delete lod;//в случае неудачи убиваем лод
-            QMessageBox box(parentWidget());
-            box.setWindowTitle(tr("Error"));
-            box.setIcon(QMessageBox::Warning);
-            box.setDefaultButton(QMessageBox::Ok);
-            box.setText(app->getLastError());
-            box.exec();
-            return;
-        }
-        if(lodPointer!=NULL){//если он был, то убираем его из видового экрана
-            app->view()->removeModel(lodPointer);
-        }
-        lodPointer=lod;
-
-        QFileInfo fi(name);
-        ui->LOD1InfoWidget->setFileName(fi.fileName());
-
-        lodPointer->setDistance(ui->LOD1DistanceWidget->getValue());//задаем значение
-        app->currentObject()->addLOD(lodPointer,LODNumber);
-        app->view()->addModel(lodPointer);
-        app->currentObject()->showLOD(LODNumber,true);
-        app->view()->update();
-        ui->LOD1InfoWidget->calculateMeshParameters(lodPointer);
-    } 
-}
-/////////////////////////////////////////////////////////////////
-void LODTab::deleteSlot(){
-    deleteLod();
+void LODTab::meshDeleted(){
+    core->deleteMesh(getLodType());
     emit deleteSignal(tabNumber,LODNumber);
 }
 //////////////////////////////////////////////////////////////////
@@ -86,8 +60,7 @@ void LODTab::setLodDistance(double value){
 }
 //////////////////////////////////////////////////////////////////////
 void LODTab::moveToDistanceSlot(){
-    app->view()->setDistance(-ui->LOD1DistanceWidget->getValue());
-    app->view()->update();
+    core->setViewDistance(-ui->LOD1DistanceWidget->getValue());
 }
 //////////////////////////////////////////////////////////////////////////
 bool LODTab::isLODDefined(){
@@ -96,19 +69,32 @@ bool LODTab::isLODDefined(){
     }
     return false;
 }
-/////////////////////////////////////////////////////////////////////////////
-void LODTab::deleteLod(){
-    if(lodPointer!=NULL){
-        app->view()->removeModel(lodPointer);
-        app->currentObject()->deleteLOD(LODNumber);
-        app->view()->update();
-        lodPointer=NULL;
-    }
+////////////////////////////////////////////////////////////////////////////
+void LODTab::setCorePointer(editorCore *pointer){
+    core=pointer;
+    ui->LOD1InfoWidget->setCorePointer(pointer);
 }
 /////////////////////////////////////////////////////////////////////////////////
 void LODTab::updateInfoSlot(){
-    lodPointer=app->currentObject()->getLod(LODNumber);
+    lodPointer=core->currentObject()->getLod(LODNumber);
     ui->LOD1DistanceWidget->setValue(lodPointer->getDistance());
-    ui->LOD1InfoWidget->calculateMeshParameters(lodPointer->getGraphicObject());
-    ui->LOD1InfoWidget->setFileName(QString::fromStdString(lodPointer->getName()));
+    //ui->LOD1InfoWidget->calculateMeshParameters(lodPointer->getGraphicObject());
+    //ui->LOD1InfoWidget->setFileName(QString::fromStdString(lodPointer->getName()));
+}
+///////////////////////////////////////////////////////////////////////////////////////
+meshType LODTab::getLodType(){
+    switch(LODNumber){
+        case(0):{
+            return MESH_LOD1;
+        }
+        case(1):{
+            return MESH_LOD2;
+        }
+        case(2):{
+            return MESH_LOD3;
+        }
+        case(3):{
+            return MESH_LOD4;
+        }
+    }
 }

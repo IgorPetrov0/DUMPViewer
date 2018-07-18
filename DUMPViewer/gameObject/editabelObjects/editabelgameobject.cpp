@@ -210,9 +210,6 @@ editabelGraphicObject *editabelGameObject::getMainMesh(){
 }
 /////////////////////////////////////////////////////////////
 void editabelGameObject::setMainMesh(editabelGraphicObject *object){
-    if(eMainMesh!=NULL){
-        delete eMainMesh;
-    }
     eMainMesh=object;
 }
 ////////////////////////////////////////////////////////////////////////

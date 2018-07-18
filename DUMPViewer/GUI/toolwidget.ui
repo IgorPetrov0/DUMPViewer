@@ -157,6 +157,21 @@
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="animationTabWidget">
+    <attribute name="title">
+     <string>Animations</string>
+    </attribute>
+    <widget class="animTab" name="animationWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>216</width>
+       <height>898</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
   </widget>
  </widget>
  <customwidgets>
@@ -176,6 +191,12 @@
    <class>meshTab</class>
    <extends>QWidget</extends>
    <header location="global">GUI/tabs/meshtab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>animTab</class>
+   <extends>QWidget</extends>
+   <header location="global">GUI/tabs/animtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

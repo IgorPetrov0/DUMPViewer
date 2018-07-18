@@ -173,21 +173,21 @@ SOURCES += \
     XFileImporter.cpp \
     XFileParser.cpp \
     XGLLoader.cpp \
-    ../include/contrib/zlib/adler32.c \
-    ../include/contrib/zlib/compress.c \
-    ../include/contrib/zlib/crc32.c \
-    ../include/contrib/zlib/deflate.c \
-    ../include/contrib/zlib/gzclose.c \
-    ../include/contrib/zlib/gzlib.c \
-    ../include/contrib/zlib/gzread.c \
-    ../include/contrib/zlib/gzwrite.c \
-    ../include/contrib/zlib/infback.c \
-    ../include/contrib/zlib/inffast.c \
-    ../include/contrib/zlib/inflate.c \
-    ../include/contrib/zlib/inftrees.c \
-    ../include/contrib/zlib/trees.c \
-    ../include/contrib/zlib/uncompr.c \
-    ../include/contrib/zlib/zutil.c \
+#    ../include/contrib/zlib/adler32.c \
+#    ../include/contrib/zlib/compress.c \
+#    ../include/contrib/zlib/crc32.c \
+#    ../include/contrib/zlib/deflate.c \
+#    ../include/contrib/zlib/gzclose.c \
+#    ../include/contrib/zlib/gzlib.c \
+#    ../include/contrib/zlib/gzread.c \
+#    ../include/contrib/zlib/gzwrite.c \
+#    ../include/contrib/zlib/infback.c \
+#    ../include/contrib/zlib/inffast.c \
+#    ../include/contrib/zlib/inflate.c \
+#    ../include/contrib/zlib/inftrees.c \
+#    ../include/contrib/zlib/trees.c \
+#    ../include/contrib/zlib/uncompr.c \
+#    ../include/contrib/zlib/zutil.c \
     ../include/contrib/ConvertUTF/ConvertUTF.c \
     ../include/contrib/poly2tri/poly2tri/sweep/advancing_front.cc \
     ../include/contrib/poly2tri/poly2tri/sweep/cdt.cc \

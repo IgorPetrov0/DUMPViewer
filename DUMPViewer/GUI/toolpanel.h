@@ -5,7 +5,7 @@
 #include <QScrollBar>
 #include <QCheckBox>
 #include <QListView>
-#include "GUI/tooltabinfobox.h"
+#include "GUI/meshbox.h"
 #include "GUI/tabs/tabbar.h"
 #include "GUI/widgets/distancewidget.h"
 
@@ -28,11 +28,11 @@ signals:
     void returnLastDistance();
 
 protected:
-    toolTabInfoBox *phisicInfo;
-    toolTabInfoBox *graphicInfo;
-    toolTabInfoBox *LOD1Info;
-    toolTabInfoBox *LOD2Info;
-    toolTabInfoBox *LOD3Info;
+    meshBox *phisicInfo;
+    meshBox *graphicInfo;
+    meshBox *LOD1Info;
+    meshBox *LOD2Info;
+    meshBox *LOD3Info;
     QTabWidget *LODsTab;
     QTabWidget *phisicTabWidget;
     dTabBar *LOD0Tab;

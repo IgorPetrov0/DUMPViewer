@@ -6,10 +6,10 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 #include <QTabWidget>
-
+#include "GUI/abstractwidget.h"
 #include "GUI/widgets/dumpviewerwidget.h"
 #include "gameObject/gameobject.h"
-#include "application.h"
+#include "editorCore.h"
 
 
 enum tabType{
@@ -29,9 +29,8 @@ public:
     dTabBar(QTabWidget *parent=0);
     ~dTabBar();
     void addWidget(QWidget *widget);
-    void setEndWidget(QWidget *winget);
-    void setApplication(application *app);
     void disableTab(bool disable);
+    virtual void setCorePointer(editorCore *pointer);
 
 protected:
     void wheelEvent(QWheelEvent *event);
@@ -42,7 +41,7 @@ protected:
     QVector<QWidget*> widgetsArray;//массив указателей на размещенные виджеты
     QScrollBar *scrollBar;
     QWidget *endWidget;//последний виджет в таббаре, по которому считается скролбар
-    application *app;
+    editorCore *core;
 
 signals:
     void changeSygnal();

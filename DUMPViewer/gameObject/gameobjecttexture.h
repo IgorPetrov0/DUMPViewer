@@ -3,20 +3,23 @@
 
 #include <string>
 #include <QDataStream>
+#include <QtGui/QOpenGLFunctions_3_3_Core>
 #include "gameObject/dArray.h"
+#include "gameObject/slaveobject.h"
+#include "DevIL/include/il.h"
+#include "DevIL/include/ilu.h"
+
 
 using namespace std;
 
-class gameObjectTexture
+class gameObjectTexture : public slaveObject
 {
 public:
     gameObjectTexture();
     gameObjectTexture(gameObjectTexture *texture);
-    void setName(string tName);
-    void setTexturePointer(dArray<unsigned char> *dArray);
-    void setWidth(int value);
-    void setHeight(int value);
+    ~gameObjectTexture();
     dArray<unsigned char> *getTexturePointer();
+    bool loadFromFile(string name, string path);
     int width();
     int height();
     gameObjectTexture &operator =(gameObjectTexture &texture);
@@ -27,18 +30,21 @@ public:
     void setOglName(unsigned int n);
     void clear();
     unsigned int getSizeInBytes();
-    bool isUsed();
     void addOuner();
     void deleteTexture();
-    unsigned int getOunerCounter();
+    GLint getOGLFormat() const;
+    GLint getDataType() const;
+    bool isExistInOpenGL();
 
 protected:
-    ~gameObjectTexture();
     dArray<unsigned char> *textureArray;//указатель на массив текстуры
     string name;
     unsigned int oglName;//имя, присваеваемое OpenGL при создании текстуры
     int tWidth,tHeigth;
-    unsigned int ounerCounter;//для того, что-бы не удалить, если есть хоть один владелец
+    GLint format;
+    GLint dataType;
+    void convertFormat();
+    bool existInOpenGL;//маркер существования текстуры. Присваивается, когда текстура создается в видеопамяти. TODO:предусмотреть отключение маркера
 };
 
 #endif // GAMEOBJECTTEXTURE_H

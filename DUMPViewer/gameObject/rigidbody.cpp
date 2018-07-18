@@ -9,7 +9,7 @@ rigidBody::rigidBody()
     rbType=RIGID_BODY_MOVABLE;
 }
 /////////////////////////////////////////////////////////////////////////
-rigidBody::rigidBody(graphicObject *object, meshSource source){
+rigidBody::rigidBody(graphicObject *object, meshType source){
     mass=0;
     indicesArray=NULL;
     rbSource=source;
@@ -96,7 +96,7 @@ unsigned int rigidBody::getSizeInBytes(){
     if(rbSource==MESH_ORIGINAL){//если меш оригинальный, то
         size+=rbMesh->getSizeInBytes();//вписываем размер меша
     }
-    size+=sizeof(meshSource);
+    size+=sizeof(meshType);
     size+=sizeof(arraySize);//размер массива индексов
     size+=indicesArray->getSize()*sizeof(unsigned int);
     size+=sizeof(float);//масса
@@ -105,11 +105,11 @@ unsigned int rigidBody::getSizeInBytes(){
     return size;
 }
 ///////////////////////////////////////////////////////////////////////
-meshSource rigidBody::getSource(){
+meshType rigidBody::getSource(){
     return rbSource;
 }
 ///////////////////////////////////////////////////////////////////////
-void rigidBody::setSource(meshSource source){
+void rigidBody::setSource(meshType source){
     rbSource=source;
 }
 ///////////////////////////////////////////////////////////////////////
@@ -131,23 +131,10 @@ void rigidBody::setMeshObject(meshObject *object){
 }
 //////////////////////////////////////////////////////////////////////////
 void rigidBody::createIndicesArray(graphicObject *object){
-    unsigned int matSize=object->getMaterialsSize();
     unsigned int indicesCount=0;
-
-    for(unsigned int n=0;n!=matSize;n++){//подсчет количества индексов во всех материалах
-        indicesCount+=object->getMaterialPointer(n)->getIndecesSize();
-    }
 
     if(indicesArray!=NULL){
         delete indicesArray;
     }
     indicesArray=new dArray<unsigned int>(indicesCount);
-
-    arraySize pos=0;
-    for(unsigned int n=0;n!=object->getMaterialsSize();n++){
-        gameObjectMaterial *tmpMat=object->getMaterialPointer(n);
-        for(unsigned int m=0;m!=tmpMat->getIndecesSize();m++){
-            indicesArray->addElement(pos,tmpMat->getIndices()->operator [](m));
-        }
-    }
 }

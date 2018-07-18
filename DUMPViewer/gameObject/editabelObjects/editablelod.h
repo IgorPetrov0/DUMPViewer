@@ -9,6 +9,8 @@ class editableLOD : public editabelGraphicObject, public LOD
 public:
     editableLOD();    
     editableLOD(LOD *lod);
+    editableLOD(editabelGraphicObject *object,float distance);
+
 
 };
 

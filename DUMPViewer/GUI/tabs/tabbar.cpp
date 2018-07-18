@@ -9,7 +9,7 @@ dTabBar::dTabBar(QTabWidget *parent):
     scrollBar->setSingleStep(10);
     connect(scrollBar,SIGNAL(valueChanged(int)),this,SLOT(moveWidgets(int)));
     endWidget=NULL;
-    app=NULL;
+    core=NULL;
 }
 ///////////////////////////////////////////////////////////////////
 dTabBar::~dTabBar(){
@@ -79,14 +79,14 @@ int dTabBar::bottomYCoordinate(){
     scrollBar->setValue(oldScrolllBarValue);
     return sum;
 }
-/////////////////////////////////////////////////////////////////////////////////
-void dTabBar::setApplication(application *app){
-    this->app=app;
-}
 //////////////////////////////////////////////////////////////////////////////////
 void dTabBar::disableTab(bool disable){
     int size=widgetsArray.size();
     for(int n=0;n!=size;n++){
         widgetsArray.at(n)->setEnabled(!disable);
     }
+}
+//////////////////////////////////////////////////////////////////////////////////
+void dTabBar::setCorePointer(editorCore *pointer){
+    core=pointer;
 }

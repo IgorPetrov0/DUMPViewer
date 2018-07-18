@@ -14,7 +14,7 @@
 
 
 //объект игрового мира. содержит данные в пригодном для движка виде
-//состоит из графической модели, физической модели, шейдеров, конфигов
+//состоит из графической модели, физической модели, звуков, конфигов
 using namespace std;
 
 class gameObject
@@ -45,6 +45,9 @@ public:
     virtual bool mainMeshExsist();
 
 protected:
+    vector3 position;
+    vector3 rotation;
+    vector3 scale;
     graphicObject *mainMesh;
     dArray<LOD*> *LODs;
     phisycObject *pObject;

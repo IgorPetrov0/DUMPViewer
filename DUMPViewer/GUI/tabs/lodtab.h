@@ -20,7 +20,9 @@ public:
     void setLODNumber(unsigned int number);
     unsigned int getTabNumber();
     unsigned int getLODNumber();
+    meshType getLodType();
     bool isLODDefined();
+    void setCorePointer(editorCore *pointer);
 
 signals:
     void deleteSignal(unsigned int tabNumber, unsigned int LODNumber);
@@ -29,15 +31,13 @@ private:
     Ui::LODTab *ui;
 
 protected:
-    void createTab();
-    void deleteLod();
     unsigned int tabNumber;
     unsigned int LODNumber;
     editableLOD *lodPointer;
 
 protected slots:
-    void loadSlot();
-    void deleteSlot();
+    void meshLoaded(editabelGraphicObject *mesh);
+    void meshDeleted();
     void setLodDistance(double value);
     void moveToDistanceSlot();
     void updateInfoSlot();

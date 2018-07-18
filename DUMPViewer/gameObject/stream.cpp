@@ -107,12 +107,10 @@ void stream::  out(phisycObject *var){
 //////////////////////////////////////////////////////////////////////////
 void stream::out(meshObject *var){
     VAR_NOT_NULL
-    dArray<float> *vArray=var->getVertexArray();
+    dArray<float> *vArray=var->getVertexAtributesArray();
     out(vArray->getArrayPointer(),vArray->getSize());
-    out(var->getName());
     vector3 bb=var->getBoundBox();
     out(&bb);
-    out((int)var->getTrianglesCount());
 }
 //////////////////////////////////////////////////////////////////////////
 void stream::out(LOD *var){
@@ -125,25 +123,6 @@ void stream::out(graphicObject *var){
     VAR_NOT_NULL
     out((meshObject*)var);
 
-    dArray<float> *cArray=var->getTexCoordArrayPointer();
-    if(cArray!=NULL){
-        out(cArray->getArrayPointer(),cArray->getSize());
-    }
-    else{
-        out((int)0);
-    }
-    int size=0;
-    dArray<gameObjectMaterial*> *mArray=var->getMaterialsArrayPointer();
-    if(mArray!=NULL){
-        size=mArray->getSize();
-        out(size);
-        for(int n=0;n!=size;n++){
-            out(mArray->operator [](n));
-        }
-    }
-    else{
-        out((int)0);
-    }
     out(var->isVisible());
 }
 //////////////////////////////////////////////////////////////////////////
@@ -154,8 +133,8 @@ void stream::out(gameObjectTexture *var){
 //////////////////////////////////////////////////////////////////////////
 void stream::out(gameObjectMaterial *var){
     VAR_NOT_NULL
-    out(var->getTexture());
-    out(var->getIndices()->getArrayPointer(),var->getIndecesSize());//индексы
+    out(var->getDiffuseTexture());
+    //out(var->getIndices()->getArrayPointer(),var->getIndecesSize());//индексы
 }
 //////////////////////////////////////////////////////////////////////////
 void stream::out(constraint *var){
@@ -286,7 +265,7 @@ void stream::in(vertex *var){
 void stream::in(rigidBody *var){
     unsigned int size=0;
     unsigned int *inArray;
-    meshSource source=MESH_NOMESH;
+    meshType source=MESH_NOMESH;
     vector3 mCenter;
     float mass=0;
     int type=0;
@@ -351,16 +330,14 @@ void stream::in(meshObject *var){
     float* tmpArray;
     in(&tmpArray,size);
     vertexArray=new dArray<float>(tmpArray,size);
-    var->setVertexes(vertexArray);
+    var->setVertexAtributes(vertexArray);
 
     in(&meshName);
-    var->setName(meshName);
 
     in(&boundBox);
     var->setBoundBox(boundBox);
 
     in(&trianglesCount);
-    var->setTrianglesCount(trianglesCount);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(LOD *var){
@@ -382,7 +359,7 @@ void stream::in(graphicObject *var){
     float *tmpArray;
     in(&tmpArray,size);
     texCoordsArray=new dArray<float>(tmpArray,size);
-    var->setTexCoordinates(texCoordsArray);
+
 
     in((int*)&size);
     materialsArray= new dArray<gameObjectMaterial*>(size);
@@ -391,7 +368,6 @@ void stream::in(graphicObject *var){
         in(material);
         materialsArray->addElement(n,material);
     }
-    var->setMaterials(materialsArray);
 
     in(&visible);
     var->setVisible(visible);
@@ -399,9 +375,7 @@ void stream::in(graphicObject *var){
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(gameObjectTexture *var){
     string name;
-
     in(&name);
-    var->setName(name);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(gameObjectMaterial *var){
@@ -410,12 +384,12 @@ void stream::in(gameObjectMaterial *var){
 
     gameObjectTexture *texture = new gameObjectTexture;
     in(texture);
-    var->setTexture(texture);
+    var->addTexture(texture);
 
     unsigned int *tmpArray;
     in(&tmpArray,size);
     indicesArray=new dArray<unsigned int>(tmpArray,size);
-    var->setIndicesArray(indicesArray);
+    //var->setIndicesArray(indicesArray);
 }
 /////////////////////////////////////////////////////////////////////////////
 void stream::in(constraint *var){
@@ -488,7 +462,7 @@ void stream::in(gameObject *var){
         var->setPhisycObject(pObject);
         for(arraySize n=0;n!=pObject->rigidBodyesCount();n++){
             rigidBody *rb=pObject->getRigidBodiesPointer()->operator [](n);
-            meshSource source=rb->getSource();
+            meshType source=rb->getSource();
             if(source!=MESH_ORIGINAL){
                 switch((int)source){
                     case(MESH_MAIN_MESH):{

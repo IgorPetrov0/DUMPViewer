@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>meshInfoBox</class>
+ <widget class="QWidget" name="meshInfoBox">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>172</width>
+    <height>407</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QGroupBox" name="meshGroup">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>161</width>
+     <height>401</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Mesh</string>
+   </property>
+   <widget class="QGroupBox" name="boundBoxGroup">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>141</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Bound Box</string>
+    </property>
+    <widget class="QLabel" name="xSizeLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>15</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>X Size= </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ySizeLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Y Size= </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="zSizeLabel">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>45</y>
+       <width>111</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Z Size= </string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="trianglesValueLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>151</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Triangles=</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>124</y>
+      <width>141</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Model matrix</string>
+    </property>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>16</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Position</string>
+     </property>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="posZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>100</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Rotation</string>
+     </property>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-360.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>360.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-360.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>360.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="rotZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-360.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>360.000000000000000</double>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Scale</string>
+     </property>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Y=</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>58</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Z=</string>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleXSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>20</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleYSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>38</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="scaleZSpinBox">
+      <property name="geometry">
+       <rect>
+        <x>36</x>
+        <y>56</y>
+        <width>75</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <double>-999.000000000000000</double>
+      </property>
+      <property name="maximum">
+       <double>999.000000000000000</double>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

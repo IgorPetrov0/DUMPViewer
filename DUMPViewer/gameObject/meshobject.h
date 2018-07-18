@@ -3,39 +3,61 @@
 
 #include <string>
 #include "gameObject/dArray.h"
+#include "gameindexobject.h"
 #include "mathPrimitives/vector3.h"
 #include "defines.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "gameObject/animation/nodeobject.h"
+
+
 
 using namespace std;
 
-class meshObject
+class meshObject : public nodeObject
 {
 public:
     meshObject();
     meshObject(meshObject *mesh);
     virtual ~meshObject();
-    void setVertexes(dArray<vertexCoordinates> *dArray);
-    dArray<vertexCoordinates> *getVertexArray();
+    void setVertexAtributes(dArray<vertexCoordinates> *array);
+    dArray<vertexCoordinates> *getVertexAtributesArray();
     const vertexCoordinates *getVertexesPointer();
     arraySize getVertexseSize();
-    string getName();
     vector3 getBoundBox();
-    unsigned int getTrianglesCount();
+    unsigned int getNumIndicesObjects();
+    gameIndexObject *getIndexObject(unsigned int index);
     void setBoundBox(vector3 box);
-    void setTrianglesCount(unsigned int count);
-    void setName(string name);
     bool isEmpty();
-    void clear();
+    void clear();//очистка данных меша, которые переносятся в видеопамять
     meshObject *operator =(meshObject &mesh);
     bool operator ==(meshObject &mesh);
     bool operator !=(meshObject &mesh);
     virtual unsigned int getSizeInBytes();
+    void setVaoName(unsigned int value);
+    unsigned int getVboName() const;
+    void setVboName(unsigned int value);
+    glm::mat4 getModelMatrix() const;
+    bool isVisible();
+    void setVisible(bool visible);
+    bool getMatricesArray(int size, int *offsets, unsigned char *array);//возвращает указатель на массив, содержащий матрицы модели и нормалей
+
 
 protected:
-    dArray<vertexCoordinates> *vertexesArray;//массив вершин
-    string *meshName;//имя нужно только для редактора и создается в функции setName
-    unsigned int *trianglesCount;//аналогично имени
+    dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
+    dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
     vector3 boundBox;
+    unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
+    glm::mat4 modelMatrix;
+    glm::mat4 normalMatrix;
+    glm::vec3 move;
+    glm::vec3 scale;
+    glm::vec3 rotate;
+    bool visible;
+    int matricesCount;
+
+
+
 
 
 };

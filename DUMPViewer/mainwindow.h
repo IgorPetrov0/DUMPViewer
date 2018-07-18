@@ -10,11 +10,11 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
+#include <vector>
 #include "GUI/toolWidget.h"
 #include "viewwindow.h"
-#include "objectCompiller/objectcompiller.h"
 #include "GUI/serviceWindows/newgameobjectnamewindow.h"
-#include "application.h"
+#include "editorCore.h"
 #include "gameObject/stream.h"
 
 
@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void setCorePointer(editorCore *pointer);
 
     ~MainWindow();
 
@@ -39,7 +40,7 @@ protected:
     QLabel *statusLable;
     toolWidget *tPanel;
     QPushButton *boundBoxButton;
-    application *app;
+    editorCore *core;
 
 
     void keyPressEvent(QKeyEvent *event);
@@ -52,16 +53,18 @@ protected:
 
 protected slots:
     void openModel();
-
     void openGameObjectSlot();
     bool saveGameObjectSlot();
     void saveGameObjectAsSlot();
     void newGameObjectSlot();
     void showBoundBoxSlot();
     void closeCurrentObjectSlot();
+    void loadShaders();
+    void someChanged();
+
 
 signals:
-    void objectLoaded();//сигнал для дочерних виджетов обновить информацию об объекте
+    void updateTPanel();//сигнал для панели инструментов обновить информацию об объекте
 
 private:
     Ui::MainWindow *ui;

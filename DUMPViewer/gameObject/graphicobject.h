@@ -8,7 +8,11 @@
 #include "mathPrimitives/vector3.h"
 #include "gameObject/gameobjecttexture.h"
 #include "defines.h"
-
+#include "gameObject/gameobjectlight.h"
+#include "dArray.h"
+#include "gameObject/animation/bone.h"
+#include "gameObject/animation/nodeobject.h"
+#include "gameObject/animation/animation.h"
 
 using namespace std;
 
@@ -17,27 +21,31 @@ class graphicObject : public meshObject
 public:
     graphicObject();
     virtual ~graphicObject();
-    void setMaterials(dArray<gameObjectMaterial*> *dArray);
-    void setTexCoordinates(dArray<texCoordinates> *dArray);
-    dArray<float> *getTexCoordArrayPointer();
-    arraySize getTexCoordsSize();
-    dArray<gameObjectMaterial*> *getMaterialsArrayPointer();
-    gameObjectMaterial* getMaterialPointer(unsigned int index);
-    unsigned int getMaterialsSize();
-    void clear();
     graphicObject &operator =(graphicObject &gObject);
     bool operator ==(graphicObject &gObject);
     bool operator !=(graphicObject &gObject);
-    bool isVisible();
-    void setVisible(bool visible);
     unsigned int getSizeInBytes();
-    void reloadVideoData();
-
+    unsigned int numLights();
+    string getVertexShaderFileName() const;
+    string getFragmentShaderFileName() const;
+    GLuint getGLvertexShaderName() const;
+    void setGLvertexShaderName(const GLuint &value);
+    GLuint getGLShaderProgram() const;
+    void setGLShaderProgram(const GLuint &value);
+    void setAnimationsArray(dArray<animation *> *value);
+    unsigned int numAnimations();
+    animation *getAnimation(unsigned int index);
+    animation *getAnimation(string name);
 
 protected:
-    dArray<texCoordinates> *texCoordsArray;//массив текстурных координат
-    dArray<gameObjectMaterial*> *materialsArray;//массив материалов
-    bool visible;
+    nodeObject *rootNode;//указатель на корневой узел/ так же хранится первым в массиве пустых узлов
+    dArray<gameObjectLight*>*lightSorces;
+    dArray<bone*>*bonesArray;
+    dArray<nodeObject*> *emptyNodes;//массив пустых узлов, не связанных с объектами, но присутствующими в иерархии
+    dArray<animation*> *animationsArray;
+    string vertexShader;
+    string fragmentShader;
+    GLuint GLShaderProgram;
 
 };
 

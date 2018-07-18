@@ -2,79 +2,43 @@
 
 graphicObject::graphicObject()
 {   
-    materialsArray=NULL;
-    texCoordsArray=NULL;
     visible=true;
+    lightSorces=NULL;
+    bonesArray=NULL;
+    rootNode=NULL;
+    emptyNodes=NULL;
+    animationsArray=NULL;
 }
 ///////////////////////////////////////////////////////////
 graphicObject::~graphicObject(){
-    clear();
-}
-///////////////////////////////////////////////////////////
-void graphicObject::clear(){
-    meshObject::clear();
-    delete texCoordsArray;
-
-    materialsArray->deletePointers();
-    delete materialsArray;
-
-    materialsArray=NULL;
-    texCoordsArray=NULL;
-}
-///////////////////////////////////////////////////////////
-void graphicObject::setMaterials(dArray<gameObjectMaterial*> *array){
-    if(array!=NULL){
-        materialsArray=array;
+    if(lightSorces!=NULL){
+        lightSorces->deletePointers();
+        delete lightSorces;
     }
-}
-//////////////////////////////////////////////////////////////////////
-dArray<float> *graphicObject::getTexCoordArrayPointer(){
-    return texCoordsArray;
-}
-//////////////////////////////////////////////////////////////////////
-dArray<gameObjectMaterial*> *graphicObject::getMaterialsArrayPointer(){
-    return materialsArray;
-}
-//////////////////////////////////////////////////////////////////////
-gameObjectMaterial *graphicObject::getMaterialPointer(unsigned int index){
-    return materialsArray->operator [](index);
-}
-///////////////////////////////////////////////////////////////////////////
-unsigned int graphicObject::getMaterialsSize(){
-    return materialsArray->getSize();
+    if(bonesArray!=NULL){
+        bonesArray->deletePointers();
+        delete bonesArray;
+    }
+    if(emptyNodes!=NULL){
+        emptyNodes->deletePointers();
+        delete emptyNodes;
+    }
+    if(animationsArray!=NULL){
+        animationsArray->deletePointers();
+        delete animationsArray;
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////
 graphicObject &graphicObject::operator =(graphicObject &gObject){
-    *texCoordsArray=*gObject.getTexCoordArrayPointer();
-    *materialsArray=*gObject.getMaterialsArrayPointer();
     return *this;
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool graphicObject::operator ==(graphicObject &gObject){
-    if(*texCoordsArray!=*gObject.getTexCoordArrayPointer()){
-        return false;
-    }
-    if(*materialsArray!=*gObject.getMaterialsArrayPointer()){
-        return false;
-    }
     return true;
 }
 ///////////////////////////////////////////////////////////////////////////////
 bool graphicObject::operator !=(graphicObject &gObject){
     return !operator ==(gObject);
-}
-///////////////////////////////////////////////////////////////////////////////
-bool graphicObject::isVisible(){
-   return visible;
-}
-///////////////////////////////////////////////////////////////////////////////
-void graphicObject::setVisible(bool visible){
-    this->visible=visible;
-}
-///////////////////////////////////////////////////////////////////////////////
-void graphicObject::setTexCoordinates(dArray<texCoordinates> *array){
-    delete texCoordsArray;
-    texCoordsArray=array;
 }
 ////////////////////////////////////////////////////////////////////////////////
 unsigned int graphicObject::getSizeInBytes(){
@@ -82,29 +46,62 @@ unsigned int graphicObject::getSizeInBytes(){
     unsigned int arSize=0;
 
     size+=meshObject::getSizeInBytes();
-
     size+=sizeof(arraySize);//место под размер массива
-    if(texCoordsArray!=NULL){
-        size+=texCoordsArray->getSize()*sizeof(texCoordinates);
-    }
-
     size+=sizeof(arraySize);//место под размер массива
-    arSize=materialsArray->getSize();
-    for(unsigned int n=0;n!=arSize;n++){
-        size+=materialsArray->operator [](n)->getSizeInBytes();
-    }
     size+=sizeof(bool);//запас под visible
     return size;
 }
-///////////////////////////////////////////////////////////////////////////////////
-void graphicObject::reloadVideoData(){
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+unsigned int graphicObject::numLights(){
+    return lightSorces->getSize();
 }
-//////////////////////////////////////////////////////////////////////////////////////////
-arraySize graphicObject::getTexCoordsSize(){
-    return texCoordsArray->getSize();
+////////////////////////////////////////////////////////////////////////////////////////////////////
+string graphicObject::getVertexShaderFileName() const{
+    return vertexShader;
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////
+string graphicObject::getFragmentShaderFileName() const{
+    return fragmentShader;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+GLuint graphicObject::getGLShaderProgram() const{
+    return GLShaderProgram;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void graphicObject::setGLShaderProgram(const GLuint &value){
+    GLShaderProgram = value;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+void graphicObject::setAnimationsArray(dArray<animation *> *value){
+    animationsArray = value;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+unsigned int graphicObject::numAnimations(){
+    if(animationsArray!=NULL){
+        return animationsArray->getSize();
+    }
+    return 0;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+animation *graphicObject::getAnimation(unsigned int index){
+    if(animationsArray!=NULL){
+        return animationsArray->operator [](index);
+    }
+    return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+animation *graphicObject::getAnimation(string name){
+    if(animationsArray!=NULL){
+        unsigned int size=animationsArray->getSize();
+        for(unsigned int n=0;n!=size;n++){
+            animation *tmp=animationsArray->operator [](n);
+            if(tmp->getName()==name){
+                return tmp;
+            }
+        }
+    }
+    return NULL;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+

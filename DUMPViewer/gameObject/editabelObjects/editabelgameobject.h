@@ -5,7 +5,6 @@
 #include <vector>
 #include "gameObject/gameobject.h"
 #include "editabelphisycobject.h"
-#include "objectCompiller/loader.h"
 #include "editabelgraphicobject.h"
 #include "editablelod.h"
 
@@ -29,6 +28,7 @@ public:
     void addRigiBody(editabelRigidBody *rBody);
     int rigidBodyesCount();
     int constraintsCount();
+    bool isSaved();
 
     virtual void setPhisycObject(phisycObject *object = NULL);
     virtual editabelPhisycObject *getPhisycObject();
@@ -40,7 +40,7 @@ public:
     virtual void setMainMesh(editabelGraphicObject *object);
     virtual bool mainMeshExsist();
 
-    bool isSaved();
+
 
 protected:
     vector<editableLOD*> LODsVector;

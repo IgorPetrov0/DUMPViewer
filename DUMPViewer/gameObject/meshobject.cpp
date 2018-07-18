@@ -2,81 +2,65 @@
 
 meshObject::meshObject()
 {
-    vertexesArray=NULL;
-    meshName=NULL;
-    trianglesCount=NULL;
+    vertexAtributesArray=NULL;
+    indicesObjectsArray=NULL;
+    move=glm::vec3(0,0,0);
+    scale=glm::vec3(1,1,1);
+    rotate=glm::vec3(0,0,0);
+    modelMatrix=glm::mat4(1.0f);
+    normalMatrix=glm::transpose(glm::inverse(modelMatrix));
+    matricesCount=2;
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
-    vertexesArray = new dArray<vertexCoordinates>(*mesh->getVertexArray());
-    meshName = new string(mesh->getName());
-    trianglesCount = new unsigned int(mesh->getTrianglesCount());
+    vertexAtributesArray = new dArray<vertexCoordinates>(*mesh->getVertexAtributesArray());
     boundBox=mesh->getBoundBox();
 }
 //////////////////////////////////////////////////////////////////
 meshObject::~meshObject(){
-    clear();
+    if(vertexAtributesArray!=NULL){
+        indicesObjectsArray->deletePointers();
+        delete vertexAtributesArray;
+    }
+    if(indicesObjectsArray!=NULL){
+        delete indicesObjectsArray;
+    }
 }
 //////////////////////////////////////////////////////////////////////
-void meshObject::setVertexes(dArray<vertexCoordinates> *array){
+void meshObject::setVertexAtributes(dArray<vertexCoordinates> *array){
     if(array!=NULL){
-        vertexesArray=array;
+        vertexAtributesArray=array;
     }
 }
 //////////////////////////////////////////////////////////////////////
 const vertexCoordinates *meshObject::getVertexesPointer(){
-    return vertexesArray->getArrayPointer();
+    return vertexAtributesArray->getArrayPointer();
 }
 //////////////////////////////////////////////////////////////////////
 arraySize meshObject::getVertexseSize(){
-    return vertexesArray->getSize();
-}
-//////////////////////////////////////////////////////////////////////
-string meshObject::getName(){
-    string name;
-    if(meshName!=NULL){
-        name=*meshName;
-    }
-    return name;
+    return vertexAtributesArray->getSize();
 }
 //////////////////////////////////////////////////////////////////////
 void meshObject::clear(){
-    delete meshName;
-    meshName=NULL;
-
-    delete vertexesArray;
-    vertexesArray=NULL;
-
-    delete trianglesCount;
-    trianglesCount=NULL;
-}
-//////////////////////////////////////////////////////////////////////
-void meshObject::setName(string name){
-    if(meshName==NULL){
-        meshName=new string;
+    delete vertexAtributesArray;
+    vertexAtributesArray=NULL;
+    unsigned int size=indicesObjectsArray->getSize();
+    for(unsigned int n=0;n!=size;n++){
+        indicesObjectsArray->operator [](n)->clear();
     }
-    *meshName=name;
 }
 //////////////////////////////////////////////////////////////////////
 meshObject *meshObject::operator =(meshObject &mesh){
 
-    if(!mesh.getName().empty()){
-        setName(mesh.getName());
+    if(vertexAtributesArray!=NULL){
+        delete vertexAtributesArray;
     }
-    if(vertexesArray!=NULL){
-        delete vertexesArray;
-    }
-    vertexesArray=new dArray<float>(*mesh.getVertexArray());
+    vertexAtributesArray=new dArray<float>(*mesh.getVertexAtributesArray());
     return this;
 }
 //////////////////////////////////////////////////////////////////////
 bool meshObject::operator ==(meshObject &mesh){
-    if(meshName!=NULL){
-        if(*meshName!=mesh.getName()){
-            return false;
-        }
-    }
-    if(vertexesArray->operator !=(*mesh.getVertexArray())){
+    if(vertexAtributesArray->operator !=(*mesh.getVertexAtributesArray())){
         return false;
     }
     return true;
@@ -87,16 +71,16 @@ bool meshObject::operator !=(meshObject &mesh){
 }
 ////////////////////////////////////////////////////////////////
 bool meshObject::isEmpty(){
-    if(vertexesArray!=NULL){
-        if(vertexesArray->getSize()){
+    if(vertexAtributesArray!=NULL){
+        if(vertexAtributesArray->getSize()){
             return false;
         }
     }
     return true;
 }
 /////////////////////////////////////////////////////////////////////
-dArray<vertexCoordinates> *meshObject::getVertexArray(){
-    return vertexesArray;
+dArray<vertexCoordinates> *meshObject::getVertexAtributesArray(){
+    return vertexAtributesArray;
 }
 /////////////////////////////////////////////////////////////////////
 vector3 meshObject::getBoundBox(){
@@ -106,33 +90,49 @@ vector3 meshObject::getBoundBox(){
 void meshObject::setBoundBox(vector3 box){
     boundBox=box;
 }
-////////////////////////////////////////////////////////////////////////
-void meshObject::setTrianglesCount(unsigned int count){
-    if(trianglesCount==NULL){
-        trianglesCount=new unsigned int;
-    }
-    *trianglesCount=count;
-}
-//////////////////////////////////////////////////////////////////////////
-unsigned int meshObject::getTrianglesCount(){
-    if(trianglesCount!=NULL){
-        return *trianglesCount;
-    }
-    return 0;
-}
 /////////////////////////////////////////////////////////////////////////
 unsigned int meshObject::getSizeInBytes(){
     unsigned int size=0;
-    size+=vertexesArray->getSize()*sizeof(vertexCoordinates);
+    size+=vertexAtributesArray->getSize()*sizeof(vertexCoordinates);
     size+=sizeof(unsigned int);//под размер
-    if(meshName!=NULL){
-        size+=meshName->capacity()+sizeof(int);
-    }
-    if(trianglesCount!=NULL){
-        size+=sizeof(int);
-    }
     size+=boundBox.getSizeInBytes();
     return size;
 }
+//////////////////////////////////////////////////////////////////////////////
+unsigned int meshObject::getVboName() const{
+    return vboName;
+}
+//////////////////////////////////////////////////////////////////////////////
+void meshObject::setVboName(unsigned int value){
+    vboName = value;
+}
+/////////////////////////////////////////////////////////////////////////////
+glm::mat4 meshObject::getModelMatrix() const{
+    return modelMatrix;
+}
 ////////////////////////////////////////////////////////////////////////////////
-
+unsigned int meshObject::getNumIndicesObjects(){
+    return indicesObjectsArray->getSize();
+}
+////////////////////////////////////////////////////////////////////////////////
+gameIndexObject *meshObject::getIndexObject(unsigned int index){
+    return indicesObjectsArray->operator [](index);
+}
+////////////////////////////////////////////////////////////////////////////////
+bool meshObject::isVisible(){
+   return visible;
+}
+///////////////////////////////////////////////////////////////////////////////
+void meshObject::setVisible(bool visible){
+    this->visible=visible;
+}
+///////////////////////////////////////////////////////////////////////////////
+bool meshObject::getMatricesArray(int size, int *offsets, unsigned char *array){
+    if(size!=matricesCount){
+        return false;
+    }
+    memcpy(array+offsets[0],(void*)&modelMatrix,sizeof(glm::mat4));
+    memcpy(array+offsets[1],(void*)&normalMatrix,sizeof(glm::mat4));
+    return true;
+}
+////////////////////////////////////////////////////////////////////////////////
