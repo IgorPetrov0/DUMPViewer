@@ -137,6 +137,4 @@ void rigidBody::createIndicesArray(graphicObject *object){
         delete indicesArray;
     }
     indicesArray=new dArray<unsigned int>(indicesCount);
-
-    arraySize pos=0;
 }

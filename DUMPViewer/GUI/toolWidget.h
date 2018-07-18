@@ -21,6 +21,7 @@ public:
     void disableToolPanel(bool disable);
     void resetToolPanel();
     void createLODTab(LOD *lod);
+    void update();//обновляет информацию
     ~toolWidget();
 
 signals:

@@ -123,9 +123,6 @@ void stream::out(graphicObject *var){
     VAR_NOT_NULL
     out((meshObject*)var);
 
-
-    int size=0;
-
     out(var->isVisible());
 }
 //////////////////////////////////////////////////////////////////////////

@@ -79,6 +79,11 @@ protected:
     glm::vec4 colorToVector4(aiColor4D color);
     bool readShaderFile(string fName, QByteArray *array);
 
+signals:
+    void changed();
+
+
+
 };
 
 #endif // EDITORCORE_H

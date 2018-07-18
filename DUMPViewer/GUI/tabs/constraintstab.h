@@ -19,6 +19,7 @@ class constraintsTab : public dTabBar
 public:
     explicit constraintsTab(QTabWidget *parent = 0);
     ~constraintsTab();
+    void updateInfo();
 
 private:
     Ui::constraintsTab *ui;

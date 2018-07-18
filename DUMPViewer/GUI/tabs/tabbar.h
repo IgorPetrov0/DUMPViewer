@@ -6,7 +6,7 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 #include <QTabWidget>
-
+#include "GUI/abstractwidget.h"
 #include "GUI/widgets/dumpviewerwidget.h"
 #include "gameObject/gameobject.h"
 #include "editorCore.h"
@@ -29,7 +29,6 @@ public:
     dTabBar(QTabWidget *parent=0);
     ~dTabBar();
     void addWidget(QWidget *widget);
-    void setEndWidget(QWidget *winget);
     void disableTab(bool disable);
     virtual void setCorePointer(editorCore *pointer);
 

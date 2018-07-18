@@ -26,6 +26,7 @@ void MainWindow::connections(){
     connect(ui->actionSave,SIGNAL(triggered(bool)),this,SLOT(saveGameObjectSlot()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openGameObjectSlot()));
     connect(this,SIGNAL(objectLoaded()),tPanel,SLOT(updateInfoSlot()));
+    connect(core,SIGNAL(changed()),this,SLOT(someChanged()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::openModel(){
@@ -118,8 +119,8 @@ void MainWindow::openGameObjectSlot(){
             }
             setWindowTitle(QString::fromStdString(core->currentObject()->getName()));
             disableTools(false);
-            emit objectLoaded();//сигналим подчиненным виджетам обновиться
             modelFileName=fileName;
+            emit updateTPanel();
         }
     }
 }
@@ -192,6 +193,11 @@ void MainWindow::loadShaders(){
 
 
 
+}
+///////////////////////////////////////////////////////////////////////////////////////
+void MainWindow::someChanged(){
+    view->update();
+    tPanel->update();
 }
 /////////////////////////////////////////////////////////////////////////
 bool MainWindow::saveModelFile(){

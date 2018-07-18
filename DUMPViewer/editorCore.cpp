@@ -171,6 +171,7 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
     object->loadFromAiScene(scene,&globalMaterialsArray);
     object->setVertexShaderFileName("/defaultVertexShader.vert");
     object->setFragmentShaderFileName("/defaultFragmentShader.fsh");
+    emit changed();
     return true;
 }
 /////////////////////////////////////////////////////////////////////////////////

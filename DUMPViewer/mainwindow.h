@@ -60,10 +60,11 @@ protected slots:
     void showBoundBoxSlot();
     void closeCurrentObjectSlot();
     void loadShaders();
+    void someChanged();
 
 
 signals:
-    void objectLoaded();//сигнал для дочерних виджетов обновить информацию об объекте
+    void updateTPanel();//сигнал для панели инструментов обновить информацию об объекте
 
 private:
     Ui::MainWindow *ui;

@@ -5,7 +5,7 @@ constraintsTab::constraintsTab(QTabWidget *parent) :
     dTabBar(parent),
     ui(new Ui::constraintsTab)
 {
-    ui->setupUi(this);
+    ui->setupUi((QWidget*)this);
     currentPropertiesWidgetPointer=NULL;
     createTab();
 
@@ -15,6 +15,10 @@ constraintsTab::~constraintsTab()
 {
     deleteCurrrentPropWidget();
     delete ui;
+}
+///////////////////////////////////////////////////////////
+void constraintsTab::updateInfo(){
+
 }
 /////////////////////////////////////////////////////////////
 void constraintsTab::createTab(){

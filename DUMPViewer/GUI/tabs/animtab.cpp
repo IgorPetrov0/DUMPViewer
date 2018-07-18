@@ -4,7 +4,7 @@
 
 
 animTab::animTab(QWidget *parent) :
-    QWidget(parent),
+    abstractWidget(parent),
     ui(new Ui::animTab)
 {
     ui->setupUi(this);
@@ -27,6 +27,17 @@ void animTab::selectAnimation(QString name){
     }
 }
 ////////////////////////////////////////////////////////////////
-void animTab::updateInfoSlot(){
-    for(int n=0;n!=core->currentObject()->getMainMesh()->)
+void animTab::updateInfo(){
+    graphicObject *object=core->currentObject()->getMainMesh();
+    unsigned int size=object->numAnimations();
+    for(unsigned int n=0;n!=size;n++){
+        animation *tmpAnim=object->getAnimation(n);
+        ui->comboBox->addItem(QString::fromStdString(tmpAnim->getName()));
+    }
 }
+
+
+
+
+
+

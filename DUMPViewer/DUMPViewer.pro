@@ -120,7 +120,8 @@ HEADERS  += mainwindow.h \
     gameObject/animation/animchannel.h \
     gameObject/animation/animkey.h \
     gameObject/animation/animquatkey.h \
-    GUI/tabs/animtab.h
+    GUI/tabs/animtab.h \
+    GUI/abstractwidget.h
 
 FORMS    += \
     mainwindow.ui \

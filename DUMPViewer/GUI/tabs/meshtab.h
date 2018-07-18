@@ -18,7 +18,7 @@ public:
     void resetTab();
     ~meshTab();
     void setCorePointer(editorCore *pointer);
-
+    void updateInfo();
 
 
 private:

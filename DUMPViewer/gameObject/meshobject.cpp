@@ -45,7 +45,7 @@ void meshObject::clear(){
     delete vertexAtributesArray;
     vertexAtributesArray=NULL;
     unsigned int size=indicesObjectsArray->getSize();
-    for(int n=0;n!=size;n++){
+    for(unsigned int n=0;n!=size;n++){
         indicesObjectsArray->operator [](n)->clear();
     }
 }
@@ -133,7 +133,6 @@ bool meshObject::getMatricesArray(int size, int *offsets, unsigned char *array){
     }
     memcpy(array+offsets[0],(void*)&modelMatrix,sizeof(glm::mat4));
     memcpy(array+offsets[1],(void*)&normalMatrix,sizeof(glm::mat4));
-    float *f=(float*)array;
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////

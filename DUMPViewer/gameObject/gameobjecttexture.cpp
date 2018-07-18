@@ -147,6 +147,7 @@ bool gameObjectTexture::loadFromFile(string name, string path ){
     }
     ilDeleteImage(id);
     ilShutDown();
+    return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////
 bool gameObjectTexture::isExistInOpenGL(){

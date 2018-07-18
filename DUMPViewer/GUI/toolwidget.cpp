@@ -14,6 +14,7 @@ toolWidget::toolWidget(QWidget *parent) :
 
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
     connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
+    connect(this,SIGNAL(updateInfo()),ui->animationWidget,SLOT(updateInfoSlot()));
 
 }
 /////////////////////////////////////////////////
@@ -47,6 +48,11 @@ void toolWidget::disableToolPanel(bool disable){
 /////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::resetToolPanel(){
     clearLODTabsArray();
+}
+/////////////////////////////////////////////////////////////////////////////////////////
+void toolWidget::update(){
+    ui->animationWidget->update();
+
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::graphicTabSelectedSlot(int index){
@@ -135,15 +141,10 @@ void toolWidget::updateInfoSlot(){
     IS_CORE_POINTER
 
     unsigned int size=core->currentObject()->LODsSize();
-    if(size!=0){
-        for(unsigned int n=0;n!=size;n++){
-            addLODTab();
-            emit updateInfo();
-        }
+    for(unsigned int n=0;n!=size;n++){
+        addLODTab();
     }
-    else{
-        emit updateInfo();
-    }
+    emit updateInfo();
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::showGraphicSlot(bool checked){
