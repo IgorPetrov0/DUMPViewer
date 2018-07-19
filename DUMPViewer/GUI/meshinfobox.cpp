@@ -2,7 +2,7 @@
 #include "ui_meshinfobox.h"
 
 meshInfoBox::meshInfoBox(QWidget *parent) :
-    dumpViewerWidget(parent),
+    dvBaseWidget(parent),
     ui(new Ui::meshInfoBox)
 {
     ui->setupUi(this);
@@ -136,6 +136,3 @@ void meshInfoBox::scaleZChange(double value){
     core->updateView();
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-void meshInfoBox::setCorePointer(editorCore *pointer){
-    core=pointer;
-}

@@ -1,15 +1,12 @@
 #include "meshtab.h"
 #include "ui_meshtab.h"
 
-meshTab::meshTab(QTabWidget *parent) :
-    dTabBar(parent),
+meshTab::meshTab(QWidget *parent) :
+    dvBaseWidget(parent),
     ui(new Ui::meshTab)
 {
     ui->setupUi(this);
-    addWidget(ui->meshInfoWidget);
-    ui->meshInfoWidget->setOriginSize();
-    connect(ui->meshInfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
-    connect(ui->meshInfoWidget,SIGNAL(meshDeleted()),this,SLOT(meshDeleted()));
+
 }
 ///////////////////////////////////////////////////////
 meshTab::~meshTab(){
@@ -17,12 +14,15 @@ meshTab::~meshTab(){
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::setCorePointer(editorCore *pointer){
-    core=pointer;
     ui->meshInfoWidget->setCorePointer(pointer);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-void meshTab::updateInfo(){
-    //ui->meshInfoWidget->u
+void meshTab::updateContent(){
+
+}
+//////////////////////////////////////////////////////////////////////////////////////
+void meshTab::resizeWidget(QRect rect){
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::meshLoaded(editabelGraphicObject *mesh){

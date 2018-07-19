@@ -3,22 +3,23 @@
 
 #include <QMessageBox>
 
-#include "GUI/tabs/tabbar.h"
+#include "GUI/widgets/dvbasewidget.h"
 
 namespace Ui {
 class meshTab;
 }
 
-class meshTab : public dTabBar
+class meshTab : public dvBaseWidget
 {
     Q_OBJECT
 
 public:
-    explicit meshTab(QTabWidget *parent = 0);
-    void resetTab();
+    explicit meshTab(QWidget *parent);
     ~meshTab();
-    void setCorePointer(editorCore *pointer);
-    void updateInfo();
+    virtual void setCorePointer(editorCore *core);
+    virtual void updateContent();
+    virtual void resizeWidget(QRect rect);
+
 
 
 private:

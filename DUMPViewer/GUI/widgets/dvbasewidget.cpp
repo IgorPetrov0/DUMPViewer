@@ -16,6 +16,10 @@ dvBaseWidget::~dvBaseWidget(){
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::setCorePointer(editorCore *corePointer){
     core=corePointer;
+    int size=widgetsArray.size();
+    for(int n=0;n!=size;n++){
+        widgetsArray.at(n)->setCorePointer(corePointer);
+    }
 }
 ////////////////////////////////////////////////////////////////////
 void dvBaseWidget::setPosition(int x, int y){
@@ -31,42 +35,47 @@ void dvBaseWidget::updateContent(){
 }
 ////////////////////////////////////////////////////////////////////
 void dvBaseWidget::resizeWidget(QRect rect){
-    int t=0;
-    t++;
+    calculateScrollBar();
+}
+//////////////////////////////////////////////////////////////////////////
+void dvBaseWidget::clear(){
+    int size=widgetsArray.size();
+    for(int n=0;n!=size;n++){
+        widgetsArray.at(n)->clear();
+    }
 }
 ///////////////////////////////////////////////////////////////////////////
-void dvBaseWidget::addWidget(abstractBaseWidget *widget){
+void dvBaseWidget::addWidget(abstractBaseWidget *widget, int vertivcalOffset){
+    QRect rect=widget->geometry();
+    rect.setX(0);
+    rect.setY(contentHeigth+vertivcalOffset);
+    widget->setGeometry(rect);
     widgetsArray.append(widget);
     calculateContentHeigth();
     calculateScrollBar();
 }
-///////////////////////////////////////////////////////////////////////////
-void dvBaseWidget::resizeEvent(QResizeEvent *event){
-    int size=widgetsArray.size();
-    for(int n=0;n!=size;n++){
-        widgetsArray.at(n)->resizeWidget(this->geometry());
-    }
-}
 ////////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateScrollBar(){
-
     if(contentHeigth>this->geometry().height()){//если необходимая высота больше собственной
         if(scrollBar==NULL){
             scrollBar = new QScrollBar(this);
-            QRect rect;
-            rect.setWidth(10);
-            rect.setHeight(this->geometry().height());
-            rect.setX(0);
-            rect.setY(0);
-            scrollBar->setGeometry(rect);
-            scrollBar->setMaximum(contentHeigth);
-            scrollBar->setPageStep(this->geometry().height());
-            connect(scrollBar,SIGNAL(valueChanged(int)),this,SLOT(scrollSlot(int)));
         }
+        QRect rect;
+        rect.setX(this->geometry().width()-10);
+        rect.setY(0);
+        rect.setWidth(10);
+        rect.setHeight(this->geometry().height());
+        scrollBar->setGeometry(rect);
+        scrollBar->setMaximum(contentHeigth-this->geometry().height());
+        scrollBar->setPageStep(this->geometry().height());
+        connect(scrollBar,SIGNAL(valueChanged(int)),this,SLOT(scrollSlot(int)));
+        scrollBar->show();
     }
     else{
         if(scrollBar!=NULL){
+            disconnect(scrollBar,SIGNAL(valueChanged(int)),this,SLOT(scrollSlot(int)));
             delete scrollBar;
+            scrollBar=NULL;
         }
     }
 }

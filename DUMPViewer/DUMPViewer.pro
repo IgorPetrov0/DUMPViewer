@@ -67,7 +67,9 @@ SOURCES += main.cpp\
     gameObject/animation/animquatkey.cpp \
     GUI/widgets/dvbasewidget.cpp \
     GUI/widgets/animationwidget.cpp \
-    GUI/tabs/animationtab.cpp
+    GUI/tabs/animationtab.cpp \
+    GUI/tabs/graphictab.cpp \
+    GUI/widgets/showradiobutton.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -126,7 +128,9 @@ HEADERS  += mainwindow.h \
     GUI/widgets/dvbasewidget.h \
     GUI/widgets/abstractbasewidget.h \
     GUI/widgets/animationwidget.h \
-    GUI/tabs/animationtab.h
+    GUI/tabs/animationtab.h \
+    GUI/tabs/graphictab.h \
+    GUI/widgets/showradiobutton.h
 
 FORMS    += \
     mainwindow.ui \
@@ -146,7 +150,8 @@ FORMS    += \
     GUI/widgets/constraintPropertiesWidgets/transformwidget.ui \
     GUI/meshinfobox.ui \
     GUI/meshbox.ui \
-    GUI/widgets/animationwidget.ui
+    GUI/widgets/animationwidget.ui \
+    GUI/widgets/showradiobutton.ui
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include

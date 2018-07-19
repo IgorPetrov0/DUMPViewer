@@ -19,7 +19,9 @@ class meshBox : public dumpViewerWidget
 public:
     explicit meshBox(QWidget *parent);
     ~meshBox();
-    void clear();
+    virtual void updateContent();
+    virtual void resizeWidget(QRect rect);
+    virtual void clear();
     void setCorePointer(editorCore *pointer);
 
 protected:

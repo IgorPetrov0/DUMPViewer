@@ -27,14 +27,14 @@ public:
     virtual void setPosition(int x,int y);
     virtual void updateContent();
     virtual void resizeWidget(QRect rect);
-    void addWidget(abstractBaseWidget *widget);
+    virtual void clear();
+    void addWidget(abstractBaseWidget *widget, int vertivcalOffset);
 
 protected:
     editorCore *core;
     QVector<abstractBaseWidget*> widgetsArray;
     QScrollBar *scrollBar;
     int contentHeigth;
-    void resizeEvent(QResizeEvent *event);
     void calculateScrollBar();
     void calculateContentHeigth();
 

@@ -9,11 +9,19 @@ meshBox::meshBox(QWidget *parent) :
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
     connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SLOT(deleteSlot()));
     ui->infoBox->setCorePointer(core);
-    ui->infoBox->setOriginSize();
+    //ui->infoBox->setOriginSize();
 }
 /////////////////////////////////////////////////////////////////////////////
 meshBox::~meshBox(){
     delete ui;
+}
+////////////////////////////////////////////////////////////////////////
+void meshBox::updateContent(){
+
+}
+/////////////////////////////////////////////////////////////////
+void meshBox::resizeWidget(QRect rect){
+
 }
 ////////////////////////////////////////////////////////
 void meshBox::loadSlot(){

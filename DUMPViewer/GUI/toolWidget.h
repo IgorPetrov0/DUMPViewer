@@ -39,7 +39,7 @@ protected slots:
     void graphicTabSelectedSlot(int index);
     void LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber);
     void updateInfoSlot();
-    void showGraphicSlot(bool checked);
+
 
 private:
     Ui::toolWidget *ui;

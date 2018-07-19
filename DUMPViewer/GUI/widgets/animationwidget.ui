@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>220</width>
+    <width>210</width>
     <height>213</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>201</width>
+     <width>191</width>
      <height>22</height>
     </rect>
    </property>
@@ -28,7 +28,7 @@
     <rect>
      <x>10</x>
      <y>50</y>
-     <width>201</width>
+     <width>191</width>
      <height>19</height>
     </rect>
    </property>
@@ -48,13 +48,16 @@
    <property name="text">
     <string>Play</string>
    </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>130</y>
-     <width>201</width>
+     <width>191</width>
      <height>71</height>
     </rect>
    </property>
@@ -87,7 +90,7 @@
      <string>Ticks per second</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
+   <widget class="QLabel" name="duration">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -103,7 +106,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
+   <widget class="QLabel" name="tickPerSecond">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -120,7 +123,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QLabel" name="label_5">
+  <widget class="QLabel" name="currentTick">
    <property name="geometry">
     <rect>
      <x>86</x>

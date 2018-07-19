@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include "GUI/infobox.h"
+#include "GUI/widgets/dvbasewidget.h"
 #include "widgets/dumpviewerwidget.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"
 
@@ -10,7 +11,7 @@ namespace Ui {
 class meshInfoBox;
 }
 
-class meshInfoBox : public dumpViewerWidget
+class meshInfoBox : public dvBaseWidget
 {
     Q_OBJECT
 
@@ -19,7 +20,7 @@ public:
     ~meshInfoBox();
     void clear();
     void setMesh(editabelGraphicObject *value);
-    void setCorePointer(editorCore *pointer);
+
 
 protected:
     editabelGraphicObject *mesh;

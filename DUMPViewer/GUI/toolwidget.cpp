@@ -7,13 +7,11 @@ toolWidget::toolWidget(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    //ui->graphicTab->setCurrentIndex(0);
-    //ui->graphicTab->setUsesScrollButtons(true);
-    ui->showRadioButton->setChecked(true);
+
+
     core=NULL;
 
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
-    connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
 
 }
 /////////////////////////////////////////////////
@@ -27,7 +25,7 @@ void toolWidget::resizeEvent(QResizeEvent *event){
     QRect tabGeometry=ui->tabWidget->geometry();
     tabGeometry.setHeight(this->height());
     ui->tabWidget->setGeometry(tabGeometry);
-    //ui->widget->setGeometry(tabGeometry);
+    ui->animTab->resizeWidget(ui->tabWidget->currentWidget()->geometry());
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::disableToolPanel(bool disable){
@@ -62,23 +60,21 @@ void toolWidget::graphicTabSelectedSlot(int index){
 //            return;
 //        }
 //    }
-    if(ui->showRadioButton->isChecked()){//если галка show стоит
-        if(index==0){//если переключились на mainMesh
-            core->setViewDistance(lastDistance);
-            core->currentObject()->showMainMesh(true);
-        }
-        else{
-            if(lastIndex==0){
-                lastDistance=core->getViewDistance();
-            }
-            LOD *lod=core->currentObject()->getLod(index-1);
-            if(lod!=NULL){
-                core->setViewDistance(-lod->getDistance());
-                core->currentObject()->showLOD(index-1,true);
-            }
-        }
-        lastIndex=index;
+    if(index==0){//если переключились на mainMesh
+        core->setViewDistance(lastDistance);
+        core->currentObject()->showMainMesh(true);
     }
+    else{
+        if(lastIndex==0){
+            lastDistance=core->getViewDistance();
+        }
+        LOD *lod=core->currentObject()->getLod(index-1);
+        if(lod!=NULL){
+            core->setViewDistance(-lod->getDistance());
+            core->currentObject()->showLOD(index-1,true);
+        }
+    }
+    lastIndex=index;
 }
 ///////////////////////////////////////////////////////////////////////
 void toolWidget::LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber){
@@ -141,27 +137,15 @@ void toolWidget::updateInfoSlot(){
     }
     emit updateInfo();
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void toolWidget::showGraphicSlot(bool checked){
-    IS_CORE_POINTER
-
-    if(!checked){
-        core->currentObject()->showMainMesh(false);
-        core->currentObject()->showLOD(0,false);
-        core->updateView();
-    }
-    else{
-       //graphicTabSelectedSlot(ui->graphicTab->currentIndex());
-    }
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::setCorePointer(editorCore *core){
     IS_CORE_POINTER
 
     this->core=core;
-    ui->constraintsTabBar->setCorePointer(core);
-    ui->rigidBodiesTabBar->setCorePointer(core);
-   // ui->meshTabBar->setCorePointer(core);
-   // ui->animationWidget->setCorePointer(core);
+    //ui->constraintsTabBar->setCorePointer(core);
+    //ui->rigidBodiesTabBar->setCorePointer(core);
+    ui->animTab->setCorePointer(core);
+    ui->graphTab->setCorePointer(core);
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

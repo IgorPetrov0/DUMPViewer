@@ -44,7 +44,7 @@ void rigidBodyesTab::createTab(){
     addWidget(ui->typeComboBox);
     addWidget(ui->meshInfoWidget);
     addWidget(ui->massGroup);
-    ui->meshInfoWidget->setOriginSize();
+    //ui->meshInfoWidget->setOriginSize();
 
     ui->typeComboBox->addItem(tr("Movable"),QVariant(RIGID_BODY_MOVABLE));
     ui->typeComboBox->addItem(tr("Static"),QVariant(RIGID_BODY_STATIC));

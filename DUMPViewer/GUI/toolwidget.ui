@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="phisicTabWidget">
     <attribute name="title">
@@ -60,23 +60,14 @@
     <attribute name="title">
      <string>Graphic</string>
     </attribute>
-    <widget class="QRadioButton" name="showRadioButton">
+    <widget class="graphicTab" name="graphTab" native="true">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>10</y>
-       <width>191</width>
-       <height>17</height>
+       <width>120</width>
+       <height>80</height>
       </rect>
-     </property>
-     <property name="text">
-      <string>Show graphic</string>
-     </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
      </property>
     </widget>
    </widget>
@@ -84,11 +75,11 @@
     <attribute name="title">
      <string>Animations</string>
     </attribute>
-    <widget class="animationTab" name="widget" native="true">
+    <widget class="animationTab" name="animTab" native="true">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>10</y>
+       <x>0</x>
+       <y>0</y>
        <width>120</width>
        <height>80</height>
       </rect>
@@ -114,6 +105,12 @@
    <class>animationTab</class>
    <extends>QWidget</extends>
    <header location="global">GUI/tabs/animationtab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>graphicTab</class>
+   <extends>QWidget</extends>
+   <header location="global">GUI/tabs/graphictab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

@@ -16,6 +16,7 @@ public:
     ~animationWidget();
     virtual void updateContent();
     virtual void resizeWidget(QRect rect);
+    virtual void clear();
 
 private:
     Ui::animationWidget *ui;
