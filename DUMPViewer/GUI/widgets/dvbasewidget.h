@@ -27,14 +27,16 @@ public:
     virtual void setPosition(int x,int y);
     virtual void updateContent();
     virtual void resizeWidget(QRect rect);
-    void addWidget(QWidget *widget);
+    void addWidget(abstractBaseWidget *widget);
 
 protected:
     editorCore *core;
-    QVector<QWidget*> widgetsArray;
+    QVector<abstractBaseWidget*> widgetsArray;
     QScrollBar *scrollBar;
+    int contentHeigth;
     void resizeEvent(QResizeEvent *event);
     void calculateScrollBar();
+    void calculateContentHeigth();
 
 protected slots:
     void scrollSlot(int value);

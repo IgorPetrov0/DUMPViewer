@@ -77,7 +77,7 @@ void MainWindow::setWidgetsGeometry(){
     pX=this->width()-tPanel->width();
     pY=upY;
     w=tPanel->geometry().width();
-    h=this->height()-upY-ui->statusBar->height()-5;
+    h=this->centralWidget()->height();
     tPanel->setGeometry(pX,upY,w,h);
 
     //считаем геометрию видового окна

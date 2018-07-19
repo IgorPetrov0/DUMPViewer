@@ -5,7 +5,7 @@ dvBaseWidget::dvBaseWidget(QWidget *parent):
 {
     core=NULL;
     scrollBar=NULL;
-
+    contentHeigth=0;
 }
 ///////////////////////////////////////////////////////////////////////////
 dvBaseWidget::~dvBaseWidget(){
@@ -35,35 +35,22 @@ void dvBaseWidget::resizeWidget(QRect rect){
     t++;
 }
 ///////////////////////////////////////////////////////////////////////////
-void dvBaseWidget::addWidget(QWidget *widget){
+void dvBaseWidget::addWidget(abstractBaseWidget *widget){
     widgetsArray.append(widget);
+    calculateContentHeigth();
     calculateScrollBar();
 }
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::resizeEvent(QResizeEvent *event){
-    QPushButton *button = new QPushButton(this);
-    QRect rect;
-    rect.setX(0);
-    rect.setY(0);
-    rect.setWidth(201);
-    rect.setHeight(160);
-    button->setGeometry(rect);
-    button->setText("________________");
-    addWidget(button);
+    int size=widgetsArray.size();
+    for(int n=0;n!=size;n++){
+        widgetsArray.at(n)->resizeWidget(this->geometry());
+    }
 }
 ////////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateScrollBar(){
-    //получаем необходимую высоту для размещения всех виджетов
-    unsigned int size=widgetsArray.size();
-    QWidget *tmp = widgetsArray.at(0);
-    for(int n=1;n!=size;n++){//ищем самый нижний виджет
-        if(tmp->geometry().y()<widgetsArray.at(n)->geometry().y()){
-            tmp=widgetsArray.at(n);
-        }
-    }
-    QRect rect=tmp->geometry();
-    int heigth=tmp->geometry().y()+tmp->geometry().height();//высота = Y самого нижнего+его высота
-    if(heigth>this->geometry().height()){//если необходимая высота больше собственной
+
+    if(contentHeigth>this->geometry().height()){//если необходимая высота больше собственной
         if(scrollBar==NULL){
             scrollBar = new QScrollBar(this);
             QRect rect;
@@ -72,7 +59,7 @@ void dvBaseWidget::calculateScrollBar(){
             rect.setX(0);
             rect.setY(0);
             scrollBar->setGeometry(rect);
-            scrollBar->setMaximum(heigth);
+            scrollBar->setMaximum(contentHeigth);
             scrollBar->setPageStep(this->geometry().height());
             connect(scrollBar,SIGNAL(valueChanged(int)),this,SLOT(scrollSlot(int)));
         }
@@ -94,4 +81,15 @@ void dvBaseWidget::scrollSlot(int value){
     }
 }
 ///////////////////////////////////////////////////////////////////////////
-
+void dvBaseWidget::calculateContentHeigth(){
+    //получаем необходимую высоту для размещения всех виджетов
+    unsigned int size=widgetsArray.size();
+    QWidget *tmp = widgetsArray.at(0);
+    for(int n=1;n!=size;n++){//ищем самый нижний виджет
+        if(tmp->geometry().y()<widgetsArray.at(n)->geometry().y()){
+            tmp=widgetsArray.at(n);
+        }
+    }
+    QRect rect=tmp->geometry();
+    contentHeigth=rect.y()+rect.height();//высота = Y самого нижнего+его высота
+}

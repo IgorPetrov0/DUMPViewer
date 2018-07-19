@@ -14,7 +14,6 @@ toolWidget::toolWidget(QWidget *parent) :
 
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
     connect(ui->showRadioButton,SIGNAL(toggled(bool)),this,SLOT(showGraphicSlot(bool)));
-   // connect(this,SIGNAL(updateInfo()),ui->animationWidget,SLOT(updateInfoSlot()));
 
 }
 /////////////////////////////////////////////////
@@ -25,14 +24,10 @@ toolWidget::~toolWidget()
 }
 //////////////////////////////////////////////////
 void toolWidget::resizeEvent(QResizeEvent *event){
-    QRect widgetGeometry=ui->tabWidget->geometry();
-    widgetGeometry.setHeight(this->height());
-    ui->tabWidget->setGeometry(widgetGeometry);
-    int childHeigth=widgetGeometry.height()-ui->tabWidget->tabBar()->rect().height();
-    widgetGeometry.setHeight(childHeigth);    
-    ui->phisicTab->setGeometry(widgetGeometry);
-   // widgetGeometry.setY(ui->graphicTab->geometry().y());
-    //ui->graphicTab->setGeometry(widgetGeometry);
+    QRect tabGeometry=ui->tabWidget->geometry();
+    tabGeometry.setHeight(this->height());
+    ui->tabWidget->setGeometry(tabGeometry);
+    //ui->widget->setGeometry(tabGeometry);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::disableToolPanel(bool disable){

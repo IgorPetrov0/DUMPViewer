@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>221</width>
-    <height>898</height>
+    <height>824</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>0</x>
      <y>0</y>
      <width>220</width>
-     <height>901</height>
+     <height>811</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -84,13 +84,13 @@
     <attribute name="title">
      <string>Animations</string>
     </attribute>
-    <widget class="dvBaseWidget" name="widget" native="true">
+    <widget class="animationTab" name="widget" native="true">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
-       <width>201</width>
-       <height>101</height>
+       <width>120</width>
+       <height>80</height>
       </rect>
      </property>
     </widget>
@@ -111,9 +111,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>dvBaseWidget</class>
+   <class>animationTab</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/widgets/dvbasewidget.h</header>
+   <header location="global">GUI/tabs/animationtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
