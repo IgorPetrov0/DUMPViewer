@@ -50,14 +50,13 @@ SOURCES += main.cpp\
     GUI/widgets/dumpviewerwidget.cpp \
     GUI/widgets/ridgidbodypropertyeswidget.cpp \
     GUI/widgets/rigidbodieswidget.cpp \
-    GUI/infobox.cpp \
     GUI/toolwidget.cpp \
     editorCore.cpp \
     gameObject/gameindexobject.cpp \
     gameObject/slaveobject.cpp \
     mathPrimitives/boundbox.cpp \
     GUI/meshinfobox.cpp \
-    GUI/meshbox.cpp \
+    GUI/widgets/meshbox.cpp \
     gameObject/gameobjectlight.cpp \
     gameObject/animation/bone.cpp \
     gameObject/animation/nodeobject.cpp \
@@ -108,7 +107,6 @@ HEADERS  += mainwindow.h \
     GUI/widgets/dumpviewerwidget.h \
     GUI/widgets/ridgidbodypropertyeswidget.h \
     GUI/widgets/rigidbodieswidget.h \
-    GUI/infobox.h \
     GUI/toolWidget.h \
     gameObject/dArray.h \
     editorCore.h \
@@ -116,7 +114,7 @@ HEADERS  += mainwindow.h \
     gameObject/slaveobject.h \
     mathPrimitives/boundbox.h \
     GUI/meshinfobox.h \
-    GUI/meshbox.h \
+    GUI/widgets/meshbox.h \
     gameObject/gameobjectlight.h \
     gameObject/animation/bone.h \
     gameObject/animation/nodeobject.h \
@@ -124,7 +122,6 @@ HEADERS  += mainwindow.h \
     gameObject/animation/animchannel.h \
     gameObject/animation/animkey.h \
     gameObject/animation/animquatkey.h \
-    GUI/abstractwidget.h \
     GUI/widgets/dvbasewidget.h \
     GUI/widgets/abstractbasewidget.h \
     GUI/widgets/animationwidget.h \
@@ -149,7 +146,7 @@ FORMS    += \
     GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.ui \
     GUI/widgets/constraintPropertiesWidgets/transformwidget.ui \
     GUI/meshinfobox.ui \
-    GUI/meshbox.ui \
+    GUI/widgets/meshbox.ui \
     GUI/widgets/animationwidget.ui \
     GUI/widgets/showradiobutton.ui
 

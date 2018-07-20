@@ -26,6 +26,7 @@ void toolWidget::resizeEvent(QResizeEvent *event){
     tabGeometry.setHeight(this->height());
     ui->tabWidget->setGeometry(tabGeometry);
     ui->animTab->resizeWidget(ui->tabWidget->currentWidget()->geometry());
+    ui->graphTab->resizeWidget(ui->tabWidget->currentWidget()->geometry());
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::disableToolPanel(bool disable){

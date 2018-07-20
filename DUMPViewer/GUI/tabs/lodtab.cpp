@@ -8,7 +8,7 @@ LODTab::LODTab(QTabWidget *parent) :
     ui->setupUi(this);
     addWidget(ui->LOD1InfoWidget);
     addWidget(ui->LOD1DistanceWidget);
-    ui->LOD1InfoWidget->setOriginSize();
+    //ui->LOD1InfoWidget->setOriginSize();
     connect(ui->LOD1InfoWidget,SIGNAL(meshDeleted()),this,SLOT(meshDeleted()));
     connect(ui->LOD1InfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
     connect(ui->LOD1DistanceWidget,SIGNAL(changeDistance(double)),this,SLOT(setLodDistance(double)));

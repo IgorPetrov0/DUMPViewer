@@ -4,7 +4,9 @@ graphicTab::graphicTab(QWidget *parent):
     dvBaseWidget(parent)
 {
     showGraphicRB = new showRadioButton(this,tr("Show graphic"));
-    addWidget(showGraphicRB,10);
+    addWidget(showGraphicRB,0);
+    meshWidget = new meshBox(this);
+    addWidget(meshWidget,0);
 
 }
 ////////////////////////////////////////////////////////////////

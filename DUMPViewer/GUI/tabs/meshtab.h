@@ -18,7 +18,7 @@ public:
     ~meshTab();
     virtual void setCorePointer(editorCore *core);
     virtual void updateContent();
-    virtual void resizeWidget(QRect rect);
+
 
 
 

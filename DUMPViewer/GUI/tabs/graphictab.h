@@ -4,6 +4,7 @@
 #include <QRadioButton>
 #include "GUI/widgets/dvbasewidget.h"
 #include "GUI/widgets/showradiobutton.h"
+#include "GUI/widgets/meshbox.h"
 
 
 
@@ -19,6 +20,7 @@ public:
 
 protected:
     showRadioButton *showGraphicRB;
+    meshBox *meshWidget;
 
 
 

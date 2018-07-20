@@ -2,7 +2,7 @@
 #define MESHINFOBOX_H
 
 #include <glm/glm.hpp>
-#include "GUI/infobox.h"
+//#include "GUI/infobox.h"
 #include "GUI/widgets/dvbasewidget.h"
 #include "widgets/dumpviewerwidget.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"

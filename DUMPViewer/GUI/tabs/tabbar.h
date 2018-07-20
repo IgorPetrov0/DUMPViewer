@@ -6,7 +6,6 @@
 #include <QScrollBar>
 #include <QWheelEvent>
 #include <QTabWidget>
-#include "GUI/abstractwidget.h"
 #include "GUI/widgets/dumpviewerwidget.h"
 #include "gameObject/gameobject.h"
 #include "editorCore.h"

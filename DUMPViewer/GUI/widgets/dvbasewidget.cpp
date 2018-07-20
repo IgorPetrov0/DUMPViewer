@@ -35,6 +35,7 @@ void dvBaseWidget::updateContent(){
 }
 ////////////////////////////////////////////////////////////////////
 void dvBaseWidget::resizeWidget(QRect rect){
+    this->setGeometry(rect);
     calculateScrollBar();
 }
 //////////////////////////////////////////////////////////////////////////
@@ -85,7 +86,7 @@ void dvBaseWidget::scrollSlot(int value){
     for(int n=0;n!=size;n++){
         QWidget *widget = widgetsArray.at(n);
         QRect rect=widget->geometry();
-        rect.setY(-value);
+        rect.setY(rect.y()-value);
         widget->setGeometry(rect);
     }
 }
