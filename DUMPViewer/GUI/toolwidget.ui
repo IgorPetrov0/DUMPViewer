@@ -60,7 +60,7 @@
     <attribute name="title">
      <string>Graphic</string>
     </attribute>
-    <widget class="graphicTab" name="graphTab" native="true">
+    <widget class="graphicWidget" name="graphTab" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
@@ -108,9 +108,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>graphicTab</class>
+   <class>graphicWidget</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/tabs/graphictab.h</header>
+   <header location="global">GUI/widgets/graphicwidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

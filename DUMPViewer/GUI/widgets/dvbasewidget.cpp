@@ -82,13 +82,15 @@ void dvBaseWidget::calculateScrollBar(){
 }
 ////////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::scrollSlot(int value){
+    static int oldValue=0;
     int size=widgetsArray.size();
     for(int n=0;n!=size;n++){
         QWidget *widget = widgetsArray.at(n);
         QRect rect=widget->geometry();
-        rect.setY(rect.y()-value);
+        rect.moveTop(rect.y()+(oldValue-value));
         widget->setGeometry(rect);
     }
+    oldValue=value;
 }
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateContentHeigth(){
