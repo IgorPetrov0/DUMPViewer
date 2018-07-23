@@ -7,12 +7,8 @@ toolWidget::toolWidget(QWidget *parent) :
 {
 
     ui->setupUi(this);
-
-
     core=NULL;
-
     connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
-
 }
 /////////////////////////////////////////////////
 toolWidget::~toolWidget()
@@ -26,7 +22,9 @@ void toolWidget::resizeEvent(QResizeEvent *event){
     tabGeometry.setHeight(this->height());
     ui->tabWidget->setGeometry(tabGeometry);
     ui->animTab->resizeWidget(ui->tabWidget->currentWidget()->geometry());
-    ui->graphTab->resizeWidget(ui->tabWidget->currentWidget()->geometry());
+    QRect rect=ui->graphTab->geometry();
+    rect.setHeight(tabGeometry.height()-rect.y()-30);
+    ui->graphTab->resizeWidget(rect);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::disableToolPanel(bool disable){
@@ -46,7 +44,6 @@ void toolWidget::resetToolPanel(){
 /////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::update(){
     //ui->animationWidget->update();
-
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::graphicTabSelectedSlot(int index){

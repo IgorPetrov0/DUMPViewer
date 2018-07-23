@@ -67,9 +67,8 @@ SOURCES += main.cpp\
     GUI/widgets/dvbasewidget.cpp \
     GUI/widgets/animationwidget.cpp \
     GUI/tabs/animationtab.cpp \
-    GUI/tabs/graphictab.cpp \
     GUI/widgets/showradiobutton.cpp \
-    GUI/widgets/graphicwidget.cpp
+    GUI/tabs/graphictab.cpp
 
 HEADERS  += mainwindow.h \
     viewwindow.h \
@@ -127,9 +126,8 @@ HEADERS  += mainwindow.h \
     GUI/widgets/abstractbasewidget.h \
     GUI/widgets/animationwidget.h \
     GUI/tabs/animationtab.h \
-    GUI/tabs/graphictab.h \
     GUI/widgets/showradiobutton.h \
-    GUI/widgets/graphicwidget.h
+    GUI/tabs/graphictab.h
 
 FORMS    += \
     mainwindow.ui \
@@ -151,7 +149,7 @@ FORMS    += \
     GUI/widgets/meshbox.ui \
     GUI/widgets/animationwidget.ui \
     GUI/widgets/showradiobutton.ui \
-    GUI/widgets/graphicwidget.ui
+    GUI/tabs/graphictab.ui
 
 INCLUDEPATH += $$PWD/include
 DEPENDPATH += $$PWD/include

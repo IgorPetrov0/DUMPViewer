@@ -6,7 +6,7 @@ meshTab::meshTab(QWidget *parent) :
     ui(new Ui::meshTab)
 {
     ui->setupUi(this);
-
+    addWidget(ui->meshInfoWidget,0);
 }
 ///////////////////////////////////////////////////////
 meshTab::~meshTab(){

@@ -60,13 +60,26 @@
     <attribute name="title">
      <string>Graphic</string>
     </attribute>
-    <widget class="graphicWidget" name="graphTab" native="true">
+    <widget class="QRadioButton" name="radioButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>201</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show graphic</string>
+     </property>
+    </widget>
+    <widget class="graphicTab" name="graphTab" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>10</y>
-       <width>120</width>
-       <height>80</height>
+       <y>40</y>
+       <width>211</width>
+       <height>481</height>
       </rect>
      </property>
     </widget>
@@ -108,9 +121,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>graphicWidget</class>
+   <class>graphicTab</class>
    <extends>QWidget</extends>
-   <header location="global">GUI/widgets/graphicwidget.h</header>
+   <header location="global">GUI/tabs/graphictab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

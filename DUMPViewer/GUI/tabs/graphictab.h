@@ -1,30 +1,27 @@
 #ifndef GRAPHICTAB_H
 #define GRAPHICTAB_H
 
-#include <QRadioButton>
-#include "GUI/widgets/dvbasewidget.h"
-#include "GUI/widgets/showradiobutton.h"
-#include "GUI/widgets/meshbox.h"
+#include <QWidget>
+#include "GUI/widgets/abstractbasewidget.h"
 
+namespace Ui {
+class graphicTab;
+}
 
-
-class graphicTab : public dvBaseWidget
+class graphicTab : public abstractBaseWidget
 {
     Q_OBJECT
 
 public:
-    graphicTab(QWidget *parent);
+    explicit graphicTab(QWidget *parent);
+    ~graphicTab();
+
     virtual void updateContent();
     virtual void resizeWidget(QRect rect);
+    virtual void clear();
 
-
-protected:
-    showRadioButton *showGraphicRB;
-    meshBox *meshWidget;
-
-
-
-
+private:
+    Ui::graphicTab *ui;
 };
 
 #endif // GRAPHICTAB_H
