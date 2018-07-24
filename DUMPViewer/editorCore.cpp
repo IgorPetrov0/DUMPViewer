@@ -145,7 +145,7 @@ bool editorCore::saveCurrentGameObject(QString fileName){
     return true;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *object){
+bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *object, meshType role){
     Importer importer;
 
     const aiScene *scene=importer.ReadFile(fileName.toStdString(),aiProcess_Triangulate|aiProcess_JoinIdenticalVertices);
@@ -171,7 +171,15 @@ bool editorCore::loadGraphicObject(QString fileName, editabelGraphicObject *obje
     object->loadFromAiScene(scene,&globalMaterialsArray);
     object->setVertexShaderFileName("/defaultVertexShader.vert");
     object->setFragmentShaderFileName("/defaultFragmentShader.fsh");
-    emit changed();
+    loadObjectShaders(object);
+
+    switch(role){
+        case(MESH_MAIN_MESH):{
+            a_currentObject->setMainMesh(object);
+            break;
+        }
+            //TODO
+    }
     return true;
 }
 /////////////////////////////////////////////////////////////////////////////////

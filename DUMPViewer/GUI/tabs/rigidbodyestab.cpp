@@ -1,8 +1,7 @@
  #include "rigidbodyestab.h"
 #include "ui_rigidbodyestab.h"
 
-rigidBodyesTab::rigidBodyesTab(QTabWidget *parent) :
-    dTabBar(parent),
+rigidBodyesTab::rigidBodyesTab(QWidget *parent) :
     ui(new Ui::rigidBodyesTab)
 {
     ui->setupUi(this);
@@ -39,12 +38,12 @@ rigidBodyesTab::~rigidBodyesTab()
 }
 //////////////////////////////////////////////////////////////
 void rigidBodyesTab::createTab(){
-    addWidget(ui->showRigidBodyRadioButton);
-    addWidget(ui->rigidBodyesGroup);
-    addWidget(ui->typeComboBox);
-    addWidget(ui->meshInfoWidget);
-    addWidget(ui->massGroup);
-    //ui->meshInfoWidget->setOriginSize();
+//    addWidget(ui->showRigidBodyRadioButton);
+//    addWidget(ui->rigidBodyesGroup);
+//    addWidget(ui->typeComboBox);
+//    addWidget(ui->meshInfoWidget);
+//    addWidget(ui->massGroup);
+//    //ui->meshInfoWidget->setOriginSize();
 
     ui->typeComboBox->addItem(tr("Movable"),QVariant(RIGID_BODY_MOVABLE));
     ui->typeComboBox->addItem(tr("Static"),QVariant(RIGID_BODY_STATIC));
@@ -54,41 +53,41 @@ void rigidBodyesTab::createTab(){
 ////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::configureSourceComboBox(){
     ui->meshSourceComboBox->clear();
-    if(core!=NULL){
-        if(core->currentObject()!=NULL){
-            ui->meshSourceComboBox->addItem(tr("File"));
-            if(core->currentObject()->mainMeshExsist()){
-                ui->meshSourceComboBox->addItem(tr("Main mesh"));
-            }
-            unsigned int size=core->currentObject()->LODsSize();
-            for(unsigned int n=0;n!=size;n++){
-                ui->meshSourceComboBox->addItem(tr("from LOD")+QString::number(n+1));
-            }
-            ui->meshSourceComboBox->setCurrentIndex(0);
-        }
-    }
+//    if(core!=NULL){
+//        if(core->currentObject()!=NULL){
+//            ui->meshSourceComboBox->addItem(tr("File"));
+//            if(core->currentObject()->mainMeshExsist()){
+//                ui->meshSourceComboBox->addItem(tr("Main mesh"));
+//            }
+//            unsigned int size=core->currentObject()->LODsSize();
+//            for(unsigned int n=0;n!=size;n++){
+//                ui->meshSourceComboBox->addItem(tr("from LOD")+QString::number(n+1));
+//            }
+//            ui->meshSourceComboBox->setCurrentIndex(0);
+//        }
+//    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::updateInfoSlot(){
     disconnectAll();
     configureSourceComboBox();
     updateList();
-    editabelPhisycObject *object=core->currentObject()->getPhisycObject();
-    if(object!=NULL){
-        editabelRigidBody *body=object->getRigitBody(ui->meshSourceComboBox->currentIndex());
-        if(body!=NULL){
-            switch(body->getType()){
-                case(RIGID_BODY_MOVABLE):{
-                    ui->typeComboBox->setCurrentIndex(0);
-                    break;
-                }
-                case(RIGID_BODY_STATIC):{
-                    ui->typeComboBox->setCurrentIndex(1);
-                    break;
-                }
-            }
-        }
-    }
+    //editabelPhisycObject *object=core->currentObject()->getPhisycObject();
+//    if(object!=NULL){
+//        editabelRigidBody *body=object->getRigitBody(ui->meshSourceComboBox->currentIndex());
+//        if(body!=NULL){
+//            switch(body->getType()){
+//                case(RIGID_BODY_MOVABLE):{
+//                    ui->typeComboBox->setCurrentIndex(0);
+//                    break;
+//                }
+//                case(RIGID_BODY_STATIC):{
+//                    ui->typeComboBox->setCurrentIndex(1);
+//                    break;
+//                }
+//            }
+//        }
+//    }
     connectAll();
 }
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -96,102 +95,102 @@ void rigidBodyesTab::addSlot(){
     editabelRigidBody *body=NULL;
     switch(ui->meshSourceComboBox->currentIndex()){
         case(0):{//файл
-            QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
-            if(!name.isEmpty()){
-                editabelGraphicObject gObject;
-                QFileInfo fi(name);
-                gObject.setName(fi.fileName().toStdString());
-                if(!core->loadGraphicObject(name,&gObject)){
-                    QMessageBox box(parentWidget());
-                    box.setWindowTitle(tr("Error"));
-                    box.setIcon(QMessageBox::Warning);
-                    box.setDefaultButton(QMessageBox::Ok);
-                    box.setText(core->getLastError());
-                    box.exec();
-                    return;
-                }
-                body=new editabelRigidBody(&gObject,MESH_ORIGINAL);
-            }
+            //QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
+//            if(!name.isEmpty()){
+//                editabelGraphicObject gObject;
+//                QFileInfo fi(name);
+//                gObject.setName(fi.fileName().toStdString());
+//                if(!core->loadGraphicObject(name,&gObject)){
+//                    QMessageBox box(parentWidget());
+//                    box.setWindowTitle(tr("Error"));
+//                    box.setIcon(QMessageBox::Warning);
+//                    box.setDefaultButton(QMessageBox::Ok);
+//                    box.setText(core->getLastError());
+//                    box.exec();
+//                    return;
+//                }
+//                body=new editabelRigidBody(&gObject,MESH_ORIGINAL);
+//            }
             break;
         }
         case(1):{//mainMesh
-            body=new editabelRigidBody(core->currentObject()->getMainMesh(),MESH_MAIN_MESH);
+            //body=new editabelRigidBody(core->currentObject()->getMainMesh(),MESH_MAIN_MESH);
             break;
         }
         case(2):{//LOD1
-            body=new editabelRigidBody(core->currentObject()->getLod(0),MESH_LOD1);
+            //body=new editabelRigidBody(core->currentObject()->getLod(0),MESH_LOD1);
             body->setSource(MESH_LOD1);
             break;
         }
         case(3):{//LOD2
-            body=new editabelRigidBody(core->currentObject()->getLod(1),MESH_LOD2);
+           // body=new editabelRigidBody(core->currentObject()->getLod(1),MESH_LOD2);
             body->setSource(MESH_LOD2);
             break;
         }
         case(4):{//LOD3
-            body=new editabelRigidBody(core->currentObject()->getLod(2),MESH_LOD3);
+            //body=new editabelRigidBody(core->currentObject()->getLod(2),MESH_LOD3);
             body->setSource(MESH_LOD3);
             break;
         }
         case(5):{//LOD4
-            body=new editabelRigidBody(core->currentObject()->getLod(3),MESH_LOD4);
+            //body=new editabelRigidBody(core->currentObject()->getLod(3),MESH_LOD4);
             body->setSource(MESH_LOD4);
             break;
         }
     }
-    if(body!=NULL){
-        core->currentObject()->addRigiBody(body);
-        updateList();
-        //ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
-        setCurrentBody(body);
-        ui->typeComboBox->setEditable(true);
-    }
+//    if(body!=NULL){
+//        //core->currentObject()->addRigiBody(body);
+//        updateList();
+//        //ui->meshInfoWidget->calculateMeshParameters(body->getMeshPointer());
+//        setCurrentBody(body);
+//        ui->typeComboBox->setEditable(true);
+//    }
 }
 ///////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::updateList(){
-    unsigned int size=core->currentObject()->rigidBodyesCount();
-    ui->rigidBodiesList->clear();
-    for(unsigned int n=0;n!=size;n++){
-        QListWidgetItem *item=new QListWidgetItem();
-        item->setData(Qt::UserRole,n);
-        //item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
-        item->setFlags(item->flags()|Qt::ItemIsEditable);
-        ui->rigidBodiesList->addItem(item);
-    }
-    ui->rigidBodiesList->setCurrentItem(ui->rigidBodiesList->item(size-1));
+//    unsigned int size=core->currentObject()->rigidBodyesCount();
+//    ui->rigidBodiesList->clear();
+//    for(unsigned int n=0;n!=size;n++){
+//        QListWidgetItem *item=new QListWidgetItem();
+//        item->setData(Qt::UserRole,n);
+//        //item->setText(QString::fromStdString(app->currentObject()->getPhisycObject()->getRigitBody(n)->getMeshPointer()->getName()));
+//        item->setFlags(item->flags()|Qt::ItemIsEditable);
+//        ui->rigidBodiesList->addItem(item);
+//    }
+//    ui->rigidBodiesList->setCurrentItem(ui->rigidBodiesList->item(size-1));
     //setCurrentBody(app->currentObject()->getPhisycObject()->getRigitBody(ui->rigidBodiesList->currentItem()->data(Qt::UserRole).toInt()));
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::deleteSlot(){
-    core->currentObject()->getPhisycObject()->removeRigidBody(currentBody);
+    //core->currentObject()->getPhisycObject()->removeRigidBody(currentBody);
     setCurrentBody(NULL);
     updateList();
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 void rigidBodyesTab::bodyChangeSlot(){
     QListWidgetItem *item=ui->rigidBodiesList->currentItem();
-    if(item!=NULL){
-        setCurrentBody(core->currentObject()->getPhisycObject()->getRigitBody(item->data(Qt::UserRole).toInt()));
-        if(currentBody!=NULL){
-            disconnectAll();
-            //ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
-            ui->massSpinBox->setValue(currentBody->getMass());
-            ui->massCenterXSpinBox->setValue(currentBody->getMassCenter().x());
-            ui->massCenterYSpinBox->setValue(currentBody->getMassCenter().y());
-            ui->massCenterZSpinBox->setValue(currentBody->getMassCenter().z());
-            switch(currentBody->getType()) {
-                case(RIGID_BODY_MOVABLE):{
-                    ui->typeComboBox->setCurrentIndex(0);
-                    break;
-                }
-                case(RIGID_BODY_STATIC):{
-                    ui->typeComboBox->setCurrentIndex(1);
-                    break;
-                }
-            }
-            connectAll();
-        }
-    }
+//    if(item!=NULL){
+//        setCurrentBody(core->currentObject()->getPhisycObject()->getRigitBody(item->data(Qt::UserRole).toInt()));
+//        if(currentBody!=NULL){
+//            disconnectAll();
+//            //ui->meshInfoWidget->calculateMeshParameters(currentBody->getMeshPointer());
+//            ui->massSpinBox->setValue(currentBody->getMass());
+//            ui->massCenterXSpinBox->setValue(currentBody->getMassCenter().x());
+//            ui->massCenterYSpinBox->setValue(currentBody->getMassCenter().y());
+//            ui->massCenterZSpinBox->setValue(currentBody->getMassCenter().z());
+//            switch(currentBody->getType()) {
+//                case(RIGID_BODY_MOVABLE):{
+//                    ui->typeComboBox->setCurrentIndex(0);
+//                    break;
+//                }
+//                case(RIGID_BODY_STATIC):{
+//                    ui->typeComboBox->setCurrentIndex(1);
+//                    break;
+//                }
+//            }
+//            connectAll();
+//        }
+//    }
     if(currentBody!=NULL){
         ui->typeComboBox->setEnabled(true);
     }

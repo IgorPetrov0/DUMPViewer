@@ -29,9 +29,15 @@ void dvBaseWidget::setPosition(int x, int y){
     this->setGeometry(g);
 }
 ////////////////////////////////////////////////////////////////////
-void dvBaseWidget::updateContent(){
-    int t=0;
-    t++;
+void dvBaseWidget::updateContent(abstractBaseWidget *widget){
+    int size=widgetsArray.size();
+    for(int n=0;n!=size;n++){
+        abstractBaseWidget* tmpWidget=widgetsArray.at(n);
+        if(tmpWidget!=widget){
+            tmpWidget->updateContent(this);
+        }
+    }
+    emit somethingChange(this);
 }
 ////////////////////////////////////////////////////////////////////
 void dvBaseWidget::resizeWidget(QRect rect){
@@ -54,6 +60,7 @@ void dvBaseWidget::addWidget(abstractBaseWidget *widget, int vertivcalOffset){
     widgetsArray.append(widget);
     calculateContentHeigth();
     calculateScrollBar();
+    connect(widget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SLOT(updateContent(abstractBaseWidget*)));
 }
 ////////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateScrollBar(){

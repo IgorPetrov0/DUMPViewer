@@ -15,10 +15,11 @@ class graphicTab : public abstractBaseWidget
 public:
     explicit graphicTab(QWidget *parent);
     ~graphicTab();
-
-    virtual void updateContent();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
+
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 private:
     Ui::graphicTab *ui;

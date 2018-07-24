@@ -3,13 +3,14 @@
 
 #include <limits>
 #include <QWidget>
+#include "GUI/widgets/abstractbasewidget.h"
 
 
 namespace Ui {
 class distanceWidget;
 }
 
-class distanceWidget : public QWidget
+class distanceWidget : public abstractBaseWidget
 {
     Q_OBJECT
 
@@ -19,6 +20,13 @@ public:
     void disableWidget(bool disable);
     float getValue();
     void setValue(float value);
+    virtual void resizeWidget(QRect rect);
+    virtual void clear();
+
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
+
+
 signals:
     void changeDistance(double distance);
     void moveMeshToDistance(bool checked);

@@ -19,13 +19,17 @@ class meshBox : public abstractBaseWidget
 public:
     explicit meshBox(QWidget *parent);
     ~meshBox();
-    virtual void updateContent();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
     void setCorePointer(editorCore *pointer);
+    void setMeshType(meshType type);
+
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 protected:
-    void resizeEvent(QResizeEvent *event);
+    meshType type;
+
 
 private slots:
     void loadSlot();
@@ -34,9 +38,7 @@ private slots:
 private:
     Ui::meshBox *ui;
 
-signals:
-    void meshLoaded(editabelGraphicObject *mesh);
-    void meshDeleted();
+
 
 
 };

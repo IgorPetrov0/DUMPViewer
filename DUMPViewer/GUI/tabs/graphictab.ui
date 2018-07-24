@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>4</number>
    </property>
    <property name="tabSpacing">
     <number>1</number>
@@ -63,6 +63,16 @@
     <attribute name="label">
      <string>LOD1</string>
     </attribute>
+    <widget class="LODTab" name="LOD1Widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="LOD2Page">
     <property name="geometry">
@@ -76,6 +86,16 @@
     <attribute name="label">
      <string>LOD2</string>
     </attribute>
+    <widget class="LODTab" name="LOD2Widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="LOD3Page">
     <property name="geometry">
@@ -89,6 +109,16 @@
     <attribute name="label">
      <string>LOD3</string>
     </attribute>
+    <widget class="LODTab" name="LOD3Widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="LOD4Page">
     <property name="geometry">
@@ -102,6 +132,16 @@
     <attribute name="label">
      <string>LOD4</string>
     </attribute>
+    <widget class="LODTab" name="LOD4Widget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>120</width>
+       <height>80</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -110,6 +150,12 @@
    <class>meshTab</class>
    <extends>QWidget</extends>
    <header location="global">GUI/tabs/meshtab.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LODTab</class>
+   <extends>QWidget</extends>
+   <header location="global">GUI/tabs/lodtab.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

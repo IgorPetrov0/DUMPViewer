@@ -1,8 +1,7 @@
 #include "constraintstab.h"
 #include "ui_constraintstab.h"
 
-constraintsTab::constraintsTab(QTabWidget *parent) :
-    dTabBar(parent),
+constraintsTab::constraintsTab(QWidget *parent):
     ui(new Ui::constraintsTab)
 {
     ui->setupUi((QWidget*)this);
@@ -22,9 +21,9 @@ void constraintsTab::updateInfo(){
 }
 /////////////////////////////////////////////////////////////
 void constraintsTab::createTab(){
-    addWidget(ui->showConstraintsRadioButton);
-    addWidget(ui->groupBox_2);
-    addWidget(ui->propertiesBox);
+//    addWidget(ui->showConstraintsRadioButton);
+//    addWidget(ui->groupBox_2);
+//    addWidget(ui->propertiesBox);
 
     ui->constraintsTypeComboBox->insertItem(0,tr("Point to point"),QVariant(CONSTRAINT_POINT_TO_POINT));
     ui->constraintsTypeComboBox->insertItem(1,tr("Hinge"),QVariant(CONSTRAINT_HINGE));
@@ -32,7 +31,7 @@ void constraintsTab::createTab(){
     ui->constraintsTypeComboBox->insertItem(3,tr("Cone twist"),QVariant(CONSTRAINT_CONE_TWIST));
     ui->constraintsTypeComboBox->insertItem(4,tr("Generic 6 DOF"),QVariant(CONSTRAINT_GENERIC_6_DOF));
 
-    connect(ui->constraintsTypeComboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(constraintTypeChanged(int)));
+//    connect(ui->constraintsTypeComboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(constraintTypeChanged(int)));
 
     constraintTypeChanged(ui->constraintsTypeComboBox->currentIndex());
 
@@ -67,7 +66,7 @@ void constraintsTab::constraintTypeChanged(int index){
     QRect g=ui->propertiesBox->geometry();
     g.setHeight(currentPropertiesWidgetPointer->height()+5);
     ui->propertiesBox->setGeometry(g);
-    checkSize();
+    //checkSize();
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 void constraintsTab::deleteCurrrentPropWidget(){

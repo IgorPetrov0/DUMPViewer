@@ -10,8 +10,10 @@ class animationTab : public dvBaseWidget
 public:
     animationTab(QWidget *parent);
     ~animationTab();
-    virtual void updateContent();
     virtual void resizeWidget(QRect rect);
+
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 protected:
     animationWidget *animWidget;

@@ -10,14 +10,20 @@ class abstractBaseWidget : public QWidget
 
 public:
     abstractBaseWidget(QWidget *parent):QWidget(parent){core=NULL;}
-    virtual void updateContent()=0;
     virtual void resizeWidget(QRect rect)=0;
     virtual void clear()=0;
     virtual void setCorePointer(editorCore *core){this->core = core;}
 
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget)=0;
+
 
 protected:
     editorCore *core;
+
+
+signals:
+    void somethingChange(abstractBaseWidget *widget);
 
 
 };

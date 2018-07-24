@@ -2,7 +2,7 @@
 #include "ui_distancewidget.h"
 
 distanceWidget::distanceWidget(QWidget *parent) :
-    QWidget(parent),
+    abstractBaseWidget(parent),
     ui(new Ui::distanceWidget)
 {
     ui->setupUi(this);
@@ -34,4 +34,16 @@ void distanceWidget::changeDistanceSlot(){
 ///////////////////////////////////////////////////////////////////
 void distanceWidget::setValue(float value){
     ui->distanceSpinBox->setValue(value);
+}
+/////////////////////////////////////////////////////////////////////
+void distanceWidget::updateContent(abstractBaseWidget *widget){
+
+}
+//////////////////////////////////////////////////////////////////////
+void distanceWidget::resizeWidget(QRect rect){
+
+}
+///////////////////////////////////////////////////////////////////////
+void distanceWidget::clear(){
+
 }

@@ -12,7 +12,7 @@ animationTab::~animationTab()
     delete animWidget;
 }
 ////////////////////////////////////////////////////////////
-void animationTab::updateContent(){
+void animationTab::updateContent(abstractBaseWidget *widget){
 
 }
 ////////////////////////////////////////////////////////////

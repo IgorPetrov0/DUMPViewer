@@ -17,9 +17,9 @@ public:
     explicit meshTab(QWidget *parent);
     ~meshTab();
     virtual void setCorePointer(editorCore *core);
-    virtual void updateContent();
 
-
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 
 private:

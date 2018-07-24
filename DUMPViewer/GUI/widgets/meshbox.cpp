@@ -16,7 +16,7 @@ meshBox::~meshBox(){
     delete ui;
 }
 ////////////////////////////////////////////////////////////////////////
-void meshBox::updateContent(){
+void meshBox::updateContent(abstractBaseWidget *widget){
 
 }
 /////////////////////////////////////////////////////////////////
@@ -31,10 +31,9 @@ void meshBox::loadSlot(){
     QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
     if(!name.isEmpty()){
         QFileInfo fi(name);
-        ui->fileNameLine->setText(fi.fileName());
         editabelGraphicObject *object = new editabelGraphicObject;
         object->setName(fi.fileName().toStdString());
-        if(!core->loadGraphicObject(name,object)){
+        if(!core->loadGraphicObject(name,object,type)){
             QMessageBox box(core->mainWindowPointer());
             box.setWindowTitle(tr("Error"));
             box.setIcon(QMessageBox::Warning);
@@ -44,43 +43,9 @@ void meshBox::loadSlot(){
             delete object;
             return;
         }
-        if(!core->loadObjectShaders(object)){
-            QMessageBox box(core->mainWindowPointer());
-            box.setWindowTitle(tr("Shaders load error!"));
-            box.setIcon(QMessageBox::Critical);
-            box.setText(core->getLastError());
-            box.exec();
-            delete object;
-            return;
-        }
-        ui->infoBox->setMesh(object);
-        emit meshLoaded(object);
+        ui->fileNameLine->setText(fi.fileName());
+        emit somethingChange(this);
     }
-}
-////////////////////////////////////////////////////////
-void meshBox::resizeEvent(QResizeEvent *event){
-    QRect rect;
-
-    rect=ui->meshGroup->geometry();
-    rect.setWidth(this->width()-15);
-    ui->meshGroup->setGeometry(rect);
-
-    rect=ui->fileNameLine->geometry();
-    rect.setWidth(ui->meshGroup->width()-20);
-    ui->fileNameLine->setGeometry(rect);
-
-    rect=ui->loadButton->geometry();
-    rect.setX(10);
-    ui->loadButton->setGeometry(rect);
-
-    rect=ui->deleteButton->geometry();
-    rect.setX(ui->meshGroup->width()-10-rect.width());
-    ui->deleteButton->setGeometry(rect);
-
-    rect=ui->infoBox->geometry();
-    rect.setX(ui->loadButton->geometry().x());
-    rect.setWidth(ui->meshGroup->geometry().width()-20);
-    ui->infoBox->setGeometry(rect);
 }
 ///////////////////////////////////////////////////////////////////
 void meshBox::clear(){
@@ -90,10 +55,14 @@ void meshBox::clear(){
 /////////////////////////////////////////////////////////////////////
 void meshBox::deleteSlot(){
     clear();
-    emit meshDeleted();
+    emit somethingChange(this);
 }
 ///////////////////////////////////////////////////////////////////////
 void meshBox::setCorePointer(editorCore *pointer){
     core=pointer;
     ui->infoBox->setCorePointer(pointer);
+}
+///////////////////////////////////////////////////////////////////////////////
+void meshBox::setMeshType(meshType type){
+    this->type=type;
 }

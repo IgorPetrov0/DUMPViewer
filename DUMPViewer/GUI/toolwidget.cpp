@@ -92,28 +92,6 @@ void toolWidget::LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber)
         //ui->graphicTab->setTabText(n+1,tr("LOD")+QString::number(n+1));//надписи переписываем, начиная с 1-го таба т.к. 1-й mainMesh
     }
 }
-//////////////////////////////////////////////////////////////////////
-void toolWidget::addLODTab(){
-    IS_CORE_POINTER
-
-    for(int n=0;n!=LODTabsArray.size();n++){//если хоть в одном предыдущем табе не определен лод
-        if(!LODTabsArray[n]->isLODDefined()){
-            return;//то выходим
-        }
-    }
-    LODTab *newLODTab=new LODTab;
-    LODTabsArray.append(newLODTab);
-    //newLODTab->setTabNumber(ui->graphicTab->count()-1);
-    newLODTab->setLODNumber(LODTabsArray.size()-1);
-    //ui->graphicTab->insertTab(ui->graphicTab->count()-1,newLODTab,tr("LOD")+QString::number(LODTabsArray.size()));
-    //ui->graphicTab->setCurrentIndex(ui->graphicTab->count()-2);
-    if(LODTabsArray.size()>=4){
-      //  ui->graphicTab->setTabEnabled(ui->graphicTab->count()-1,false);
-    }
-    newLODTab->setCorePointer(core);
-    connect(newLODTab,SIGNAL(deleteSignal(uint,uint)),this,SLOT(LODTabDeleteSlot(uint,uint)));
-    connect(this,SIGNAL(updateInfo()),newLODTab,SLOT(updateInfoSlot()));
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::clearLODTabsArray(){
     int size=LODTabsArray.size();
@@ -129,11 +107,6 @@ void toolWidget::clearLODTabsArray(){
 void toolWidget::updateInfoSlot(){
     IS_CORE_POINTER
 
-    unsigned int size=core->currentObject()->LODsSize();
-    for(unsigned int n=0;n!=size;n++){
-        addLODTab();
-    }
-    emit updateInfo();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::setCorePointer(editorCore *core){

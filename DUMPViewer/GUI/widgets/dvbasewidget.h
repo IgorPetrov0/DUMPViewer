@@ -25,10 +25,13 @@ public:
     ~dvBaseWidget();
     virtual void setCorePointer(editorCore *corePointer);
     virtual void setPosition(int x,int y);
-    virtual void updateContent();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
     void addWidget(abstractBaseWidget *widget, int vertivcalOffset);
+
+
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 protected:
     editorCore *core;

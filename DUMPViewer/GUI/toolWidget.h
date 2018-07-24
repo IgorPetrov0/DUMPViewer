@@ -29,7 +29,6 @@ signals:
 
 protected:
     void resizeEvent(QResizeEvent *event);
-    void addLODTab();
     void clearLODTabsArray();
     QVector<LODTab*>LODTabsArray;
     editorCore *core;

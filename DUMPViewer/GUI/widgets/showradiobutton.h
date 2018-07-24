@@ -14,10 +14,11 @@ class showRadioButton : public abstractBaseWidget
 public:
     explicit showRadioButton(QWidget *parent, QString text);
     ~showRadioButton();
-    virtual void updateContent();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
 
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 private:
     Ui::showRadioButton *ui;

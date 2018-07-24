@@ -40,7 +40,6 @@ SOURCES += main.cpp\
     GUI/tabs/lodtab.cpp \
     GUI/tabs/meshtab.cpp \
     GUI/tabs/rigidbodyestab.cpp \
-    GUI/tabs/tabbar.cpp \
     GUI/widgets/constraintPropertiesWidgets/conetwistwidget.cpp \
     GUI/widgets/constraintPropertiesWidgets/hingewidget.cpp \
     GUI/widgets/constraintPropertiesWidgets/pivotwidget.cpp \
@@ -97,7 +96,6 @@ HEADERS  += mainwindow.h \
     GUI/tabs/lodtab.h \
     GUI/tabs/meshtab.h \
     GUI/tabs/rigidbodyestab.h \
-    GUI/tabs/tabbar.h \
     GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h \
     GUI/widgets/constraintPropertiesWidgets/hingewidget.h \
     GUI/widgets/constraintPropertiesWidgets/pivotwidget.h \

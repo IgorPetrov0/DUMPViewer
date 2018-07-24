@@ -6,6 +6,7 @@ graphicTab::graphicTab(QWidget *parent) :
     ui(new Ui::graphicTab)
 {
     ui->setupUi(this);
+    ui->toolBox->setCurrentIndex(0);
 }
 ////////////////////////////////////////////////////////////
 graphicTab::~graphicTab()
@@ -13,7 +14,7 @@ graphicTab::~graphicTab()
     delete ui;
 }
 ////////////////////////////////////////////////////////////////
-void graphicTab::updateContent(){
+void graphicTab::updateContent(abstractBaseWidget *widget){
 
 }
 ////////////////////////////////////////////////////////////////
@@ -23,7 +24,12 @@ void graphicTab::resizeWidget(QRect rect){
     tRect.setHeight(rect.height());
     this->setGeometry(rect);
     ui->toolBox->setGeometry(tRect);
-    ui->meshWidget->setGeometry(ui->toolBox->widget(0)->geometry());
+    tRect=ui->toolBox->currentWidget()->geometry();
+    ui->meshWidget->resizeWidget(tRect);
+    ui->LOD1Widget->resizeWidget(tRect);
+    ui->LOD2Widget->resizeWidget(tRect);
+    ui->LOD3Widget->resizeWidget(tRect);
+    ui->LOD4Widget->resizeWidget(tRect);
 }
 ////////////////////////////////////////////////////////////////
 void graphicTab::clear(){

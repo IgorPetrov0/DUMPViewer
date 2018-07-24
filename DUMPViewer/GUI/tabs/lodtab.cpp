@@ -1,18 +1,15 @@
 #include "lodtab.h"
 #include "ui_lodtab.h"
 
-LODTab::LODTab(QTabWidget *parent) :
-    dTabBar(parent),
+LODTab::LODTab(QWidget *parent) :
+    dvBaseWidget(parent),
     ui(new Ui::LODTab)
 {
     ui->setupUi(this);
-    addWidget(ui->LOD1InfoWidget);
-    addWidget(ui->LOD1DistanceWidget);
-    //ui->LOD1InfoWidget->setOriginSize();
-    connect(ui->LOD1InfoWidget,SIGNAL(meshDeleted()),this,SLOT(meshDeleted()));
+    addWidget(ui->LOD1InfoWidget,0);
+    addWidget(ui->LOD1DistanceWidget,0);
     connect(ui->LOD1InfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
     connect(ui->LOD1DistanceWidget,SIGNAL(changeDistance(double)),this,SLOT(setLodDistance(double)));
-    connect(ui->LOD1DistanceWidget,SIGNAL(moveMeshToDistance(bool)),this,SLOT(moveToDistanceSlot()));
     lodPointer=NULL;
 }
 //////////////////////////////////////////////////////
@@ -47,6 +44,24 @@ unsigned int LODTab::getLODNumber(){
 //////////////////////////////////////////////////////////////////
 void LODTab::setLODNumber(unsigned int number){
     LODNumber=number;
+    switch(number) {
+        case(1):{
+            ui->LOD1InfoWidget->setMeshType(MESH_LOD1);
+            break;
+        }
+        case(2):{
+            ui->LOD1InfoWidget->setMeshType(MESH_LOD2);
+            break;
+        }
+        case(3):{
+            ui->LOD1InfoWidget->setMeshType(MESH_LOD3);
+            break;
+        }
+        case(4):{
+            ui->LOD1InfoWidget->setMeshType(MESH_LOD4);
+            break;
+        }
+    }
 }
 ///////////////////////////////////////////////////////////////////
 void LODTab::setTabNumber(unsigned int number){

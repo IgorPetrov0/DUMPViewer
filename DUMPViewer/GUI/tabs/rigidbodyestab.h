@@ -3,7 +3,6 @@
 
 #include <QListWidgetItem>
 #include "GUI/serviceWindows/dfiledialog.h"
-#include "GUI/tabs/tabbar.h"
 #include "gameObject/rigidbody.h"
 
 
@@ -11,12 +10,12 @@ namespace Ui {
 class rigidBodyesTab;
 }
 
-class rigidBodyesTab : public dTabBar
+class rigidBodyesTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit rigidBodyesTab(QTabWidget *parent = 0);
+    explicit rigidBodyesTab(QWidget *parent = 0);
     ~rigidBodyesTab();
     void updateList();
 

@@ -1,7 +1,6 @@
 #ifndef CONSTRAINTSTAB_H
 #define CONSTRAINTSTAB_H
 
-#include "GUI/tabs/tabbar.h"
 #include "GUI/widgets/constraintPropertiesWidgets/pointtopointwidget.h"
 #include "GUI/widgets/constraintPropertiesWidgets/hingewidget.h"
 #include "GUI/widgets/constraintPropertiesWidgets/conetwistwidget.h"
@@ -12,12 +11,12 @@ namespace Ui {
 class constraintsTab;
 }
 
-class constraintsTab : public dTabBar
+class constraintsTab : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit constraintsTab(QTabWidget *parent = 0);
+    explicit constraintsTab(QWidget *parent = 0);
     ~constraintsTab();
     void updateInfo();
 

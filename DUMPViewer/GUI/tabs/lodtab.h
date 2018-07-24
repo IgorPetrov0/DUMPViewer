@@ -2,19 +2,19 @@
 #define LODTAB_H
 
 #include <QTableWidget>
-#include "GUI/tabs/tabbar.h"
 #include "GUI/serviceWindows/dfiledialog.h"
+#include "GUI/widgets/dvbasewidget.h"
 
 namespace Ui {
 class LODTab;
 }
 
-class LODTab : public dTabBar
+class LODTab : public dvBaseWidget
 {
     Q_OBJECT
 
 public:
-    explicit LODTab(QTabWidget *parent = 0);
+    explicit LODTab(QWidget *parent);
     ~LODTab();
     void setTabNumber(unsigned int number);
     void setLODNumber(unsigned int number);
