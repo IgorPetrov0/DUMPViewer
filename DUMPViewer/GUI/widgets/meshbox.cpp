@@ -30,19 +30,16 @@ void meshBox::loadSlot(){
 
     QString name=dFileDialog::getOpenFileName(core,tr("Open mesh file"),core->currentPath(),core->modelFilter());
     if(!name.isEmpty()){
-        QFileInfo fi(name);
-        editabelGraphicObject *object = new editabelGraphicObject;
-        object->setName(fi.fileName().toStdString());
-        if(!core->loadGraphicObject(name,object,type)){
+        if(!core->loadGraphicObject(name,type)){
             QMessageBox box(core->mainWindowPointer());
             box.setWindowTitle(tr("Error"));
-            box.setIcon(QMessageBox::Warning);
+            box.setIcon(QMessageBox::Critical);
             box.setDefaultButton(QMessageBox::Ok);
             box.setText(core->getLastError());
             box.exec();
-            delete object;
             return;
         }
+        QFileInfo fi(name);
         ui->fileNameLine->setText(fi.fileName());
         emit somethingChange(this);
     }

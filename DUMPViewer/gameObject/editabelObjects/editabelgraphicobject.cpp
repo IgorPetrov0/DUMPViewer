@@ -164,9 +164,6 @@ void editabelGraphicObject::loadFromAiScene(const aiScene *scene, QVector<gameOb
 
     //собираем анимации
     loadAnimations(scene);
-
-
-
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 string editabelGraphicObject::getName(){

@@ -26,7 +26,6 @@ private:
     Ui::meshTab *ui;
 
 protected slots:
-    void meshLoaded(editabelGraphicObject *mesh);
     void meshDeleted();
 
 };

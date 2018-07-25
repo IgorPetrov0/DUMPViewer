@@ -35,3 +35,12 @@ void graphicTab::resizeWidget(QRect rect){
 void graphicTab::clear(){
 
 }
+///////////////////////////////////////////////////////////////////
+void graphicTab::setCorePointer(editorCore *core){
+    ui->meshWidget->setCorePointer(core);
+    ui->LOD1Widget->setCorePointer(core);
+    ui->LOD2Widget->setCorePointer(core);
+    ui->LOD3Widget->setCorePointer(core);
+    ui->LOD4Widget->setCorePointer(core);
+    abstractBaseWidget::setCorePointer(core);
+}

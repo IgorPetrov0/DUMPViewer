@@ -47,10 +47,9 @@ public:
     void deleteCurrentObject();
     bool loadCurrentGameObject(QString fileName);//загрузка скомпилированного gameObject из файла
     bool saveCurrentGameObject(QString fileName);//сохранение скомпилированного gameObject в файл
-    bool loadGraphicObject(QString fileName, editabelGraphicObject *object,meshType role);//загрузка графического объекта через Assimp
+    bool loadGraphicObject(QString fileName, meshType role);//загрузка графического объекта через Assimp
     QString getLastError();
     void checkMaterials();//проверяет все материалы и текстуры на отсутствие владельцев и удаляет бесхозные
-    void addMainMesh(editabelGraphicObject *mesh);
     void addLOD(unsigned int number, editableLOD *lod);
     void deleteMesh(meshType type);
     void setViewDistance(float value);
@@ -78,6 +77,7 @@ protected:
     MatProperties compileMatProperties(aiMaterial *material);
     glm::vec4 colorToVector4(aiColor4D color);
     bool readShaderFile(string fName, QByteArray *array);
+    void addMainMesh(editabelGraphicObject *mesh);
 
 
 

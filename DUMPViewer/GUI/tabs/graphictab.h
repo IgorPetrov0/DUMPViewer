@@ -17,6 +17,7 @@ public:
     ~graphicTab();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
+    virtual void setCorePointer(editorCore *core);
 
 public slots:
     virtual void updateContent(abstractBaseWidget* widget);
