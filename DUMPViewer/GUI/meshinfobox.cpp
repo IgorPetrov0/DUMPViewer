@@ -2,7 +2,7 @@
 #include "ui_meshinfobox.h"
 
 meshInfoBox::meshInfoBox(QWidget *parent) :
-    dvBaseWidget(parent),
+    abstractBaseWidget(parent),
     ui(new Ui::meshInfoBox)
 {
     ui->setupUi(this);
@@ -32,9 +32,25 @@ void meshInfoBox::clear(){
     ui->zSizeLabel->setText(tr("Z Size = "));
 }
 ////////////////////////////////////////////////////////////////////
+void meshInfoBox::enableContent(bool flag){
+    ui->posXSpinBox->setEnabled(flag);
+    ui->posYSpinBox->setEnabled(flag);
+    ui->posZSpinBox->setEnabled(flag);
+    ui->rotXSpinBox->setEnabled(flag);
+    ui->rotYSpinBox->setEnabled(flag);
+    ui->rotZSpinBox->setEnabled(flag);
+    ui->scaleXSpinBox->setEnabled(flag);
+    ui->scaleYSpinBox->setEnabled(flag);
+    ui->scaleZSpinBox->setEnabled(flag);
+}
+////////////////////////////////////////////////////////////////////
 void meshInfoBox::setMesh(editabelGraphicObject *value){
     mesh = value;
     calculateMeshParameters();
+}
+////////////////////////////////////////////////////////////////////
+void meshInfoBox::resizeWidget(QRect rect){
+
 }
 //////////////////////////////////////////////////////////////////
 void meshInfoBox::calculateMeshParameters(){
@@ -134,5 +150,9 @@ void meshInfoBox::scaleZChange(double value){
     vector.z=(float)value;
     mesh->setScaleVector(vector);
     core->updateView();
+}
+///////////////////////////////////////////////////////////////////////////////////////////
+void meshInfoBox::updateContent(abstractBaseWidget *widget){
+
 }
 ////////////////////////////////////////////////////////////////////////////////////////

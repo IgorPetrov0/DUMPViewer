@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     view=new viewWindow(this);
-
 }
 //////////////////////////////////////////////////////
 MainWindow::~MainWindow()
@@ -25,8 +24,6 @@ void MainWindow::connections(){
     connect(ui->actionClose,SIGNAL(triggered(bool)),this,SLOT(closeCurrentObjectSlot()));
     connect(ui->actionSave,SIGNAL(triggered(bool)),this,SLOT(saveGameObjectSlot()));
     connect(ui->actionOpen,SIGNAL(triggered(bool)),this,SLOT(openGameObjectSlot()));
-    connect(this,SIGNAL(objectLoaded()),tPanel,SLOT(updateInfoSlot()));
-    connect(core,SIGNAL(changed()),this,SLOT(someChanged()));
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 void MainWindow::openModel(){
@@ -99,12 +96,12 @@ void MainWindow::createStatusBar(){
     edit->setGeometry(0,0,20,5);
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void MainWindow::disableTools(bool disable){
-    tPanel->disableToolPanel(disable);
-    ui->actionBox->setDisabled(disable);
-    ui->actionSave->setDisabled(disable);
-    ui->actionSave_As->setDisabled(disable);
-    ui->actionClose->setDisabled(disable);
+void MainWindow::enableTools(bool flag){
+    tPanel->enableToolPanel(flag);
+    ui->actionBox->setDisabled(flag);
+    ui->actionSave->setDisabled(flag);
+    ui->actionSave_As->setDisabled(flag);
+    ui->actionClose->setDisabled(flag);
 }
 /////////////////////////////////////////////////////////////////////
 void MainWindow::openGameObjectSlot(){
@@ -118,7 +115,7 @@ void MainWindow::openGameObjectSlot(){
                 view->addModel(core->currentObject()->getLod(n));
             }
             setWindowTitle(QString::fromStdString(core->currentObject()->getName()));
-            disableTools(false);
+            enableTools(true);
             modelFileName=fileName;
             emit updateTPanel();
         }
@@ -156,7 +153,7 @@ void MainWindow::newGameObjectSlot(){
         core->deleteCurrentObject();
         core->setCurrentObject(new editabelGameObject(name));
         setWindowTitle(name);
-        disableTools(false);
+        enableTools(true);
     }
 }
 /////////////////////////////////////////////////////////////////////
@@ -183,7 +180,7 @@ void MainWindow::closeCurrentObjectSlot(){
             }
         }
     }
-    disableTools(true);//сначала запретить, потом сбрасывать. Последовательность важна
+    enableTools(false);//сначала запретить, потом сбрасывать. Последовательность важна
     tPanel->resetToolPanel();
     modelFileName.clear();
     core->deleteCurrentObject();
@@ -214,7 +211,6 @@ void MainWindow::setCorePointer(editorCore *pointer){
     statusLable=new QLabel(tr("Status:"));
     tPanel=new toolWidget(this);
     tPanel->setCorePointer(pointer);
-    disableTools(true);
 
     setWidgetsGeometry();
     connections();
@@ -222,7 +218,7 @@ void MainWindow::setCorePointer(editorCore *pointer){
     lastOpenDir=QApplication::applicationDirPath();
     createStatusBar();
     this->setWindowTitle(core->programmName());
-
+    tPanel->enableToolPanel(false);
 
 
 }

@@ -29,3 +29,9 @@ void animationWidget::clear(){
     ui->tickPerSecond->setText("0");
     ui->currentTick->setText("0");
 }
+///////////////////////////////////////////////////////////////////////////////
+void animationWidget::enableContent(bool flag){
+    ui->animationsComboBox->setEnabled(flag);
+    ui->horizontalSlider->setEnabled(flag);
+    ui->playPushButton->setEnabled(flag);
+}

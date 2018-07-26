@@ -18,6 +18,7 @@ public:
     virtual void resizeWidget(QRect rect);
     virtual void clear();
     virtual void setCorePointer(editorCore *core);
+    virtual void enableContent(bool flag);
 
 public slots:
     virtual void updateContent(abstractBaseWidget* widget);

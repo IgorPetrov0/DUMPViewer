@@ -2,24 +2,25 @@
 #define MESHINFOBOX_H
 
 #include <glm/glm.hpp>
-//#include "GUI/infobox.h"
 #include "GUI/widgets/dvbasewidget.h"
-#include "widgets/dumpviewerwidget.h"
+#include "widgets/abstractbasewidget.h"
 #include "gameObject/editabelObjects/editabelgraphicobject.h"
 
 namespace Ui {
 class meshInfoBox;
 }
 
-class meshInfoBox : public dvBaseWidget
+class meshInfoBox : public abstractBaseWidget
 {
     Q_OBJECT
 
 public:
     explicit meshInfoBox(QWidget *parent);
     ~meshInfoBox();
-    void clear();
     void setMesh(editabelGraphicObject *value);
+    virtual void resizeWidget(QRect rect);
+    virtual void clear();
+    virtual void enableContent(bool flag);
 
 
 protected:
@@ -39,7 +40,8 @@ protected slots:
     void scaleYChange(double value);
     void scaleZChange(double value);
 
-
+public slots:
+    virtual void updateContent(abstractBaseWidget* widget);
 
 
 

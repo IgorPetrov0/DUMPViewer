@@ -51,6 +51,13 @@ void dvBaseWidget::clear(){
         widgetsArray.at(n)->clear();
     }
 }
+/////////////////////////////////////////////////////////////////////////////
+void dvBaseWidget::enableContent(bool flag){
+    int size=widgetsArray.size();
+    for(int n=0;n!=size;n++){
+        widgetsArray.at(n)->enableContent(flag);
+    }
+}
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::addWidget(abstractBaseWidget *widget, int vertivcalOffset){
     QRect rect=widget->geometry();
@@ -102,7 +109,7 @@ void dvBaseWidget::scrollSlot(int value){
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateContentHeigth(){
     //получаем необходимую высоту для размещения всех виджетов
-    unsigned int size=widgetsArray.size();
+    int size=widgetsArray.size();
     QWidget *tmp = widgetsArray.at(0);
     for(int n=1;n!=size;n++){//ищем самый нижний виджет
         if(tmp->geometry().y()<widgetsArray.at(n)->geometry().y()){

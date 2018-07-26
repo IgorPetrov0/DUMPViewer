@@ -47,3 +47,8 @@ void distanceWidget::resizeWidget(QRect rect){
 void distanceWidget::clear(){
 
 }
+/////////////////////////////////////////////////////////////////////////
+void distanceWidget::enableContent(bool flag){
+    ui->distanceSpinBox->setEnabled(flag);
+    ui->moveButton->setEnabled(flag);
+}

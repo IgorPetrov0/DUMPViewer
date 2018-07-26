@@ -27,15 +27,10 @@ void toolWidget::resizeEvent(QResizeEvent *event){
     ui->graphTab->resizeWidget(rect);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
-void toolWidget::disableToolPanel(bool disable){
-    //ui->graphicTab->setDisabled(disable);
-    ui->phisicTab->setDisabled(disable);
-    if(disable){
-        //disconnect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
-    }
-    else{
-        //connect(ui->graphicTab,SIGNAL(currentChanged(int)),this,SLOT(graphicTabSelectedSlot(int)));
-    }
+void toolWidget::enableToolPanel(bool flag){
+    ui->showGraphicRadioButton->setEnabled(flag);
+    ui->graphTab->enableContent(flag);
+    ui->animTab->enableContent(flag);
 }
 /////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::resetToolPanel(){

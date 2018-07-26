@@ -18,7 +18,7 @@ class toolWidget : public QWidget
 public:
     explicit toolWidget(QWidget *parent);
     void setCorePointer(editorCore *core);
-    void disableToolPanel(bool disable);
+    void enableToolPanel(bool flag);
     void resetToolPanel();
     void createLODTab(LOD *lod);
     void update();//обновляет информацию

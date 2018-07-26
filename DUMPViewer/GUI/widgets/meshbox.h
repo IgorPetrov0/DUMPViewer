@@ -21,8 +21,10 @@ public:
     ~meshBox();
     virtual void resizeWidget(QRect rect);
     virtual void clear();
+    virtual void enableContent(bool flag);
     void setCorePointer(editorCore *pointer);
     void setMeshType(meshType type);
+
 
 public slots:
     virtual void updateContent(abstractBaseWidget* widget);

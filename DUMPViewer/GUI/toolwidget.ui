@@ -60,7 +60,7 @@
     <attribute name="title">
      <string>Graphic</string>
     </attribute>
-    <widget class="QRadioButton" name="radioButton">
+    <widget class="QRadioButton" name="showGraphicRadioButton">
      <property name="geometry">
       <rect>
        <x>10</x>

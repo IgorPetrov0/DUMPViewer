@@ -6,7 +6,7 @@ graphicTab::graphicTab(QWidget *parent) :
     ui(new Ui::graphicTab)
 {
     ui->setupUi(this);
-    ui->toolBox->setCurrentIndex(0);
+    ui->toolBox->setCurrentIndex(1);
 }
 ////////////////////////////////////////////////////////////
 graphicTab::~graphicTab()
@@ -43,4 +43,12 @@ void graphicTab::setCorePointer(editorCore *core){
     ui->LOD3Widget->setCorePointer(core);
     ui->LOD4Widget->setCorePointer(core);
     abstractBaseWidget::setCorePointer(core);
+}
+////////////////////////////////////////////////////////////////////////////////
+void graphicTab::enableContent(bool flag){
+    ui->LOD1Widget->enableContent(flag);
+    ui->LOD2Widget->enableContent(flag);
+    ui->LOD3Widget->enableContent(flag);
+    ui->LOD4Widget->enableContent(flag);
+    ui->meshWidget->enableContent(flag);
 }

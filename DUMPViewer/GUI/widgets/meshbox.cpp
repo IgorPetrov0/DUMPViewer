@@ -9,7 +9,6 @@ meshBox::meshBox(QWidget *parent) :
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
     connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SLOT(deleteSlot()));
     ui->infoBox->setCorePointer(core);
-    //ui->infoBox->setOriginSize();
 }
 /////////////////////////////////////////////////////////////////////////////
 meshBox::~meshBox(){
@@ -48,6 +47,13 @@ void meshBox::loadSlot(){
 void meshBox::clear(){
     ui->fileNameLine->clear();
     ui->infoBox->clear();
+}
+////////////////////////////////////////////////////////////////////////
+void meshBox::enableContent(bool flag){
+    ui->deleteButton->setEnabled(flag);
+    ui->loadButton->setEnabled(flag);
+    ui->fileNameLine->setEnabled(flag);
+    ui->infoBox->enableContent(flag);
 }
 /////////////////////////////////////////////////////////////////////
 void meshBox::deleteSlot(){

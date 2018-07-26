@@ -27,6 +27,7 @@ public:
     virtual void setPosition(int x,int y);
     virtual void resizeWidget(QRect rect);
     virtual void clear();
+    virtual void enableContent(bool flag);
     void addWidget(abstractBaseWidget *widget, int vertivcalOffset);
 
 

@@ -22,6 +22,7 @@ public:
     void setValue(float value);
     virtual void resizeWidget(QRect rect);
     virtual void clear();
+    virtual void enableContent(bool flag);
 
 public slots:
     virtual void updateContent(abstractBaseWidget* widget);

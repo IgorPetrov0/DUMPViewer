@@ -48,7 +48,7 @@ protected:
     void setWidgetsGeometry();//устанавливает размер и положение виджетов
     void createStatusBar();//конфигурирование статус-бара
     void connections();
-    void disableTools(bool disable);
+    void enableTools(bool flag);
     bool saveModelFile();
 
 protected slots:

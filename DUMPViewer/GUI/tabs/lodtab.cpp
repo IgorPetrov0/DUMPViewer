@@ -8,8 +8,6 @@ LODTab::LODTab(QWidget *parent) :
     ui->setupUi(this);
     addWidget(ui->LOD1InfoWidget,0);
     addWidget(ui->LOD1DistanceWidget,0);
-    connect(ui->LOD1InfoWidget,SIGNAL(meshLoaded(editabelGraphicObject*)),this,SLOT(meshLoaded(editabelGraphicObject*)));
-    connect(ui->LOD1DistanceWidget,SIGNAL(changeDistance(double)),this,SLOT(setLodDistance(double)));
     lodPointer=NULL;
 }
 //////////////////////////////////////////////////////
