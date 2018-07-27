@@ -24,8 +24,6 @@ public:
     void update();//обновляет информацию
     ~toolWidget();
 
-signals:
-    void updateInfo();
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -37,7 +35,7 @@ protected:
 protected slots:
     void graphicTabSelectedSlot(int index);
     void LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber);
-    void updateInfoSlot();
+    void updateInfoSlot(abstractBaseWidget *widget);
 
 
 private:

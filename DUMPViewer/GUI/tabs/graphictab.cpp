@@ -7,6 +7,11 @@ graphicTab::graphicTab(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->toolBox->setCurrentIndex(1);
+    connect(ui->meshWidget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
+    connect(ui->LOD1Widget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
+    connect(ui->LOD2Widget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
+    connect(ui->LOD3Widget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
+    connect(ui->LOD4Widget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
 }
 ////////////////////////////////////////////////////////////
 graphicTab::~graphicTab()
@@ -14,8 +19,12 @@ graphicTab::~graphicTab()
     delete ui;
 }
 ////////////////////////////////////////////////////////////////
-void graphicTab::updateContent(abstractBaseWidget *widget){
-
+void graphicTab::updateContent(abstractBaseWidget *widget){ 
+    ui->meshWidget->updateContent(widget);
+    ui->LOD1Widget->updateContent(widget);
+    ui->LOD2Widget->updateContent(widget);
+    ui->LOD3Widget->updateContent(widget);
+    ui->LOD4Widget->updateContent(widget);
 }
 ////////////////////////////////////////////////////////////////
 void graphicTab::resizeWidget(QRect rect){

@@ -17,15 +17,15 @@ class meshInfoBox : public abstractBaseWidget
 public:
     explicit meshInfoBox(QWidget *parent);
     ~meshInfoBox();
-    void setMesh(editabelGraphicObject *value);
     virtual void resizeWidget(QRect rect);
     virtual void clear();
     virtual void enableContent(bool flag);
-
+    void setMeshType(meshType type);
 
 protected:
     editabelGraphicObject *mesh;
     void calculateMeshParameters();
+    meshType type;
 
 protected slots:
     void posXChange(double value);

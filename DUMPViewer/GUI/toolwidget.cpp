@@ -8,7 +8,8 @@ toolWidget::toolWidget(QWidget *parent) :
 
     ui->setupUi(this);
     core=NULL;
-    connect(this,SIGNAL(updateInfo()),ui->rigidBodiesTabBar,SLOT(updateInfoSlot()));
+    connect(ui->graphTab,SIGNAL(somethingChange(abstractBaseWidget*)),this,SLOT(updateInfoSlot(abstractBaseWidget*)));
+    connect(ui->animTab,SIGNAL(somethingChange(abstractBaseWidget*)),this,SLOT(updateInfoSlot(abstractBaseWidget*)));
 }
 /////////////////////////////////////////////////
 toolWidget::~toolWidget()
@@ -99,9 +100,9 @@ void toolWidget::clearLODTabsArray(){
     //ui->meshTabBar->resetTab();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void toolWidget::updateInfoSlot(){
-    IS_CORE_POINTER
-
+void toolWidget::updateInfoSlot(abstractBaseWidget* widget){
+    ui->graphTab->updateContent(widget);
+    ui->animTab->updateContent(widget);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 void toolWidget::setCorePointer(editorCore *core){

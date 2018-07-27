@@ -8,6 +8,7 @@ meshTab::meshTab(QWidget *parent) :
     ui->setupUi(this);
     addWidget(ui->meshInfoWidget,0);
     ui->meshInfoWidget->setMeshType(MESH_MAIN_MESH);
+    connect(ui->meshInfoWidget,SIGNAL(somethingChange(abstractBaseWidget*)),this,SIGNAL(somethingChange(abstractBaseWidget*)));
 }
 ///////////////////////////////////////////////////////
 meshTab::~meshTab(){
@@ -19,7 +20,7 @@ void meshTab::setCorePointer(editorCore *pointer){
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::updateContent(abstractBaseWidget *widget){
-
+    dvBaseWidget::updateContent(widget);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::meshDeleted(){

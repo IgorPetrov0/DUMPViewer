@@ -13,7 +13,7 @@ animationTab::~animationTab()
 }
 ////////////////////////////////////////////////////////////
 void animationTab::updateContent(abstractBaseWidget *widget){
-
+    dvBaseWidget::updateContent(widget);
 }
 ////////////////////////////////////////////////////////////
 void animationTab::resizeWidget(QRect rect){

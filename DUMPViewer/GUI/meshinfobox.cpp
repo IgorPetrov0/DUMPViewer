@@ -18,6 +18,8 @@ meshInfoBox::meshInfoBox(QWidget *parent) :
     connect(ui->scaleXSpinBox,SIGNAL(valueChanged(double)),this,SLOT(scaleXChange(double)));
     connect(ui->scaleYSpinBox,SIGNAL(valueChanged(double)),this,SLOT(scaleYChange(double)));
     connect(ui->scaleZSpinBox,SIGNAL(valueChanged(double)),this,SLOT(scaleZChange(double)));
+    type=MESH_NOMESH;
+    mesh=NULL;
 }
 ////////////////////////////////////////////////////////////////
 meshInfoBox::~meshInfoBox()
@@ -30,6 +32,7 @@ void meshInfoBox::clear(){
     ui->xSizeLabel->setText(tr("X Size = "));
     ui->ySizeLabel->setText(tr("Y Size = "));
     ui->zSizeLabel->setText(tr("Z Size = "));
+    mesh=NULL;
 }
 ////////////////////////////////////////////////////////////////////
 void meshInfoBox::enableContent(bool flag){
@@ -43,10 +46,9 @@ void meshInfoBox::enableContent(bool flag){
     ui->scaleYSpinBox->setEnabled(flag);
     ui->scaleZSpinBox->setEnabled(flag);
 }
-////////////////////////////////////////////////////////////////////
-void meshInfoBox::setMesh(editabelGraphicObject *value){
-    mesh = value;
-    calculateMeshParameters();
+////////////////////////////////////////////////////////////////////////
+void meshInfoBox::setMeshType(meshType type){
+    this->type=type;
 }
 ////////////////////////////////////////////////////////////////////
 void meshInfoBox::resizeWidget(QRect rect){
@@ -54,6 +56,34 @@ void meshInfoBox::resizeWidget(QRect rect){
 }
 //////////////////////////////////////////////////////////////////
 void meshInfoBox::calculateMeshParameters(){
+    IS_CORE_POINTER
+
+    switch(type){
+        case(MESH_MAIN_MESH):{
+            mesh = core->currentObject()->getMainMesh();
+            break;
+        }
+        case(MESH_LOD1):{
+            mesh = core->currentObject()->getLod(1);
+            break;
+        }
+        case(MESH_LOD2):{
+            mesh = core->currentObject()->getLod(2);
+            break;
+        }
+        case(MESH_LOD3):{
+            mesh = core->currentObject()->getLod(3);
+            break;
+        }
+        case(MESH_LOD4):{
+            mesh = core->currentObject()->getLod(4);
+            break;
+        }
+    }
+    if(mesh==NULL){
+        return;
+    }
+
     unsigned int indexObjectsCount=mesh->getNumIndicesObjects();
     unsigned int indicesCount=0;
     for(unsigned int n=0;n!=indexObjectsCount;n++){
@@ -82,77 +112,104 @@ void meshInfoBox::calculateMeshParameters(){
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posXChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getMoveVector();
-    vector.x=(float)value;
-    mesh->setMoveVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getMoveVector();
+        vector.x=(float)value;
+        mesh->setMoveVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posYChange(double value){
     IS_CORE_POINTER
+
+    if(mesh!=NULL){
     glm::vec3 vector = mesh->getMoveVector();
     vector.y=(float)value;
     mesh->setMoveVector(vector);
     core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::posZChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getMoveVector();
-    vector.z=(float)value;
-    mesh->setMoveVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getMoveVector();
+        vector.z=(float)value;
+        mesh->setMoveVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotXChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getRotateVector();
-    vector.x=(float)value;
-    mesh->setRotateVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getRotateVector();
+        vector.x=(float)value;
+        mesh->setRotateVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotYChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getRotateVector();
-    vector.y=(float)value;
-    mesh->setRotateVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getRotateVector();
+        vector.y=(float)value;
+        mesh->setRotateVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::rotZChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getRotateVector();
-    vector.z=(float)value;
-    mesh->setRotateVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getRotateVector();
+        vector.z=(float)value;
+        mesh->setRotateVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleXChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getScaleVector();
-    vector.x=(float)value;
-    mesh->setScaleVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getScaleVector();
+        vector.x=(float)value;
+        mesh->setScaleVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleYChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getScaleVector();
-    vector.y=(float)value;
-    mesh->setScaleVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getScaleVector();
+        vector.y=(float)value;
+        mesh->setScaleVector(vector);
+        core->updateView();
+    }
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::scaleZChange(double value){
     IS_CORE_POINTER
-    glm::vec3 vector = mesh->getScaleVector();
-    vector.z=(float)value;
-    mesh->setScaleVector(vector);
-    core->updateView();
+
+    if(mesh!=NULL){
+        glm::vec3 vector = mesh->getScaleVector();
+        vector.z=(float)value;
+        mesh->setScaleVector(vector);
+        core->updateView();
+    }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 void meshInfoBox::updateContent(abstractBaseWidget *widget){
-
+    calculateMeshParameters();
 }
 ////////////////////////////////////////////////////////////////////////////////////////

@@ -9,6 +9,7 @@ meshBox::meshBox(QWidget *parent) :
     connect(ui->loadButton,SIGNAL(clicked(bool)),this,SLOT(loadSlot()));
     connect(ui->deleteButton,SIGNAL(clicked(bool)),this,SLOT(deleteSlot()));
     ui->infoBox->setCorePointer(core);
+    type=MESH_NOMESH;
 }
 /////////////////////////////////////////////////////////////////////////////
 meshBox::~meshBox(){
@@ -16,7 +17,7 @@ meshBox::~meshBox(){
 }
 ////////////////////////////////////////////////////////////////////////
 void meshBox::updateContent(abstractBaseWidget *widget){
-
+    ui->infoBox->updateContent(this);
 }
 /////////////////////////////////////////////////////////////////
 void meshBox::resizeWidget(QRect rect){
@@ -68,4 +69,5 @@ void meshBox::setCorePointer(editorCore *pointer){
 ///////////////////////////////////////////////////////////////////////////////
 void meshBox::setMeshType(meshType type){
     this->type=type;
+    ui->infoBox->setMeshType(type);
 }
