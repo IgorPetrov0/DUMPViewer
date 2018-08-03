@@ -25,6 +25,5 @@ void meshTab::updateContent(abstractBaseWidget *widget){
 ////////////////////////////////////////////////////////////////////////////////////////
 void meshTab::meshDeleted(){
     IS_CORE_POINTER
-
     core->deleteMesh(MESH_MAIN_MESH);
 }
