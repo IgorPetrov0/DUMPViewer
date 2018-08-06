@@ -33,9 +33,7 @@ protected:
 
 
 protected slots:
-    void graphicTabSelectedSlot(int index);
-    void LODTabDeleteSlot(unsigned int tabIndex, unsigned int LODNumber);
-    void updateInfoSlot(abstractBaseWidget *widget);
+    void updateInfoSlot();
 
 
 private:

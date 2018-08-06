@@ -65,7 +65,6 @@ SOURCES += main.cpp\
     gameObject/animation/animquatkey.cpp \
     GUI/widgets/dvbasewidget.cpp \
     GUI/widgets/animationwidget.cpp \
-    GUI/tabs/animationtab.cpp \
     GUI/widgets/showradiobutton.cpp \
     GUI/tabs/graphictab.cpp
 
@@ -123,7 +122,6 @@ HEADERS  += mainwindow.h \
     GUI/widgets/dvbasewidget.h \
     GUI/widgets/abstractbasewidget.h \
     GUI/widgets/animationwidget.h \
-    GUI/tabs/animationtab.h \
     GUI/widgets/showradiobutton.h \
     GUI/tabs/graphictab.h
 

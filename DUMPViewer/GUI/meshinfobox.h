@@ -41,7 +41,7 @@ protected slots:
     void scaleZChange(double value);
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget);
+    virtual void updateContent();
 
 
 

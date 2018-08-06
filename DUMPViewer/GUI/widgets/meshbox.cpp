@@ -16,8 +16,9 @@ meshBox::~meshBox(){
     delete ui;
 }
 ////////////////////////////////////////////////////////////////////////
-void meshBox::updateContent(abstractBaseWidget *widget){
-    ui->infoBox->updateContent(this);
+void meshBox::updateContent(){
+    ui->infoBox->updateContent();
+    ui->animWidget->updateContent();
 }
 /////////////////////////////////////////////////////////////////
 void meshBox::resizeWidget(QRect rect){
@@ -41,7 +42,7 @@ void meshBox::loadSlot(){
         }
         QFileInfo fi(name);
         ui->fileNameLine->setText(fi.fileName());
-        emit somethingChange(this);
+        emit somethingChange();
     }
 }
 ///////////////////////////////////////////////////////////////////
@@ -59,15 +60,17 @@ void meshBox::enableContent(bool flag){
 /////////////////////////////////////////////////////////////////////
 void meshBox::deleteSlot(){
     clear();
-    emit somethingChange(this);
+    emit somethingChange();
 }
 ///////////////////////////////////////////////////////////////////////
 void meshBox::setCorePointer(editorCore *pointer){
     core=pointer;
     ui->infoBox->setCorePointer(pointer);
+    ui->animWidget->setCorePointer(pointer);
 }
 ///////////////////////////////////////////////////////////////////////////////
 void meshBox::setMeshType(meshType type){
     this->type=type;
     ui->infoBox->setMeshType(type);
+    ui->animWidget->setMeshType(type);
 }

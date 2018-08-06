@@ -25,7 +25,7 @@ public:
     virtual void enableContent(bool flag);
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget);
+    virtual void updateContent();
 
 
 signals:

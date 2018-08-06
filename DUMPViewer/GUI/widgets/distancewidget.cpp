@@ -36,7 +36,7 @@ void distanceWidget::setValue(float value){
     ui->distanceSpinBox->setValue(value);
 }
 /////////////////////////////////////////////////////////////////////
-void distanceWidget::updateContent(abstractBaseWidget *widget){
+void distanceWidget::updateContent(){
 
 }
 //////////////////////////////////////////////////////////////////////

@@ -19,7 +19,7 @@ public:
     virtual void setCorePointer(editorCore *core);
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget);
+    virtual void updateContent();
 
 
 private:

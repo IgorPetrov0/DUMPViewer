@@ -27,7 +27,7 @@ public:
 
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget);
+    virtual void updateContent();
 
 protected:
     meshType type;

@@ -17,7 +17,7 @@ public:
 
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget)=0;
+    virtual void updateContent()=0;
 
 
 protected:
@@ -25,7 +25,7 @@ protected:
 
 
 signals:
-    void somethingChange(abstractBaseWidget *widget);
+    void somethingChange();
 
 
 };

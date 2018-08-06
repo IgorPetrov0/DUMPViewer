@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="phisicTabWidget">
     <attribute name="title">
@@ -84,21 +84,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="animationTabWidget">
-    <attribute name="title">
-     <string>Animations</string>
-    </attribute>
-    <widget class="animationTab" name="animTab" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>120</width>
-       <height>80</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
   </widget>
  </widget>
  <customwidgets>
@@ -112,12 +97,6 @@
    <class>constraintsTab</class>
    <extends>QWidget</extends>
    <header location="global">GUI/tabs/constraintstab.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>animationTab</class>
-   <extends>QWidget</extends>
-   <header location="global">GUI/tabs/animationtab.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

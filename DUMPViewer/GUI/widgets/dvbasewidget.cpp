@@ -6,6 +6,7 @@ dvBaseWidget::dvBaseWidget(QWidget *parent):
     core=NULL;
     scrollBar=NULL;
     contentHeigth=0;
+    scrollOldValue=0;
 }
 ///////////////////////////////////////////////////////////////////////////
 dvBaseWidget::~dvBaseWidget(){
@@ -29,13 +30,11 @@ void dvBaseWidget::setPosition(int x, int y){
     this->setGeometry(g);
 }
 ////////////////////////////////////////////////////////////////////
-void dvBaseWidget::updateContent(abstractBaseWidget *widget){
+void dvBaseWidget::updateContent(){
     int size=widgetsArray.size();
     for(int n=0;n!=size;n++){
         abstractBaseWidget* tmpWidget=widgetsArray.at(n);
-        if(tmpWidget!=widget){//не обновляем тот виджет, от которого пришел сигнал
-            tmpWidget->updateContent(this);
-        }
+        tmpWidget->updateContent();
     }
 }
 ////////////////////////////////////////////////////////////////////
@@ -94,15 +93,14 @@ void dvBaseWidget::calculateScrollBar(){
 }
 ////////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::scrollSlot(int value){
-    static int oldValue=0;
     int size=widgetsArray.size();
     for(int n=0;n!=size;n++){
         QWidget *widget = widgetsArray.at(n);
         QRect rect=widget->geometry();
-        rect.moveTop(rect.y()+(oldValue-value));
+        rect.moveTop(rect.y()+(scrollOldValue-value));
         widget->setGeometry(rect);
     }
-    oldValue=value;
+    scrollOldValue=value;
 }
 ///////////////////////////////////////////////////////////////////////////
 void dvBaseWidget::calculateContentHeigth(){

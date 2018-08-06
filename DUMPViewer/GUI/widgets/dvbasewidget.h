@@ -32,7 +32,7 @@ public:
 
 
 public slots:
-    virtual void updateContent(abstractBaseWidget* widget);
+    virtual void updateContent();
 
 protected:
     editorCore *core;
@@ -41,6 +41,7 @@ protected:
     int contentHeigth;
     void calculateScrollBar();
     void calculateContentHeigth();
+    int scrollOldValue;
 
 protected slots:
     void scrollSlot(int value);
