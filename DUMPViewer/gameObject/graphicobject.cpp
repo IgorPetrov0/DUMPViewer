@@ -71,37 +71,6 @@ GLuint graphicObject::getGLShaderProgram() const{
 void graphicObject::setGLShaderProgram(const GLuint &value){
     GLShaderProgram = value;
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-void graphicObject::setAnimationsArray(dArray<animation *> *value){
-    animationsArray = value;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-unsigned int graphicObject::numAnimations(){
-    if(animationsArray!=NULL){
-        return animationsArray->getSize();
-    }
-    return 0;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-animation *graphicObject::getAnimation(unsigned int index){
-    if(animationsArray!=NULL){
-        return animationsArray->operator [](index);
-    }
-    return NULL;
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-animation *graphicObject::getAnimation(string name){
-    if(animationsArray!=NULL){
-        unsigned int size=animationsArray->getSize();
-        for(unsigned int n=0;n!=size;n++){
-            animation *tmp=animationsArray->operator [](n);
-            if(tmp->getName()==name){
-                return tmp;
-            }
-        }
-    }
-    return NULL;
-}
-////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 

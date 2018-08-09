@@ -9,7 +9,9 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "gameObject/animation/nodeobject.h"
-
+#include "gameObject/animation/bone.h"
+#include "gameObject/animation/nodeobject.h"
+#include "gameObject/animation/animation.h"
 
 
 using namespace std;
@@ -41,11 +43,16 @@ public:
     bool isVisible();
     void setVisible(bool visible);
     bool getMatricesArray(int size, int *offsets, unsigned char *array);//возвращает указатель на массив, содержащий матрицы модели и нормалей
+    void setAnimationsArray(dArray<animation *> *value);
+    unsigned int numAnimations();
+    animation *getAnimation(unsigned int index);
+    animation *getAnimation(string name);
 
 
 protected:
     dArray<vertexCoordinates> *vertexAtributesArray;//массив вершин
     dArray<gameIndexObject*> *indicesObjectsArray;//массив индексных объектов.
+    dArray<bone*>*bonesArray;
     vector3 boundBox;
     unsigned int vboName;//храним имя vbo для возможности удаления буфера из видеопамяти
     glm::mat4 modelMatrix;
@@ -55,6 +62,9 @@ protected:
     glm::vec3 rotate;
     bool visible;
     int matricesCount;
+    nodeObject *rootNode;//указатель на корневой узел/ так же хранится первым в массиве пустых узлов
+    dArray<nodeObject*> *emptyNodes;//массив пустых узлов, не связанных с объектами, но присутствующими в иерархии
+    dArray<animation*> *animationsArray;
 
 
 

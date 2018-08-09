@@ -10,9 +10,7 @@
 #include "defines.h"
 #include "gameObject/gameobjectlight.h"
 #include "dArray.h"
-#include "gameObject/animation/bone.h"
-#include "gameObject/animation/nodeobject.h"
-#include "gameObject/animation/animation.h"
+
 
 using namespace std;
 
@@ -32,17 +30,9 @@ public:
     void setGLvertexShaderName(const GLuint &value);
     GLuint getGLShaderProgram() const;
     void setGLShaderProgram(const GLuint &value);
-    void setAnimationsArray(dArray<animation *> *value);
-    unsigned int numAnimations();
-    animation *getAnimation(unsigned int index);
-    animation *getAnimation(string name);
 
 protected:
-    nodeObject *rootNode;//указатель на корневой узел/ так же хранится первым в массиве пустых узлов
     dArray<gameObjectLight*>*lightSorces;
-    dArray<bone*>*bonesArray;
-    dArray<nodeObject*> *emptyNodes;//массив пустых узлов, не связанных с объектами, но присутствующими в иерархии
-    dArray<animation*> *animationsArray;
     string vertexShader;
     string fragmentShader;
     GLuint GLShaderProgram;

@@ -26,8 +26,6 @@ public:
     void setViewType(viewType type);
     viewType getViewType();
     void compileObject();
-    string getName();
-    void setName(string name);
     void setMoveVector(const glm::vec3 vector);
     void setRotateVector(const glm::vec3 vector);
     void setScaleVector(const glm::vec3 vector);
@@ -40,7 +38,6 @@ public:
 
 protected:
     viewType ego_type;
-    string name;
 
     void calculateModelMatrix();
     void loadLights(const aiScene *scene);

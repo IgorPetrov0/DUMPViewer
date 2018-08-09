@@ -135,4 +135,35 @@ bool meshObject::getMatricesArray(int size, int *offsets, unsigned char *array){
     memcpy(array+offsets[1],(void*)&normalMatrix,sizeof(glm::mat4));
     return true;
 }
-////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+void meshObject::setAnimationsArray(dArray<animation *> *value){
+    animationsArray = value;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+unsigned int meshObject::numAnimations(){
+    if(animationsArray!=NULL){
+        return animationsArray->getSize();
+    }
+    return 0;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+animation *meshObject::getAnimation(unsigned int index){
+    if(animationsArray!=NULL){
+        return animationsArray->operator [](index);
+    }
+    return NULL;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+animation *meshObject::getAnimation(string name){
+    if(animationsArray!=NULL){
+        unsigned int size=animationsArray->getSize();
+        for(unsigned int n=0;n!=size;n++){
+            animation *tmp=animationsArray->operator [](n);
+            if(tmp->getName()==name){
+                return tmp;
+            }
+        }
+    }
+    return NULL;
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////
