@@ -47,6 +47,7 @@ public:
     unsigned int numAnimations();
     animation *getAnimation(unsigned int index);
     animation *getAnimation(string name);
+    void playAnimation(string name, float time=0);
 
 
 protected:
