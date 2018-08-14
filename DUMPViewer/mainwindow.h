@@ -16,6 +16,7 @@
 #include "GUI/serviceWindows/newgameobjectnamewindow.h"
 #include "editorCore.h"
 #include "gameObject/stream.h"
+#include "math.h"
 
 
 namespace Ui {

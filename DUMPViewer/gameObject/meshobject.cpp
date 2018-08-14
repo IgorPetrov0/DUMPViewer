@@ -10,6 +10,7 @@ meshObject::meshObject()
     modelMatrix=glm::mat4(1.0f);
     normalMatrix=glm::transpose(glm::inverse(modelMatrix));
     matricesCount=2;
+    currentAnimation=NULL;
 }
 //////////////////////////////////////////////////////////////////
 meshObject::meshObject(meshObject *mesh){
@@ -167,7 +168,44 @@ animation *meshObject::getAnimation(string name){
     return NULL;
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
-void meshObject::playAnimation(string name, float time){
+void meshObject::playCurrentAnimation(float time){
+    glm::mat4 mat = glm::mat4(1.0f);
+    float timeInTicks=time*currentAnimation->getTickPerSecond();
+    float animTime=fmod(timeInTicks,currentAnimation->getDuration());
+    readHierarchy(animTime,rootNode,mat);
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+void meshObject::setCurrentAnimation(string name){
+    unsigned int size=animationsArray->getSize();
+    for(unsigned int n=0;n!=size;n++){
+        if(animationsArray->operator [](n)->getName()==name){
+            currentAnimation=animationsArray->operator [](n);
+            return;
+        }
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+void meshObject::readHierarchy(float time, nodeObject *node, glm::mat4 parentTransform){
+    //сначала ищем данный узел по всем каналам анимации
+    //затем рекурсивно вызываем эту функцию для всех его потомков
+    animChannel *currentChannel=NULL;
+    glm::mat4 nodeTransform=node->getTransformMatrix();
+    unsigned int size=currentAnimation->getNumChannels();
+
+
+    for(unsigned int n=0;n!=size;n++){
+        if(animationsArray->operator [](n)->getName()==node->getName()){//TODO пока ищем по имени. По указателям искать будет быстрее
+            currentChannel=animationsArray->operator [](n);
+            break;
+        }
+    }
+    if(currentChannel!=NULL){
+        //TODO здесь интерполируем и трансформируем
+    }
+
+    glm::mat4 globalTransform=parentTransform*nodeTransform;
+
+
 
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////

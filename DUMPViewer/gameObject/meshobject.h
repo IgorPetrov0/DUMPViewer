@@ -47,7 +47,8 @@ public:
     unsigned int numAnimations();
     animation *getAnimation(unsigned int index);
     animation *getAnimation(string name);
-    void playAnimation(string name, float time=0);
+    void playCurrentAnimation(float time);
+    void setCurrentAnimation(string name);
 
 
 protected:
@@ -66,7 +67,8 @@ protected:
     nodeObject *rootNode;//указатель на корневой узел/ так же хранится первым в массиве пустых узлов
     dArray<nodeObject*> *emptyNodes;//массив пустых узлов, не связанных с объектами, но присутствующими в иерархии
     dArray<animation*> *animationsArray;
-
+    animation *currentAnimation;
+    void readHierarchy(float time, nodeObject *node, glm::mat4 parentTransform);
 
 
 

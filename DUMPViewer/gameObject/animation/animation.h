@@ -18,6 +18,7 @@ public:
     void setTickPerSecond(int value);
     int getDuration() const;
     void setDuration(int value);
+    unsigned int getNumChannels();
 
 protected:
     string name;

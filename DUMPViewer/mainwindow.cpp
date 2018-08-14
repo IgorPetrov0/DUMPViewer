@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    view=new viewWindow(this);
+    float d=fmod(50,40);
 }
 //////////////////////////////////////////////////////
 MainWindow::~MainWindow()
